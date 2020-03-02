@@ -1,4 +1,4 @@
-import 'thumb.dart';
+import 'package:dart_telegram_bot/tgapi/entities/photo_size.dart';
 
 class Sticker {
   String emoji;
@@ -8,7 +8,7 @@ class Sticker {
   int height;
   bool isAnimated;
   String setName;
-  Thumb thumb;
+  PhotoSize thumb;
   int width;
 
   Sticker(
@@ -32,7 +32,7 @@ class Sticker {
       height: json['height'],
       isAnimated: json['is_animated'],
       setName: json['set_name'],
-      thumb: json['thumb'] = Thumb.fromJson(json['thumb']),
+      thumb: json['thumb'] = PhotoSize.fromJson(json['thumb']),
       width: json['width'],
     );
   }

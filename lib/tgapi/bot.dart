@@ -38,6 +38,7 @@ class Bot extends TGAPIMethods {
     _isInitialized = true;
   }
 
+  // TODO move some functions to an utility class
   bool _isCommand(String command, String text) {
     return RegExp('^(/)($command)( .+)?\$').hasMatch(text);
   }
@@ -107,7 +108,7 @@ class Bot extends TGAPIMethods {
 
   void stop() {
     if (!_isRunning) {
-      throw InvalidBotState('Bot is not running, so it canno be stopped');
+      throw InvalidBotState('Bot is not running, so it cannot be stopped');
     }
     _isRunning = false;
     // TODO do something more?

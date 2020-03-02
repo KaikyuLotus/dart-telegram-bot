@@ -21,7 +21,12 @@ class TGAPIClient {
     'getUpdates': (j) => BaseResponse<List<Update>>.fromJson(j),
     'sendMessage': (j) => BaseResponse<Message>.fromJson(j),
     'sendPhoto': (j) => BaseResponse<Message>.fromJson(j),
-    'sendSticker': (j) => BaseResponse<Message>.fromJson(j)
+    'sendSticker': (j) => BaseResponse<Message>.fromJson(j),
+    'sendAudio': (j) => BaseResponse<Message>.fromJson(j),
+    'sendDocument': (j) => BaseResponse<Message>.fromJson(j),
+    'sendVideo': (j) => BaseResponse<Message>.fromJson(j),
+    'sendAnimation': (j) => BaseResponse<Message>.fromJson(j),
+    'sendVoice': (j) => BaseResponse<Message>.fromJson(j)
   };
 
   Future<String> _readResponse(http.StreamedResponse response) {
