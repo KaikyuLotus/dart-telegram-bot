@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_telegram_bot/tgapi/bot.dart';
+import 'package:dart_telegram_bot/tgapi/entities/internal/chat_id.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
 import 'package:dart_telegram_bot/tgapi/entities/update.dart';
 
@@ -15,87 +16,87 @@ class ExampleBot extends Bot {
     onCommand(
         'sendPhoto',
         (update) async => {
-              await sendPhoto(update.message.chat.id, HttpFile.fromPath('resources/test.jpg'),
+              await sendPhoto(ChatID(update.message.chat.id), HttpFile.fromPath('resources/test.jpg'),
                   replyToMessageId: update.message.messageId)
             });
 
     onCommand(
         'sendPhotoID',
-        (update) async => await sendPhoto(update.message.chat.id,
+        (update) async => await sendPhoto(ChatID(update.message.chat.id),
             'AgACAgQAAxkBAANcXlwny-lsbPGFU415fFoQcc8i2fkAAtWxMRvdTOFS8UED4N8te2T3M7YbAAQBAAMCAANtAAPy2AMAARgE',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendMessage',
         (update) async =>
-            await sendMessage(update.message.chat.id, 'Hello?', replyToMessageId: update.message.messageId));
+            await sendMessage(ChatID(update.message.chat.id), 'Hello?', replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendSticker',
         (update) async => {
-              await sendSticker(update.message.chat.id, HttpFile.fromPath('resources/sticker.webp'),
+              await sendSticker(ChatID(update.message.chat.id), HttpFile.fromPath('resources/sticker.webp'),
                   replyToMessageId: update.message.messageId)
             });
 
     onCommand(
         'sendStickerID',
         (update) async => await sendSticker(
-            update.message.chat.id, 'CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA',
+            ChatID(update.message.chat.id), 'CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendAudio',
-        (update) async => await sendAudio(update.message.chat.id, HttpFile.fromPath('resources/audio.ogg'),
+        (update) async => await sendAudio(ChatID(update.message.chat.id), HttpFile.fromPath('resources/audio.ogg'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendAudioID',
         (update) async => await sendAudio(
-            update.message.chat.id, 'CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA',
+            ChatID(update.message.chat.id), 'CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendDocument',
-            (update) async => await sendDocument(update.message.chat.id, HttpFile.fromPath('resources/test.jpg'),
+            (update) async => await sendDocument(ChatID(update.message.chat.id), HttpFile.fromPath('resources/test.jpg'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendDocumentID',
             (update) async => await sendDocument(
-            update.message.chat.id, 'BQACAgQAAxkBAAOFXl19i1mq3SO-VpfjCQX1HfSLMjAAAgsHAALdTPFS41USB9o9Y3gYBA',
+            ChatID(update.message.chat.id), 'BQACAgQAAxkBAAOFXl19i1mq3SO-VpfjCQX1HfSLMjAAAgsHAALdTPFS41USB9o9Y3gYBA',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVideo',
-            (update) async => await sendVideo(update.message.chat.id, HttpFile.fromPath('resources/video.mp4'),
+            (update) async => await sendVideo(ChatID(update.message.chat.id), HttpFile.fromPath('resources/video.mp4'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVideoID',
             (update) async => await sendVideo(
-            update.message.chat.id, 'BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ',
+            ChatID(update.message.chat.id), 'BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendAnimation',
-            (update) async => await sendAnimation(update.message.chat.id, HttpFile.fromPath('resources/idk.idk'),
+            (update) async => await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromPath('resources/idk.idk'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendAnimationID',
             (update) async => await sendAnimation(
-            update.message.chat.id, '',
+            ChatID(update.message.chat.id), '',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVoice',
-            (update) async => await sendVoice(update.message.chat.id, HttpFile.fromPath('resources/audio.ogg'),
+            (update) async => await sendVoice(ChatID(update.message.chat.id), HttpFile.fromPath('resources/audio.ogg'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVoiceID',
             (update) async => await sendVoice(
-            update.message.chat.id, 'AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA',
+            ChatID(update.message.chat.id), 'AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA',
             replyToMessageId: update.message.messageId));
   }
 
@@ -105,7 +106,7 @@ class ExampleBot extends Bot {
 
     if (update.editedMessage != null) return; // Ignore edited messages
 
-    var chatId = update.message.chat.id;
+    var chatId = ChatID(update.message.chat.id);
 
     if (update.message.video != null) {
       var fileId = update.message.video.fileId;

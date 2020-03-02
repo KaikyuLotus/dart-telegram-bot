@@ -1,0 +1,3 @@
+class StickerSet {
+  // TODO
+}

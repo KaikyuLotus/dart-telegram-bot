@@ -1,0 +1,3 @@
+class InputMedia {
+  // TODO
+}
