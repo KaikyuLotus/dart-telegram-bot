@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'animation.dart';
 import 'audio.dart';
 import 'chat.dart';
@@ -132,7 +130,7 @@ class Message {
         forwardSignature: json['forward_signature'],
         forwardSenderName: json['forward_sender_name'],
         forwardDate: json['forward_date'],
-        replyToMessage: json['reply_to_message'],
+        replyToMessage: Message.fromJson(json['reply_to_message']),
         editDate: json['edit_date'],
         mediaGroupId: json['media_group_id'],
         authorSignature: json['author_signature'],

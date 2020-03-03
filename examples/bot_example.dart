@@ -57,53 +57,61 @@ class ExampleBot extends Bot {
 
     onCommand(
         'sendDocument',
-            (update) async => await sendDocument(ChatID(update.message.chat.id), HttpFile.fromPath('resources/test.jpg'),
+        (update) async => await sendDocument(ChatID(update.message.chat.id), HttpFile.fromPath('resources/test.jpg'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendDocumentID',
-            (update) async => await sendDocument(
+        (update) async => await sendDocument(
             ChatID(update.message.chat.id), 'BQACAgQAAxkBAAOFXl19i1mq3SO-VpfjCQX1HfSLMjAAAgsHAALdTPFS41USB9o9Y3gYBA',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVideo',
-            (update) async => await sendVideo(ChatID(update.message.chat.id), HttpFile.fromPath('resources/video.mp4'),
+        (update) async => await sendVideo(ChatID(update.message.chat.id), HttpFile.fromPath('resources/video.mp4'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVideoID',
-            (update) async => await sendVideo(
+        (update) async => await sendVideo(
             ChatID(update.message.chat.id), 'BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ',
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendAnimation',
-            (update) async => await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromPath('resources/idk.idk'),
+        (update) async => await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromPath('resources/idk.idk'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendAnimationID',
-            (update) async => await sendAnimation(
-            ChatID(update.message.chat.id), '',
-            replyToMessageId: update.message.messageId));
+        (update) async =>
+            await sendAnimation(ChatID(update.message.chat.id), '', replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVoice',
-            (update) async => await sendVoice(ChatID(update.message.chat.id), HttpFile.fromPath('resources/audio.ogg'),
+        (update) async => await sendVoice(ChatID(update.message.chat.id), HttpFile.fromPath('resources/audio.ogg'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVoiceID',
-            (update) async => await sendVoice(
+        (update) async => await sendVoice(
             ChatID(update.message.chat.id), 'AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA',
             replyToMessageId: update.message.messageId));
+
+    onCommand(
+        'poll',
+        (update) async => await sendPoll(ChatID(update.message.chat.id), 'Nani desu ka?', ['Hai!', 'Ara ara?', '!'],
+            replyToMessageId: update.message.messageId,
+            allowsMultipleAnswers: true,
+            isAnonymous: true,
+            type: 'quiz',
+            correctOptionId: 1));
   }
 
   // THIS IS JUST A TEST FUNCTION
   void _update(Update update) {
     // Those will be converted into tests
-
+    if (update.message == null) return;
     if (update.editedMessage != null) return; // Ignore edited messages
 
     var chatId = ChatID(update.message.chat.id);
@@ -144,6 +152,27 @@ class ExampleBot extends Bot {
       sendAnimation(chatId, fileId, caption: 'Animation ID: ${fileId}').catchError(defaultErrorHandler);
     }
 
+    if (update.message.location != null) {
+      var location = update.message.location;
+      var resp = 'Longitude: ${location.longitude}\nLatitude:${location.latitude}';
+      sendMessage(chatId, resp).catchError(defaultErrorHandler);
+    }
+
+    if (update.message.contact != null) {
+      var contact = update.message.contact;
+      sendContact(chatId, contact.phoneNumber, contact.firstName).catchError(defaultErrorHandler);
+    }
+
+    if (update.message.forwardFrom != null) {
+      var user = update.message.forwardFrom;
+      var resp = 'Forwarded from ${user.firstName} (${user.id} / @${user.username})';
+      sendMessage(chatId, resp).catchError(defaultErrorHandler);
+    }
+
+    if (update.message.videoNote != null) {
+      var note = update.message.videoNote;
+      sendVideoNote(chatId, note.fileId).catchError(defaultErrorHandler);
+    }
   }
 }
 

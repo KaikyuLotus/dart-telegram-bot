@@ -134,7 +134,7 @@ class TGAPIClient {
       query.removeWhere((k, v) => v == null);
       query.forEach((k, v) => {if (v is HttpFile) files[k] = v});
       query.removeWhere((k, v) => v is HttpFile);
-      query.updateAll((k, v) => v.toString());
+      query.updateAll((k, v) => v is List ? json.encode(v) : v.toString());
     }
 
     var resp = methods[method](await execute(token, method, query, files));
