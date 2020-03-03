@@ -1,4 +1,4 @@
-import 'package:dart_telegram_bot/tgapi/entities/photo_size.dart';
+import 'photo_size.dart';
 
 class Video {
   String fileId;

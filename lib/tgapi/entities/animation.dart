@@ -1,4 +1,4 @@
-import 'package:dart_telegram_bot/tgapi/entities/photo_size.dart';
+import 'photo_size.dart';
 
 class Animation {
   String fileId;
@@ -7,6 +7,7 @@ class Animation {
   int height;
   int duration;
   PhotoSize thumb;
+  String fileName;
   String mimeType;
   int fileSize;
 
@@ -17,6 +18,7 @@ class Animation {
       this.height,
       this.duration,
       this.thumb,
+      this.fileName,
       this.mimeType,
       this.fileSize});
 
@@ -29,6 +31,7 @@ class Animation {
         height: json['height'],
         duration: json['duration'],
         thumb: PhotoSize.fromJson(json['thumb']),
+        fileName: json['file_name'],
         mimeType: json['mime_type'],
         fileSize: json['file_size']);
   }

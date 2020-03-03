@@ -1,4 +1,4 @@
-import 'package:dart_telegram_bot/tgapi/entities/message.dart';
+import 'message.dart';
 
 class Update {
   Message message;

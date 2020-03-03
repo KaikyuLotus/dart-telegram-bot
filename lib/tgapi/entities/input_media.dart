@@ -1,3 +1,1 @@
-class InputMedia {
-  // TODO
-}
+class InputMedia {}

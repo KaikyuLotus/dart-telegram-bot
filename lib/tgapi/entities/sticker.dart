@@ -1,4 +1,4 @@
-import 'package:dart_telegram_bot/tgapi/entities/photo_size.dart';
+import 'photo_size.dart';
 
 class Sticker {
   String emoji;
@@ -35,5 +35,10 @@ class Sticker {
       thumb: json['thumb'] = PhotoSize.fromJson(json['thumb']),
       width: json['width'],
     );
+  }
+
+  static List<Sticker> listFromJsonArray(List<dynamic> json) {
+    if (json == null) return null;
+    return List.generate(json.length, (i) => Sticker.fromJson(json[i]));
   }
 }

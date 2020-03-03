@@ -1,13 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/tgapi/entities/base_response.dart';
-import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
-import 'package:dart_telegram_bot/tgapi/entities/message.dart';
-import 'package:dart_telegram_bot/tgapi/entities/update.dart';
-import 'package:dart_telegram_bot/tgapi/entities/user.dart';
+import 'entities/base_response.dart';
+import 'entities/chat_member.dart';
+import 'entities/file.dart';
+import 'entities/internal/http_file.dart';
+import 'entities/message.dart';
+import 'entities/poll.dart';
+import 'entities/sticker_set.dart';
+import 'entities/update.dart';
+import 'entities/user.dart';
 import 'package:http/http.dart' as http;
 
+import 'entities/user_profile_photos.dart';
 import 'exceptions/api_exception.dart';
 import 'exceptions/unknown_api_method.dart';
 
@@ -16,17 +21,71 @@ class TGAPIClient {
 
   http.Client client = http.Client();
 
+  // TODO improve this part
+  static final _userConverter = (j) => BaseResponse<User>.fromJson(j);
+  static final _updateListConverter = (j) => BaseResponse<List<Update>>.fromJson(j);
+  static final _messageConverter = (j) => BaseResponse<Message>.fromJson(j);
+  static final _boolConverter = (j) => BaseResponse<bool>.fromJson(j);
+  static final _intConverter = (j) => BaseResponse<int>.fromJson(j);
+  static final _stringConverter = (j) => BaseResponse<String>.fromJson(j);
+  static final _userProfilePhotosConverter = (j) => BaseResponse<UserProfilePhotos>.fromJson(j);
+  static final _fileConverter = (j) => BaseResponse<File>.fromJson(j);
+  static final _chatMemberListConverter = (j) => BaseResponse<List<ChatMember>>.fromJson(j);
+  static final _chatMemberConverter = (j) => BaseResponse<ChatMember>.fromJson(j);
+  static final _pollConverter = (j) => BaseResponse<Poll>.fromJson(j);
+  static final _stickerSetConverter = (j) => BaseResponse<StickerSet>.fromJson(j);
+
   var methods = {
-    'getMe': (j) => BaseResponse<User>.fromJson(j),
-    'getUpdates': (j) => BaseResponse<List<Update>>.fromJson(j),
-    'sendMessage': (j) => BaseResponse<Message>.fromJson(j),
-    'sendPhoto': (j) => BaseResponse<Message>.fromJson(j),
-    'sendSticker': (j) => BaseResponse<Message>.fromJson(j),
-    'sendAudio': (j) => BaseResponse<Message>.fromJson(j),
-    'sendDocument': (j) => BaseResponse<Message>.fromJson(j),
-    'sendVideo': (j) => BaseResponse<Message>.fromJson(j),
-    'sendAnimation': (j) => BaseResponse<Message>.fromJson(j),
-    'sendVoice': (j) => BaseResponse<Message>.fromJson(j)
+    'getMe': _userConverter,
+    'getUpdates': _updateListConverter,
+    'sendMessage': _messageConverter,
+    'sendPhoto': _messageConverter,
+    'sendAudio': _messageConverter,
+    'sendDocument': _messageConverter,
+    'sendVideo': _messageConverter,
+    'sendAnimation': _messageConverter,
+    'sendVoice': _messageConverter,
+    'sendVideoNote': _messageConverter,
+    'sendMediaGroup': _messageConverter,
+    'sendLocation': _messageConverter,
+    'editMessageLiveLocation': _messageConverter,
+    'stopMessageLiveLocation': _messageConverter,
+    'sendVenue': _messageConverter,
+    'sendContact': _messageConverter,
+    'sendPoll': _messageConverter,
+    'sendChatAction': _boolConverter,
+    'getUserProfilePhotos': _userProfilePhotosConverter,
+    'getFile': _fileConverter,
+    'kickChatMember': _boolConverter,
+    'unbanChatMember': _boolConverter,
+    'restrictChatMember': _boolConverter,
+    'promoteChatMember': _boolConverter,
+    'setChatAdministratorCustomTitle': _boolConverter,
+    'setChatPermissions': _boolConverter,
+    'exportChatInviteLink': _stringConverter,
+    'setChatPhoto': _boolConverter,
+    'deleteChatPhoto': _boolConverter,
+    'setChatTitle': _boolConverter,
+    'setChatDescription': _boolConverter,
+    'pinChatMessage': _boolConverter,
+    'unpinChatMessage': _boolConverter,
+    'leaveChat': _boolConverter,
+    'getChat': _boolConverter,
+    'getChatAdministrators': _chatMemberListConverter,
+    'getChatMembersCount': _intConverter,
+    'getChatMember': _chatMemberConverter,
+    'setChatStickerSet': _boolConverter,
+    'deleteChatStickerSet': _boolConverter,
+    'answerCallbackQuery': _boolConverter,
+    'stopPoll': _pollConverter,
+    'deleteMessage': _boolConverter,
+    'getStickerSet': _stickerSetConverter,
+    'uploadStickerFile': _fileConverter,
+    'createNewStickerSet': _boolConverter,
+    'addStickerToSet': _boolConverter,
+    'setStickerPositionInSet': _boolConverter,
+    'deleteStickerFromSet': _boolConverter,
+    'sendSticker': _messageConverter
   };
 
   Future<String> _readResponse(http.StreamedResponse response) {

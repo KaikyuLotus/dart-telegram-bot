@@ -34,4 +34,9 @@ class User {
         username: json['username'],
         languageCode: json['language_code']);
   }
+
+  static List<User> listFromJsonArray(List<dynamic> json) {
+    if (json == null) return null;
+    return List.generate(json.length, (i) => User.fromJson(json[i]));
+  }
 }

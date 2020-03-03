@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:dart_telegram_bot/tgapi/exceptions/invalid_bot_state_exception.dart';
-import 'package:dart_telegram_bot/tgapi/tgapi_methods.dart';
+import 'exceptions/invalid_bot_state_exception.dart';
+import 'tgapi_methods.dart';
 
 import 'entities/update.dart';
 import 'entities/user.dart';

@@ -1,16 +1,16 @@
-import 'package:dart_telegram_bot/tgapi/entities/Poll.dart';
-import 'package:dart_telegram_bot/tgapi/entities/chat.dart';
-import 'package:dart_telegram_bot/tgapi/entities/chat_member.dart';
-import 'package:dart_telegram_bot/tgapi/entities/chat_permissions.dart';
-import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
-import 'package:dart_telegram_bot/tgapi/entities/mask_position.dart';
-import 'package:dart_telegram_bot/tgapi/entities/sticker_set.dart';
-import 'package:dart_telegram_bot/tgapi/entities/update.dart';
-import 'package:dart_telegram_bot/tgapi/enums/chat_action.dart';
-import 'package:dart_telegram_bot/tgapi/enums/parse_mode.dart';
-import 'package:dart_telegram_bot/tgapi/exceptions/malformed_api_call_exception.dart';
-import 'package:dart_telegram_bot/tgapi/exceptions/unsupported_type_exception.dart';
-import 'package:dart_telegram_bot/tgapi/tgapi_client.dart';
+import 'entities/poll.dart';
+import 'entities/chat.dart';
+import 'entities/chat_member.dart';
+import 'entities/chat_permissions.dart';
+import 'entities/internal/http_file.dart';
+import 'entities/mask_position.dart';
+import 'entities/sticker_set.dart';
+import 'entities/update.dart';
+import 'enums/chat_action.dart';
+import 'enums/parse_mode.dart';
+import 'exceptions/malformed_api_call_exception.dart';
+import 'exceptions/unsupported_type_exception.dart';
+import 'tgapi_client.dart';
 
 import 'entities/file.dart';
 import 'entities/input_media.dart';
@@ -448,7 +448,7 @@ class TGAPIMethods {
         .apiCall(_token, 'stopPoll', {'chat_id': chatId, 'message_id': messageId, 'reply_markup': replyMarkup});
   }
 
-  Future<Poll> deleteMessage(ChatID chatId, int messageId) {
+  Future<bool> deleteMessage(ChatID chatId, int messageId) {
     return _client.apiCall(_token, 'deleteMessage', {'chat_id': chatId, 'message_id': messageId});
   }
 
@@ -482,11 +482,11 @@ class TGAPIMethods {
         {'user_id': userId, 'name': name, 'png_sticker': pngSticker, 'emojis': emojis, 'mask_position': maskPosition});
   }
 
-  Future<File> setStickerPositionInSet(String sticker, int position) {
+  Future<bool> setStickerPositionInSet(String sticker, int position) {
     return _client.apiCall(_token, 'setStickerPositionInSet', {'sticker': sticker, 'position': position});
   }
 
-  Future<File> deleteStickerFromSet(String sticker) {
+  Future<bool> deleteStickerFromSet(String sticker) {
     return _client.apiCall(_token, 'deleteStickerFromSet', {'sticker': sticker});
   }
 
