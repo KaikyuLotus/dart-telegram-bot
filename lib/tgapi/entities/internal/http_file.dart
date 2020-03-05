@@ -2,26 +2,31 @@ import 'dart:io';
 import 'dart:typed_data';
 
 class HttpFile {
-  Uint8List bytes;
-  String name;
+  Uint8List _bytes;
+  String _name;
+  String _token;
 
-  String token;
-  
+  Uint8List get bytes => _bytes;
+
+  String get name => _name;
+
+  String get token => _token;
+
   HttpFile.fromBytes(String name, Uint8List bytes) {
-    this.name = name;
-    this.bytes = bytes;
+    _name = name;
+    _bytes = bytes;
   }
 
   HttpFile.fromFile(File file) {
-    name = file.path.split('/').last;
-    bytes = file.readAsBytesSync();
+    _name = file.path.split('/').last;
+    _bytes = file.readAsBytesSync();
   }
 
   HttpFile.fromPath(String path) {
-    name = path.split('/').last;
-    bytes = File(path).readAsBytesSync();
+    _name = path.split('/').last;
+    _bytes = File(path).readAsBytesSync();
   }
-  
-  HttpFile.fromToken(this.token);
-  
+
+  HttpFile.fromToken(this._token);
+
 }

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:dart_telegram_bot/tgapi/exceptions/unsupported_type_exception.dart';
+import 'package:http/http.dart';
 
-import 'entities/base_response.dart';
 import 'entities/chat_member.dart';
 import 'entities/file.dart';
 import 'entities/internal/http_file.dart';
@@ -14,134 +14,74 @@ import 'entities/update.dart';
 import 'entities/user.dart';
 import 'entities/user_profile_photos.dart';
 import 'exceptions/api_exception.dart';
-import 'exceptions/unknown_api_method.dart';
 
 class TGAPIClient {
-  final String BASE_URL = 'api.telegram.org';
+  static final String BASE_URL = 'api.telegram.org';
 
-  http.Client client = http.Client();
-
-  // TODO improve this part
-  static final _userConverter = (j) => BaseResponse<User>.fromJson(j);
-  static final _updateListConverter = (j) => BaseResponse<List<Update>>.fromJson(j);
-  static final _messageConverter = (j) => BaseResponse<Message>.fromJson(j);
-  static final _boolConverter = (j) => BaseResponse<bool>.fromJson(j);
-  static final _intConverter = (j) => BaseResponse<int>.fromJson(j);
-  static final _stringConverter = (j) => BaseResponse<String>.fromJson(j);
-  static final _userProfilePhotosConverter = (j) => BaseResponse<UserProfilePhotos>.fromJson(j);
-  static final _fileConverter = (j) => BaseResponse<File>.fromJson(j);
-  static final _chatMemberListConverter = (j) => BaseResponse<List<ChatMember>>.fromJson(j);
-  static final _chatMemberConverter = (j) => BaseResponse<ChatMember>.fromJson(j);
-  static final _pollConverter = (j) => BaseResponse<Poll>.fromJson(j);
-  static final _stickerSetConverter = (j) => BaseResponse<StickerSet>.fromJson(j);
-
-  var methods = {
-    'getMe': _userConverter,
-    'getUpdates': _updateListConverter,
-    'sendMessage': _messageConverter,
-    'sendPhoto': _messageConverter,
-    'sendAudio': _messageConverter,
-    'sendDocument': _messageConverter,
-    'sendVideo': _messageConverter,
-    'sendAnimation': _messageConverter,
-    'sendVoice': _messageConverter,
-    'sendVideoNote': _messageConverter,
-    'sendMediaGroup': _messageConverter,
-    'sendLocation': _messageConverter,
-    'editMessageLiveLocation': _messageConverter,
-    'stopMessageLiveLocation': _messageConverter,
-    'sendVenue': _messageConverter,
-    'sendContact': _messageConverter,
-    'sendPoll': _messageConverter,
-    'sendChatAction': _boolConverter,
-    'getUserProfilePhotos': _userProfilePhotosConverter,
-    'getFile': _fileConverter,
-    'kickChatMember': _boolConverter,
-    'unbanChatMember': _boolConverter,
-    'restrictChatMember': _boolConverter,
-    'promoteChatMember': _boolConverter,
-    'setChatAdministratorCustomTitle': _boolConverter,
-    'setChatPermissions': _boolConverter,
-    'exportChatInviteLink': _stringConverter,
-    'setChatPhoto': _boolConverter,
-    'deleteChatPhoto': _boolConverter,
-    'setChatTitle': _boolConverter,
-    'setChatDescription': _boolConverter,
-    'pinChatMessage': _boolConverter,
-    'unpinChatMessage': _boolConverter,
-    'leaveChat': _boolConverter,
-    'getChat': _boolConverter,
-    'getChatAdministrators': _chatMemberListConverter,
-    'getChatMembersCount': _intConverter,
-    'getChatMember': _chatMemberConverter,
-    'setChatStickerSet': _boolConverter,
-    'deleteChatStickerSet': _boolConverter,
-    'answerCallbackQuery': _boolConverter,
-    'stopPoll': _pollConverter,
-    'deleteMessage': _boolConverter,
-    'getStickerSet': _stickerSetConverter,
-    'uploadStickerFile': _fileConverter,
-    'createNewStickerSet': _boolConverter,
-    'addStickerToSet': _boolConverter,
-    'setStickerPositionInSet': _boolConverter,
-    'deleteStickerFromSet': _boolConverter,
-    'sendSticker': _messageConverter
+  static final _typeFactories = {
+    'User': (j) => User.fromJson(j),
+    'List<Update>': (j) => Update.listFromJsonArray(j),
+    'Message': (j) => Message.fromJson(j),
+    'UserProfilePhotos': (j) => UserProfilePhotos.fromJson(j),
+    'File': (j) => File.fromJson(j),
+    'List<ChatMember>': (j) => ChatMember.listFromJsonArray,
+    'ChatMember': (j) => ChatMember.fromJson(j),
+    'Poll': (j) => Poll.fromJson(j),
+    'StickerSet': (j) => StickerSet.fromJson(j)
   };
 
-  Future<String> _readResponse(http.StreamedResponse response) {
-    var completer = Completer<String>();
-    var contents = StringBuffer();
-    response.stream.transform(utf8.decoder).listen((data) {
-      contents.write(data);
-    }, onDone: () => completer.complete(contents.toString()));
-    return completer.future;
+  Client client = Client();
+
+  MultipartRequest _buildMultipartRequest(Uri uri, Map<String, HttpFile> files) {
+    var multipartRequest = MultipartRequest('POST', uri);
+    var multipartFiles = files.entries.map(
+        (e) => MultipartFile(e.key, ByteStream.fromBytes(e.value.bytes), e.value.bytes.length, filename: e.value.name));
+    multipartRequest.files.addAll(multipartFiles);
+    return multipartRequest;
   }
 
-  Future<Map<String, dynamic>> execute(String token, String method,
-      [Map<String, dynamic> query, Map<String, HttpFile> files]) async {
-    var path = '/bot${token}/${method}';
-    var uri = Uri.https(BASE_URL, path, query != null ? query.cast() : null);
-
-    http.BaseRequest request;
+  BaseRequest _getRequest(Uri uri, Map<String, HttpFile> files) {
     if (files != null && files.isNotEmpty) {
-      var multipartRequest = http.MultipartRequest('POST', uri);
-      for (var entry in files.entries) {
-        var stream = http.ByteStream.fromBytes(entry.value.bytes);
-        var multipartFile = http.MultipartFile(entry.key, stream, entry.value.bytes.length, filename: entry.value.name);
-        multipartRequest.files.add(multipartFile);
-        request = multipartRequest;
-      }
-    } else {
-      request = http.Request('GET', uri);
+      return _buildMultipartRequest(uri, files);
     }
+    return Request('GET', uri);
+  }
 
-    var response = await request.send().timeout(Duration(seconds: 120));
-    var stringResponse = await _readResponse(response);
+  Future<Map<String, dynamic>> _execute(String token, String method,
+      [Map<String, dynamic> query, Map<String, HttpFile> files]) async {
+    var uri = Uri.https(BASE_URL, '/bot${token}/${method}', query != null ? query.cast() : null);
+    var response = await _getRequest(uri, files).send().timeout(Duration(seconds: 120));
+    var stringResponse = await response.stream.bytesToString();
     // print(stringResp); // debug only
     return json.decode(stringResponse);
   }
 
   Future<T> apiCall<T>(String token, String method, [Map<String, dynamic> query]) async {
-    if (!methods.containsKey(method)) throw UnknownAPIMethod(method);
-
     var files = <String, HttpFile>{};
     if (query != null) {
       // Maybe improve this part
-      // Filter out null values and convert entries to string
-      query.removeWhere((k, v) => v == null);
-      // Take the tokens from HttpFiles with tokens
-      query.updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v);
-      // Take the HttpFile away from the query
-      query.forEach((k, v) => {if (v is HttpFile) files[k] = v});
-      // Then remove them
-      query.removeWhere((k, v) => v is HttpFile);
-      // Convert all lists to json array
-      query.updateAll((k, v) => v is List ? json.encode(v) : v.toString());
+      query.removeWhere((k, v) => v == null); // Filter out null values and convert entries to string
+      query.updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v); // Take the tokens from HttpFiles
+      query.forEach((k, v) => {if (v is HttpFile) files[k] = v}); // Take the HttpFile away from the query
+      query.removeWhere((k, v) => v is HttpFile); // Then remove them
+      query.updateAll((k, v) => v is List ? json.encode(v) : '${v}'); // Convert all lists to json array
     }
 
-    var resp = methods[method](await execute(token, method, query, files));
-    if (!resp.ok) throw APIException(resp.description, resp.errorCode);
+    var jsonResp = await _execute(token, method, query, files);
+    if (!jsonResp['ok']) {
+      throw APIException(jsonResp['description'], jsonResp['error_code']);
+    }
 
-    return resp.result as T;
+    var result = jsonResp['result'];
+    if (result is T) {
+      return result;
+    }
+
+    if (!_typeFactories.containsKey('${T}')) {
+      throw UnsupportedTypeException('Type ${T} is not supported yet');
+    }
+
+    // print('Mapping type ${T.toString()} with found mapper');
+    return _typeFactories[T.toString()](jsonResp['result']);
   }
 }

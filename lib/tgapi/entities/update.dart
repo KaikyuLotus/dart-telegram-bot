@@ -16,13 +16,8 @@ class Update {
     );
   }
 
-  factory Update.fromJsonList(Map<String, dynamic> json) {
-    if (json == null) return null;
-    var updates = <Update>{};
-    updates.add(Update(
-      message: Message.fromJson(json['message']),
-      update_id: json['update_id'],
-    ));
-    return null;
+  static List<Update> listFromJsonArray(List<dynamic> array) {
+    if (array == null) return null;
+    return List.generate(array.length, (i) => Update.fromJson(array[i]));
   }
 }

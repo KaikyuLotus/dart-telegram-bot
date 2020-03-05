@@ -45,7 +45,7 @@ class ChatMember {
   factory ChatMember.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return ChatMember(
-      user: json['user'],
+      user: User.fromJson(json['user']),
       status: json['status'],
       customTitle: json['custom_title'],
       untilDate: json['until_date'],
@@ -65,5 +65,10 @@ class ChatMember {
       canSendOtherMessages: json['can_send_other_messages'],
       canAddWebPagePreviews: json['can_add_web_page_previews'],
     );
+  }
+
+  static List<ChatMember> listFromJsonArray(List<dynamic> array) {
+    if (array == null) return null;
+    return List.generate(array.length, (i) => ChatMember.fromJson(array[i]));
   }
 }

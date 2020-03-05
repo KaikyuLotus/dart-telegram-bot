@@ -43,7 +43,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendStickerID',
         (update) async => await sendSticker(
-            ChatID(update.message.chat.id), HttpFile.fromPath('CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA'),
+            ChatID(update.message.chat.id), HttpFile.fromToken('CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -54,7 +54,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendAudioID',
         (update) async => await sendAudio(
-            ChatID(update.message.chat.id), HttpFile.fromPath('CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA'),
+            ChatID(update.message.chat.id), HttpFile.fromToken('CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -76,7 +76,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendVideoID',
         (update) async => await sendVideo(
-            ChatID(update.message.chat.id), HttpFile.fromPath('BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ'),
+            ChatID(update.message.chat.id), HttpFile.fromToken('BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -87,7 +87,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendAnimationID',
         (update) async =>
-            await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromPath(''), replyToMessageId: update.message.messageId));
+            await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromToken(''), replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVoice',
@@ -97,7 +97,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendVoiceID',
         (update) async => await sendVoice(
-            ChatID(update.message.chat.id), HttpFile.fromPath('AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA'),
+            ChatID(update.message.chat.id), HttpFile.fromToken('AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(

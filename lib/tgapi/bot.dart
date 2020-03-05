@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'exceptions/invalid_bot_state_exception.dart';
-import 'tgapi_methods.dart';
-
 import 'entities/update.dart';
 import 'entities/user.dart';
+import 'exceptions/invalid_bot_state_exception.dart';
+import 'tgapi_methods.dart';
 
 class Bot extends TGAPIMethods {
   final List<Function(Update)> _updateCallbacks = [];
@@ -14,15 +13,31 @@ class Bot extends TGAPIMethods {
   bool _isReady = false;
   bool _isRunning = false;
   bool _isInitialized = false;
-
   int _offset = 0;
-  int _timeout = 120;
+  int _timeout;
+  int _id;
+  String _first_name;
+  String _username;
 
-  int id;
-  String first_name;
-  String username;
+  bool get isReady => _isReady;
 
-  Bot(String token) : super(token);
+  bool get isRunning => _isRunning;
+
+  bool get isInitialized => _isInitialized;
+
+  int get offset => _offset;
+
+  int get timeout => _timeout;
+
+  int get id => _id;
+
+  String get first_name => _first_name;
+
+  String get username => _username;
+
+  Bot(String token, [int timeout = 120]) : super(token) {
+    _timeout = timeout;
+  }
 
   Future<Bot> init() async {
     await getMe().then(_ready);
@@ -31,9 +46,9 @@ class Bot extends TGAPIMethods {
 
   // Internal functions
   void _ready(User user) {
-    id = user.id;
-    first_name = user.firstName;
-    username = user.username;
+    _id = user.id;
+    _first_name = user.firstName;
+    _username = user.username;
     _isReady = true;
     _isInitialized = true;
   }

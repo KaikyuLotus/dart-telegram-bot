@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dart_telegram_bot/tgapi/bot.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/chat_id.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
+import 'package:dart_telegram_bot/tgapi/enums/chat_action.dart';
 import 'package:dart_telegram_bot/tgapi/enums/parse_mode.dart';
 import 'package:dart_telegram_bot/tgapi/exceptions/api_exception.dart';
 import 'package:dart_telegram_bot/tgapi/exceptions/invalid_bot_state_exception.dart';
@@ -13,7 +14,7 @@ void main() {
   var replyId = int.parse(Platform.environment['REPLY_TO_MESSAGE_ID']);
   var photoToken = Platform.environment['PHOTO_TOKEN'];
   var audioToken = Platform.environment['AUDIO_TOKEN'];
-    var videoToken = Platform.environment['VIDEO_TOKEN'];
+  var videoToken = Platform.environment['VIDEO_TOKEN'];
   var animationToken = Platform.environment['ANIMATION_TOKEN'];
   var documentToken = Platform.environment['DOCUMENT_TOKEN'];
   var voiceToken = Platform.environment['VOICE_TOKEN'];
@@ -206,6 +207,20 @@ void main() {
     var bot = await getValidBot();
     var message = await bot.sendVoice(ChatID(chatId), HttpFile.fromToken(voiceToken));
     expect(message.voice, isNotNull);
+  }, skip: false);
+
+  test('Send chat action returns true', () async {
+    var bot = await getValidBot();
+    var ok = await bot.sendChatAction(ChatID(chatId), ChatAction.TYPING);
+    expect(ok, isTrue);
+  }, skip: false);
+
+  test('Can delete a sent message', () async {
+    var bot = await getValidBot();
+    var message = await bot.sendMessage(ChatID(chatId), 'Delete me');
+    expect(message.text, equals('Delete me'));
+    var ok = await bot.deleteMessage(ChatID(chatId), message.messageId);
+    expect(ok, isTrue);
   }, skip: false);
 
   // TODO more tests to come
