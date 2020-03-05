@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+
 import 'entities/base_response.dart';
 import 'entities/chat_member.dart';
 import 'entities/file.dart';
@@ -10,8 +12,6 @@ import 'entities/poll.dart';
 import 'entities/sticker_set.dart';
 import 'entities/update.dart';
 import 'entities/user.dart';
-import 'package:http/http.dart' as http;
-
 import 'entities/user_profile_photos.dart';
 import 'exceptions/api_exception.dart';
 import 'exceptions/unknown_api_method.dart';
@@ -107,9 +107,7 @@ class TGAPIClient {
       var multipartRequest = http.MultipartRequest('POST', uri);
       for (var entry in files.entries) {
         var stream = http.ByteStream.fromBytes(entry.value.bytes);
-        var multipartFile = http.MultipartFile(
-            entry.key, stream, entry.value.bytes.length,
-            filename: entry.value.name);
+        var multipartFile = http.MultipartFile(entry.key, stream, entry.value.bytes.length, filename: entry.value.name);
         multipartRequest.files.add(multipartFile);
         request = multipartRequest;
       }
@@ -123,8 +121,7 @@ class TGAPIClient {
     return json.decode(stringResponse);
   }
 
-  Future<T> apiCall<T>(String token, String method,
-      [Map<String, dynamic> query]) async {
+  Future<T> apiCall<T>(String token, String method, [Map<String, dynamic> query]) async {
     if (!methods.containsKey(method)) throw UnknownAPIMethod(method);
 
     var files = <String, HttpFile>{};
@@ -132,8 +129,13 @@ class TGAPIClient {
       // Maybe improve this part
       // Filter out null values and convert entries to string
       query.removeWhere((k, v) => v == null);
+      // Take the tokens from HttpFiles with tokens
+      query.updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v);
+      // Take the HttpFile away from the query
       query.forEach((k, v) => {if (v is HttpFile) files[k] = v});
+      // Then remove them
       query.removeWhere((k, v) => v is HttpFile);
+      // Convert all lists to json array
       query.updateAll((k, v) => v is List ? json.encode(v) : v.toString());
     }
 

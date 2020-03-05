@@ -22,8 +22,10 @@ class ExampleBot extends Bot {
 
     onCommand(
         'sendPhotoID',
-        (update) async => await sendPhoto(ChatID(update.message.chat.id),
-            'AgACAgQAAxkBAANcXlwny-lsbPGFU415fFoQcc8i2fkAAtWxMRvdTOFS8UED4N8te2T3M7YbAAQBAAMCAANtAAPy2AMAARgE',
+        (update) async => await sendPhoto(
+            ChatID(update.message.chat.id),
+            HttpFile.fromToken(
+                'AgACAgQAAxkBAANcXlwny-lsbPGFU415fFoQcc8i2fkAAtWxMRvdTOFS8UED4N8te2T3M7YbAAQBAAMCAANtAAPy2AMAARgE'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -41,7 +43,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendStickerID',
         (update) async => await sendSticker(
-            ChatID(update.message.chat.id), 'CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA',
+            ChatID(update.message.chat.id), HttpFile.fromPath('CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -52,7 +54,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendAudioID',
         (update) async => await sendAudio(
-            ChatID(update.message.chat.id), 'CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA',
+            ChatID(update.message.chat.id), HttpFile.fromPath('CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -62,8 +64,8 @@ class ExampleBot extends Bot {
 
     onCommand(
         'sendDocumentID',
-        (update) async => await sendDocument(
-            ChatID(update.message.chat.id), 'BQACAgQAAxkBAAOFXl19i1mq3SO-VpfjCQX1HfSLMjAAAgsHAALdTPFS41USB9o9Y3gYBA',
+        (update) async => await sendDocument(ChatID(update.message.chat.id),
+            HttpFile.fromToken('BQACAgQAAxkBAAOFXl19i1mq3SO-VpfjCQX1HfSLMjAAAgsHAALdTPFS41USB9o9Y3gYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -74,7 +76,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendVideoID',
         (update) async => await sendVideo(
-            ChatID(update.message.chat.id), 'BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ',
+            ChatID(update.message.chat.id), HttpFile.fromPath('BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -85,7 +87,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendAnimationID',
         (update) async =>
-            await sendAnimation(ChatID(update.message.chat.id), '', replyToMessageId: update.message.messageId));
+            await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromPath(''), replyToMessageId: update.message.messageId));
 
     onCommand(
         'sendVoice',
@@ -95,7 +97,7 @@ class ExampleBot extends Bot {
     onCommand(
         'sendVoiceID',
         (update) async => await sendVoice(
-            ChatID(update.message.chat.id), 'AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA',
+            ChatID(update.message.chat.id), HttpFile.fromPath('AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA'),
             replyToMessageId: update.message.messageId));
 
     onCommand(
@@ -115,10 +117,11 @@ class ExampleBot extends Bot {
     if (update.editedMessage != null) return; // Ignore edited messages
 
     var chatId = ChatID(update.message.chat.id);
+    print('${chatId} - ${update.message.messageId}');
 
     if (update.message.video != null) {
       var fileId = update.message.video.fileId;
-      sendVideo(chatId, fileId, caption: 'Video ID: ${fileId}').catchError(defaultErrorHandler);
+      sendVideo(chatId, HttpFile.fromPath(fileId), caption: 'Video ID: ${fileId}').catchError(defaultErrorHandler);
     }
 
     if (update.message.sticker != null) {
@@ -129,27 +132,28 @@ class ExampleBot extends Bot {
       var bigPhotoId = update.message.photo.last.fileId;
       var size = '${update.message.photo.last.width}x${update.message.photo.last.height}';
       var msg = 'Photo ID: $bigPhotoId\nSize: $size';
-      sendPhoto(chatId, bigPhotoId, caption: msg).catchError(defaultErrorHandler);
+      sendPhoto(chatId, HttpFile.fromToken(bigPhotoId), caption: msg).catchError(defaultErrorHandler);
     }
 
     if (update.message.audio != null) {
       var fileId = update.message.audio.fileId;
-      sendAudio(chatId, fileId, caption: 'Audio ID: ${fileId}').catchError(defaultErrorHandler);
+      sendAudio(chatId, HttpFile.fromPath(fileId), caption: 'Audio ID: ${fileId}').catchError(defaultErrorHandler);
     }
 
     if (update.message.document != null) {
       var fileId = update.message.document.fileId;
-      sendDocument(chatId, fileId, caption: 'Document ID: ${fileId}').catchError(defaultErrorHandler);
+      sendDocument(chatId, HttpFile.fromToken(fileId), caption: 'Document ID: ${fileId}')
+          .catchError(defaultErrorHandler);
     }
 
     if (update.message.voice != null) {
       var fileId = update.message.voice.fileId;
-      sendVoice(chatId, fileId, caption: 'Voice ID: ${fileId}').catchError(defaultErrorHandler);
+      sendVoice(chatId, HttpFile.fromPath(fileId), caption: 'Voice ID: ${fileId}').catchError(defaultErrorHandler);
     }
 
     if (update.message.animation != null) {
       var fileId = update.message.animation.fileId;
-      sendAnimation(chatId, fileId, caption: 'Animation ID: ${fileId}').catchError(defaultErrorHandler);
+      sendAnimation(chatId, HttpFile.fromPath(fileId), caption: 'Animation ID: ${fileId}').catchError(defaultErrorHandler);
     }
 
     if (update.message.location != null) {
@@ -171,7 +175,7 @@ class ExampleBot extends Bot {
 
     if (update.message.videoNote != null) {
       var note = update.message.videoNote;
-      sendVideoNote(chatId, note.fileId).catchError(defaultErrorHandler);
+      sendVideoNote(chatId, HttpFile.fromPath(note.fileId)).catchError(defaultErrorHandler);
     }
   }
 }

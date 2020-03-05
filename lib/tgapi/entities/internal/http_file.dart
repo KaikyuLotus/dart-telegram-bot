@@ -5,6 +5,8 @@ class HttpFile {
   Uint8List bytes;
   String name;
 
+  String token;
+  
   HttpFile.fromBytes(String name, Uint8List bytes) {
     this.name = name;
     this.bytes = bytes;
@@ -19,4 +21,7 @@ class HttpFile {
     name = path.split('/').last;
     bytes = File(path).readAsBytesSync();
   }
+  
+  HttpFile.fromToken(this.token);
+  
 }

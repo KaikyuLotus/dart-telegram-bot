@@ -1,23 +1,21 @@
-import 'entities/poll.dart';
 import 'entities/chat.dart';
 import 'entities/chat_member.dart';
 import 'entities/chat_permissions.dart';
-import 'entities/internal/http_file.dart';
-import 'entities/mask_position.dart';
-import 'entities/sticker_set.dart';
-import 'entities/update.dart';
-import 'enums/chat_action.dart';
-import 'enums/parse_mode.dart';
-import 'exceptions/malformed_api_call_exception.dart';
-import 'exceptions/unsupported_type_exception.dart';
-import 'tgapi_client.dart';
-
 import 'entities/file.dart';
 import 'entities/input_media.dart';
 import 'entities/internal/chat_id.dart';
+import 'entities/internal/http_file.dart';
+import 'entities/mask_position.dart';
 import 'entities/message.dart';
+import 'entities/poll.dart';
+import 'entities/sticker_set.dart';
+import 'entities/update.dart';
 import 'entities/user.dart';
 import 'entities/user_profile_photos.dart';
+import 'enums/chat_action.dart';
+import 'enums/parse_mode.dart';
+import 'exceptions/malformed_api_call_exception.dart';
+import 'tgapi_client.dart';
 
 class TGAPIMethods {
   final TGAPIClient _client = TGAPIClient();
@@ -26,12 +24,6 @@ class TGAPIMethods {
 
   TGAPIMethods(String token) {
     _token = token;
-  }
-
-  void _assertIsStringOrHttpFile(dynamic arg) {
-    if (!(arg is String) && !(arg is HttpFile)) {
-      throw UnsupportedTypeException('arg must be one of String or HttpFile');
-    }
   }
 
   Future<User> getMe() {
@@ -57,9 +49,8 @@ class TGAPIMethods {
   }
 
   // TODO reply markup
-  Future<Message> sendPhoto(ChatID chatId, dynamic photo,
+  Future<Message> sendPhoto(ChatID chatId, HttpFile photo,
       {String caption, ParseMode parseMode, bool disableNotification, int replyToMessageId, replyMarkup}) {
-    _assertIsStringOrHttpFile(photo);
     return _client.apiCall(_token, 'sendPhoto', {
       'chat_id': chatId,
       'photo': photo,
@@ -71,18 +62,16 @@ class TGAPIMethods {
     });
   }
 
-  Future<Message> sendAudio(ChatID chatId, dynamic audio,
+  Future<Message> sendAudio(ChatID chatId, HttpFile audio,
       {String caption,
       ParseMode parseMode,
       int duration,
       String performer,
       String title,
-      dynamic thumb,
+      HttpFile thumb,
       bool disableNotification,
       int replyToMessageId,
       replyMarkup}) {
-    _assertIsStringOrHttpFile(audio);
-    if (thumb != null) _assertIsStringOrHttpFile(thumb);
     return _client.apiCall(_token, 'sendAudio', {
       'chat_id': chatId,
       'audio': audio,
@@ -98,15 +87,13 @@ class TGAPIMethods {
     });
   }
 
-  Future<Message> sendDocument(ChatID chatId, dynamic document,
-      {dynamic thumb,
+  Future<Message> sendDocument(ChatID chatId, HttpFile document,
+      {HttpFile thumb,
       String caption,
       ParseMode parseMode,
       bool disableNotification,
       int replyToMessageId,
       replyMarkup}) {
-    _assertIsStringOrHttpFile(document);
-    if (thumb != null) _assertIsStringOrHttpFile(thumb);
     return _client.apiCall(_token, 'sendDocument', {
       'chat_id': chatId,
       'document': document,
@@ -119,19 +106,17 @@ class TGAPIMethods {
     });
   }
 
-  Future<Message> sendVideo(ChatID chatId, dynamic video,
+  Future<Message> sendVideo(ChatID chatId, HttpFile video,
       {int duration,
       int width,
       int height,
-      dynamic thumb,
+      HttpFile thumb,
       String caption,
       ParseMode parseMode,
       bool supportsStreaming,
       bool disableNotification,
       int replyToMessageId,
       replyMarkup}) {
-    _assertIsStringOrHttpFile(video);
-    if (thumb != null) _assertIsStringOrHttpFile(thumb);
     return _client.apiCall(_token, 'sendVideo', {
       'chat_id': chatId,
       'video': video,
@@ -148,18 +133,16 @@ class TGAPIMethods {
     });
   }
 
-  Future<Message> sendAnimation(ChatID chatId, dynamic animation,
+  Future<Message> sendAnimation(ChatID chatId, HttpFile animation,
       {int duration,
       int width,
       int height,
-      dynamic thumb,
+      HttpFile thumb,
       String caption,
       ParseMode parseMode,
       bool disableNotification,
       int replyToMessageId,
       replyMarkup}) {
-    _assertIsStringOrHttpFile(animation);
-    if (thumb != null) _assertIsStringOrHttpFile(thumb);
     return _client.apiCall(_token, 'sendAnimation', {
       'chat_id': chatId,
       'animation': animation,
@@ -175,14 +158,13 @@ class TGAPIMethods {
     });
   }
 
-  Future<Message> sendVoice(ChatID chatId, dynamic voice,
+  Future<Message> sendVoice(ChatID chatId, HttpFile voice,
       {String caption,
       ParseMode parseMode,
       int duration,
       bool disableNotification,
       int replyToMessageId,
       replyMarkup}) {
-    _assertIsStringOrHttpFile(voice);
     return _client.apiCall(_token, 'sendVoice', {
       'chat_id': chatId,
       'voice': voice,
@@ -195,10 +177,8 @@ class TGAPIMethods {
     });
   }
 
-  Future<Message> sendVideoNote(ChatID chatId, dynamic videoNote,
-      {int duration, int length, dynamic thumb, bool disableNotification, int replyToMessageId, replyMarkup}) {
-    _assertIsStringOrHttpFile(videoNote);
-    if (thumb != null) _assertIsStringOrHttpFile(thumb);
+  Future<Message> sendVideoNote(ChatID chatId, HttpFile videoNote,
+      {int duration, int length, HttpFile thumb, bool disableNotification, int replyToMessageId, replyMarkup}) {
     return _client.apiCall(_token, 'sendVideoNote', {
       'chat_id': chatId,
       'video_note': videoNote,
@@ -461,9 +441,8 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'uploadStickerFile', {'user_id': userId, 'png_sticker': pngSticker});
   }
 
-  Future<bool> createNewStickerSet(String userId, String name, String title, dynamic pngSticker, String emojis,
+  Future<bool> createNewStickerSet(String userId, String name, String title, HttpFile pngSticker, String emojis,
       {bool containsMasks, MaskPosition maskPosition}) {
-    _assertIsStringOrHttpFile(pngSticker);
     return _client.apiCall(_token, 'createNewStickerSet', {
       'user_id': userId,
       'name': name,
@@ -475,9 +454,8 @@ class TGAPIMethods {
     });
   }
 
-  Future<bool> addStickerToSet(String userId, String name, dynamic pngSticker, String emojis,
+  Future<bool> addStickerToSet(String userId, String name, HttpFile pngSticker, String emojis,
       {MaskPosition maskPosition}) {
-    _assertIsStringOrHttpFile(pngSticker);
     return _client.apiCall(_token, 'addStickerToSet',
         {'user_id': userId, 'name': name, 'png_sticker': pngSticker, 'emojis': emojis, 'mask_position': maskPosition});
   }
@@ -490,9 +468,8 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'deleteStickerFromSet', {'sticker': sticker});
   }
 
-  Future<Message> sendSticker(ChatID chatId, dynamic sticker,
+  Future<Message> sendSticker(ChatID chatId, HttpFile sticker,
       {bool disableNotification, int replyToMessageId, replyMarkup}) {
-    _assertIsStringOrHttpFile(sticker);
     return _client.apiCall(_token, 'sendSticker', {
       'chat_id': chatId,
       'sticker': sticker,
