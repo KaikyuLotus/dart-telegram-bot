@@ -1,12 +1,26 @@
-import 'inline_keyboard_button.dart';
+import 'dart:convert';
 
-class InlineKeyboardMarkup {
+import 'inline_keyboard_button.dart';
+import 'reply_markup.dart';
+
+class InlineKeyboardMarkup extends ReplyMarkup {
   List<List<InlineKeyboardButton>> inlineKeyboard;
 
-  InlineKeyboardMarkup({this.inlineKeyboard});
+  InlineKeyboardMarkup(this.inlineKeyboard);
 
   factory InlineKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return InlineKeyboardMarkup(inlineKeyboard: InlineKeyboardButton.listOfListsFromJsonArray(json['inline_keyboard']));
+    return InlineKeyboardMarkup(InlineKeyboardButton.listOfListsFromJsonArray(json['inline_keyboard']));
+  }
+
+  Map toJson() {
+    var data = {};
+    data['inline_keyboard'] = inlineKeyboard;
+    return data;
+  }
+
+  @override
+  String toString() {
+    return json.encode(this);
   }
 }

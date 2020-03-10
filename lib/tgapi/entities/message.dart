@@ -1,3 +1,5 @@
+import 'package:dart_telegram_bot/tgapi/entities/reply_markup.dart';
+
 import 'animation.dart';
 import 'audio.dart';
 import 'chat.dart';
@@ -66,7 +68,7 @@ class Message {
   SuccessfulPayment successfulPayment;
   String connectedWebsite;
   PassportData passportData;
-  InlineKeyboardMarkup replyMarkup;
+  ReplyMarkup replyMarkup;
 
   Message(
       {this.messageId,

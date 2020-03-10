@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:dart_telegram_bot/tgapi/exceptions/unsupported_type_exception.dart';
 import 'package:http/http.dart';
 
+import 'entities/chat.dart';
 import 'entities/chat_member.dart';
 import 'entities/file.dart';
 import 'entities/internal/http_file.dart';
@@ -27,7 +28,8 @@ class TGAPIClient {
     'List<ChatMember>': (j) => ChatMember.listFromJsonArray,
     'ChatMember': (j) => ChatMember.fromJson(j),
     'Poll': (j) => Poll.fromJson(j),
-    'StickerSet': (j) => StickerSet.fromJson(j)
+    'StickerSet': (j) => StickerSet.fromJson(j),
+    'Chat': (j) => Chat.fromJson(j)
   };
 
   Client client = Client();

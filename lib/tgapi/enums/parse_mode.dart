@@ -1,4 +1,3 @@
-// TODO not tested
 class ParseMode {
   String _mode;
 

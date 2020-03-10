@@ -1,11 +1,28 @@
-class ReplyKeyboardRemove {
+import 'dart:convert';
+
+import 'reply_markup.dart';
+
+class ReplyKeyboardRemove  extends ReplyMarkup {
   bool removeKeyboard;
   bool selective;
 
-  ReplyKeyboardRemove({this.removeKeyboard, this.selective});
+  ReplyKeyboardRemove(this.removeKeyboard, {this.selective});
 
   factory ReplyKeyboardRemove.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return ReplyKeyboardRemove(removeKeyboard: json['remove_keyboard'], selective: json['selective']);
+    return ReplyKeyboardRemove(json['remove_keyboard'], selective: json['selective']);
+  }
+
+  Map toJson() {
+    var map = {};
+    map['remove_keyboard'] = removeKeyboard;
+    map['selective'] = selective;
+    map.removeWhere((k, v) => v == null);
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(this);
   }
 }

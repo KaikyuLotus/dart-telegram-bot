@@ -1,5 +1,6 @@
 import 'chat_permissions.dart';
 import 'chat_photo.dart';
+import 'message.dart';
 
 class Chat {
   int id;
@@ -11,7 +12,7 @@ class Chat {
   ChatPhoto photo;
   String description;
   String inviteLink;
-  String pinned_message;
+  Message pinnedMessage;
   ChatPermissions permissions;
   int slowModeDelay;
   String stickerSetName;
@@ -27,7 +28,7 @@ class Chat {
       this.photo,
       this.description,
       this.inviteLink,
-      this.pinned_message,
+      this.pinnedMessage,
       this.permissions,
       this.slowModeDelay,
       this.stickerSetName,
@@ -45,8 +46,8 @@ class Chat {
       photo: ChatPhoto.fromJson(json['photo']),
       description: json['description'],
       inviteLink: json['invite_link'],
-      pinned_message: json['pinned_message'],
-      permissions: json['permissions'],
+      pinnedMessage: Message.fromJson(json['pinned_message']),
+      permissions: ChatPermissions.fromJson(json['permissions']),
       slowModeDelay: json['slow_mode_delay'],
       stickerSetName: json['sticker_set_name'],
       canSetStickerSet: json['can_set_sticker_set'],

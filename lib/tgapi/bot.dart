@@ -81,7 +81,7 @@ class Bot extends TGAPIMethods {
 
   void _handleUpdates(List<Update> updates) {
     for (var update in updates) {
-      _offset = update.update_id + 1;
+      _offset = update.updateId + 1;
       _handleUpdate(update);
     }
   }
@@ -89,7 +89,7 @@ class Bot extends TGAPIMethods {
   void _cleanUpdates() async {
     var updates = await getUpdates(timeout: 0, offset: -1);
     if (updates.isNotEmpty) {
-      _offset = updates[0].update_id + 1;
+      _offset = updates[0].updateId + 1;
     }
   }
 

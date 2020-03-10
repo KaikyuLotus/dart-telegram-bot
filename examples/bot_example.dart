@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:dart_telegram_bot/tgapi/bot.dart';
+import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_button.dart';
+import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_markup.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/chat_id.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
 import 'package:dart_telegram_bot/tgapi/entities/update.dart';
+import 'package:dart_telegram_bot/tgapi/enums/parse_mode.dart';
 
 class ExampleBot extends Bot {
   Function defaultErrorHandler = (e, s) => print('something failed: $e\n$s');
@@ -11,94 +14,34 @@ class ExampleBot extends Bot {
   ExampleBot() : super(Platform.environment['BOT_TOKEN']) {
     onUpdate(_update);
 
-    // Here all tested and testable API methods
-    // These will be converted into tests
-    onCommand(
-        'sendPhoto',
-        (update) async => {
-              await sendPhoto(ChatID(update.message.chat.id), HttpFile.fromPath('resources/test.jpg'),
-                  replyToMessageId: update.message.messageId)
-            });
+    onCommand('buttons', (update) async {
+      var buttons = [
+        [InlineKeyboardButton.CallbackData('Button 1', 'btn1')],
+        [InlineKeyboardButton.CallbackData('Button 2', 'btn2')]
+      ];
+      var ok = await sendMessage(ChatID(update.message.chat.id), 'Tap a button...', replyMarkup: InlineKeyboardMarkup(buttons));
+    });
 
-    onCommand(
-        'sendPhotoID',
-        (update) async => await sendPhoto(
-            ChatID(update.message.chat.id),
-            HttpFile.fromToken(
-                'AgACAgQAAxkBAANcXlwny-lsbPGFU415fFoQcc8i2fkAAtWxMRvdTOFS8UED4N8te2T3M7YbAAQBAAMCAANtAAPy2AMAARgE'),
-            replyToMessageId: update.message.messageId));
+    onCommand('chatid', (update) async {
+      await sendMessage(ChatID(update.message.chat.id), '*Chat ID*: `${update.message.chat.id}`',
+          parseMode: ParseMode.Markdown());
+    });
 
-    onCommand(
-        'sendMessage',
-        (update) async =>
-            await sendMessage(ChatID(update.message.chat.id), 'Hello?', replyToMessageId: update.message.messageId));
+    onCommand('msgid', (update) async {
+      await sendMessage(ChatID(update.message.chat.id), '*Message ID*: `${update.message.messageId}`',
+          parseMode: ParseMode.Markdown());
+    });
 
-    onCommand(
-        'sendSticker',
-        (update) async => {
-              await sendSticker(ChatID(update.message.chat.id), HttpFile.fromPath('resources/sticker.webp'),
-                  replyToMessageId: update.message.messageId)
-            });
+    onCommand('uid', (update) async {
+      await sendMessage(ChatID(update.message.chat.id), '*ID*: `${update.message.from.id}`',
+          parseMode: ParseMode.Markdown());
+    });
 
-    onCommand(
-        'sendStickerID',
-        (update) async => await sendSticker(
-            ChatID(update.message.chat.id), HttpFile.fromToken('CAACAgUAAxkBAANhXlwpFbzobNWpVLXFqk7lRmFfRzsAApwEAAL4xsUKytdXbzXByeYYBA'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendAudio',
-        (update) async => await sendAudio(ChatID(update.message.chat.id), HttpFile.fromPath('resources/audio.ogg'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendAudioID',
-        (update) async => await sendAudio(
-            ChatID(update.message.chat.id), HttpFile.fromToken('CQACAgQAAxkBAAN7Xl14yuEVWXyX_r3AqLcYZcPSjiwAAgYHAALdTPFS8kg5mtTG0ZEYBA'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendDocument',
-        (update) async => await sendDocument(ChatID(update.message.chat.id), HttpFile.fromPath('resources/test.jpg'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendDocumentID',
-        (update) async => await sendDocument(ChatID(update.message.chat.id),
-            HttpFile.fromToken('BQACAgQAAxkBAAOFXl19i1mq3SO-VpfjCQX1HfSLMjAAAgsHAALdTPFS41USB9o9Y3gYBA'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendVideo',
-        (update) async => await sendVideo(ChatID(update.message.chat.id), HttpFile.fromPath('resources/video.mp4'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendVideoID',
-        (update) async => await sendVideo(
-            ChatID(update.message.chat.id), HttpFile.fromToken('BAACAgQAAxkBAAOUXl2AgwO3z0asO3xyYJF0MjLe-dgAAnoHAALU_eFSEvgAAblxPJewGAQ'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendAnimation',
-        (update) async => await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromPath('resources/idk.idk'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendAnimationID',
-        (update) async =>
-            await sendAnimation(ChatID(update.message.chat.id), HttpFile.fromToken(''), replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendVoice',
-        (update) async => await sendVoice(ChatID(update.message.chat.id), HttpFile.fromPath('resources/audio.ogg'),
-            replyToMessageId: update.message.messageId));
-
-    onCommand(
-        'sendVoiceID',
-        (update) async => await sendVoice(
-            ChatID(update.message.chat.id), HttpFile.fromToken('AwACAgQAAxkBAAOZXl2Clb1_SXygYtyZgLKxv2mCGJgAAhUHAALdTPFSQlA8ZluVk6MYBA'),
-            replyToMessageId: update.message.messageId));
+    onCommand('quid', (update) async {
+      if (update.message.replyToMessage == null) return;
+      await sendMessage(ChatID(update.message.chat.id), '*ID*: `${update.message.replyToMessage.from.id}`',
+          parseMode: ParseMode.Markdown());
+    });
 
     onCommand(
         'poll',
@@ -112,6 +55,12 @@ class ExampleBot extends Bot {
 
   // THIS IS JUST A TEST FUNCTION
   void _update(Update update) {
+
+    if (update.callbackQuery != null) {
+      var callbackData = update.callbackQuery.data;
+      sendMessage(ChatID(update.callbackQuery.message.chat.id), 'Tapped: ${callbackData}');
+    }
+
     // Those will be converted into tests
     if (update.message == null) return;
     if (update.editedMessage != null) return; // Ignore edited messages
@@ -153,7 +102,8 @@ class ExampleBot extends Bot {
 
     if (update.message.animation != null) {
       var fileId = update.message.animation.fileId;
-      sendAnimation(chatId, HttpFile.fromPath(fileId), caption: 'Animation ID: ${fileId}').catchError(defaultErrorHandler);
+      sendAnimation(chatId, HttpFile.fromPath(fileId), caption: 'Animation ID: ${fileId}')
+          .catchError(defaultErrorHandler);
     }
 
     if (update.message.location != null) {
@@ -177,6 +127,7 @@ class ExampleBot extends Bot {
       var note = update.message.videoNote;
       sendVideoNote(chatId, HttpFile.fromPath(note.fileId)).catchError(defaultErrorHandler);
     }
+
   }
 }
 

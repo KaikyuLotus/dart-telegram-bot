@@ -1,3 +1,5 @@
+import 'package:dart_telegram_bot/tgapi/enums/poll_type.dart';
+
 import 'poll_option.dart';
 
 class Poll {
@@ -7,7 +9,7 @@ class Poll {
   int totalVoterCount;
   bool isClosed;
   bool isAnonymous;
-  String type;
+  PollType type;
   bool allowsMultipleAnswers;
   int correctOptionId;
 
@@ -31,7 +33,7 @@ class Poll {
         totalVoterCount: json['total_voter_count'],
         isClosed: json['is_closed'],
         isAnonymous: json['is_anonymous'],
-        type: json['type'],
+        type: PollType.fromString(json['type']),
         allowsMultipleAnswers: json['allows_multiple_answers'],
         correctOptionId: json['correct_option_id']);
   }

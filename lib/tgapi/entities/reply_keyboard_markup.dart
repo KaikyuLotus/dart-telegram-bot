@@ -1,19 +1,36 @@
-import 'keyboard_button.dart';
+import 'dart:convert';
 
-class InlineKeyboardMarkup {
+import 'keyboard_button.dart';
+import 'reply_markup.dart';
+
+class ReplyKeyboardMarkup extends ReplyMarkup {
   List<List<KeyboardButton>> keyboard;
   bool resizeKeyboard;
-  bool oneTimeKeyboardbool;
+  bool oneTimeKeyboard;
   bool selective;
 
-  InlineKeyboardMarkup({this.keyboard, this.resizeKeyboard, this.oneTimeKeyboardbool, this.selective});
+  ReplyKeyboardMarkup(this.keyboard, {this.resizeKeyboard, this.oneTimeKeyboard, this.selective});
 
-  factory InlineKeyboardMarkup.fromJson(Map<String, dynamic> json) {
+  factory ReplyKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return InlineKeyboardMarkup(
-        keyboard: KeyboardButton.listOfListsFromJsonArray(json['keyboard']),
+    return ReplyKeyboardMarkup(KeyboardButton.listOfListsFromJsonArray(json['keyboard']),
         resizeKeyboard: json['resize_keyboard'],
-        oneTimeKeyboardbool: json['one_time_keyboardbool'],
+        oneTimeKeyboard: json['one_time_keyboard'],
         selective: json['selective']);
+  }
+
+  Map toJson() {
+    var map = {};
+    map['keyboard'] = keyboard;
+    map['resize_keyboard'] = resizeKeyboard;
+    map['one_time_keyboard'] = oneTimeKeyboard;
+    map['selective'] = selective;
+    map.removeWhere((k, v) => v == null);
+    return map;
+  }
+
+  @override
+  String toString() {
+    return json.encode(this);
   }
 }

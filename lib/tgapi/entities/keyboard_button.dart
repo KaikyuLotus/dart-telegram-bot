@@ -6,11 +6,17 @@ class KeyboardButton {
   bool requestLocation;
   KeyboardButtonPollType requestPoll;
 
-  KeyboardButton({this.text, this.requestContact, this.requestLocation, this.requestPoll});
+  KeyboardButton._({this.text, this.requestContact, this.requestLocation, this.requestPoll});
+
+  KeyboardButton.RequestContact(this.text, this.requestContact);
+
+  KeyboardButton.RequestLocation(this.text, this.requestLocation);
+
+  KeyboardButton.RequestPoll(this.text, this.requestPoll);
 
   factory KeyboardButton.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return KeyboardButton(
+    return KeyboardButton._(
         text: json['text'],
         requestContact: json['request_contact'],
         requestLocation: json['request_location'],
@@ -25,5 +31,15 @@ class KeyboardButton {
   static List<List<KeyboardButton>> listOfListsFromJsonArray(List<List<dynamic>> json) {
     if (json == null) return null;
     return List.generate(json.length, (e) => List.generate(json[e].length, (i) => KeyboardButton.fromJson(json[e][i])));
+  }
+
+  Map toJson() {
+    var data = {};
+    data['text'] = text;
+    data['request_contact'] = requestContact;
+    data['request_location'] = requestLocation;
+    data['request_poll'] = requestPoll;
+    data.removeWhere((k, v) => v == null);
+    return data;
   }
 }

@@ -1,3 +1,5 @@
+import 'package:dart_telegram_bot/tgapi/entities/reply_markup.dart';
+
 import 'entities/chat.dart';
 import 'entities/chat_member.dart';
 import 'entities/chat_permissions.dart';
@@ -36,7 +38,7 @@ class TGAPIMethods {
 
   // TODO reply markup
   Future<Message> sendMessage(ChatID chatId, String text,
-      {ParseMode parseMode, bool disableWebPagePreview, bool disableNotification, int replyToMessageId, replyMarkup}) {
+      {ParseMode parseMode, bool disableWebPagePreview, bool disableNotification, int replyToMessageId, ReplyMarkup replyMarkup}) {
     return _client.apiCall(_token, 'sendMessage', {
       'chat_id': chatId,
       'text': text,
@@ -376,7 +378,7 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'setChatDescription', {'chat_id': chatId, 'description': description});
   }
 
-  Future<bool> pinChatMessage(ChatID chatId, String messageId, {bool disableNotification}) {
+  Future<bool> pinChatMessage(ChatID chatId, int messageId, {bool disableNotification}) {
     return _client.apiCall(_token, 'pinChatMessage',
         {'chat_id': chatId, 'message_id': messageId, 'disable_notification': disableNotification});
   }
@@ -401,7 +403,7 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'getChatMembersCount', {'chat_id': chatId});
   }
 
-  Future<ChatMember> getChatMember(ChatID chatId, String userId) {
+  Future<ChatMember> getChatMember(ChatID chatId, int userId) {
     return _client.apiCall(_token, 'getChatMember', {'chat_id': chatId, 'user_id': userId});
   }
 
