@@ -15,6 +15,10 @@ class ChatAction {
 
   ChatAction._(this._action);
 
+  factory ChatAction.fromString(String action) {
+    return ChatAction._(action);
+  }
+
   @override
   String toString() {
     return _action;

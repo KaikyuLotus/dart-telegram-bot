@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 
-import 'package:dart_telegram_bot/tgapi/exceptions/unsupported_type_exception.dart';
 import 'package:http/http.dart';
 
 import 'entities/chat.dart';
@@ -15,9 +15,10 @@ import 'entities/update.dart';
 import 'entities/user.dart';
 import 'entities/user_profile_photos.dart';
 import 'exceptions/api_exception.dart';
+import 'exceptions/unsupported_type_exception.dart';
 
 class TGAPIClient {
-  static final String BASE_URL = 'api.telegram.org';
+  static final BASE_URL = 'api.telegram.org';
 
   static final _typeFactories = {
     'User': (j) => User.fromJson(j),
@@ -32,7 +33,9 @@ class TGAPIClient {
     'Chat': (j) => Chat.fromJson(j)
   };
 
-  Client client = Client();
+  var _client = Client();
+
+
 
   MultipartRequest _buildMultipartRequest(Uri uri, Map<String, HttpFile> files) {
     var multipartRequest = MultipartRequest('POST', uri);
@@ -52,21 +55,31 @@ class TGAPIClient {
   Future<Map<String, dynamic>> _execute(String token, String method,
       [Map<String, dynamic> query, Map<String, HttpFile> files]) async {
     var uri = Uri.https(BASE_URL, '/bot${token}/${method}', query != null ? query.cast() : null);
-    var response = await _getRequest(uri, files).send().timeout(Duration(seconds: 120));
+    var response = await _client.send(_getRequest(uri, files)).timeout(Duration(seconds: 120));
     var stringResponse = await response.stream.bytesToString();
     // print(stringResp); // debug only
     return json.decode(stringResponse);
+  }
+
+  Future<Uint8List> apiDownload(String token, String path) async {
+    var uri = Uri.https(BASE_URL, '/file/bot${token}/${path}');
+    var response = await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
+    if (response.statusCode != 200) {
+      throw APIException('Error while downloading the file with path /${path}', response.statusCode);
+    }
+    return response.stream.toBytes();
   }
 
   Future<T> apiCall<T>(String token, String method, [Map<String, dynamic> query]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
       // Maybe improve this part
-      query.removeWhere((k, v) => v == null); // Filter out null values and convert entries to string
-      query.updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v); // Take the tokens from HttpFiles
-      query.forEach((k, v) => {if (v is HttpFile) files[k] = v}); // Take the HttpFile away from the query
-      query.removeWhere((k, v) => v is HttpFile); // Then remove them
-      query.updateAll((k, v) => v is List ? json.encode(v) : '${v}'); // Convert all lists to json array
+      query
+        ..removeWhere((k, v) => v == null) // Filter out null values and convert entries to string
+        ..updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v) // Take the tokens from HttpFiles
+        ..forEach((k, v) => {if (v is HttpFile) files[k] = v}) // Take the HttpFile away from the query
+        ..removeWhere((k, v) => v is HttpFile) // Then remove them
+        ..updateAll((k, v) => v is List ? json.encode(v) : '${v}'); // Convert all lists to json array
     }
 
     var jsonResp = await _execute(token, method, query, files);
@@ -85,5 +98,14 @@ class TGAPIClient {
 
     // print('Mapping type ${T.toString()} with found mapper');
     return _typeFactories[T.toString()](jsonResp['result']);
+  }
+
+  void close([bool restart = false]) {
+    try {
+      _client.close();
+      if (restart) _client = Client();
+    } catch (e) {
+      print('Cannot close http client: ${e}');
+    }
   }
 }

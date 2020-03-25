@@ -1,13 +1,13 @@
 name: dart_telegram_bot
-description: A sample command-line application.
-# version: 1.0.0
-# homepage: https://www.example.com
+description: A very basic Telegram bot API wrapper
+version: 0.1.0
+homepage: https://github.com/KaikyuDev/dart-telegram-bot
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
 
-#dependencies:
-#  path: ^1.6.0
+dependencies:
+  http: ^0.12.0+4
 
 dev_dependencies:
   pedantic: ^1.8.0

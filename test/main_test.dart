@@ -398,7 +398,16 @@ void main() {
   test('getChatMembersCount works', () async {
     var count = await testBot.getChatMembersCount(ChatID(groupId));
     expect(count, greaterThan(1));
-  }, skip: false);
+  }, skip: true);
 
+  test('Can download a file', () async {
+    var chat = await testBot.getChat(ChatID(chatUserId));
+    var file = await testBot.getFile(chat.photo.bigFileId);
+    var bytes = await testBot.download(file.filePath);
+    File('test.jpg').writeAsBytesSync(bytes);
+    await testBot.sendPhoto(ChatID(chatId), HttpFile.fromBytes('test.photo', bytes));
+    // Nothing should fail
+  });
+  
   // TODO more tests to come
 }

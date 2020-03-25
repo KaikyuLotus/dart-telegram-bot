@@ -16,6 +16,7 @@ class ParseMode {
   }
 
   factory ParseMode.fromString(String parseMode) {
+    if (parseMode == null) return null;
     return ParseMode._(parseMode);
   }
 

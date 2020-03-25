@@ -1,4 +1,7 @@
+import 'dart:typed_data';
+
 import 'package:dart_telegram_bot/tgapi/entities/reply_markup.dart';
+import 'package:http/http.dart';
 
 import 'entities/chat.dart';
 import 'entities/chat_member.dart';
@@ -20,12 +23,16 @@ import 'exceptions/malformed_api_call_exception.dart';
 import 'tgapi_client.dart';
 
 class TGAPIMethods {
-  final TGAPIClient _client = TGAPIClient();
+  final _client = TGAPIClient();
 
   String _token;
 
   TGAPIMethods(String token) {
     _token = token;
+  }
+
+  void closeClient([bool restart = false]) {
+    _client.close(restart);
   }
 
   Future<User> getMe() {
@@ -308,7 +315,6 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'getUserProfilePhotos', {'chat_id': chatId, 'offset': offset, 'limit': limit});
   }
 
-  // TODO this method should be ok but check the docs for further clarification?
   Future<File> getFile(String fileId) {
     return _client.apiCall(_token, 'getFile', {'file_id': fileId});
   }
@@ -480,4 +486,9 @@ class TGAPIMethods {
       'reply_markup': replyMarkup
     });
   }
+
+  Future<Uint8List> download(String path) {
+    return _client.apiDownload(_token, path);
+  }
+
 }

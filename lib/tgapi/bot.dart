@@ -7,7 +7,7 @@ import 'exceptions/invalid_bot_state_exception.dart';
 import 'tgapi_methods.dart';
 
 class Bot extends TGAPIMethods {
-  final List<Function(Update)> _updateCallbacks = [];
+  final List<Future Function(Update)> _updateCallbacks = [];
   final Map<String, Function(Update)> _commandCallbacks = {};
 
   bool _isReady = false;
@@ -35,7 +35,7 @@ class Bot extends TGAPIMethods {
 
   String get username => _username;
 
-  Bot(String token, [int timeout = 120]) : super(token) {
+  Bot(String token, [int timeout = 10]) : super(token) {
     _timeout = timeout;
   }
 
@@ -72,21 +72,21 @@ class Bot extends TGAPIMethods {
     }
     for (var callback in _updateCallbacks) {
       try {
-        callback(update);
+        await callback(update);
       } catch (e, s) {
         print('Unhandled exception in callback: $e\n$s');
       }
     }
   }
 
-  void _handleUpdates(List<Update> updates) {
+  void _handleUpdates(List<Update> updates) async {
     for (var update in updates) {
       _offset = update.updateId + 1;
-      _handleUpdate(update);
+      await _handleUpdate(update);
     }
   }
 
-  void _cleanUpdates() async {
+  Future _cleanUpdates() async {
     var updates = await getUpdates(timeout: 0, offset: -1);
     if (updates.isNotEmpty) {
       _offset = updates[0].updateId + 1;
@@ -94,7 +94,7 @@ class Bot extends TGAPIMethods {
   }
 
   // Public API
-  Future<void> start([bool clean = false]) async {
+  Future<Bot> start([bool clean = false]) async {
     if (!_isInitialized) {
       throw InvalidBotState('You must call Bot.init() first.');
     }
@@ -104,33 +104,45 @@ class Bot extends TGAPIMethods {
           "The bot is not ready, something failed or you're executing code too early.\nUse .ready() callback instead or check .error()");
     }
 
-    try {
-      if (clean) await _cleanUpdates();
-    } catch (e, s) {
-      print('Cannot clean updates: $e\n$s');
-    }
+    if (clean) await _cleanUpdates().catchError((e, s) => print('Cannot clean updates: $e\n$s'));
 
     _isRunning = true;
-    while (_isRunning) {
-      try {
-        await getUpdates(timeout: _timeout, offset: _offset).then(_handleUpdates);
-      } catch (e, s) {
-        print('Something went wrong while getting updates: $e\n$s');
-        await sleep(Duration(seconds: 1));
-      }
-    }
+
+    var sleepTime = 0;
+    await Future.doWhile(() async {
+      await Future.delayed(Duration(milliseconds: sleepTime), () async {
+        sleepTime = 0;
+        try {
+          var updates = await getUpdates(timeout: _timeout, offset: _offset);
+          await _handleUpdates(updates);
+        } on SocketException catch (_) {
+          print('Socket error');
+          sleepTime = 5000; // Sleep more on socket error
+        } catch (e, s) {
+          print('Update crashed: ${e}\n${s}');
+        }
+        if (!_isRunning) {
+          await getUpdates(timeout: 0, offset: _offset);
+        }
+
+      });
+      return isRunning;
+    });
+    return this;
   }
 
-  void stop() {
+  /// If restartHttpClient is true, then the client will be closed and re-open to allow further request,
+  /// cleaning up some data
+  void stop([bool restartHttpClient = false]) {
     if (!_isRunning) {
       throw InvalidBotState('Bot is not running, so it cannot be stopped');
     }
     _isRunning = false;
-    // TODO do something more?
+    closeClient(restartHttpClient);
   }
 
   // Public API events
-  Bot onUpdate(Function(Update) callback) {
+  Bot onUpdate(Future Function(Update) callback) {
     _updateCallbacks.add(callback);
     return this;
   }

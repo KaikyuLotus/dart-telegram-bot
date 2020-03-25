@@ -9,6 +9,7 @@ import 'message.dart';
 import 'poll.dart';
 
 class Update {
+  Stopwatch stopwatch;
   int updateId;
   Message message;
   Message editedMessage;
@@ -24,16 +25,18 @@ class Update {
 
   Update(this.updateId,
       {this.message,
-      this.editedMessage,
-      this.channelPost,
-      this.editedChannelPost,
-      this.inlineQuery,
-      this.chosenInlineResult,
-      this.callbackQuery,
-      this.shippingQuery,
-      this.preCheckoutQuery,
-      this.poll,
-      this.pollAnswer});
+        this.editedMessage,
+        this.channelPost,
+        this.editedChannelPost,
+        this.inlineQuery,
+        this.chosenInlineResult,
+        this.callbackQuery,
+        this.shippingQuery,
+        this.preCheckoutQuery,
+        this.poll,
+        this.pollAnswer}) {
+    stopwatch = Stopwatch()..start();
+  }
 
   factory Update.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

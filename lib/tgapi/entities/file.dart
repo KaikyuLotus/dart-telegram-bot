@@ -1,7 +1,7 @@
 class File {
   String fileId;
   String fileUniqueId;
-  String fileSize;
+  int fileSize;
   String filePath;
 
   File({this.fileId, this.fileUniqueId, this.fileSize, this.filePath});
