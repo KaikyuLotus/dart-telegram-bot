@@ -51,3 +51,8 @@
 - Added functions to download files
 - Fixed File size from String to int
 - Added small test
+
+# 0.1.1
+
+- Fixed tests
+- Implemented some inline stuff

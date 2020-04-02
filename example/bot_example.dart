@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:dart_telegram_bot/tgapi/bot.dart';
+import 'package:dart_telegram_bot/tgapi/entities/inline/inline_query_result_article.dart';
 import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_button.dart';
 import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_markup.dart';
+import 'package:dart_telegram_bot/tgapi/entities/input_text_message_content.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/chat_id.dart';
 import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
 import 'package:dart_telegram_bot/tgapi/entities/update.dart';
@@ -19,7 +21,8 @@ class ExampleBot extends Bot {
         [InlineKeyboardButton.CallbackData('Button 1', 'btn1')],
         [InlineKeyboardButton.CallbackData('Button 2', 'btn2')]
       ];
-      var ok = await sendMessage(ChatID(update.message.chat.id), 'Tap a button...', replyMarkup: InlineKeyboardMarkup(buttons));
+      var ok = await sendMessage(ChatID(update.message.chat.id), 'Tap a button...',
+          replyMarkup: InlineKeyboardMarkup(buttons));
     });
 
     onCommand('chatid', (update) async {
@@ -54,11 +57,19 @@ class ExampleBot extends Bot {
   }
 
   // THIS IS JUST A TEST FUNCTION
-  void _update(Update update) {
-
+  Future _update(Update update) async {
     if (update.callbackQuery != null) {
       var callbackData = update.callbackQuery.data;
-      sendMessage(ChatID(update.callbackQuery.message.chat.id), 'Tapped: ${callbackData}');
+      await sendMessage(ChatID(update.callbackQuery.message.chat.id), 'Tapped: ${callbackData}');
+    }
+
+    if (update.inlineQuery != null) {
+      if (update.inlineQuery.query.isNotEmpty) {
+        var text = DateTime.now().toString();
+        await answerInlineQuery(
+            update.inlineQuery.id, [InlineQueryResultArticle('1', text, InputTextMessageContent('[${text}](https://www.youtube.com/results?search_query=Zekk+-+TOMOYO)', parseMode: 'Markdown'))], cacheTime: 0);
+      }
+      return;
     }
 
     // Those will be converted into tests
@@ -70,64 +81,66 @@ class ExampleBot extends Bot {
 
     if (update.message.video != null) {
       var fileId = update.message.video.fileId;
-      sendVideo(chatId, HttpFile.fromPath(fileId), caption: 'Video ID: ${fileId}').catchError(defaultErrorHandler);
+      await sendVideo(chatId, HttpFile.fromPath(fileId), caption: 'Video ID: ${fileId}')
+          .catchError(defaultErrorHandler);
     }
 
     if (update.message.sticker != null) {
-      sendMessage(chatId, 'Sticker ID: ${update.message.sticker.fileId}').catchError(defaultErrorHandler);
+      await sendMessage(chatId, 'Sticker ID: ${update.message.sticker.fileId}').catchError(defaultErrorHandler);
     }
 
     if (update.message.photo != null) {
       var bigPhotoId = update.message.photo.last.fileId;
       var size = '${update.message.photo.last.width}x${update.message.photo.last.height}';
       var msg = 'Photo ID: $bigPhotoId\nSize: $size';
-      sendPhoto(chatId, HttpFile.fromToken(bigPhotoId), caption: msg).catchError(defaultErrorHandler);
+      await sendPhoto(chatId, HttpFile.fromToken(bigPhotoId), caption: msg).catchError(defaultErrorHandler);
     }
 
     if (update.message.audio != null) {
       var fileId = update.message.audio.fileId;
-      sendAudio(chatId, HttpFile.fromPath(fileId), caption: 'Audio ID: ${fileId}').catchError(defaultErrorHandler);
+      await sendAudio(chatId, HttpFile.fromPath(fileId), caption: 'Audio ID: ${fileId}')
+          .catchError(defaultErrorHandler);
     }
 
     if (update.message.document != null) {
       var fileId = update.message.document.fileId;
-      sendDocument(chatId, HttpFile.fromToken(fileId), caption: 'Document ID: ${fileId}')
+      await sendDocument(chatId, HttpFile.fromToken(fileId), caption: 'Document ID: ${fileId}')
           .catchError(defaultErrorHandler);
     }
 
     if (update.message.voice != null) {
       var fileId = update.message.voice.fileId;
-      sendVoice(chatId, HttpFile.fromPath(fileId), caption: 'Voice ID: ${fileId}').catchError(defaultErrorHandler);
+      await sendVoice(chatId, HttpFile.fromPath(fileId), caption: 'Voice ID: ${fileId}')
+          .catchError(defaultErrorHandler);
     }
 
     if (update.message.animation != null) {
       var fileId = update.message.animation.fileId;
-      sendAnimation(chatId, HttpFile.fromPath(fileId), caption: 'Animation ID: ${fileId}')
+      await sendAnimation(chatId, HttpFile.fromPath(fileId), caption: 'Animation ID: ${fileId}')
           .catchError(defaultErrorHandler);
     }
 
     if (update.message.location != null) {
       var location = update.message.location;
       var resp = 'Longitude: ${location.longitude}\nLatitude:${location.latitude}';
-      sendMessage(chatId, resp).catchError(defaultErrorHandler);
+      await sendMessage(chatId, resp).catchError(defaultErrorHandler);
     }
 
     if (update.message.contact != null) {
       var contact = update.message.contact;
-      sendContact(chatId, contact.phoneNumber, contact.firstName).catchError(defaultErrorHandler);
+      await sendContact(chatId, contact.phoneNumber, contact.firstName).catchError(defaultErrorHandler);
     }
 
     if (update.message.forwardFrom != null) {
       var user = update.message.forwardFrom;
       var resp = 'Forwarded from ${user.firstName} (${user.id} / @${user.username})';
-      sendMessage(chatId, resp).catchError(defaultErrorHandler);
+      await sendMessage(chatId, resp).catchError(defaultErrorHandler);
     }
 
     if (update.message.videoNote != null) {
       var note = update.message.videoNote;
-      sendVideoNote(chatId, HttpFile.fromPath(note.fileId)).catchError(defaultErrorHandler);
+      await sendVideoNote(chatId, HttpFile.fromPath(note.fileId)).catchError(defaultErrorHandler);
     }
-
   }
 }
 

@@ -1,6 +1,6 @@
 name: dart_telegram_bot
 description: A very basic Telegram bot API wrapper
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/KaikyuDev/dart-telegram-bot
 
 environment:

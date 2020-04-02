@@ -1,12 +1,12 @@
 import 'dart:typed_data';
 
 import 'package:dart_telegram_bot/tgapi/entities/reply_markup.dart';
-import 'package:http/http.dart';
 
 import 'entities/chat.dart';
 import 'entities/chat_member.dart';
 import 'entities/chat_permissions.dart';
 import 'entities/file.dart';
+import 'entities/inline/inline_query_result.dart';
 import 'entities/input_media.dart';
 import 'entities/internal/chat_id.dart';
 import 'entities/internal/http_file.dart';
@@ -45,7 +45,11 @@ class TGAPIMethods {
 
   // TODO reply markup
   Future<Message> sendMessage(ChatID chatId, String text,
-      {ParseMode parseMode, bool disableWebPagePreview, bool disableNotification, int replyToMessageId, ReplyMarkup replyMarkup}) {
+      {ParseMode parseMode,
+      bool disableWebPagePreview,
+      bool disableNotification,
+      int replyToMessageId,
+      ReplyMarkup replyMarkup}) {
     return _client.apiCall(_token, 'sendMessage', {
       'chat_id': chatId,
       'text': text,
@@ -476,6 +480,19 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'deleteStickerFromSet', {'sticker': sticker});
   }
 
+  Future<bool> answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results,
+      {int cacheTime, bool isPersonal, String nextOffset, String switchPmText, String switchPmParameter}) {
+    return _client.apiCall(_token, 'answerInlineQuery', {
+      'inline_query_id': inlineQueryId,
+      'results': results,
+      'cache_time': cacheTime,
+      'is_personal': isPersonal,
+      'next_offset': nextOffset,
+      'switch_pm_text': switchPmText,
+      'switch_pm_parameter': switchPmParameter,
+    });
+  }
+
   Future<Message> sendSticker(ChatID chatId, HttpFile sticker,
       {bool disableNotification, int replyToMessageId, replyMarkup}) {
     return _client.apiCall(_token, 'sendSticker', {
@@ -490,5 +507,4 @@ class TGAPIMethods {
   Future<Uint8List> download(String path) {
     return _client.apiDownload(_token, path);
   }
-
 }

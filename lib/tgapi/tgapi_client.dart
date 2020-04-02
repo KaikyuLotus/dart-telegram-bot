@@ -35,8 +35,6 @@ class TGAPIClient {
 
   var _client = Client();
 
-
-
   MultipartRequest _buildMultipartRequest(Uri uri, Map<String, HttpFile> files) {
     var multipartRequest = MultipartRequest('POST', uri);
     var multipartFiles = files.entries.map(
