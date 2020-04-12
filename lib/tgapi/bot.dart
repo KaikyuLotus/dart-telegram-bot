@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dart_telegram_bot/tgapi/exceptions/api_exception.dart';
+
 import 'entities/update.dart';
 import 'entities/user.dart';
 import 'exceptions/invalid_bot_state_exception.dart';
@@ -120,11 +122,13 @@ class Bot extends TGAPIMethods {
           sleepTime = 5000; // Sleep more on socket error
         } catch (e, s) {
           print('Update crashed: ${e}\n${s}');
+          if (e is APIException) {
+            _offset = e.errorCode + 1; // Here error code is the last update ID
+          }
         }
         if (!_isRunning) {
           await getUpdates(timeout: 0, offset: _offset);
         }
-
       });
       return isRunning;
     });

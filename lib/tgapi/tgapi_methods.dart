@@ -504,6 +504,29 @@ class TGAPIMethods {
     });
   }
 
+  Future<Message> editMessageText(String text,
+      {ChatID chatId,
+      int messageId,
+      String inlineMessageId,
+      ParseMode parseMode,
+      bool disableWebPagePreview,
+      replyMarkup}) {
+    // TODO check if there's a better way
+    if (inlineMessageId == null && (chatId == null || messageId == null)) {
+      throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');
+    }
+
+    return _client.apiCall(_token, 'editMessageText', {
+      'chat_id': chatId,
+      'message_id': messageId,
+      'inline_message_id': inlineMessageId,
+      'text': text,
+      'parse_mode': parseMode,
+      'disable_web_page_preview': disableWebPagePreview,
+      'reply_markup': replyMarkup
+    });
+  }
+
   Future<Uint8List> download(String path) {
     return _client.apiDownload(_token, path);
   }

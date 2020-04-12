@@ -56,3 +56,11 @@
 
 - Fixed tests
 - Implemented some inline stuff
+
+# 0.1.2
+
+- added editMessageText
+
+# 0.1.3
+
+- Critical bug fixes on update

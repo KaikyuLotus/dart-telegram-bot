@@ -12,7 +12,7 @@ class Venue {
   factory Venue.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return Venue(
-        location: json['location'],
+        location: Location.fromJson(json['location']),
         title: json['title'],
         address: json['address'],
         foursquareId: json['foursquare_id'],

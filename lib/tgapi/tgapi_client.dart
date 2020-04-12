@@ -94,8 +94,12 @@ class TGAPIClient {
       throw UnsupportedTypeException('Type ${T} is not supported yet');
     }
 
-    // print('Mapping type ${T.toString()} with found mapper');
-    return _typeFactories[T.toString()](jsonResp['result']);
+    try {
+      var finalResult = _typeFactories[T.toString()](result);
+      return finalResult;
+    } catch (error) {
+      throw APIException('Unsupported API entity', (result as List).last['update_id']);
+    }
   }
 
   void close([bool restart = false]) {
