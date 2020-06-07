@@ -1,14 +1,6 @@
 import 'dart:io';
 
-import 'package:dart_telegram_bot/tgapi/bot.dart';
-import 'package:dart_telegram_bot/tgapi/entities/inline/inline_query_result_article.dart';
-import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_button.dart';
-import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_markup.dart';
-import 'package:dart_telegram_bot/tgapi/entities/input_text_message_content.dart';
-import 'package:dart_telegram_bot/tgapi/entities/internal/chat_id.dart';
-import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
-import 'package:dart_telegram_bot/tgapi/entities/update.dart';
-import 'package:dart_telegram_bot/tgapi/enums/parse_mode.dart';
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 
 class ExampleBot extends Bot {
   Function defaultErrorHandler = (e, s) => print('something failed: $e\n$s');
@@ -21,8 +13,7 @@ class ExampleBot extends Bot {
         [InlineKeyboardButton.CallbackData('Button 1', 'btn1')],
         [InlineKeyboardButton.CallbackData('Button 2', 'btn2')]
       ];
-      var ok = await sendMessage(ChatID(update.message.chat.id), 'Tap a button...',
-          replyMarkup: InlineKeyboardMarkup(buttons));
+      await sendMessage(ChatID(update.message.chat.id), 'Tap a button...', replyMarkup: InlineKeyboardMarkup(buttons));
     });
 
     onCommand('chatid', (update) async {
@@ -67,7 +58,15 @@ class ExampleBot extends Bot {
       if (update.inlineQuery.query.isNotEmpty) {
         var text = DateTime.now().toString();
         await answerInlineQuery(
-            update.inlineQuery.id, [InlineQueryResultArticle('1', text, InputTextMessageContent('[${text}](https://www.youtube.com/results?search_query=Zekk+-+TOMOYO)', parseMode: 'Markdown'))], cacheTime: 0);
+            update.inlineQuery.id,
+            [
+              InlineQueryResultArticle(
+                  '1',
+                  text,
+                  InputTextMessageContent('[${text}](https://www.youtube.com/results?search_query=Zekk+-+TOMOYO)',
+                      parseMode: 'Markdown'))
+            ],
+            cacheTime: 0);
       }
       return;
     }

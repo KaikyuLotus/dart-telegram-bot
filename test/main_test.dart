@@ -1,39 +1,26 @@
-import 'dart:io';
+import 'dart:io' as io;
 
-import 'package:dart_telegram_bot/tgapi/bot.dart';
-import 'package:dart_telegram_bot/tgapi/entities/force_reply.dart';
-import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_button.dart';
-import 'package:dart_telegram_bot/tgapi/entities/inline_keyboard_markup.dart';
-import 'package:dart_telegram_bot/tgapi/entities/internal/chat_id.dart';
-import 'package:dart_telegram_bot/tgapi/entities/internal/http_file.dart';
-import 'package:dart_telegram_bot/tgapi/entities/keyboard_button.dart';
-import 'package:dart_telegram_bot/tgapi/entities/keyboard_button_poll_type.dart';
-import 'package:dart_telegram_bot/tgapi/entities/reply_keyboard_markup.dart';
-import 'package:dart_telegram_bot/tgapi/entities/reply_keyboard_remove.dart';
-import 'package:dart_telegram_bot/tgapi/enums/chat_action.dart';
-import 'package:dart_telegram_bot/tgapi/enums/parse_mode.dart';
-import 'package:dart_telegram_bot/tgapi/enums/poll_type.dart';
-import 'package:dart_telegram_bot/tgapi/exceptions/api_exception.dart';
-import 'package:dart_telegram_bot/tgapi/exceptions/invalid_bot_state_exception.dart';
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
+import 'package:dart_telegram_bot/src/entities/internal/exceptions/lib_exceptions.dart';
 import 'package:test/test.dart';
 
 void main() {
   Bot testBot;
 
-  var chatUserId = int.parse(Platform.environment['USER_ID']);
-  var groupId = int.parse(Platform.environment['GROUP_ID']);
-  var groupMsgId = int.parse(Platform.environment['GROUP_MSG_ID']);
-  var chatId = int.parse(Platform.environment['CHAT_ID']);
-  var replyId = int.parse(Platform.environment['REPLY_TO_MESSAGE_ID']);
-  var photoToken = Platform.environment['PHOTO_TOKEN'];
-  var audioToken = Platform.environment['AUDIO_TOKEN'];
-  var videoToken = Platform.environment['VIDEO_TOKEN'];
-  var animationToken = Platform.environment['ANIMATION_TOKEN'];
-  var documentToken = Platform.environment['DOCUMENT_TOKEN'];
-  var voiceToken = Platform.environment['VOICE_TOKEN'];
+  var chatUserId = int.parse(io.Platform.environment['USER_ID']);
+  var groupId = int.parse(io.Platform.environment['GROUP_ID']);
+  var groupMsgId = int.parse(io.Platform.environment['GROUP_MSG_ID']);
+  var chatId = int.parse(io.Platform.environment['CHAT_ID']);
+  var replyId = int.parse(io.Platform.environment['REPLY_TO_MESSAGE_ID']);
+  var photoToken = io.Platform.environment['PHOTO_TOKEN'];
+  var audioToken = io.Platform.environment['AUDIO_TOKEN'];
+  var videoToken = io.Platform.environment['VIDEO_TOKEN'];
+  var animationToken = io.Platform.environment['ANIMATION_TOKEN'];
+  var documentToken = io.Platform.environment['DOCUMENT_TOKEN'];
+  var voiceToken = io.Platform.environment['VOICE_TOKEN'];
 
   Future<Bot> getValidBot() async {
-    var token = Platform.environment['BOT_TOKEN'];
+    var token = io.Platform.environment['BOT_TOKEN'];
     var bot = Bot(token);
     await bot.init();
     return bot;
@@ -284,8 +271,8 @@ void main() {
     var buttons = [
       [KeyboardButton.RequestLocation('Location', true)]
     ];
-    var message1 = await testBot.sendMessage(ChatID(chatId), 'Keyboard', replyMarkup: ReplyKeyboardMarkup(buttons));
-    var message2 = await testBot.sendMessage(ChatID(chatId), 'Remove keyboard', replyMarkup: ReplyKeyboardRemove(true));
+    await testBot.sendMessage(ChatID(chatId), 'Keyboard', replyMarkup: ReplyKeyboardMarkup(buttons));
+    await testBot.sendMessage(ChatID(chatId), 'Remove keyboard', replyMarkup: ReplyKeyboardRemove(true));
     // TODO maybe some checks here?
   }, skip: true);
 
@@ -293,9 +280,13 @@ void main() {
     var buttons = [
       [KeyboardButton.RequestLocation('Location', true)]
     ];
-    var message1 = await testBot.sendMessage(ChatID(chatId), 'Keyboard', replyMarkup: ReplyKeyboardMarkup(buttons));
-    var message2 = await testBot.sendMessage(ChatID(chatId), 'Remove',
-        replyToMessageId: replyId, replyMarkup: ForceReply(true, selective: true));
+    await testBot.sendMessage(ChatID(chatId), 'Keyboard', replyMarkup: ReplyKeyboardMarkup(buttons));
+    await testBot.sendMessage(
+      ChatID(chatId),
+      'Remove',
+      replyToMessageId: replyId,
+      replyMarkup: ForceReply(true, selective: true),
+    );
     // TODO maybe some checks here?
   }, skip: true);
 
@@ -404,10 +395,10 @@ void main() {
     var chat = await testBot.getChat(ChatID(chatUserId));
     var file = await testBot.getFile(chat.photo.bigFileId);
     var bytes = await testBot.download(file.filePath);
-    File('test.jpg').writeAsBytesSync(bytes);
+    io.File('test.jpg').writeAsBytesSync(bytes);
     await testBot.sendPhoto(ChatID(chatId), HttpFile.fromBytes('test.photo', bytes));
     // Nothing should fail
   });
-  
+
   // TODO more tests to come
 }

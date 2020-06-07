@@ -64,3 +64,73 @@
 # 0.1.3
 
 - Critical bug fixes on update
+
+# 0.1.4
+
+- Fixed onUpdate getting executed when a command was executed first
+- Improved command callback error checking
+
+# 0.1.4+1
+
+- Fixed an issues with command and updates
+
+# 0.1.4+2
+
+- Fixed an issues with command and updates
+
+# 0.1.4+3
+
+- Fixed issue in api client for chat member list mapping
+
+# 0.1.4+4
+
+- Added some more logs on APIException
+
+# 0.1.4+5
+
+- Added some more logs on APIException
+
+# 0.1.4+6
+
+- Fixed wrong type in APIException
+
+# 0.1.5
+
+- Added bot command utilities
+- Improved bot command handling
+
+# 0.1.5+1
+
+- Fixed minor issue
+
+# 0.1.6
+
+- Added setMyCommands
+- Added getMyCommands
+
+# 0.1.7
+
+- Minor fixes to InputMedia classes
+
+# 0.1.7-b1
+
+This is a beta release
+- Bot events and commands now are now executed in real async
+- Minor fixes to input media
+
+# 0.1.8-b1
+
+Fixed version string
+This is a beta release
+- Bot events and commands now are now executed in real async
+- Minor fixes to input media
+
+# 0.1.8-b2
+
+- Minor code quality fixes 
+
+# 0.2.0
+
+- Improved package structure
+- Added part and part of in Telegram entities
+- General refactoring
