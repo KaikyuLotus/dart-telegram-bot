@@ -1,4 +1,4 @@
-import 'file:///C:/Users/Kaikyu/IdeaProjects/dart-telegram-bot/lib/telegram_entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class VideoNote {
   String fileId;

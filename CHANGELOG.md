@@ -142,3 +142,7 @@ This is a beta release
 - General refactoring
 - Minor changes to enums
 - Added logging
+
+# 0.3.1
+
+- Fix wrong import
