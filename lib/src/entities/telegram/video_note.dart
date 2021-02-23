@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'file:///C:/Users/Kaikyu/IdeaProjects/dart-telegram-bot/lib/telegram_entities.dart';
 
 class VideoNote {
   String fileId;
@@ -8,16 +8,24 @@ class VideoNote {
   PhotoSize thumb;
   int fileSize;
 
-  VideoNote({this.fileId, this.fileUniqueId, this.length, this.duration, this.thumb, this.fileSize});
+  VideoNote({
+    this.fileId,
+    this.fileUniqueId,
+    this.length,
+    this.duration,
+    this.thumb,
+    this.fileSize,
+  });
 
   factory VideoNote.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return VideoNote(
-        fileId: json['file_id'],
-        fileUniqueId: json['file_unique_id'],
-        length: json['length'],
-        duration: json['duration'],
-        thumb: PhotoSize.fromJson(json['thumb']),
-        fileSize: json['file_size']);
+      fileId: json['file_id'],
+      fileUniqueId: json['file_unique_id'],
+      length: json['length'],
+      duration: json['duration'],
+      thumb: PhotoSize.fromJson(json['thumb']),
+      fileSize: json['file_size'],
+    );
   }
 }

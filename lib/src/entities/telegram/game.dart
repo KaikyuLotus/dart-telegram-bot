@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Game {
   String title;
@@ -8,7 +8,14 @@ class Game {
   List<MessageEntity> textEntities;
   Animation animation;
 
-  Game({this.title, this.description, this.photo, this.text, this.textEntities, this.animation});
+  Game({
+    this.title,
+    this.description,
+    this.photo,
+    this.text,
+    this.textEntities,
+    this.animation,
+  });
 
   factory Game.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

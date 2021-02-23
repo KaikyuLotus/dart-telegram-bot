@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InputMediaVideo extends InputMedia {
   String type;
@@ -11,29 +11,31 @@ class InputMediaVideo extends InputMedia {
   int duration;
   bool supportsStreaming;
 
-  InputMediaVideo(
-      {this.type,
-      this.media,
-      this.thumb,
-      this.caption,
-      this.parseMode,
-      this.width,
-      this.height,
-      this.duration,
-      this.supportsStreaming});
+  InputMediaVideo({
+    this.type,
+    this.media,
+    this.thumb,
+    this.caption,
+    this.parseMode,
+    this.width,
+    this.height,
+    this.duration,
+    this.supportsStreaming,
+  });
 
   factory InputMediaVideo.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return InputMediaVideo(
-        type: json['type'],
-        media: json['media'],
-        thumb: json['thumb'],
-        caption: json['caption'],
-        parseMode: json['parse_mode'],
-        width: json['width'],
-        height: json['height'],
-        duration: json['duration'],
-        supportsStreaming: json['supports_streaming']);
+      type: json['type'],
+      media: json['media'],
+      thumb: json['thumb'],
+      caption: json['caption'],
+      parseMode: json['parse_mode'],
+      width: json['width'],
+      height: json['height'],
+      duration: json['duration'],
+      supportsStreaming: json['supports_streaming'],
+    );
   }
 
 // TODO implement toJson

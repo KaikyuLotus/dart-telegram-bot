@@ -1,4 +1,6 @@
-part of '../../entities.dart';
+import 'dart:convert';
+
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ReplyKeyboardMarkup extends ReplyMarkup {
   List<List<KeyboardButton>> keyboard;
@@ -10,10 +12,12 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
 
   factory ReplyKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return ReplyKeyboardMarkup(KeyboardButton.listOfListsFromJsonArray(json['keyboard']),
-        resizeKeyboard: json['resize_keyboard'],
-        oneTimeKeyboard: json['one_time_keyboard'],
-        selective: json['selective']);
+    return ReplyKeyboardMarkup(
+      KeyboardButton.listOfListsFromJsonArray(json['keyboard']),
+      resizeKeyboard: json['resize_keyboard'],
+      oneTimeKeyboard: json['one_time_keyboard'],
+      selective: json['selective'],
+    );
   }
 
   Map toJson() {

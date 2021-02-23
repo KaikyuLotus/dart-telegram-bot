@@ -3,25 +3,28 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:http/http.dart';
-
-import '../../../dart_telegram_bot.dart';
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:logging/logging.dart';
 
 class TGAPIClient {
+  static final log = Logger('TGAPIClient');
+
   static final BASE_URL = 'api.telegram.org';
 
   static final _typeFactories = {
-    'User': (j) => User.fromJson(j),
-    'List<Update>': (j) => Update.listFromJsonArray(j),
-    'Message': (j) => Message.fromJson(j),
-    'List<Message>': (j) => Message.listFromJsonArray(j),
-    'UserProfilePhotos': (j) => UserProfilePhotos.fromJson(j),
-    'File': (j) => File.fromJson(j),
-    'List<ChatMember>': (j) => ChatMember.listFromJsonArray(j),
-    'List<BotCommand>': (j) => BotCommand.listFromJsonArray(j),
-    'ChatMember': (j) => ChatMember.fromJson(j),
-    'Poll': (j) => Poll.fromJson(j),
-    'StickerSet': (j) => StickerSet.fromJson(j),
-    'Chat': (j) => Chat.fromJson(j),
+    'User': (d) => User.fromJson(d),
+    'List<Update>': (d) => Update.listFromJsonArray(d),
+    'Message': (d) => Message.fromJson(d),
+    'List<Message>': (d) => Message.listFromJsonArray(d),
+    'UserProfilePhotos': (d) => UserProfilePhotos.fromJson(d),
+    'File': (d) => File.fromJson(d),
+    'List<ChatMember>': (d) => ChatMember.listFromJsonArray(d),
+    'List<BotCommand>': (d) => BotCommand.listFromJsonArray(d),
+    'ChatMember': (d) => ChatMember.fromJson(d),
+    'Poll': (d) => Poll.fromJson(d),
+    'StickerSet': (d) => StickerSet.fromJson(d),
+    'Chat': (d) => Chat.fromJson(d),
   };
 
   var _client = Client();
@@ -47,12 +50,15 @@ class TGAPIClient {
     return Request('GET', uri);
   }
 
-  Future<Map<String, dynamic>> _execute(String token, String method,
-      [Map<String, dynamic> query, Map<String, HttpFile> files]) async {
+  Future<Map<String, dynamic>> _execute(
+    String token,
+    String method, [
+    Map<String, dynamic> query,
+    Map<String, HttpFile> files,
+  ]) async {
     var uri = Uri.https(BASE_URL, '/bot${token}/${method}', query != null ? query.cast() : null);
     var response = await _client.send(_getRequest(uri, files)).timeout(Duration(seconds: 120));
     var stringResponse = await response.stream.bytesToString();
-    // print(stringResp); // debug only
     return json.decode(stringResponse);
   }
 
@@ -68,19 +74,26 @@ class TGAPIClient {
   Future<T> apiCall<T>(String token, String method, [Map<String, dynamic> query]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
-      // Maybe improve this part
       query
-        ..removeWhere((k, v) => v == null) // Filter out null values and convert entries to string
-        ..updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v) // Take the tokens from HttpFiles
-        ..forEach((k, v) => {if (v is HttpFile) files[k] = v}) // Take the HttpFile away from the query
-        ..removeWhere((k, v) => v is HttpFile) // Then remove them
-        ..updateAll((k, v) => v is List ? json.encode(v) : '${v}'); // Convert all lists to json array
+        ..removeWhere((k, v) => v == null)
+        ..updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v)
+        ..forEach((k, v) {
+          if (v is HttpFile) files[k] = v;
+        })
+        ..removeWhere((k, v) => v is HttpFile)
+        ..updateAll((k, v) {
+          if (v is List) {
+            return json.encode(v);
+          }
+          if (v is ParseMode || v is PollType || v is ChatAction) {
+            return EnumHelper.encode(v);
+          }
+          return '${v}';
+        });
     }
 
     var jsonResp = await _execute(token, method, query, files);
     if (!jsonResp['ok']) {
-      print('Method was: $method');
-      print('Query: $query');
       throw APIException(jsonResp['description'], jsonResp['error_code'], query, method);
     }
 
@@ -94,20 +107,21 @@ class TGAPIClient {
     }
 
     try {
-      var finalResult = _typeFactories[T.toString()](result);
-      return finalResult;
-    } catch (error, s) {
-      print('$error\n$s');
-      throw APIException('Unsupported API entity', (result as List).last['update_id'], query, method);
+      return _typeFactories[T.toString()](result);
+    } catch (e, s) {
+      log.severe('Could not convert Telegram API response to target entity', e, s);
+      throw APIException('Could not convert Telegram API response to target entity: $e', (result as List).last['update_id'], query, method);
     }
   }
 
   void close([bool restart = false]) {
     try {
       _client.close();
-      if (restart) _client = Client();
-    } catch (e) {
-      print('Cannot close http client: ${e}');
+      if (restart) {
+        _client = Client();
+      }
+    } catch (e, s) {
+      log.severe('Cannot close http client', e, s);
     }
   }
 }

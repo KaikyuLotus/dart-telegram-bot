@@ -1,4 +1,6 @@
-part of '../../entities.dart';
+import 'dart:convert';
+
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InlineKeyboardMarkup extends ReplyMarkup {
   List<List<InlineKeyboardButton>> inlineKeyboard;
@@ -7,7 +9,9 @@ class InlineKeyboardMarkup extends ReplyMarkup {
 
   factory InlineKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return InlineKeyboardMarkup(InlineKeyboardButton.listOfListsFromJsonArray(json['inline_keyboard']));
+    return InlineKeyboardMarkup(
+      InlineKeyboardButton.listOfListsFromJsonArray(json['inline_keyboard']),
+    );
   }
 
   Map toJson() {

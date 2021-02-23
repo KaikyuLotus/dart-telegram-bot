@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class SuccessfulPayment {
   String currency;
@@ -9,14 +9,15 @@ class SuccessfulPayment {
   String telegramPaymentChargeId;
   String providerPaymentChargeId;
 
-  SuccessfulPayment(
-      {this.currency,
-      this.totalAmount,
-      this.invoicePayload,
-      this.shippingOptionId,
-      this.orderInfo,
-      this.telegramPaymentChargeId,
-      this.providerPaymentChargeId});
+  SuccessfulPayment({
+    this.currency,
+    this.totalAmount,
+    this.invoicePayload,
+    this.shippingOptionId,
+    this.orderInfo,
+    this.telegramPaymentChargeId,
+    this.providerPaymentChargeId,
+  });
 
   factory SuccessfulPayment.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

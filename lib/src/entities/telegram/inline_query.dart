@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InlineQuery {
   String id;
@@ -7,7 +7,13 @@ class InlineQuery {
   String query;
   String offset;
 
-  InlineQuery(this.id, this.from, this.query, this.offset, {this.location});
+  InlineQuery(
+    this.id,
+    this.from,
+    this.query,
+    this.offset, {
+    this.location,
+  });
 
   factory InlineQuery.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

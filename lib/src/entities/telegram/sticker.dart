@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Sticker {
   String emoji;
@@ -11,16 +11,17 @@ class Sticker {
   PhotoSize thumb;
   int width;
 
-  Sticker(
-      {this.emoji,
-      this.fileId,
-      this.fileSize,
-      this.fileUniqueId,
-      this.height,
-      this.isAnimated,
-      this.setName,
-      this.thumb,
-      this.width});
+  Sticker({
+    this.emoji,
+    this.fileId,
+    this.fileSize,
+    this.fileUniqueId,
+    this.height,
+    this.isAnimated,
+    this.setName,
+    this.thumb,
+    this.width,
+  });
 
   factory Sticker.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

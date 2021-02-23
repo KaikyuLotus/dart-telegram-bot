@@ -1,5 +1,3 @@
-part of '../../entities.dart';
-
 class User {
   int id;
   bool isBot;
@@ -12,29 +10,31 @@ class User {
   bool canReadAllGroupMessages;
   bool supportsInlineQueries;
 
-  User(
-      {this.canJoinGroups,
-      this.canReadAllGroupMessages,
-      this.firstName,
-      this.lastName,
-      this.id,
-      this.isBot,
-      this.supportsInlineQueries,
-      this.username,
-      this.languageCode});
+  User({
+    this.canJoinGroups,
+    this.canReadAllGroupMessages,
+    this.firstName,
+    this.lastName,
+    this.id,
+    this.isBot,
+    this.supportsInlineQueries,
+    this.username,
+    this.languageCode,
+  });
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  static User fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return User(
-        canJoinGroups: json['can_join_groups'],
-        canReadAllGroupMessages: json['can_read_all_group_messages'],
-        firstName: json['first_name'],
-        lastName: json['last_name'],
-        id: json['id'],
-        isBot: json['is_bot'],
-        supportsInlineQueries: json['supports_inline_queries'],
-        username: json['username'],
-        languageCode: json['language_code']);
+      canJoinGroups: json['can_join_groups'],
+      canReadAllGroupMessages: json['can_read_all_group_messages'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      id: json['id'],
+      isBot: json['is_bot'],
+      supportsInlineQueries: json['supports_inline_queries'],
+      username: json['username'],
+      languageCode: json['language_code'],
+    );
   }
 
   static List<User> listFromJsonArray(List<dynamic> json) {

@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ChatMember {
   User user;
@@ -21,36 +21,33 @@ class ChatMember {
   bool canSendOtherMessages;
   bool canAddWebPagePreviews;
 
-  ChatMember(
-      {this.user,
-      this.status,
-      this.customTitle,
-      this.untilDate,
-      this.canBeEdited,
-      this.canPostMessages,
-      this.canEditMessages,
-      this.canDeleteMessages,
-      this.canRestrictMembers,
-      this.canPromoteMembers,
-      this.canChangeInfo,
-      this.canInviteUsers,
-      this.canPinMessages,
-      this.isMember,
-      this.canSendMessages,
-      this.canSendMediaMessages,
-      this.canSendPolls,
-      this.canSendOtherMessages,
-      this.canAddWebPagePreviews});
+  ChatMember({
+    this.user,
+    this.status,
+    this.customTitle,
+    this.untilDate,
+    this.canBeEdited,
+    this.canPostMessages,
+    this.canEditMessages,
+    this.canDeleteMessages,
+    this.canRestrictMembers,
+    this.canPromoteMembers,
+    this.canChangeInfo,
+    this.canInviteUsers,
+    this.canPinMessages,
+    this.isMember,
+    this.canSendMessages,
+    this.canSendMediaMessages,
+    this.canSendPolls,
+    this.canSendOtherMessages,
+    this.canAddWebPagePreviews,
+  });
 
-  factory ChatMember.fromJson(Map<String, dynamic> json) {
+  static ChatMember fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    // TODO improve this part?
     var isAdmin = json['status'] == 'administrator';
     var isCreator = json['status'] == 'creator';
-    // var isKicked = json['status'] == 'kicked';
     var isMember = json['status'] == 'member';
-    // var isRestricted = json['status'] == 'restricted';
-    // var hasLeft = json['status'] == 'left';
     return ChatMember(
       user: User.fromJson(json['user']),
       status: json['status'],
@@ -76,6 +73,9 @@ class ChatMember {
 
   static List<ChatMember> listFromJsonArray(List<dynamic> array) {
     if (array == null) return null;
-    return List.generate(array.length, (i) => ChatMember.fromJson(array[i]));
+    return List.generate(
+      array.length,
+      (i) => ChatMember.fromJson(array[i]),
+    );
   }
 }

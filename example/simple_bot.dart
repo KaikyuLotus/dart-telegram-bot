@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class SimpleBot extends Bot {
   SimpleBot() : super(Platform.environment['BOT_TOKEN']);

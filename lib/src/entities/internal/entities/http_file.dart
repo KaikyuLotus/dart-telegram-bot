@@ -1,4 +1,5 @@
-part of '../../entities.dart';
+import 'dart:io' as io;
+import 'dart:typed_data';
 
 class HttpFile {
   Uint8List _bytes;

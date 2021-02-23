@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Chat {
   int id;
@@ -16,23 +16,24 @@ class Chat {
   String stickerSetName;
   bool canSetStickerSet;
 
-  Chat(
-      {this.id,
-      this.type,
-      this.title,
-      this.username,
-      this.firstName,
-      this.lastName,
-      this.photo,
-      this.description,
-      this.inviteLink,
-      this.pinnedMessage,
-      this.permissions,
-      this.slowModeDelay,
-      this.stickerSetName,
-      this.canSetStickerSet});
+  Chat({
+    this.id,
+    this.type,
+    this.title,
+    this.username,
+    this.firstName,
+    this.lastName,
+    this.photo,
+    this.description,
+    this.inviteLink,
+    this.pinnedMessage,
+    this.permissions,
+    this.slowModeDelay,
+    this.stickerSetName,
+    this.canSetStickerSet,
+  });
 
-  factory Chat.fromJson(Map<String, dynamic> json) {
+  static Chat fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return Chat(
       id: json['id'],

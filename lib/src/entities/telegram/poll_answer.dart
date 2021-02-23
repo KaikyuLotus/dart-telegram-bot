@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class PollAnswer {
   String pollId;
@@ -9,6 +9,10 @@ class PollAnswer {
 
   factory PollAnswer.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return PollAnswer(pollId: json['poll_id'], user: json['user'], optionIds: json['option_ids']);
+    return PollAnswer(
+      pollId: json['poll_id'],
+      user: json['user'],
+      optionIds: json['option_ids'],
+    );
   }
 }

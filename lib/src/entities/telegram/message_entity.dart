@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class MessageEntity {
   String type;
@@ -8,21 +8,32 @@ class MessageEntity {
   User user;
   String language;
 
-  MessageEntity({this.type, this.offset, this.length, this.url, this.user, this.language});
+  MessageEntity({
+    this.type,
+    this.offset,
+    this.length,
+    this.url,
+    this.user,
+    this.language,
+  });
 
   factory MessageEntity.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return MessageEntity(
-        type: json['type'],
-        offset: json['offset'],
-        length: json['length'],
-        url: json['url'],
-        user: User.fromJson(json['user']),
-        language: json['language']);
+      type: json['type'],
+      offset: json['offset'],
+      length: json['length'],
+      url: json['url'],
+      user: User.fromJson(json['user']),
+      language: json['language'],
+    );
   }
 
   static List<MessageEntity> listFromJsonArray(List<dynamic> json) {
     if (json == null) return null;
-    return List.generate(json.length, (i) => MessageEntity.fromJson(json[i]));
+    return List.generate(
+      json.length,
+      (i) => MessageEntity.fromJson(json[i]),
+    );
   }
 }

@@ -1,5 +1,3 @@
-part of '../../entities.dart';
-
 class PhotoSize {
   String fileId;
   String fileUniqueId;
@@ -7,7 +5,13 @@ class PhotoSize {
   int width;
   int fileSize;
 
-  PhotoSize({this.fileId, this.fileSize, this.fileUniqueId, this.height, this.width});
+  PhotoSize({
+    this.fileId,
+    this.fileSize,
+    this.fileUniqueId,
+    this.height,
+    this.width,
+  });
 
   factory PhotoSize.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
@@ -27,6 +31,9 @@ class PhotoSize {
 
   static List<List<PhotoSize>> listOfListsFromJsonArray(List<List<dynamic>> json) {
     if (json == null) return null;
-    return List.generate(json.length, (e) => List.generate(json[e].length, (i) => PhotoSize.fromJson(json[e][i])));
+    return List.generate(
+      json.length,
+      (e) => List.generate(json[e].length, (i) => PhotoSize.fromJson(json[e][i])),
+    );
   }
 }

@@ -1,5 +1,3 @@
-part of '../../entities.dart';
-
 class PollOption {
   String text;
   int voterCount;
@@ -8,7 +6,10 @@ class PollOption {
 
   factory PollOption.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return PollOption(text: json['text'], voterCount: json['voter_count']);
+    return PollOption(
+      text: json['text'],
+      voterCount: json['voter_count'],
+    );
   }
 
   static List<PollOption> listFromJsonArray(List<dynamic> json) {

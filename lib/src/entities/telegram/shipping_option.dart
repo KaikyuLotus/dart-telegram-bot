@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ShippingOption {
   String id;
@@ -9,6 +9,10 @@ class ShippingOption {
 
   factory ShippingOption.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return ShippingOption(id: json['id'], title: json['title'], prices: LabeledPrice.listFromJsonArray(json['prices']));
+    return ShippingOption(
+      id: json['id'],
+      title: json['title'],
+      prices: LabeledPrice.listFromJsonArray(json['prices']),
+    );
   }
 }

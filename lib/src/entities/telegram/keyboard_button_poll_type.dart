@@ -1,4 +1,5 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 
 class KeyboardButtonPollType {
   PollType type;
@@ -7,7 +8,9 @@ class KeyboardButtonPollType {
 
   factory KeyboardButtonPollType.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
-    return KeyboardButtonPollType(type: PollType.fromString(json['type']));
+    return KeyboardButtonPollType(
+      type: EnumHelper.decode(PollType.values, json['type']),
+    );
   }
 
   Map toJson() {

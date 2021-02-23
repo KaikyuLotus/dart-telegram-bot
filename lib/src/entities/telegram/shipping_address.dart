@@ -1,5 +1,3 @@
-part of '../../entities.dart';
-
 class ShippingAddress {
   String countryCode;
   String state;
@@ -13,11 +11,12 @@ class ShippingAddress {
   factory ShippingAddress.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return ShippingAddress(
-        countryCode: json['country_code'],
-        state: json['state'],
-        city: json['city'],
-        streetLine1: json['street_line1'],
-        streetLine2: json['street_line2'],
-        postCode: json['post_code']);
+      countryCode: json['country_code'],
+      state: json['state'],
+      city: json['city'],
+      streetLine1: json['street_line1'],
+      streetLine2: json['street_line2'],
+      postCode: json['post_code'],
+    );
   }
 }

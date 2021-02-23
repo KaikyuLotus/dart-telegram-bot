@@ -1,4 +1,4 @@
-part of '../../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InlineQueryResultArticle extends InlineQueryResult {
   String type = 'article';
@@ -13,8 +13,18 @@ class InlineQueryResultArticle extends InlineQueryResult {
   int thumbWidth;
   int thumbHeight;
 
-  InlineQueryResultArticle(this.id, this.title, this.inputMessageContent,
-      {this.replyMarkup, this.url, this.hideUrl, this.description, this.thumbUrl, this.thumbWidth, this.thumbHeight});
+  InlineQueryResultArticle(
+    this.id,
+    this.title,
+    this.inputMessageContent, {
+    this.replyMarkup,
+    this.url,
+    this.hideUrl,
+    this.description,
+    this.thumbUrl,
+    this.thumbWidth,
+    this.thumbHeight,
+  });
 
   factory InlineQueryResultArticle.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

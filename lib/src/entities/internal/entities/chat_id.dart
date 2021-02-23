@@ -1,5 +1,3 @@
-part of '../../entities.dart';
-
 class ChatID {
   int chatId;
   String chatUsername;

@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
-import '../../../dart_telegram_bot.dart';
-import 'tgapi_methods.dart';
+import 'package:logging/logging.dart';
+
+import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
+import 'package:dart_telegram_bot/src/entities/internal/tgapi_methods.dart';
 
 class Bot extends TGAPIMethods {
+  final log = Logger('Bot');
+
   final List<Future Function(Update)> _updateCallbacks = [];
   final Map<String, Future<dynamic> Function(Update)> _commandCallbacks = {};
 
@@ -38,10 +43,11 @@ class Bot extends TGAPIMethods {
   }
 
   Future<Bot> init() async {
-    return getMe().then(_ready).then((v) => this);
+    var user = await getMe();
+    await _ready(user);
+    return this;
   }
 
-  // Internal functions
   void _ready(User user) {
     _id = user.id;
     _first_name = user.firstName;
@@ -54,11 +60,12 @@ class Bot extends TGAPIMethods {
     var anyExecuted = false;
     if (update.message == null || update.message.text == null) return false;
     for (var command in _commandCallbacks.keys) {
-      var commandIntance = BotCommandParser.fromMessage(update.message);
-      var isMatching = commandIntance != null && commandIntance.matchesCommand(command, targetBotUsername: username);
+      var commandInstance = BotCommandParser.fromMessage(update.message);
+      var isMatching = commandInstance != null && commandInstance.matchesCommand(command, targetBotUsername: username);
       if (!isMatching) continue;
-      print('Matched a command');
-      _commandCallbacks[command](update).catchError((e, s) => print('Failed to execute command callback: $e\n$s'));
+      _commandCallbacks[command](update).catchError((e, s) {
+        log.severe('Failed to execute command callback', e, s);
+      });
       anyExecuted = true;
     }
     return anyExecuted;
@@ -67,26 +74,12 @@ class Bot extends TGAPIMethods {
   void _handleUpdate(Update update) {
     if (_checkCommands(update)) return;
     for (var callback in _updateCallbacks) {
-      callback(update).catchError((e, s) => print('Unhandled exception in callback: $e\n$s'));
+      callback(update).catchError((e, s) {
+        log.severe('Unhandled exception in callback', e, s);
+      });
     }
   }
 
-  void _handleUpdates(List<Update> updates) {
-    for (var update in updates) {
-      _offset = update.updateId + 1;
-      _handleUpdate(update);
-    }
-  }
-
-  Future _cleanUpdates() {
-    return getUpdates(timeout: 0, offset: -1).then((updates) {
-      if (updates.isNotEmpty) {
-        _offset = updates[0].updateId + 1;
-      }
-    });
-  }
-
-  // Public API
   Future<Bot> start([bool clean = false]) async {
     if (!_isInitialized) {
       throw InvalidBotState('You must call Bot.init() first.');
@@ -94,36 +87,47 @@ class Bot extends TGAPIMethods {
 
     if (!_isReady) {
       throw InvalidBotState(
-          "The bot is not ready, something failed or you're executing code too early.\nUse .ready() callback instead or check .error()");
+        "The bot is not ready, something failed or you're executing code too early.\n"
+        'Use .ready() callback instead or check .error()',
+      );
     }
 
-    if (clean) await _cleanUpdates().catchError((e, s) => print('Cannot clean updates: $e\n$s'));
+    if (clean) {
+      try {
+        var updates = await getUpdates(timeout: 0, offset: -1);
+        if (updates.isNotEmpty) {
+          _offset = updates[0].updateId + 1;
+        }
+      } catch (e, s) {
+        log.severe('Cannot clean updates', e, s);
+      }
+    }
 
     _isRunning = true;
 
-    var hadError = false;
     await Future.doWhile(() async {
-      await Future.delayed(Duration(milliseconds: hadError ? 5000 : 0), () async => hadError = await eventLoop());
-      return isRunning;
+      await eventLoop();
+      return _isRunning;
     });
 
     return getUpdates(timeout: 0, offset: _offset).then((u) => this);
   }
 
-  Future<bool> eventLoop() async {
+  Future eventLoop() async {
     try {
       var updates = await getUpdates(timeout: _timeout, offset: _offset);
-      _handleUpdates(updates);
-      return false;
+      for (var update in updates) {
+        _offset = update.updateId + 1;
+        _handleUpdate(update);
+      }
     } on SocketException catch (_) {
-      print('Socket error');
+      log.severe('Socket error');
     } catch (e, s) {
-      print('Update crashed: ${e}\n${s}');
+      log.severe('Update crashed', e, s);
       if (e is APIException) {
         _offset = e.errorCode + 1; // Here error code is the last update ID
       }
     }
-    return true;
   }
 
   /// If restartHttpClient is true, then the client will be closed and re-open to allow further request,
@@ -136,14 +140,11 @@ class Bot extends TGAPIMethods {
     closeClient(restartHttpClient);
   }
 
-  // Public API events
-  Bot onUpdate(Future Function(Update) callback) {
+  void onUpdate(Future Function(Update) callback) {
     _updateCallbacks.add(callback);
-    return this;
   }
 
-  Bot onCommand(String command, Function(Update) callback) {
+  void onCommand(String command, Function(Update) callback) {
     _commandCallbacks[command] = callback;
-    return this;
   }
 }

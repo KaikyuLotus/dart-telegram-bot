@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class BotCommandParser {
   static final _commandRegex = RegExp(r'^(?:\/|!)(\w+)(?:@(\w+(?:bot)))?(?:\s(.+))?$', caseSensitive: false);

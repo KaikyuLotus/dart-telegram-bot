@@ -1,4 +1,4 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class PreCheckoutQuery {
   String id;
@@ -9,14 +9,15 @@ class PreCheckoutQuery {
   String shippingOptionId;
   OrderInfo orderInfo;
 
-  PreCheckoutQuery(
-      {this.id,
-      this.from,
-      this.currency,
-      this.totalAmount,
-      this.invoicePayload,
-      this.shippingOptionId,
-      this.orderInfo});
+  PreCheckoutQuery({
+    this.id,
+    this.from,
+    this.currency,
+    this.totalAmount,
+    this.invoicePayload,
+    this.shippingOptionId,
+    this.orderInfo,
+  });
 
   factory PreCheckoutQuery.fromJson(Map<String, dynamic> json) {
     if (json == null) return null;

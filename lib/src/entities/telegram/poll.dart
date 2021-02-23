@@ -1,4 +1,5 @@
-part of '../../entities.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 
 class Poll {
   String id;
@@ -11,28 +12,30 @@ class Poll {
   bool allowsMultipleAnswers;
   int correctOptionId;
 
-  Poll(
-      {this.id,
-      this.question,
-      this.options,
-      this.totalVoterCount,
-      this.isClosed,
-      this.isAnonymous,
-      this.type,
-      this.allowsMultipleAnswers,
-      this.correctOptionId});
+  Poll({
+    this.id,
+    this.question,
+    this.options,
+    this.totalVoterCount,
+    this.isClosed,
+    this.isAnonymous,
+    this.type,
+    this.allowsMultipleAnswers,
+    this.correctOptionId,
+  });
 
-  factory Poll.fromJson(Map<String, dynamic> json) {
+  static Poll fromJson(Map<String, dynamic> json) {
     if (json == null) return null;
     return Poll(
-        id: json['id'],
-        question: json['question'],
-        options: PollOption.listFromJsonArray(json['options']),
-        totalVoterCount: json['total_voter_count'],
-        isClosed: json['is_closed'],
-        isAnonymous: json['is_anonymous'],
-        type: PollType.fromString(json['type']),
-        allowsMultipleAnswers: json['allows_multiple_answers'],
-        correctOptionId: json['correct_option_id']);
+      id: json['id'],
+      question: json['question'],
+      options: PollOption.listFromJsonArray(json['options']),
+      totalVoterCount: json['total_voter_count'],
+      isClosed: json['is_closed'],
+      isAnonymous: json['is_anonymous'],
+      type: EnumHelper.decode(PollType.values, json['type']),
+      allowsMultipleAnswers: json['allows_multiple_answers'],
+      correctOptionId: json['correct_option_id'],
+    );
   }
 }
