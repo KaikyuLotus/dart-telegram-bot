@@ -83,7 +83,7 @@ class ExampleBot extends Bot {
               text,
               InputTextMessageContent(
                 '[${text}](https://www.youtube.com/results?search_query=Zekk+-+TOMOYO)',
-                parseMode: 'Markdown',
+                parseMode: ParseMode.MARKDOWN,
               ),
             )
           ],

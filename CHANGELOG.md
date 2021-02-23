@@ -134,3 +134,11 @@ This is a beta release
 - Improved package structure
 - Added part and part of in Telegram entities
 - General refactoring
+
+# 0.3.0
+
+- Improved package structure
+- Changed part with export
+- General refactoring
+- Minor changes to enums
+- Added logging
