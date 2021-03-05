@@ -1,7 +1,9 @@
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class BotCommandParser {
-  static final _commandRegex = RegExp(r'^(?:\/|!)(\w+)(?:@(\w+(?:bot)))?(?:\s(.+))?$', caseSensitive: false);
+  static final _commandRegex = RegExp(
+      r'^(?:\/|!)(\w+)(?:@(\w+(?:bot)))?(?:\s(.+))?$',
+      caseSensitive: false);
 
   String command;
   String? botUsername;
@@ -10,7 +12,8 @@ class BotCommandParser {
   BotCommandParser(this.command, this.botUsername, {required this.args});
 
   bool isToBot(String targetBotUsername) {
-    return botUsername == null || targetBotUsername.toLowerCase() == botUsername!.toLowerCase();
+    return botUsername == null ||
+        targetBotUsername.toLowerCase() == botUsername!.toLowerCase();
   }
 
   bool matchesCommand(String command, {String? targetBotUsername}) {

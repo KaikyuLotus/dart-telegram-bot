@@ -1,11 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:logging/logging.dart';
-
-import 'package:dart_telegram_bot/telegram_entities.dart';
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/src/entities/internal/tgapi_methods.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:logging/logging.dart';
 
 class Bot extends TGAPIMethods {
   final log = Logger('Bot');
@@ -61,7 +60,8 @@ class Bot extends TGAPIMethods {
     if (update.message == null || update.message!.text == null) return false;
     for (var command in _commandCallbacks.keys) {
       var commandInstance = BotCommandParser.fromMessage(update.message!);
-      var isMatching = commandInstance != null && commandInstance.matchesCommand(command, targetBotUsername: username);
+      var isMatching = commandInstance != null &&
+          commandInstance.matchesCommand(command, targetBotUsername: username);
       if (!isMatching) continue;
       _commandCallbacks[command]!(update).catchError((e, s) {
         log.severe('Failed to execute command callback', e, s);

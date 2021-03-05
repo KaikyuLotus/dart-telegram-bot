@@ -1,7 +1,6 @@
 import 'package:logging/logging.dart';
 
 class EnumHelper {
-
   static final log = Logger('EnumHelper');
 
   static String _getEnumClassFromValues<T>(Iterable<T> values) {
@@ -13,9 +12,11 @@ class EnumHelper {
   }
 
   static T decode<T>(Iterable<T> values, String value) {
-    var neededEnum = '${_getEnumClassFromValues(values)}.${value.toUpperCase()}';
+    var neededEnum =
+        '${_getEnumClassFromValues(values)}.${value.toUpperCase()}';
     try {
-      return values.firstWhere((e) => '${e.toString().toUpperCase()}' == neededEnum.toUpperCase());
+      return values.firstWhere(
+          (e) => '${e.toString().toUpperCase()}' == neededEnum.toUpperCase());
     } on StateError {
       log.severe('Could not find "$neededEnum" in [${values.join(', ')}]');
       rethrow;
