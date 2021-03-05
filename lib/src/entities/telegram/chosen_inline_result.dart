@@ -1,27 +1,27 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ChosenInlineResult {
   String resultId;
   User from;
-  Location location;
-  String inlineMessageId;
+  Location? location;
+  String? inlineMessageId;
   String query;
 
-  ChosenInlineResult(
-    this.resultId,
-    this.from,
-    this.query, {
+  ChosenInlineResult({
+    required this.resultId,
+    required this.from,
+    required this.query,
     this.location,
     this.inlineMessageId,
   });
 
-  factory ChosenInlineResult.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static ChosenInlineResult fromJson(Map<String, dynamic> json) {
     return ChosenInlineResult(
-      json['result_id'],
-      User.fromJson(json['from']),
-      json['query'],
-      location: Location.fromJson(json['location']),
+      resultId: json['result_id']!,
+      from: User.fromJson(json['from']!),
+      query: json['query']!,
+      location: callIfNotNull(Location.fromJson, json['location']),
       inlineMessageId: json['inline_message_id'],
     );
   }

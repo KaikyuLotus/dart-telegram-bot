@@ -4,15 +4,14 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ForceReply extends ReplyMarkup {
   bool forceReply = true;
-  bool selective = false;
+  bool? selective;
 
   ForceReply(
     this.forceReply, {
     this.selective,
   });
 
-  factory ForceReply.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static ForceReply fromJson(Map<String, dynamic> json) {
     return ForceReply(
       json['force_reply'],
       selective: json['selective'],
@@ -20,10 +19,10 @@ class ForceReply extends ReplyMarkup {
   }
 
   Map toJson() {
-    var data = {};
-    data['force_reply'] = forceReply;
-    data['selective'] = selective;
-    return data;
+    return {
+      'force_reply': forceReply,
+      'selective': selective
+    };
   }
 
   @override

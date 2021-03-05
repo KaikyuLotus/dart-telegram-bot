@@ -9,16 +9,10 @@ class EnumHelper {
   }
 
   static String _getEnumValue<T>(T enumType) {
-    if (enumType == null) {
-      return null;
-    }
     return enumType.toString().split('.')[1];
   }
 
   static T decode<T>(Iterable<T> values, String value) {
-    if (value == null) {
-      return null;
-    }
     var neededEnum = '${_getEnumClassFromValues(values)}.${value.toUpperCase()}';
     try {
       return values.firstWhere((e) => '${e.toString().toUpperCase()}' == neededEnum.toUpperCase());

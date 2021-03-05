@@ -1,19 +1,20 @@
 class BotCommand {
   String command;
-  String description;
+  String? description;
 
-  BotCommand(this.command, this.description);
+  BotCommand({
+    required this.command,
+    required this.description,
+  });
 
-  factory BotCommand.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static BotCommand fromJson(Map<String, dynamic> json) {
     return BotCommand(
-      json['command'],
-      json['description'],
+      command: json['command']!,
+      description: json['description']!,
     );
   }
 
   static List<BotCommand> listFromJsonArray(List<dynamic> array) {
-    if (array == null) return null;
     return List.generate(
       array.length,
       (i) => BotCommand.fromJson(array[i]),

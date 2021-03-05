@@ -5,18 +5,18 @@ class InlineQueryResultArticle extends InlineQueryResult {
   String id;
   String title;
   InputMessageContent inputMessageContent;
-  InlineKeyboardMarkup replyMarkup;
-  String url;
-  bool hideUrl;
-  String description;
-  String thumbUrl;
-  int thumbWidth;
-  int thumbHeight;
+  InlineKeyboardMarkup? replyMarkup;
+  String? url;
+  bool? hideUrl;
+  String? description;
+  String? thumbUrl;
+  int? thumbWidth;
+  int? thumbHeight;
 
-  InlineQueryResultArticle(
-    this.id,
-    this.title,
-    this.inputMessageContent, {
+  InlineQueryResultArticle({
+    required this.id,
+    required this.title,
+    required this.inputMessageContent,
     this.replyMarkup,
     this.url,
     this.hideUrl,
@@ -26,22 +26,7 @@ class InlineQueryResultArticle extends InlineQueryResult {
     this.thumbHeight,
   });
 
-  factory InlineQueryResultArticle.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-    return InlineQueryResultArticle(
-      json['id'],
-      json['title'],
-      InputMessageContent.fromJson(json['input_message_content']),
-      replyMarkup: InlineKeyboardMarkup.fromJson(json['reply_markup']),
-      url: json['url'],
-      hideUrl: json['hide_url'],
-      description: json['description'],
-      thumbUrl: json['thumb_url'],
-      thumbWidth: json['thumb_width'],
-      thumbHeight: json['thumb_height'],
-    );
-  }
-
+  // TODO improve this
   Map toJson() {
     var data = <String, dynamic>{};
     data['type'] = type;

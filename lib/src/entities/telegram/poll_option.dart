@@ -2,18 +2,19 @@ class PollOption {
   String text;
   int voterCount;
 
-  PollOption({this.text, this.voterCount});
+  PollOption({
+    required this.text,
+    required this.voterCount,
+  });
 
-  factory PollOption.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static PollOption fromJson(Map<String, dynamic> json) {
     return PollOption(
-      text: json['text'],
-      voterCount: json['voter_count'],
+      text: json['text']!,
+      voterCount: json['voter_count']!,
     );
   }
 
   static List<PollOption> listFromJsonArray(List<dynamic> json) {
-    if (json == null) return null;
     return List.generate(json.length, (i) => PollOption.fromJson(json[i]));
   }
 }

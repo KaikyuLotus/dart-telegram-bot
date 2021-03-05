@@ -3,37 +3,25 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 class InputMediaAudio extends InputMedia {
   String type;
   String media;
-  HttpFile thumb;
-  String caption;
-  String parseMode;
-  int duration;
-  String performer;
-  String title;
+  HttpFile? thumb;
+  String? caption;
+  String? parseMode;
+  List<MessageEntity>? captionEntities;
+  int? duration;
+  String? performer;
+  String? title;
 
   InputMediaAudio({
-    this.type,
-    this.media,
+    required this.type,
+    required this.media,
     this.thumb,
     this.caption,
     this.parseMode,
+    this.captionEntities,
     this.duration,
     this.performer,
     this.title,
   });
-
-  factory InputMediaAudio.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-    return InputMediaAudio(
-      type: json['type'],
-      media: json['media'],
-      thumb: json['thumb'],
-      caption: json['caption'],
-      parseMode: json['parse_mode'],
-      duration: json['duration'],
-      performer: json['performer'],
-      title: json['title'],
-    );
-  }
 
   // TODO implement toJson
 

@@ -1,45 +1,48 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Sticker {
-  String emoji;
+
   String fileId;
-  int fileSize;
   String fileUniqueId;
+  int width;
   int height;
   bool isAnimated;
-  String setName;
-  PhotoSize thumb;
-  int width;
+  PhotoSize? thumb;
+  String? emoji;
+  String? setName;
+  MaskPosition? maskPosition;
+  int? fileSize;
 
   Sticker({
-    this.emoji,
-    this.fileId,
-    this.fileSize,
-    this.fileUniqueId,
-    this.height,
-    this.isAnimated,
-    this.setName,
+    required this.fileId,
+    required this.fileUniqueId,
+    required this.width,
+    required this.height,
+    required this.isAnimated,
     this.thumb,
-    this.width,
+    this.emoji,
+    this.setName,
+    this.maskPosition,
+    this.fileSize,
   });
 
-  factory Sticker.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static Sticker fromJson(Map<String, dynamic> json) {
     return Sticker(
+      fileId: json['file_id']!,
+      fileUniqueId: json['file_unique_id']!,
+      width: json['width']!,
+      height: json['height']!,
+      isAnimated: json['is_animated']!,
+      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
       emoji: json['emoji'],
-      fileId: json['file_id'],
-      fileSize: json['file_size'],
-      fileUniqueId: json['file_unique_id'],
-      height: json['height'],
-      isAnimated: json['is_animated'],
       setName: json['set_name'],
-      thumb: json['thumb'] = PhotoSize.fromJson(json['thumb']),
-      width: json['width'],
+      maskPosition: json['mask_position'],
+      fileSize: json['file_size'],
     );
   }
 
   static List<Sticker> listFromJsonArray(List<dynamic> json) {
-    if (json == null) return null;
     return List.generate(json.length, (i) => Sticker.fromJson(json[i]));
   }
 }

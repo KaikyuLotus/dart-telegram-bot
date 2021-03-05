@@ -34,8 +34,8 @@ class TGAPIClient {
     var multipartFiles = files.entries.map(
       (e) => MultipartFile(
         e.key,
-        ByteStream.fromBytes(e.value.bytes),
-        e.value.bytes.length,
+        ByteStream.fromBytes(e.value.bytes!),
+        e.value.bytes!.length,
         filename: e.value.name,
       ),
     );
@@ -43,35 +43,35 @@ class TGAPIClient {
     return multipartRequest;
   }
 
-  BaseRequest _getRequest(Uri uri, Map<String, HttpFile> files) {
+  BaseRequest _getRequest(Uri uri, Map<String, HttpFile>? files) {
     if (files != null && files.isNotEmpty) {
       return _buildMultipartRequest(uri, files);
     }
     return Request('GET', uri);
   }
 
-  Future<Map<String, dynamic>> _execute(
-    String token,
+  Future<Map<String, dynamic>?> _execute(
+    String? token,
     String method, [
-    Map<String, dynamic> query,
-    Map<String, HttpFile> files,
+    Map<String, dynamic>? query,
+    Map<String, HttpFile>? files,
   ]) async {
-    var uri = Uri.https(BASE_URL, '/bot${token}/${method}', query != null ? query.cast() : null);
+    var uri = Uri.https(BASE_URL, '/bot$token/$method', query != null ? query.cast() : null);
     var response = await _client.send(_getRequest(uri, files)).timeout(Duration(seconds: 120));
     var stringResponse = await response.stream.bytesToString();
     return json.decode(stringResponse);
   }
 
-  Future<Uint8List> apiDownload(String token, String path) async {
-    var uri = Uri.https(BASE_URL, '/file/bot${token}/${path}');
+  Future<Uint8List> apiDownload(String? token, String? path) async {
+    var uri = Uri.https(BASE_URL, '/file/bot$token/$path');
     var response = await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
     if (response.statusCode != 200) {
-      throw APIException('Error while downloading the file with path /${path}', response.statusCode, {}, 'download');
+      throw APIException('Error while downloading the file with path /$path', response.statusCode, {}, 'download');
     }
     return response.stream.toBytes();
   }
 
-  Future<T> apiCall<T>(String token, String method, [Map<String, dynamic> query]) async {
+  Future<T> apiCall<T>(String? token, String method, [Map<String, dynamic>? query]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
       query
@@ -88,13 +88,17 @@ class TGAPIClient {
           if (v is ParseMode || v is PollType || v is ChatAction) {
             return EnumHelper.encode(v);
           }
-          return '${v}';
+          return '$v';
         });
     }
 
     var jsonResp = await _execute(token, method, query, files);
+    if (jsonResp == null) {
+      throw Exception('Bot API returned null, or could not convert message to a json object');
+    }
+
     if (!jsonResp['ok']) {
-      throw APIException(jsonResp['description'], jsonResp['error_code'], query, method);
+      throw APIException(jsonResp['description'] ?? 'No description', jsonResp['error_code'] ?? -1, query, method);
     }
 
     var result = jsonResp['result'];
@@ -102,15 +106,21 @@ class TGAPIClient {
       return result;
     }
 
-    if (!_typeFactories.containsKey('${T}')) {
-      throw UnsupportedTypeException('Type ${T} is not supported yet');
-    }
-
     try {
-      return _typeFactories[T.toString()](result);
+      var apiType = T.toString();
+      var converter = _typeFactories[apiType];
+      if (converter == null) {
+        throw Exception('Unknown API type $apiType');
+      }
+      return converter(result) as T;
     } catch (e, s) {
       log.severe('Could not convert Telegram API response to target entity', e, s);
-      throw APIException('Could not convert Telegram API response to target entity: $e', (result as List).last['update_id'], query, method);
+      throw APIException(
+        'Could not convert Telegram API response to target entity: $e',
+        result is List ? result.last['update_id'] ?? -1 : -1,
+        query,
+        method,
+      );
     }
   }
 

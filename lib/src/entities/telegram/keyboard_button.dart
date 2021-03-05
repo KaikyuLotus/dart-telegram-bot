@@ -1,13 +1,14 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class KeyboardButton {
   String text;
-  bool requestContact;
-  bool requestLocation;
-  KeyboardButtonPollType requestPoll;
+  bool? requestContact;
+  bool? requestLocation;
+  KeyboardButtonPollType? requestPoll;
 
   KeyboardButton._({
-    this.text,
+    required this.text,
     this.requestContact,
     this.requestLocation,
     this.requestPoll,
@@ -19,18 +20,16 @@ class KeyboardButton {
 
   KeyboardButton.RequestPoll(this.text, this.requestPoll);
 
-  factory KeyboardButton.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static KeyboardButton fromJson(Map<String, dynamic> json) {
     return KeyboardButton._(
-      text: json['text'],
+      text: json['text']!,
       requestContact: json['request_contact'],
       requestLocation: json['request_location'],
-      requestPoll: KeyboardButtonPollType.fromJson(json['request_poll']),
+      requestPoll: callIfNotNull(KeyboardButtonPollType.fromJson, json['request_poll']),
     );
   }
 
   static List<KeyboardButton> listFromJsonArray(List<dynamic> json) {
-    if (json == null) return null;
     return List.generate(
       json.length,
       (i) => KeyboardButton.fromJson(json[i]),
@@ -38,7 +37,6 @@ class KeyboardButton {
   }
 
   static List<List<KeyboardButton>> listOfListsFromJsonArray(List<List<dynamic>> json) {
-    if (json == null) return null;
     return List.generate(
       json.length,
       (e) => List.generate(json[e].length, (i) => KeyboardButton.fromJson(json[e][i])),

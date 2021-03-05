@@ -1,8 +1,8 @@
 class PassportData {
+  // TODO
   PassportData();
 
-  factory PassportData.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static PassportData fromJson(Map<String, dynamic>? json) {
     return PassportData();
   }
 }

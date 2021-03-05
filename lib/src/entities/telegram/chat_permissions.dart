@@ -1,12 +1,12 @@
 class ChatPermissions {
-  bool canSendMessages;
-  bool canSendMediaMessages;
-  bool canSendPolls;
-  bool canSendOtherMessages;
-  bool canAddWebPagePreviews;
-  bool canChangeInfo;
-  bool canInviteUsers;
-  bool canPinMessages;
+  bool? canSendMessages;
+  bool? canSendMediaMessages;
+  bool? canSendPolls;
+  bool? canSendOtherMessages;
+  bool? canAddWebPagePreviews;
+  bool? canChangeInfo;
+  bool? canInviteUsers;
+  bool? canPinMessages;
 
   ChatPermissions({
     this.canSendMessages,
@@ -19,8 +19,7 @@ class ChatPermissions {
     this.canPinMessages,
   });
 
-  factory ChatPermissions.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static ChatPermissions fromJson(Map<String, dynamic> json) {
     return ChatPermissions(
       canSendMessages: json['can_send_messages'],
       canSendMediaMessages: json['can_send_media_messages'],

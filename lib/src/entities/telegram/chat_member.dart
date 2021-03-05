@@ -3,27 +3,27 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 class ChatMember {
   User user;
   String status;
-  String customTitle;
-  int untilDate;
-  bool canBeEdited;
-  bool canPostMessages;
-  bool canEditMessages;
-  bool canDeleteMessages;
-  bool canRestrictMembers;
-  bool canPromoteMembers;
-  bool canChangeInfo;
-  bool canInviteUsers;
-  bool canPinMessages;
-  bool isMember;
-  bool canSendMessages;
-  bool canSendMediaMessages;
-  bool canSendPolls;
-  bool canSendOtherMessages;
-  bool canAddWebPagePreviews;
+  String? customTitle;
+  int? untilDate;
+  bool? canBeEdited;
+  bool? canPostMessages;
+  bool? canEditMessages;
+  bool? canDeleteMessages;
+  bool? canRestrictMembers;
+  bool? canPromoteMembers;
+  bool? canChangeInfo;
+  bool? canInviteUsers;
+  bool? canPinMessages;
+  bool? isMember;
+  bool? canSendMessages;
+  bool? canSendMediaMessages;
+  bool? canSendPolls;
+  bool? canSendOtherMessages;
+  bool? canAddWebPagePreviews;
 
   ChatMember({
-    this.user,
-    this.status,
+    required this.user,
+    required this.status,
     this.customTitle,
     this.untilDate,
     this.canBeEdited,
@@ -44,13 +44,12 @@ class ChatMember {
   });
 
   static ChatMember fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
     var isAdmin = json['status'] == 'administrator';
     var isCreator = json['status'] == 'creator';
     var isMember = json['status'] == 'member';
     return ChatMember(
-      user: User.fromJson(json['user']),
-      status: json['status'],
+      user: User.fromJson(json['user']!),
+      status: json['status']!,
       customTitle: json['custom_title'],
       untilDate: json['until_date'],
       canBeEdited: json['can_be_edited'],
@@ -72,7 +71,6 @@ class ChatMember {
   }
 
   static List<ChatMember> listFromJsonArray(List<dynamic> array) {
-    if (array == null) return null;
     return List.generate(
       array.length,
       (i) => ChatMember.fromJson(array[i]),

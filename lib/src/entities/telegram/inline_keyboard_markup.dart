@@ -7,17 +7,16 @@ class InlineKeyboardMarkup extends ReplyMarkup {
 
   InlineKeyboardMarkup(this.inlineKeyboard);
 
-  factory InlineKeyboardMarkup.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static InlineKeyboardMarkup fromJson(Map<String, dynamic> json) {
     return InlineKeyboardMarkup(
       InlineKeyboardButton.listOfListsFromJsonArray(json['inline_keyboard']),
     );
   }
 
   Map toJson() {
-    var data = {};
-    data['inline_keyboard'] = inlineKeyboard;
-    return data;
+    return {
+      'inline_keyboard': inlineKeyboard
+    };
   }
 
   @override

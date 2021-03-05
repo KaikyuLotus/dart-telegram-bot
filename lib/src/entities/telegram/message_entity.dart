@@ -1,36 +1,35 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class MessageEntity {
   String type;
   int offset;
   int length;
-  String url;
-  User user;
-  String language;
+  String? url;
+  User? user;
+  String? language;
 
   MessageEntity({
-    this.type,
-    this.offset,
-    this.length,
+    required this.type,
+    required this.offset,
+    required this.length,
     this.url,
     this.user,
     this.language,
   });
 
-  factory MessageEntity.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static MessageEntity fromJson(Map<String, dynamic> json) {
     return MessageEntity(
-      type: json['type'],
-      offset: json['offset'],
-      length: json['length'],
+      type: json['type']!,
+      offset: json['offset']!,
+      length: json['length']!,
       url: json['url'],
-      user: User.fromJson(json['user']),
+      user: callIfNotNull(User.fromJson, json['user']),
       language: json['language'],
     );
   }
 
   static List<MessageEntity> listFromJsonArray(List<dynamic> json) {
-    if (json == null) return null;
     return List.generate(
       json.length,
       (i) => MessageEntity.fromJson(json[i]),

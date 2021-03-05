@@ -1,6 +1,6 @@
 class APIException implements Exception {
   String description;
-  Map<String, dynamic> query;
+  Map<String, dynamic>? query;
   String method;
   int errorCode;
 

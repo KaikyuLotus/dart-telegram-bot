@@ -4,25 +4,30 @@ class Venue {
   Location location;
   String title;
   String address;
-  String foursquareId;
-  String foursquareType;
+  String? foursquareId;
+  String? foursquareType;
+  String? googlePlaceId;
+  String? googlePlaceType;
 
   Venue({
-    this.location,
-    this.title,
-    this.address,
+    required this.location,
+    required this.title,
+    required this.address,
     this.foursquareId,
     this.foursquareType,
+    this.googlePlaceId,
+    this.googlePlaceType,
   });
 
-  factory Venue.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static Venue fromJson(Map<String, dynamic> json) {
     return Venue(
-      location: Location.fromJson(json['location']),
-      title: json['title'],
-      address: json['address'],
+      location: Location.fromJson(json['location']!),
+      title: json['title']!,
+      address: json['address']!,
       foursquareId: json['foursquare_id'],
       foursquareType: json['foursquare_type'],
+      googlePlaceId: json['google_place_id'],
+      googlePlaceType: json['google_place_type'],
     );
   }
 }

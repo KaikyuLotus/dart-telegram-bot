@@ -3,8 +3,7 @@ class CallbackGame {
 
   CallbackGame();
 
-  factory CallbackGame.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static CallbackGame fromJson(Map<String, dynamic> json) {
     return CallbackGame();
   }
 }

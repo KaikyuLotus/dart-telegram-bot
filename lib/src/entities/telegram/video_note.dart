@@ -1,3 +1,4 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class VideoNote {
@@ -5,26 +6,25 @@ class VideoNote {
   String fileUniqueId;
   int length;
   int duration;
-  PhotoSize thumb;
-  int fileSize;
+  PhotoSize? thumb;
+  int? fileSize;
 
   VideoNote({
-    this.fileId,
-    this.fileUniqueId,
-    this.length,
-    this.duration,
+    required this.fileId,
+    required this.fileUniqueId,
+    required this.length,
+    required this.duration,
     this.thumb,
     this.fileSize,
   });
 
-  factory VideoNote.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static VideoNote fromJson(Map<String, dynamic> json) {
     return VideoNote(
-      fileId: json['file_id'],
-      fileUniqueId: json['file_unique_id'],
-      length: json['length'],
-      duration: json['duration'],
-      thumb: PhotoSize.fromJson(json['thumb']),
+      fileId: json['file_id']!,
+      fileUniqueId: json['file_unique_id']!,
+      length: json['length']!,
+      duration: json['duration']!,
+      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
       fileSize: json['file_size'],
     );
   }

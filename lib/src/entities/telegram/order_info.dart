@@ -6,15 +6,19 @@ class OrderInfo {
   String email;
   ShippingAddress shippingAddress;
 
-  OrderInfo({this.name, this.phoneNumber, this.email, this.shippingAddress});
+  OrderInfo({
+    required this.name,
+    required this.phoneNumber,
+    required this.email,
+    required this.shippingAddress,
+  });
 
-  factory OrderInfo.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static OrderInfo fromJson(Map<String, dynamic> json) {
     return OrderInfo(
-      name: json['name'],
-      phoneNumber: json['phone_number'],
-      email: json['email'],
-      shippingAddress: json['shipping_address'],
+      name: json['name']!,
+      phoneNumber: json['phone_number']!,
+      email: json['email']!,
+      shippingAddress: json['shipping_address']!,
     );
   }
 }

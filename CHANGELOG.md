@@ -146,3 +146,8 @@ This is a beta release
 # 0.3.1
 
 - Fix wrong import
+
+# 0.4.0-beta.1
+
+- Migrate to Dart sound null safe
+- Minor bug fixes and improvements

@@ -2,15 +2,15 @@ import 'dart:io' as io;
 import 'dart:typed_data';
 
 class HttpFile {
-  Uint8List _bytes;
-  String _name;
-  String _token;
+  Uint8List? _bytes;
+  String? _name;
+  String? _token;
 
-  Uint8List get bytes => _bytes;
+  Uint8List? get bytes => _bytes;
 
-  String get name => _name;
+  String? get name => _name;
 
-  String get token => _token;
+  String? get token => _token;
 
   HttpFile.fromBytes(String name, Uint8List bytes) {
     _name = name;
@@ -27,5 +27,7 @@ class HttpFile {
     _bytes = io.File(path).readAsBytesSync();
   }
 
-  HttpFile.fromToken(this._token);
+  HttpFile.fromToken(String token) {
+    _token = token;
+  }
 }

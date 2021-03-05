@@ -3,40 +3,27 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 class InputMediaVideo extends InputMedia {
   String type;
   String media;
-  HttpFile thumb;
-  String caption;
-  String parseMode;
-  int width;
-  int height;
-  int duration;
-  bool supportsStreaming;
+  HttpFile? thumb;
+  String? caption;
+  String? parseMode;
+  List<MessageEntity>? captionEntities;
+  int? width;
+  int? height;
+  int? duration;
+  bool? supportsStreaming;
 
   InputMediaVideo({
-    this.type,
-    this.media,
+    required this.type,
+    required this.media,
     this.thumb,
     this.caption,
     this.parseMode,
+    this.captionEntities,
     this.width,
     this.height,
     this.duration,
     this.supportsStreaming,
   });
-
-  factory InputMediaVideo.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-    return InputMediaVideo(
-      type: json['type'],
-      media: json['media'],
-      thumb: json['thumb'],
-      caption: json['caption'],
-      parseMode: json['parse_mode'],
-      width: json['width'],
-      height: json['height'],
-      duration: json['duration'],
-      supportsStreaming: json['supports_streaming'],
-    );
-  }
 
 // TODO implement toJson
 

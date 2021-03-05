@@ -1,28 +1,19 @@
 import 'package:dart_telegram_bot/telegram_entities.dart';
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 
 class InputMediaPhoto extends InputMedia {
   String type;
   String media;
-  String caption;
-  ParseMode parseMode;
+  String? caption;
+  ParseMode? parseMode;
+  List<MessageEntity>? captionEntities;
 
   InputMediaPhoto({
-    this.type,
-    this.media,
+    required this.type,
+    required this.media,
     this.caption,
     this.parseMode,
+    this.captionEntities,
   });
-
-  factory InputMediaPhoto.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-    return InputMediaPhoto(
-      type: json['type'],
-      media: json['media'],
-      caption: json['caption'],
-      parseMode: EnumHelper.decode(ParseMode.values, json['parse_mode']),
-    );
-  }
 
   Map<String, dynamic> toJson() {
     return {

@@ -3,25 +3,24 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 class InlineQuery {
   String id;
   User from;
-  Location location;
+  Location? location;
   String query;
   String offset;
 
-  InlineQuery(
-    this.id,
-    this.from,
-    this.query,
-    this.offset, {
+  InlineQuery({
+    required this.id,
+    required this.from,
+    required this.query,
+    required this.offset,
     this.location,
   });
 
-  factory InlineQuery.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static InlineQuery fromJson(Map<String, dynamic> json) {
     return InlineQuery(
-      json['id'],
-      User.fromJson(json['from']),
-      json['query'],
-      json['offset'],
+      id: json['id']!,
+      from: User.fromJson(json['from']!),
+      query: json['query']!,
+      offset: json['offset']!,
       location: Location.fromJson(json['location']),
     );
   }

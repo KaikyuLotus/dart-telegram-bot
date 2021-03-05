@@ -4,14 +4,16 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ReplyKeyboardRemove extends ReplyMarkup {
   bool removeKeyboard;
-  bool selective;
+  bool? selective;
 
-  ReplyKeyboardRemove(this.removeKeyboard, {this.selective});
+  ReplyKeyboardRemove(
+    this.removeKeyboard, {
+    this.selective,
+  });
 
-  factory ReplyKeyboardRemove.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static ReplyKeyboardRemove fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardRemove(
-      json['remove_keyboard'],
+      json['remove_keyboard']!,
       selective: json['selective'],
     );
   }

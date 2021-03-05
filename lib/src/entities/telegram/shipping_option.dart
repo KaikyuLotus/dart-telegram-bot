@@ -5,14 +5,17 @@ class ShippingOption {
   String title;
   List<LabeledPrice> prices;
 
-  ShippingOption({this.id, this.title, this.prices});
+  ShippingOption({
+    required this.id,
+    required this.title,
+    required this.prices,
+  });
 
-  factory ShippingOption.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static ShippingOption fromJson(Map<String, dynamic> json) {
     return ShippingOption(
-      id: json['id'],
-      title: json['title'],
-      prices: LabeledPrice.listFromJsonArray(json['prices']),
+      id: json['id']!,
+      title: json['title']!,
+      prices: LabeledPrice.listFromJsonArray(json['prices']!),
     );
   }
 }

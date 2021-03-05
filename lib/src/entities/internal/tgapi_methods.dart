@@ -7,7 +7,7 @@ import 'package:dart_telegram_bot/src/entities/internal/tgapi_client.dart';
 class TGAPIMethods {
   final _client = TGAPIClient();
 
-  String _token;
+  late String _token;
 
   TGAPIMethods(String token) {
     _token = token;
@@ -21,16 +21,16 @@ class TGAPIMethods {
     return _client.apiCall(_token, 'getMe');
   }
 
-  Future<List<Update>> getUpdates({int timeout, int offset}) {
+  Future<List<Update>> getUpdates({int? timeout, int? offset}) {
     return _client.apiCall(_token, 'getUpdates', {'timeout': timeout, 'offset': offset});
   }
 
   Future<Message> sendMessage(ChatID chatId, String text,
-      {ParseMode parseMode,
-      bool disableWebPagePreview,
-      bool disableNotification,
-      int replyToMessageId,
-      ReplyMarkup replyMarkup}) {
+      {ParseMode? parseMode,
+      bool? disableWebPagePreview,
+      bool? disableNotification,
+      int? replyToMessageId,
+      ReplyMarkup? replyMarkup}) {
     return _client.apiCall(_token, 'sendMessage', {
       'chat_id': chatId,
       'text': text,
@@ -45,11 +45,11 @@ class TGAPIMethods {
   Future<Message> sendPhoto(
     ChatID chatId,
     HttpFile photo, {
-    String caption,
-    ParseMode parseMode,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    String? caption,
+    ParseMode? parseMode,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPhoto', {
       'chat_id': chatId,
@@ -65,15 +65,15 @@ class TGAPIMethods {
   Future<Message> sendAudio(
     ChatID chatId,
     HttpFile audio, {
-    String caption,
-    ParseMode parseMode,
-    int duration,
-    String performer,
-    String title,
-    HttpFile thumb,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    String? caption,
+    ParseMode? parseMode,
+    int? duration,
+    String? performer,
+    String? title,
+    HttpFile? thumb,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAudio', {
       'chat_id': chatId,
@@ -93,12 +93,12 @@ class TGAPIMethods {
   Future<Message> sendDocument(
     ChatID chatId,
     HttpFile document, {
-    HttpFile thumb,
-    String caption,
-    ParseMode parseMode,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    HttpFile? thumb,
+    String? caption,
+    ParseMode? parseMode,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendDocument', {
       'chat_id': chatId,
@@ -115,16 +115,16 @@ class TGAPIMethods {
   Future<Message> sendVideo(
     ChatID chatId,
     HttpFile video, {
-    int duration,
-    int width,
-    int height,
-    HttpFile thumb,
-    String caption,
-    ParseMode parseMode,
-    bool supportsStreaming,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    int? duration,
+    int? width,
+    int? height,
+    HttpFile? thumb,
+    String? caption,
+    ParseMode? parseMode,
+    bool? supportsStreaming,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideo', {
       'chat_id': chatId,
@@ -145,15 +145,15 @@ class TGAPIMethods {
   Future<Message> sendAnimation(
     ChatID chatId,
     HttpFile animation, {
-    int duration,
-    int width,
-    int height,
-    HttpFile thumb,
-    String caption,
-    ParseMode parseMode,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    int? duration,
+    int? width,
+    int? height,
+    HttpFile? thumb,
+    String? caption,
+    ParseMode? parseMode,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAnimation', {
       'chat_id': chatId,
@@ -173,12 +173,12 @@ class TGAPIMethods {
   Future<Message> sendVoice(
     ChatID chatId,
     HttpFile voice, {
-    String caption,
-    ParseMode parseMode,
-    int duration,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    String? caption,
+    ParseMode? parseMode,
+    int? duration,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVoice', {
       'chat_id': chatId,
@@ -195,12 +195,12 @@ class TGAPIMethods {
   Future<Message> sendVideoNote(
     ChatID chatId,
     HttpFile videoNote, {
-    int duration,
-    int length,
-    HttpFile thumb,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    int? duration,
+    int? length,
+    HttpFile? thumb,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideoNote', {
       'chat_id': chatId,
@@ -215,8 +215,8 @@ class TGAPIMethods {
   Future<List<Message>> sendMediaGroup(
     ChatID chatId,
     List<InputMedia> media, {
-    bool disableNotification,
-    int replyToMessageId,
+    bool? disableNotification,
+    int? replyToMessageId,
   }) {
     return _client.apiCall(_token, 'sendMediaGroup', {
       'chat_id': chatId,
@@ -230,10 +230,10 @@ class TGAPIMethods {
     ChatID chatId,
     double latitude,
     double longitude, {
-    int livePeriod,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    int? livePeriod,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendLocation', {
       'chat_id': chatId,
@@ -249,10 +249,10 @@ class TGAPIMethods {
   Future<Message> editMessageLiveLocation(
     double latitude,
     double longitude, {
-    String inlineMessageId,
-    ChatID chatId,
-    int messageId,
-    ReplyMarkup replyMarkup,
+    String? inlineMessageId,
+    ChatID? chatId,
+    int? messageId,
+    ReplyMarkup? replyMarkup,
   }) {
     if (inlineMessageId == null && (chatId == null || messageId == null)) {
       throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');
@@ -268,10 +268,10 @@ class TGAPIMethods {
   }
 
   Future<Message> stopMessageLiveLocation({
-    String inlineMessageId,
-    ChatID chatId,
-    int messageId,
-    ReplyMarkup replyMarkup,
+    String? inlineMessageId,
+    ChatID? chatId,
+    int? messageId,
+    ReplyMarkup? replyMarkup,
   }) {
     if (inlineMessageId == null && (chatId == null || messageId == null)) {
       throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');
@@ -290,11 +290,11 @@ class TGAPIMethods {
     double longitude,
     String title,
     String address, {
-    String foursquareId,
-    String foursquareType,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    String? foursquareId,
+    String? foursquareType,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVenue', {
       'chat_id': chatId,
@@ -312,17 +312,17 @@ class TGAPIMethods {
 
   Future<Message> sendContact(
     ChatID chatId,
-    String phone_number,
-    String firstName, {
-    String lastName,
-    String vcard,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    String phoneNumber,
+    String? firstName, {
+    String? lastName,
+    String? vcard,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendContact', {
       'chat_id': chatId,
-      'phone_number': phone_number,
+      'phone_number': phoneNumber,
       'first_name': firstName,
       'last_name': lastName,
       'vcard': vcard,
@@ -336,14 +336,14 @@ class TGAPIMethods {
     ChatID chatId,
     String question,
     List<String> options, {
-    bool isAnonymous,
-    String type,
-    bool allowsMultipleAnswers,
-    int correctOptionId,
-    bool isClosed,
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    bool? isAnonymous,
+    String? type,
+    bool? allowsMultipleAnswers,
+    int? correctOptionId,
+    bool? isClosed,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(
       _token,
@@ -370,8 +370,8 @@ class TGAPIMethods {
 
   Future<UserProfilePhotos> getUserProfilePhotos(
     ChatID chatId, {
-    int offset,
-    int limit,
+    int? offset,
+    int? limit,
   }) {
     return _client.apiCall(_token, 'getUserProfilePhotos', {
       'chat_id': chatId,
@@ -387,7 +387,7 @@ class TGAPIMethods {
   Future<bool> kickChatMember(
     ChatID chatId,
     int userId, {
-    int untilDate,
+    int? untilDate,
   }) {
     return _client.apiCall(_token, 'kickChatMember', {
       'chat_id': chatId,
@@ -407,7 +407,7 @@ class TGAPIMethods {
     ChatID chatId,
     int userId,
     ChatPermissions permissions, {
-    int untilDate,
+    int? untilDate,
   }) {
     return _client.apiCall(_token, 'restrictChatMember', {
       'chat_id': chatId,
@@ -420,14 +420,14 @@ class TGAPIMethods {
   Future<bool> promoteChatMember(
     ChatID chatId,
     int userId, {
-    bool canChangeInfo,
-    bool canPostMessages,
-    bool canEditMessages,
-    bool canDeleteMessages,
-    bool canInviteUsers,
-    bool canRestrictMembers,
-    bool canPinMessages,
-    bool canPromoteMembers,
+    bool? canChangeInfo,
+    bool? canPostMessages,
+    bool? canEditMessages,
+    bool? canDeleteMessages,
+    bool? canInviteUsers,
+    bool? canRestrictMembers,
+    bool? canPinMessages,
+    bool? canPromoteMembers,
   }) {
     return _client.apiCall(_token, 'promoteChatMember', {
       'chat_id': chatId,
@@ -494,7 +494,7 @@ class TGAPIMethods {
   Future<bool> pinChatMessage(
     ChatID chatId,
     int messageId, {
-    bool disableNotification,
+    bool? disableNotification,
   }) {
     return _client.apiCall(_token, 'pinChatMessage', {
       'chat_id': chatId,
@@ -555,10 +555,10 @@ class TGAPIMethods {
 
   Future<bool> answerCallbackQuery(
     String callbackQueryId, {
-    String text,
-    bool showAlert,
-    String url,
-    int cacheTime,
+    String? text,
+    bool? showAlert,
+    String? url,
+    int? cacheTime,
   }) {
     return _client.apiCall(_token, 'answerCallbackQuery', {
       'callback_query_id': callbackQueryId,
@@ -572,7 +572,7 @@ class TGAPIMethods {
   Future<Poll> stopPoll(
     ChatID chatId,
     int messageId, {
-    ReplyMarkup replyMarkup,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'stopPoll', {
       'chat_id': chatId,
@@ -589,9 +589,7 @@ class TGAPIMethods {
   }
 
   Future<StickerSet> getStickerSet(String name) {
-    return _client.apiCall(_token, 'getStickerSet', {
-      'name': name,
-    });
+    return _client.apiCall(_token, 'getStickerSet', {'name': name});
   }
 
   Future<File> uploadStickerFile(String userId, HttpFile pngSticker) {
@@ -607,8 +605,8 @@ class TGAPIMethods {
     String title,
     HttpFile pngSticker,
     String emojis, {
-    bool containsMasks,
-    MaskPosition maskPosition,
+    bool? containsMasks,
+    MaskPosition? maskPosition,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
       'user_id': userId,
@@ -626,7 +624,7 @@ class TGAPIMethods {
     String name,
     HttpFile pngSticker,
     String emojis, {
-    MaskPosition maskPosition,
+    MaskPosition? maskPosition,
   }) {
     return _client.apiCall(_token, 'addStickerToSet', {
       'user_id': userId,
@@ -653,11 +651,11 @@ class TGAPIMethods {
   Future<bool> answerInlineQuery(
     String inlineQueryId,
     List<InlineQueryResult> results, {
-    int cacheTime,
-    bool isPersonal,
-    String nextOffset,
-    String switchPmText,
-    String switchPmParameter,
+    int? cacheTime,
+    bool? isPersonal,
+    String? nextOffset,
+    String? switchPmText,
+    String? switchPmParameter,
   }) {
     return _client.apiCall(_token, 'answerInlineQuery', {
       'inline_query_id': inlineQueryId,
@@ -673,9 +671,9 @@ class TGAPIMethods {
   Future<Message> sendSticker(
     ChatID chatId,
     HttpFile sticker, {
-    bool disableNotification,
-    int replyToMessageId,
-    ReplyMarkup replyMarkup,
+    bool? disableNotification,
+    int? replyToMessageId,
+    ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendSticker', {
       'chat_id': chatId,
@@ -698,12 +696,12 @@ class TGAPIMethods {
 
   Future<Message> editMessageText(
     String text, {
-    ChatID chatId,
-    int messageId,
-    String inlineMessageId,
-    ParseMode parseMode,
-    bool disableWebPagePreview,
-    ReplyMarkup replyMarkup,
+    ChatID? chatId,
+    int? messageId,
+    String? inlineMessageId,
+    ParseMode? parseMode,
+    bool? disableWebPagePreview,
+    ReplyMarkup? replyMarkup,
   }) {
     if (inlineMessageId == null && (chatId == null || messageId == null)) {
       throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');

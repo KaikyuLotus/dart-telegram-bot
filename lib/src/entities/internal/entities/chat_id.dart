@@ -1,6 +1,6 @@
 class ChatID {
-  int chatId;
-  String chatUsername;
+  int? chatId;
+  String? chatUsername;
 
   ChatID._internal({this.chatId, this.chatUsername});
 
@@ -12,6 +12,6 @@ class ChatID {
 
   @override
   String toString() {
-    return chatId.toString() ?? chatUsername;
+    return (chatId ?? chatUsername)!.toString();
   }
 }

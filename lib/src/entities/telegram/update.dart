@@ -1,22 +1,23 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Update {
-  Stopwatch stopwatch;
+  Stopwatch stopwatch = Stopwatch()..start();
   int updateId;
-  Message message;
-  Message editedMessage;
-  Message channelPost;
-  Message editedChannelPost;
-  InlineQuery inlineQuery;
-  ChosenInlineResult chosenInlineResult;
-  CallbackQuery callbackQuery;
-  ShippingQuery shippingQuery;
-  PreCheckoutQuery preCheckoutQuery;
-  Poll poll;
-  PollAnswer pollAnswer;
+  Message? message;
+  Message? editedMessage;
+  Message? channelPost;
+  Message? editedChannelPost;
+  InlineQuery? inlineQuery;
+  ChosenInlineResult? chosenInlineResult;
+  CallbackQuery? callbackQuery;
+  ShippingQuery? shippingQuery;
+  PreCheckoutQuery? preCheckoutQuery;
+  Poll? poll;
+  PollAnswer? pollAnswer;
 
-  Update(
-    this.updateId, {
+  Update({
+    required this.updateId,
     this.message,
     this.editedMessage,
     this.channelPost,
@@ -28,30 +29,26 @@ class Update {
     this.preCheckoutQuery,
     this.poll,
     this.pollAnswer,
-  }) {
-    stopwatch = Stopwatch()..start();
-  }
+  });
 
-  factory Update.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static Update fromJson(Map<String, dynamic> json) {
     return Update(
-      json['update_id'],
-      message: Message.fromJson(json['message']),
-      editedMessage: Message.fromJson(json['edited_message']),
-      channelPost: Message.fromJson(json['channel_post']),
-      editedChannelPost: Message.fromJson(json['edited_channel_post']),
-      inlineQuery: InlineQuery.fromJson(json['inline_query']),
-      chosenInlineResult: ChosenInlineResult.fromJson(json['chosen_inline_result']),
-      callbackQuery: CallbackQuery.fromJson(json['callback_query']),
-      shippingQuery: ShippingQuery.fromJson(json['shipping_query']),
-      preCheckoutQuery: PreCheckoutQuery.fromJson(json['pre_checkout_query']),
-      poll: Poll.fromJson(json['poll']),
-      pollAnswer: PollAnswer.fromJson(json['poll_answer']),
+      updateId: json['update_id']!,
+      message: callIfNotNull(Message.fromJson, json['message']),
+      editedMessage: callIfNotNull(Message.fromJson, json['edited_message']),
+      channelPost: callIfNotNull(Message.fromJson, json['channel_post']),
+      editedChannelPost: callIfNotNull(Message.fromJson, json['edited_channel_post']),
+      inlineQuery: callIfNotNull(InlineQuery.fromJson, json['inline_query']),
+      chosenInlineResult: callIfNotNull(ChosenInlineResult.fromJson, json['chosen_inline_result']),
+      callbackQuery: callIfNotNull(CallbackQuery.fromJson, json['callback_query']),
+      shippingQuery: callIfNotNull(ShippingQuery.fromJson, json['shipping_query']),
+      preCheckoutQuery: callIfNotNull(PreCheckoutQuery.fromJson, json['pre_checkout_query']),
+      poll: callIfNotNull(Poll.fromJson, json['poll']),
+      pollAnswer: callIfNotNull(PollAnswer.fromJson, json['poll_answer']),
     );
   }
 
   static List<Update> listFromJsonArray(List<dynamic> array) {
-    if (array == null) return null;
     return List.generate(array.length, (i) => Update.fromJson(array[i]));
   }
 }

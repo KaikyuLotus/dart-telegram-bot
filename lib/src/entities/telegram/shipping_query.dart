@@ -6,15 +6,19 @@ class ShippingQuery {
   String invoicePayload;
   ShippingAddress shippingAddress;
 
-  ShippingQuery({this.id, this.from, this.invoicePayload, this.shippingAddress});
+  ShippingQuery({
+    required this.id,
+    required this.from,
+    required this.invoicePayload,
+    required this.shippingAddress,
+  });
 
-  factory ShippingQuery.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static ShippingQuery fromJson(Map<String, dynamic> json) {
     return ShippingQuery(
-      id: json['id'],
-      from: json['from'],
-      invoicePayload: json['invoice_payload'],
-      shippingAddress: json['shipping_address'],
+      id: json['id']!,
+      from: json['from']!,
+      invoicePayload: json['invoice_payload']!,
+      shippingAddress: json['shipping_address']!,
     );
   }
 }

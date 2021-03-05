@@ -13,14 +13,16 @@ class Bot extends TGAPIMethods {
   final List<Future Function(Update)> _updateCallbacks = [];
   final Map<String, Future<dynamic> Function(Update)> _commandCallbacks = {};
 
+  final int _timeout;
+
   bool _isReady = false;
   bool _isRunning = false;
   bool _isInitialized = false;
   int _offset = 0;
-  int _timeout;
-  int _id;
-  String _first_name;
-  String _username;
+
+  int _id = 0;
+  String _first_name = '';
+  String _username = '';
 
   bool get isReady => _isReady;
 
@@ -30,40 +32,38 @@ class Bot extends TGAPIMethods {
 
   int get offset => _offset;
 
-  int get timeout => _timeout;
+  int? get timeout => _timeout;
 
-  int get id => _id;
+  int? get id => _id;
 
-  String get first_name => _first_name;
+  String? get first_name => _first_name;
 
-  String get username => _username;
+  String? get username => _username;
 
-  Bot(String token, [int timeout = 10]) : super(token) {
-    _timeout = timeout;
-  }
+  Bot(String token, [this._timeout = 10]) : super(token);
 
   Future<Bot> init() async {
     var user = await getMe();
-    await _ready(user);
+    _ready(user);
     return this;
   }
 
   void _ready(User user) {
     _id = user.id;
     _first_name = user.firstName;
-    _username = user.username;
+    _username = user.username!;
     _isReady = true;
     _isInitialized = true;
   }
 
   bool _checkCommands(Update update) {
     var anyExecuted = false;
-    if (update.message == null || update.message.text == null) return false;
+    if (update.message == null || update.message!.text == null) return false;
     for (var command in _commandCallbacks.keys) {
-      var commandInstance = BotCommandParser.fromMessage(update.message);
+      var commandInstance = BotCommandParser.fromMessage(update.message!);
       var isMatching = commandInstance != null && commandInstance.matchesCommand(command, targetBotUsername: username);
       if (!isMatching) continue;
-      _commandCallbacks[command](update).catchError((e, s) {
+      _commandCallbacks[command]!(update).catchError((e, s) {
         log.severe('Failed to execute command callback', e, s);
       });
       anyExecuted = true;
@@ -144,7 +144,7 @@ class Bot extends TGAPIMethods {
     _updateCallbacks.add(callback);
   }
 
-  void onCommand(String command, Function(Update) callback) {
+  void onCommand(String command, Future Function(Update) callback) {
     _commandCallbacks[command] = callback;
   }
 }

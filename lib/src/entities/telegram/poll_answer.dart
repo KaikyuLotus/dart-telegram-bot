@@ -5,14 +5,17 @@ class PollAnswer {
   User user;
   List<int> optionIds;
 
-  PollAnswer({this.pollId, this.user, this.optionIds});
+  PollAnswer({
+    required this.pollId,
+    required this.user,
+    required this.optionIds,
+  });
 
-  factory PollAnswer.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static PollAnswer fromJson(Map<String, dynamic> json) {
     return PollAnswer(
-      pollId: json['poll_id'],
-      user: json['user'],
-      optionIds: json['option_ids'],
+      pollId: json['poll_id']!,
+      user: json['user']!,
+      optionIds: json['option_ids']!,
     );
   }
 }

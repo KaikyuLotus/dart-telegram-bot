@@ -1,3 +1,4 @@
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Animation {
@@ -6,32 +7,31 @@ class Animation {
   int width;
   int height;
   int duration;
-  PhotoSize thumb;
-  String fileName;
-  String mimeType;
-  int fileSize;
+  PhotoSize? thumb;
+  String? fileName;
+  String? mimeType;
+  int? fileSize;
 
   Animation({
-    this.fileId,
-    this.fileUniqueId,
-    this.width,
-    this.height,
-    this.duration,
+    required this.fileId,
+    required this.fileUniqueId,
+    required this.width,
+    required this.height,
+    required this.duration,
     this.thumb,
     this.fileName,
     this.mimeType,
     this.fileSize,
   });
 
-  factory Animation.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
+  static Animation fromJson(Map<String, dynamic> json) {
     return Animation(
-      fileId: json['file_id'],
-      fileUniqueId: json['file_unique_id'],
-      width: json['width'],
-      height: json['height'],
-      duration: json['duration'],
-      thumb: PhotoSize.fromJson(json['thumb']),
+      fileId: json['file_id']!,
+      fileUniqueId: json['file_unique_id']!,
+      width: json['width']!,
+      height: json['height']!,
+      duration: json['duration']!,
+      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
       fileName: json['file_name'],
       mimeType: json['mime_type'],
       fileSize: json['file_size'],

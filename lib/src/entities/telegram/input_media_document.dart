@@ -3,28 +3,21 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 class InputMediaDocument extends InputMedia {
   String type;
   String media;
-  HttpFile thumb;
-  String caption;
-  ParseMode parseMode;
+  HttpFile? thumb;
+  String? caption;
+  ParseMode? parseMode;
+  List<MessageEntity>? captionEntities;
+  bool? disableContentTypeDetection;
 
   InputMediaDocument({
-    this.type,
-    this.media,
+    required this.type,
+    required this.media,
     this.thumb,
     this.caption,
     this.parseMode,
+    this.captionEntities,
+    this.disableContentTypeDetection,
   });
-
-  factory InputMediaDocument.fromJson(Map<String, dynamic> json) {
-    if (json == null) return null;
-    return InputMediaDocument(
-      type: json['type'],
-      media: json['media'],
-      thumb: json['thumb'],
-      caption: json['caption'],
-      parseMode: json['parse_mode'],
-    );
-  }
 
   // TODO implement toJson
 
