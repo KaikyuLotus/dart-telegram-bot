@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/src/entities/internal/tgapi_methods.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 class Bot extends TGAPIMethods {
@@ -87,7 +87,8 @@ class Bot extends TGAPIMethods {
 
     if (!_isReady) {
       throw InvalidBotState(
-        "The bot is not ready, something failed or you're executing code too early.\n"
+        'The bot is not ready, something failed '
+        "or you're executing code too early.\n"
         'Use .ready() callback instead or check .error()',
       );
     }
@@ -105,32 +106,35 @@ class Bot extends TGAPIMethods {
 
     _isRunning = true;
 
-    await Future.doWhile(() async {
-      await eventLoop();
-      return _isRunning;
-    });
+    await eventLoop();
 
     return getUpdates(timeout: 0, offset: _offset).then((u) => this);
   }
 
-  Future eventLoop() async {
-    try {
-      var updates = await getUpdates(timeout: _timeout, offset: _offset);
-      for (var update in updates) {
-        _offset = update.updateId + 1;
-        _handleUpdate(update);
+  Future eventLoop() {
+    return Future.doWhile(() async {
+      try {
+        var updates = await getUpdates(timeout: _timeout, offset: _offset);
+        for (var update in updates) {
+          _offset = update.updateId + 1;
+          _handleUpdate(update);
+        }
+      } on ClientException catch (_) {
+        log.severe('Socket error');
+        // Wait for connection to stabilize
+        await Future.delayed(Duration(seconds: 1));
+      } catch (e, s) {
+        log.severe('Update crashed', e, s);
+        if (e is APIException) {
+          _offset = e.errorCode + 1; // Here error code is the last update ID
+        }
       }
-    } on SocketException catch (_) {
-      log.severe('Socket error');
-    } catch (e, s) {
-      log.severe('Update crashed', e, s);
-      if (e is APIException) {
-        _offset = e.errorCode + 1; // Here error code is the last update ID
-      }
-    }
+      return _isRunning;
+    });
   }
 
-  /// If restartHttpClient is true, then the client will be closed and re-open to allow further request,
+  /// If restartHttpClient is true, then the client will be closed and re-open
+  /// to allow further request,
   /// cleaning up some data
   void stop([bool restartHttpClient = false]) {
     if (!_isRunning) {

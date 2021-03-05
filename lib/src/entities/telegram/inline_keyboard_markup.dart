@@ -15,7 +15,7 @@ class InlineKeyboardMarkup extends ReplyMarkup {
 
   Map toJson() {
     return {
-      'inline_keyboard': inlineKeyboard
+      'inline_keyboard': inlineKeyboard,
     };
   }
 

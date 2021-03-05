@@ -27,10 +27,15 @@ class PhotoSize {
     return List.generate(json.length, (i) => PhotoSize.fromJson(json[i]));
   }
 
-  static List<List<PhotoSize>> listOfListsFromJsonArray(List<List<dynamic>> json) {
+  static List<List<PhotoSize>> listOfListsFromJsonArray(
+    List<List<dynamic>> json,
+  ) {
     return List.generate(
       json.length,
-      (e) => List.generate(json[e].length, (i) => PhotoSize.fromJson(json[e][i])),
+      (e) => List.generate(
+        json[e].length,
+        (i) => PhotoSize.fromJson(json[e][i]),
+      ),
     );
   }
 }

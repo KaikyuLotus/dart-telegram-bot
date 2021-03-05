@@ -42,7 +42,7 @@
 
 - Added the possibility to chose if the http client should be only closed or restarted
 
-# 0.0.9+3
+## 0.0.9+3
 
 - Bug fix for event loop
 
@@ -118,7 +118,7 @@ This is a beta release
 - Bot events and commands now are executed in real async
 - Minor fixes to input media
 
-# 0.1.8-b1
+## 0.1.8-b1
 
 Fixed version string
 This is a beta release
@@ -157,3 +157,14 @@ This is a beta release
 - Minor fixes with code formatting
 - Renamed an example to main.dart
 - Fix changelog formatting
+
+## 0.4.0-beta.3
+
+- Minor fixes with code formatting
+- Fix changelog formatting
+- Improved example
+- Removed dependency on dart:io, now this lib is compatible with JavaScript platform
+
+## 0.4.0-beta.4
+
+- Minor fixes with code formatting

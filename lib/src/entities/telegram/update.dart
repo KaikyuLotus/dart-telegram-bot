@@ -34,17 +34,50 @@ class Update {
   static Update fromJson(Map<String, dynamic> json) {
     return Update(
       updateId: json['update_id']!,
-      message: callIfNotNull(Message.fromJson, json['message']),
-      editedMessage: callIfNotNull(Message.fromJson, json['edited_message']),
-      channelPost: callIfNotNull(Message.fromJson, json['channel_post']),
-      editedChannelPost: callIfNotNull(Message.fromJson, json['edited_channel_post']),
-      inlineQuery: callIfNotNull(InlineQuery.fromJson, json['inline_query']),
-      chosenInlineResult: callIfNotNull(ChosenInlineResult.fromJson, json['chosen_inline_result']),
-      callbackQuery: callIfNotNull(CallbackQuery.fromJson, json['callback_query']),
-      shippingQuery: callIfNotNull(ShippingQuery.fromJson, json['shipping_query']),
-      preCheckoutQuery: callIfNotNull(PreCheckoutQuery.fromJson, json['pre_checkout_query']),
-      poll: callIfNotNull(Poll.fromJson, json['poll']),
-      pollAnswer: callIfNotNull(PollAnswer.fromJson, json['poll_answer']),
+      message: callIfNotNull(
+        Message.fromJson,
+        json['message'],
+      ),
+      editedMessage: callIfNotNull(
+        Message.fromJson,
+        json['edited_message'],
+      ),
+      channelPost: callIfNotNull(
+        Message.fromJson,
+        json['channel_post'],
+      ),
+      editedChannelPost: callIfNotNull(
+        Message.fromJson,
+        json['edited_channel_post'],
+      ),
+      inlineQuery: callIfNotNull(
+        InlineQuery.fromJson,
+        json['inline_query'],
+      ),
+      chosenInlineResult: callIfNotNull(
+        ChosenInlineResult.fromJson,
+        json['chosen_inline_result'],
+      ),
+      callbackQuery: callIfNotNull(
+        CallbackQuery.fromJson,
+        json['callback_query'],
+      ),
+      shippingQuery: callIfNotNull(
+        ShippingQuery.fromJson,
+        json['shipping_query'],
+      ),
+      preCheckoutQuery: callIfNotNull(
+        PreCheckoutQuery.fromJson,
+        json['pre_checkout_query'],
+      ),
+      poll: callIfNotNull(
+        Poll.fromJson,
+        json['poll'],
+      ),
+      pollAnswer: callIfNotNull(
+        PollAnswer.fromJson,
+        json['poll_answer'],
+      ),
     );
   }
 

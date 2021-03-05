@@ -30,7 +30,10 @@ class InlineKeyboardButton {
 
   InlineKeyboardButton.SwitchInlineQuery(this.text, this.switchInlineQuery);
 
-  InlineKeyboardButton.SwitchInlineQueryCurrentChat(this.text, this.switchInlineQueryCurrentChat);
+  InlineKeyboardButton.SwitchInlineQueryCurrentChat(
+    this.text,
+    this.switchInlineQueryCurrentChat,
+  );
 
   InlineKeyboardButton.CallbackGame(this.text, this.callbackGame);
 
@@ -56,10 +59,12 @@ class InlineKeyboardButton {
     );
   }
 
-  static List<List<InlineKeyboardButton>> listOfListsFromJsonArray(List<dynamic> json) {
+  static List<List<InlineKeyboardButton>> listOfListsFromJsonArray(
+      List<dynamic> json) {
     return List.generate(
       json.length,
-      (e) => List.generate(json[e].length, (i) => InlineKeyboardButton.fromJson(json[e][i])),
+      (e) => List.generate(
+          json[e].length, (i) => InlineKeyboardButton.fromJson(json[e][i])),
     );
   }
 
@@ -76,5 +81,4 @@ class InlineKeyboardButton {
     data.removeWhere((k, v) => v == null);
     return data;
   }
-
 }

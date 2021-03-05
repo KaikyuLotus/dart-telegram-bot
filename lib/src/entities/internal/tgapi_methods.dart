@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
-import 'package:dart_telegram_bot/telegram_entities.dart';
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/src/entities/internal/tgapi_client.dart';
+import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class TGAPIMethods {
   final _client = TGAPIClient();
@@ -22,7 +22,10 @@ class TGAPIMethods {
   }
 
   Future<List<Update>> getUpdates({int? timeout, int? offset}) {
-    return _client.apiCall(_token, 'getUpdates', {'timeout': timeout, 'offset': offset});
+    return _client.apiCall(_token, 'getUpdates', {
+      'timeout': timeout,
+      'offset': offset,
+    });
   }
 
   Future<Message> sendMessage(ChatID chatId, String text,
@@ -255,7 +258,9 @@ class TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');
+      throw MalformedAPICallException(
+        'If inlineMessageId is null then chatId and messageId must be defined',
+      );
     }
     return _client.apiCall(_token, 'editMessageLiveLocation', {
       'chat_id': chatId,
@@ -274,7 +279,9 @@ class TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');
+      throw MalformedAPICallException(
+        'If inlineMessageId is null then chatId and messageId must be defined',
+      );
     }
     return _client.apiCall(_token, 'stopMessageLiveLocation', {
       'chat_id': chatId,
@@ -365,7 +372,11 @@ class TGAPIMethods {
   }
 
   Future<bool> sendChatAction(ChatID chatId, ChatAction action) {
-    return _client.apiCall(_token, 'sendChatAction', {'chat_id': chatId, 'action': action});
+    return _client.apiCall(
+      _token,
+      'sendChatAction',
+      {'chat_id': chatId, 'action': action},
+    );
   }
 
   Future<UserProfilePhotos> getUserProfilePhotos(
@@ -443,7 +454,11 @@ class TGAPIMethods {
     });
   }
 
-  Future<bool> setChatAdministratorCustomTitle(ChatID chatId, int userId, String customTitle) {
+  Future<bool> setChatAdministratorCustomTitle(
+    ChatID chatId,
+    int userId,
+    String customTitle,
+  ) {
     return _client.apiCall(_token, 'setChatAdministratorCustomTitle', {
       'chat_id': chatId,
       'user_id': userId,
@@ -704,7 +719,9 @@ class TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException('If inlineMessageId is null then chatId and messageId must be defined');
+      throw MalformedAPICallException(
+        'If inlineMessageId is null then chatId and messageId must be defined',
+      );
     }
 
     return _client.apiCall(_token, 'editMessageText', {

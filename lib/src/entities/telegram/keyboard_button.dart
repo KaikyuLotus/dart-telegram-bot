@@ -25,7 +25,10 @@ class KeyboardButton {
       text: json['text']!,
       requestContact: json['request_contact'],
       requestLocation: json['request_location'],
-      requestPoll: callIfNotNull(KeyboardButtonPollType.fromJson, json['request_poll']),
+      requestPoll: callIfNotNull(
+        KeyboardButtonPollType.fromJson,
+        json['request_poll'],
+      ),
     );
   }
 
@@ -36,10 +39,14 @@ class KeyboardButton {
     );
   }
 
-  static List<List<KeyboardButton>> listOfListsFromJsonArray(List<List<dynamic>> json) {
+  static List<List<KeyboardButton>> listOfListsFromJsonArray(
+      List<List<dynamic>> json) {
     return List.generate(
       json.length,
-      (e) => List.generate(json[e].length, (i) => KeyboardButton.fromJson(json[e][i])),
+      (e) => List.generate(
+        json[e].length,
+        (i) => KeyboardButton.fromJson(json[e][i]),
+      ),
     );
   }
 

@@ -4,7 +4,9 @@ class ChatID {
 
   ChatID._internal({this.chatId, this.chatUsername});
 
-  ChatID(this.chatId);
+  ChatID(int chatId) {
+    this.chatId = chatId;
+  }
 
   factory ChatID.fromUsername(String username) {
     return ChatID._internal(chatUsername: username);

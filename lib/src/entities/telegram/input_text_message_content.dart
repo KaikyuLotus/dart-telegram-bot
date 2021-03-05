@@ -1,5 +1,5 @@
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InputTextMessageContent extends InputMessageContent {
@@ -19,7 +19,10 @@ class InputTextMessageContent extends InputMessageContent {
     return InputTextMessageContent(
       json['message_text']!,
       parseMode: EnumHelper.decode(ParseMode.values, json['parse_mode']),
-      entities: callIfNotNull(MessageEntity.listFromJsonArray, json['entities']),
+      entities: callIfNotNull(
+        MessageEntity.listFromJsonArray,
+        json['entities'],
+      ),
       disableWebPagePreview: json['disable_web_page_preview'],
     );
   }
@@ -27,8 +30,12 @@ class InputTextMessageContent extends InputMessageContent {
   Map toJson() {
     var data = <String, dynamic>{};
     data['message_text'] = messageText;
-    if (parseMode != null) data['parse_mode'] = EnumHelper.encode(parseMode);
-    if (disableWebPagePreview != null) data['disable_web_page_preview'] = disableWebPagePreview;
+    if (parseMode != null) {
+      data['parse_mode'] = EnumHelper.encode(parseMode);
+    }
+    if (disableWebPagePreview != null) {
+      data['disable_web_page_preview'] = disableWebPagePreview;
+    }
     return data;
   }
 }

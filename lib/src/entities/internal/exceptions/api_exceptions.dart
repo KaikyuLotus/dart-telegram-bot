@@ -7,5 +7,6 @@ class APIException implements Exception {
   APIException(this.description, this.errorCode, this.query, this.method);
 
   @override
-  String toString() => 'APIException: $description ($errorCode)\nQuery: $query\nMethod: $method';
+  String toString() =>
+      'APIException: $description ($errorCode)\nQuery: $query\nMethod: $method';
 }

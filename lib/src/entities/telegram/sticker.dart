@@ -2,7 +2,6 @@ import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class Sticker {
-
   String fileId;
   String fileUniqueId;
   int width;

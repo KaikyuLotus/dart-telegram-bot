@@ -24,8 +24,14 @@ class Game {
       description: json['description']!,
       photo: PhotoSize.listFromJsonArray(json['photo']!),
       text: json['text'],
-      textEntities: callIfNotNull(MessageEntity.listFromJsonArray, json['text_entities']),
-      animation: Animation.fromJson(json['animation']),
+      textEntities: callIfNotNull(
+        MessageEntity.listFromJsonArray,
+        json['text_entities'],
+      ),
+      animation: callIfNotNull(
+        Animation.fromJson,
+        json['animation'],
+      ),
     );
   }
 }

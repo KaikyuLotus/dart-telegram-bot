@@ -14,7 +14,11 @@ class ExampleBot extends Bot {
         [InlineKeyboardButton.CallbackData('Button 1', 'btn1')],
         [InlineKeyboardButton.CallbackData('Button 2', 'btn2')]
       ];
-      await sendMessage(ChatID(update.message!.chat.id), 'Tap a button...', replyMarkup: InlineKeyboardMarkup(buttons));
+      await sendMessage(
+        ChatID(update.message!.chat.id),
+        'Tap a button...',
+        replyMarkup: InlineKeyboardMarkup(buttons),
+      );
     });
 
     onCommand('chatid', (update) async {
@@ -69,7 +73,8 @@ class ExampleBot extends Bot {
   Future _update(Update update) async {
     if (update.callbackQuery != null) {
       var callbackData = update.callbackQuery!.data;
-      await sendMessage(ChatID(update.callbackQuery!.message!.chat.id), 'Tapped: $callbackData');
+      await sendMessage(ChatID(update.callbackQuery!.message!.chat.id),
+          'Tapped: $callbackData');
     }
 
     if (update.inlineQuery != null) {
@@ -82,7 +87,8 @@ class ExampleBot extends Bot {
               id: '1',
               title: text,
               inputMessageContent: InputTextMessageContent(
-                '[$text](https://www.youtube.com/results?search_query=Zekk+-+TOMOYO)',
+                '[$text](https://www.youtube.com'
+                '/results?search_query=Zekk+-+TOMOYO)',
                 parseMode: ParseMode.MARKDOWN,
               ),
             )
@@ -118,7 +124,8 @@ class ExampleBot extends Bot {
 
     if (update.message!.photo != null) {
       var bigPhotoId = update.message!.photo!.last.fileId;
-      var size = '${update.message!.photo!.last.width}x${update.message!.photo!.last.height}';
+      var size = '${update.message!.photo!.last.width}'
+          'x${update.message!.photo!.last.height}';
       var msg = 'Photo ID: $bigPhotoId\nSize: $size';
       await sendPhoto(
         chatId,
@@ -165,7 +172,8 @@ class ExampleBot extends Bot {
 
     if (update.message!.location != null) {
       var location = update.message!.location!;
-      var resp = 'Longitude: ${location.longitude}\nLatitude:${location.latitude}';
+      var resp = 'Longitude: ${location.longitude}'
+          '\nLatitude:${location.latitude}';
       await sendMessage(chatId, resp).catchError(defaultErrorHandler);
     }
 
@@ -180,7 +188,8 @@ class ExampleBot extends Bot {
 
     if (update.message!.forwardFrom != null) {
       var user = update.message!.forwardFrom!;
-      var resp = 'Forwarded from ${user.firstName} (${user.id} / @${user.username})';
+      var resp = 'Forwarded from ${user.firstName} '
+          '(${user.id} / @${user.username})';
       await sendMessage(chatId, resp).catchError(defaultErrorHandler);
     }
 

@@ -21,7 +21,7 @@ class ForceReply extends ReplyMarkup {
   Map toJson() {
     return {
       'force_reply': forceReply,
-      'selective': selective
+      'selective': selective,
     };
   }
 

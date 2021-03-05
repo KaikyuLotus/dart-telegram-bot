@@ -1,4 +1,3 @@
-import 'dart:io' as io;
 import 'dart:typed_data';
 
 class HttpFile {
@@ -15,16 +14,6 @@ class HttpFile {
   HttpFile.fromBytes(String name, Uint8List bytes) {
     _name = name;
     _bytes = bytes;
-  }
-
-  HttpFile.fromFile(io.File file) {
-    _name = file.path.split('/').last;
-    _bytes = file.readAsBytesSync();
-  }
-
-  HttpFile.fromPath(String path) {
-    _name = path.split('/').last;
-    _bytes = io.File(path).readAsBytesSync();
   }
 
   HttpFile.fromToken(String token) {

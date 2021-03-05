@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:http/http.dart';
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 class TGAPIClient {
@@ -29,7 +29,10 @@ class TGAPIClient {
 
   var _client = Client();
 
-  MultipartRequest _buildMultipartRequest(Uri uri, Map<String, HttpFile> files) {
+  MultipartRequest _buildMultipartRequest(
+    Uri uri,
+    Map<String, HttpFile> files,
+  ) {
     var multipartRequest = MultipartRequest('POST', uri);
     var multipartFiles = files.entries.map(
       (e) => MultipartFile(
@@ -56,22 +59,43 @@ class TGAPIClient {
     Map<String, dynamic>? query,
     Map<String, HttpFile>? files,
   ]) async {
-    var uri = Uri.https(BASE_URL, '/bot$token/$method', query != null ? query.cast() : null);
-    var response = await _client.send(_getRequest(uri, files)).timeout(Duration(seconds: 120));
+    var uri = Uri.https(
+      BASE_URL,
+      '/bot$token/$method',
+      query != null ? query.cast() : null,
+    );
+    var response = await _client
+        .send(_getRequest(uri, files))
+        .timeout(Duration(seconds: 120));
     var stringResponse = await response.stream.bytesToString();
     return json.decode(stringResponse);
   }
 
   Future<Uint8List> apiDownload(String? token, String? path) async {
     var uri = Uri.https(BASE_URL, '/file/bot$token/$path');
-    var response = await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
+    var response = await _client
+        .send(
+          Request('GET', uri),
+        )
+        .timeout(
+          Duration(seconds: 120),
+        );
     if (response.statusCode != 200) {
-      throw APIException('Error while downloading the file with path /$path', response.statusCode, {}, 'download');
+      throw APIException(
+        'Error while downloading the file with path /$path',
+        response.statusCode,
+        {},
+        'download',
+      );
     }
     return response.stream.toBytes();
   }
 
-  Future<T> apiCall<T>(String? token, String method, [Map<String, dynamic>? query]) async {
+  Future<T> apiCall<T>(
+    String? token,
+    String method, [
+    Map<String, dynamic>? query,
+  ]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
       query
@@ -94,11 +118,18 @@ class TGAPIClient {
 
     var jsonResp = await _execute(token, method, query, files);
     if (jsonResp == null) {
-      throw Exception('Bot API returned null, or could not convert message to a json object');
+      throw Exception(
+        'Bot API returned null, or could not convert message to a json object',
+      );
     }
 
     if (!jsonResp['ok']) {
-      throw APIException(jsonResp['description'] ?? 'No description', jsonResp['error_code'] ?? -1, query, method);
+      throw APIException(
+        jsonResp['description'] ?? 'No description',
+        jsonResp['error_code'] ?? -1,
+        query,
+        method,
+      );
     }
 
     var result = jsonResp['result'];
@@ -114,7 +145,11 @@ class TGAPIClient {
       }
       return converter(result) as T;
     } catch (e, s) {
-      log.severe('Could not convert Telegram API response to target entity', e, s);
+      log.severe(
+        'Could not convert Telegram API response to target entity',
+        e,
+        s,
+      );
       throw APIException(
         'Could not convert Telegram API response to target entity: $e',
         result is List ? result.last['update_id'] ?? -1 : -1,

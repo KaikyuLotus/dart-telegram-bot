@@ -1,9 +1,8 @@
 import 'dart:io' as io;
 
-import 'package:test/test.dart';
-
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:test/test.dart';
 
 void main() {
   late Bot testBot;
@@ -95,7 +94,10 @@ void main() {
     () async {
       var message = await testBot.sendPhoto(
         ChatID(chatId),
-        HttpFile.fromPath('resources/test.jpg'),
+        HttpFile.fromBytes(
+          'test.jpg',
+          await io.File('resources/test.jpg').readAsBytes(),
+        ),
         caption: '*Test*',
         parseMode: ParseMode.MARKDOWN,
         replyToMessageId: replyId,
@@ -114,7 +116,8 @@ void main() {
   test(
     'Send photo with ID',
     () async {
-      var message = await testBot.sendPhoto(ChatID(chatId), HttpFile.fromToken(photoToken!));
+      var message = await testBot.sendPhoto(
+          ChatID(chatId), HttpFile.fromToken(photoToken!));
       expect(message.photo, isNotNull);
     },
     skip: false,
@@ -125,7 +128,10 @@ void main() {
     () async {
       var message = await testBot.sendAudio(
         ChatID(chatId),
-        HttpFile.fromPath('resources/audio.mp3'),
+        HttpFile.fromBytes(
+          'audio.mp3',
+          await io.File('resources/audio.mp3').readAsBytes(),
+        ),
         caption: '*Test*',
         parseMode: ParseMode.MARKDOWN,
         duration: 1,
@@ -151,7 +157,8 @@ void main() {
   test(
     'Send audio with ID',
     () async {
-      var message = await testBot.sendAudio(ChatID(chatId), HttpFile.fromToken(audioToken!));
+      var message = await testBot.sendAudio(
+          ChatID(chatId), HttpFile.fromToken(audioToken!));
       expect(message.audio, isNotNull);
     },
     skip: false,
@@ -162,7 +169,10 @@ void main() {
     () async {
       var message = await testBot.sendDocument(
         ChatID(chatId),
-        HttpFile.fromPath('resources/test.jpg'),
+        HttpFile.fromBytes(
+          'test.jpg',
+          await io.File('resources/test.jpg').readAsBytes(),
+        ),
         // thumb: HttpFile.fromPath('resources/test.jpg'),
         caption: '*Test*',
         parseMode: ParseMode.MARKDOWN,
@@ -194,7 +204,10 @@ void main() {
   test('Send video from file with all args works', () async {
     var message = await testBot.sendVideo(
       ChatID(chatId),
-      HttpFile.fromPath('resources/video.mp4'),
+      HttpFile.fromBytes(
+        'video.mp4',
+        await io.File('resources/video.mp4').readAsBytes(),
+      ),
       // thumb: HttpFile.fromPath('resources/test.jpg'),
       caption: '*Test*',
       parseMode: ParseMode.MARKDOWN,
@@ -227,7 +240,10 @@ void main() {
     () async {
       var message = await testBot.sendAnimation(
         ChatID(chatId),
-        HttpFile.fromPath('resources/gif.gif'),
+        HttpFile.fromBytes(
+          'gif.gif',
+          await io.File('resources/gif.gif').readAsBytes(),
+        ),
         width: 220,
         height: 126,
         // thumb: HttpFile.fromPath('resources/test.jpg'),
@@ -266,7 +282,10 @@ void main() {
     () async {
       var message = await testBot.sendVoice(
         ChatID(chatId),
-        HttpFile.fromPath('resources/audio.ogg'),
+        HttpFile.fromBytes(
+          'audio.ogg',
+          await io.File('resources/audio.ogg').readAsBytes(),
+        ),
         caption: '*Test*',
         duration: 1,
         parseMode: ParseMode.MARKDOWN,
@@ -352,7 +371,8 @@ void main() {
   );
 
   test(
-    'sendMessage with ReplyMarkup (InlineKeyboardButton) with mixed buttons types works',
+    'sendMessage with ReplyMarkup (InlineKeyboardButton)'
+    ' with mixed buttons types works',
     () async {
       var buttons = [
         [
@@ -360,8 +380,10 @@ void main() {
           InlineKeyboardButton.URL('URL', 'https://www.google.com/'),
         ],
         [
-          InlineKeyboardButton.SwitchInlineQuery('Button 3', 'dart-telegram-bot!'),
-          InlineKeyboardButton.SwitchInlineQueryCurrentChat('Button 4', 'dart-telegram-bot in current chat!'),
+          InlineKeyboardButton.SwitchInlineQuery(
+              'Button 3', 'dart-telegram-bot!'),
+          InlineKeyboardButton.SwitchInlineQueryCurrentChat(
+              'Button 4', 'dart-telegram-bot in current chat!'),
         ]
       ];
       var message = await testBot.sendMessage(
@@ -375,12 +397,22 @@ void main() {
       expect(markup, isNotNull);
       if (markup == null) throw Exception('Markup is null');
       expect(markup.inlineKeyboard.length, equals(2));
-      expect(markup.inlineKeyboard[0][0].text, equals('Button 1')); // Just check first button text
+      expect(markup.inlineKeyboard[0][0].text,
+          equals('Button 1')); // Just check first button text
 
       expect(markup.inlineKeyboard[0][0].callbackData, equals('cbd1'));
-      expect(markup.inlineKeyboard[0][1].url, equals('https://www.google.com/'));
-      expect(markup.inlineKeyboard[1][0].switchInlineQuery, equals('dart-telegram-bot!'));
-      expect(markup.inlineKeyboard[1][1].switchInlineQueryCurrentChat, equals('dart-telegram-bot in current chat!'));
+      expect(
+        markup.inlineKeyboard[0][1].url,
+        equals('https://www.google.com/'),
+      );
+      expect(
+        markup.inlineKeyboard[1][0].switchInlineQuery,
+        equals('dart-telegram-bot!'),
+      );
+      expect(
+        markup.inlineKeyboard[1][1].switchInlineQueryCurrentChat,
+        equals('dart-telegram-bot in current chat!'),
+      );
     },
     skip: false,
   );
@@ -394,8 +426,14 @@ void main() {
           KeyboardButton.RequestLocation('Location', true),
         ],
         [
-          KeyboardButton.RequestPoll('Poll (Quitz)', KeyboardButtonPollType(type: PollType.QUIZ)),
-          KeyboardButton.RequestPoll('Poll (Regular)', KeyboardButtonPollType(type: PollType.REGULAR))
+          KeyboardButton.RequestPoll(
+            'Poll (Quitz)',
+            KeyboardButtonPollType(type: PollType.QUIZ),
+          ),
+          KeyboardButton.RequestPoll(
+            'Poll (Regular)',
+            KeyboardButtonPollType(type: PollType.REGULAR),
+          )
         ]
       ];
       var message = await testBot.sendMessage(
@@ -491,7 +529,12 @@ void main() {
   test(
     'setChatPhoto works',
     () async {
-      var ok = await testBot.setChatPhoto(ChatID(groupId), HttpFile.fromPath('resources/test.jpg'));
+      var ok = await testBot.setChatPhoto(
+          ChatID(groupId),
+          HttpFile.fromBytes(
+            'test.jpg',
+            await io.File('resources/test.jpg').readAsBytes(),
+          ));
       expect(ok, isTrue);
     },
     skip: true,
@@ -500,7 +543,13 @@ void main() {
   test(
     'deleteChatPhoto works',
     () async {
-      var ok = await testBot.setChatPhoto(ChatID(groupId), HttpFile.fromPath('resources/test.jpg'));
+      var ok = await testBot.setChatPhoto(
+        ChatID(groupId),
+        HttpFile.fromBytes(
+          'test.jpg',
+          await io.File('resources/test.jpg').readAsBytes(),
+        ),
+      );
       expect(ok, isTrue);
       ok = await testBot.deleteChatPhoto(ChatID(groupId));
       expect(ok, isTrue);
@@ -521,7 +570,11 @@ void main() {
   test(
     'pinChatMessage and unpinChatMessage works',
     () async {
-      var ok = await testBot.pinChatMessage(ChatID(groupId), groupMsgId, disableNotification: true);
+      var ok = await testBot.pinChatMessage(
+        ChatID(groupId),
+        groupMsgId,
+        disableNotification: true,
+      );
       expect(ok, isTrue);
       var chat = await testBot.getChat(ChatID(groupId));
       expect(chat.pinnedMessage!.messageId, groupMsgId);
@@ -582,13 +635,28 @@ void main() {
     'setChatAdministratorCustomTitle works',
     () async {
       var title = 'u${DateTime.now().millisecondsSinceEpoch}';
-      var ok = await testBot.promoteChatMember(ChatID(groupId), chatUserId, canChangeInfo: true);
+      var ok = await testBot.promoteChatMember(
+        ChatID(groupId),
+        chatUserId,
+        canChangeInfo: true,
+      );
       expect(ok, isTrue);
-      ok = await testBot.setChatAdministratorCustomTitle(ChatID(groupId), chatUserId, title);
+      ok = await testBot.setChatAdministratorCustomTitle(
+        ChatID(groupId),
+        chatUserId,
+        title,
+      );
       expect(ok, isTrue);
       var user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(user.customTitle, equals(title));
-      ok = await testBot.promoteChatMember(ChatID(groupId), chatUserId, canChangeInfo: false);
+      expect(
+        user.customTitle,
+        equals(title),
+      );
+      ok = await testBot.promoteChatMember(
+        ChatID(groupId),
+        chatUserId,
+        canChangeInfo: false,
+      );
       expect(ok, isTrue);
     },
     skip: true,
@@ -607,15 +675,21 @@ void main() {
     var chat = await testBot.getChat(ChatID(chatUserId));
     var file = await testBot.getFile(chat.photo!.bigFileId);
     var bytes = await testBot.download(file.filePath!);
-    io.File('test.jpg').writeAsBytesSync(bytes);
-    await testBot.sendPhoto(ChatID(chatId), HttpFile.fromBytes('test.photo', bytes));
+    await io.File('test.jpg').writeAsBytes(bytes);
+    await testBot.sendPhoto(
+      ChatID(chatId),
+      HttpFile.fromBytes('test.photo', bytes),
+    );
     // Nothing should fail
   });
 
   test(
     'Can send stickers',
     () async {
-      var message = await testBot.sendSticker(ChatID(groupId), HttpFile.fromToken(stickerToken!));
+      var message = await testBot.sendSticker(
+        ChatID(groupId),
+        HttpFile.fromToken(stickerToken!),
+      );
       expect(message.sticker!.fileId, isNotNull);
     },
     skip: false,
