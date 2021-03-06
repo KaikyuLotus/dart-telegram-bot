@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -52,4 +54,26 @@ class Chat {
       canSetStickerSet: json['can_set_sticker_set'],
     );
   }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'type': type,
+      'title': title,
+      'username': username,
+      'first_name': firstName,
+      'last_name': lastName,
+      'photo': photo,
+      'description': description,
+      'invite_link': inviteLink,
+      'pinned_message': pinnedMessage,
+      'permissions': permissions,
+      'slow_mode_delay': slowModeDelay,
+      'sticker_set_name': stickerSetName,
+      'can_set_sticker_set': canSetStickerSet,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

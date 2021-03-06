@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -31,4 +33,19 @@ class CallbackQuery {
       gameShortName: json['game_short_name'],
     );
   }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'from': from,
+      'message': message,
+      'inline_message_id': inlineMessageId,
+      'chat_instance': chatInstance,
+      'data': data,
+      'game_short_name': gameShortName,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

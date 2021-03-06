@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -64,21 +66,25 @@ class InlineKeyboardButton {
     return List.generate(
       json.length,
       (e) => List.generate(
-          json[e].length, (i) => InlineKeyboardButton.fromJson(json[e][i])),
+        json[e].length,
+        (i) => InlineKeyboardButton.fromJson(json[e][i]),
+      ),
     );
   }
 
   Map toJson() {
-    var data = {};
-    data['text'] = text;
-    data['url'] = url;
-    data['login_url'] = loginUrl;
-    data['callback_data'] = callbackData;
-    data['switch_inline_query'] = switchInlineQuery;
-    data['switch_inline_query_current_chat'] = switchInlineQueryCurrentChat;
-    data['callback_game'] = callbackGame;
-    data['pay'] = pay;
-    data.removeWhere((k, v) => v == null);
-    return data;
+    return {
+      'text': text,
+      'url': url,
+      'login_url': loginUrl,
+      'callback_data': callbackData,
+      'switch_inline_query': switchInlineQuery,
+      'switch_inline_query_current_chat': switchInlineQueryCurrentChat,
+      'callback_game': callbackGame,
+      'pay': pay,
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

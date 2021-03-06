@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InputMediaVideo extends InputMedia {
@@ -25,6 +28,21 @@ class InputMediaVideo extends InputMedia {
     this.supportsStreaming,
   });
 
-// TODO implement toJson
+  Map toJson() {
+    return {
+      'type': type,
+      'media': media,
+      'thumb': thumb,
+      'caption': caption,
+      'parse_mode': EnumHelper.encode(parseMode),
+      'caption_entities': captionEntities,
+      'width': width,
+      'height': height,
+      'duration': duration,
+      'supports_streaming': supportsStreaming,
+    }..removeWhere((_, v) => v == null);
+  }
 
+  @override
+  String toString() => json.encode(this);
 }

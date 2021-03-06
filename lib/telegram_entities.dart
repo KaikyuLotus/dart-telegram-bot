@@ -63,3 +63,7 @@ export 'src/entities/telegram/venue.dart';
 export 'src/entities/telegram/video.dart';
 export 'src/entities/telegram/video_note.dart';
 export 'src/entities/telegram/voice.dart';
+export 'src/entities/telegram/passport_data.dart';
+export 'src/entities/telegram/passport_file.dart';
+export 'src/entities/telegram/encrypted_credentials.dart';
+export 'src/entities/telegram/encrypted_passport_element.dart';

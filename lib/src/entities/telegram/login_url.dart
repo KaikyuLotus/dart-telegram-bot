@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class LoginUrl {
   String url;
   String? forwardText;
@@ -19,4 +21,16 @@ class LoginUrl {
       requestWriteAccess: json['request_write_access'],
     );
   }
+
+  Map toJson() {
+    return {
+      'url': url,
+      'forward_text': forwardText,
+      'bot_username': botUsername,
+      'request_write_access': requestWriteAccess,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

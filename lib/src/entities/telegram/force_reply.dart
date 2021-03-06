@@ -22,11 +22,10 @@ class ForceReply extends ReplyMarkup {
     return {
       'force_reply': forceReply,
       'selective': selective,
-    };
+    }..removeWhere((_, v) => v == null);
+    ;
   }
 
   @override
-  String toString() {
-    return json.encode(this);
-  }
+  String toString() => json.encode(this);
 }

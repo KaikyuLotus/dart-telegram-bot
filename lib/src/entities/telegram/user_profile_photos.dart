@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class UserProfilePhotos {
@@ -15,4 +17,14 @@ class UserProfilePhotos {
       photos: PhotoSize.listOfListsFromJsonArray(json['photos']!),
     );
   }
+
+  Map toJson() {
+    return {
+      'total_count': totalCount,
+      'photos': photos,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

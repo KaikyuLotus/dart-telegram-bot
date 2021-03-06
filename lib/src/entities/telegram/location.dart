@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Location {
   double longitude;
   double latitude;
@@ -25,4 +27,18 @@ class Location {
       proximityAlertRadius: json['proximity_alert_radius'],
     );
   }
+
+  Map toJson() {
+    return {
+      'longitude': longitude,
+      'latitude': latitude,
+      'horizontal_accuracy': horizontalAccuracy,
+      'live_period': livePeriod,
+      'heading': heading,
+      'proximity_alert_radius': proximityAlertRadius,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -8,16 +10,21 @@ class KeyboardButtonPollType {
 
   static KeyboardButtonPollType fromJson(Map<String, dynamic> json) {
     return KeyboardButtonPollType(
-      type: EnumHelper.decode(
-        PollType.values,
-        json['type'],
-      ), // TODO type may be null
+      type: json['type'] != null
+          ? EnumHelper.decode(
+              PollType.values,
+              json['type'],
+            )
+          : json['type'],
     );
   }
 
   Map toJson() {
-    return type != null
-        ? {'type': type.toString()}
-        : {}; // TODO wrong enum encoding
+    return {
+      'type': EnumHelper.encode(type),
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

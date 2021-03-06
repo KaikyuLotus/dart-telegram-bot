@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -84,4 +86,24 @@ class Update {
   static List<Update> listFromJsonArray(List<dynamic> array) {
     return List.generate(array.length, (i) => Update.fromJson(array[i]));
   }
+
+  Map toJson() {
+    return {
+      'update_id': updateId,
+      'message': message,
+      'edited_message': editedMessage,
+      'channel_post': channelPost,
+      'edited_channel_post': editedChannelPost,
+      'inline_query': inlineQuery,
+      'chosen_inline_result': chosenInlineResult,
+      'callback_query': callbackQuery,
+      'shipping_query': shippingQuery,
+      'pre_checkout_query': preCheckoutQuery,
+      'poll': poll,
+      'poll_answer': pollAnswer,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

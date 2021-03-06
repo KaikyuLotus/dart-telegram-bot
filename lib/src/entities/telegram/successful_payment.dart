@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class SuccessfulPayment {
@@ -30,4 +32,19 @@ class SuccessfulPayment {
       providerPaymentChargeId: json['provider_payment_charge_id']!,
     );
   }
+
+  Map toJson() {
+    return {
+      'currency': currency,
+      'total_amount': totalAmount,
+      'invoice_payload': invoicePayload,
+      'shipping_option_id': shippingOptionId,
+      'order_info': orderInfo,
+      'telegram_payment_charge_id': telegramPaymentChargeId,
+      'provider_payment_charge_id': providerPaymentChargeId,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

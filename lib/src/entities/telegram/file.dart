@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class File {
   String fileId;
   String fileUniqueId;
@@ -19,4 +21,16 @@ class File {
       filePath: json['file_path'],
     );
   }
+
+  Map toJson() {
+    return {
+      'file_id': fileId,
+      'file_unique_id': fileUniqueId,
+      'file_size': fileSize,
+      'file_path': filePath,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

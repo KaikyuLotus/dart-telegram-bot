@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -25,4 +27,17 @@ class ChosenInlineResult {
       inlineMessageId: json['inline_message_id'],
     );
   }
+
+  Map toJson() {
+    return {
+      'result_id': resultId,
+      'from': from,
+      'query': query,
+      'location': location,
+      'inline_message_id': inlineMessageId,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

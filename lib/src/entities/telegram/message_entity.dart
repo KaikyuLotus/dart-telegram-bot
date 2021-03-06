@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -35,4 +37,18 @@ class MessageEntity {
       (i) => MessageEntity.fromJson(json[i]),
     );
   }
+
+  Map toJson() {
+    return {
+      'type': type,
+      'offset': offset,
+      'length': length,
+      'url': url,
+      'user': user,
+      'language': language,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

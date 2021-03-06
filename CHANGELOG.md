@@ -168,3 +168,9 @@ This is a beta release
 ## 0.4.0-beta.4
 
 - Minor fixes with code formatting
+
+## 0.4.0-beta.5
+
+- Implemented more API methods
+- Add serialization methods to all entities
+- Add some more entities

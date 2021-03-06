@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ShippingAddress {
   String countryCode;
   String state;
@@ -25,4 +27,18 @@ class ShippingAddress {
       postCode: json['post_code']!,
     );
   }
+
+  Map toJson() {
+    return {
+      'country_code': countryCode,
+      'state': state,
+      'city': city,
+      'street_line1': streetLine1,
+      'street_line2': streetLine2,
+      'post_code': postCode,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

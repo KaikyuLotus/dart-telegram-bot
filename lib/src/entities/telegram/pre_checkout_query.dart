@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class PreCheckoutQuery {
@@ -30,4 +32,19 @@ class PreCheckoutQuery {
       orderInfo: json['order_info'],
     );
   }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'from': from,
+      'currency': currency,
+      'total_amount': totalAmount,
+      'invoice_payload': invoicePayload,
+      'shipping_option_id': shippingOptionId,
+      'order_info': orderInfo,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

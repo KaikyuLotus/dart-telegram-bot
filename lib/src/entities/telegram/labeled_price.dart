@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class LabeledPrice {
   String label;
   int amount;
@@ -20,4 +22,14 @@ class LabeledPrice {
       (i) => LabeledPrice.fromJson(json[i]),
     );
   }
+
+  Map toJson() {
+    return {
+      'label': label,
+      'amount': amount,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

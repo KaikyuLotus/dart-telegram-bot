@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class User {
   int id;
   bool isBot;
@@ -38,4 +40,21 @@ class User {
   static List<User> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => User.fromJson(json[i]));
   }
+
+  Map toJson() {
+    return {
+      'can_join_groups': canJoinGroups,
+      'can_read_all_group_messages': canReadAllGroupMessages,
+      'first_name': firstName,
+      'last_name': lastName,
+      'id': id,
+      'is_bot': isBot,
+      'supports_inline_queries': supportsInlineQueries,
+      'username': username,
+      'language_code': languageCode,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

@@ -20,7 +20,5 @@ class InlineKeyboardMarkup extends ReplyMarkup {
   }
 
   @override
-  String toString() {
-    return json.encode(this);
-  }
+  String toString() => json.encode(this);
 }

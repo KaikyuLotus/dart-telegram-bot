@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
@@ -28,14 +30,14 @@ class InputTextMessageContent extends InputMessageContent {
   }
 
   Map toJson() {
-    var data = <String, dynamic>{};
-    data['message_text'] = messageText;
-    if (parseMode != null) {
-      data['parse_mode'] = EnumHelper.encode(parseMode);
-    }
-    if (disableWebPagePreview != null) {
-      data['disable_web_page_preview'] = disableWebPagePreview;
-    }
-    return data;
+    return {
+      'message_text': messageText,
+      'parse_mode': EnumHelper.encode(parseMode),
+      'entities': entities,
+      'disable_web_page_preview': disableWebPagePreview,
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

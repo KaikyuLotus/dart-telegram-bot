@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ShippingOption {
@@ -18,4 +20,15 @@ class ShippingOption {
       prices: LabeledPrice.listFromJsonArray(json['prices']!),
     );
   }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'prices': prices,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ChatMember {
@@ -76,4 +78,31 @@ class ChatMember {
       (i) => ChatMember.fromJson(array[i]),
     );
   }
+
+  Map toJson() {
+    return {
+      'user': user,
+      'status': status,
+      'custom_title': customTitle,
+      'until_date': untilDate,
+      'can_be_edited': canBeEdited,
+      'can_post_messages': canPostMessages,
+      'can_edit_messages': canEditMessages,
+      'can_delete_messages': canDeleteMessages,
+      'can_restrict_members': canRestrictMembers,
+      'can_promote_members': canPromoteMembers,
+      'can_change_info': canChangeInfo,
+      'can_invite_users': canInviteUsers,
+      'can_pin_messages': canPinMessages,
+      'is_member': isMember,
+      'can_send_messages': canSendMessages,
+      'can_send_media_messages': canSendMediaMessages,
+      'can_send_polls': canSendPolls,
+      'can_send_other_messages': canSendOtherMessages,
+      'can_add_web_page_previews': canAddWebPagePreviews,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

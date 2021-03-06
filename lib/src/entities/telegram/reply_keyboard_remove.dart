@@ -19,15 +19,12 @@ class ReplyKeyboardRemove extends ReplyMarkup {
   }
 
   Map toJson() {
-    var map = {};
-    map['remove_keyboard'] = removeKeyboard;
-    map['selective'] = selective;
-    map.removeWhere((k, v) => v == null);
-    return map;
+    return {
+      'remove_keyboard': removeKeyboard,
+      'selective': selective,
+    }..removeWhere((_, v) => v == null);
   }
 
   @override
-  String toString() {
-    return json.encode(this);
-  }
+  String toString() => json.encode(this);
 }

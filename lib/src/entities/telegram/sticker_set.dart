@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -25,7 +27,21 @@ class StickerSet {
       isAnimated: json['is_animated']!,
       containsMasks: json['contains_masks']!,
       stickers: Sticker.listFromJsonArray(json['stickers']!),
-      thumb: callIfNotNull(PhotoSize.fromJson, json['photo_size']),
+      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
     );
   }
+
+  Map toJson() {
+    return {
+      'name': name,
+      'title': title,
+      'is_animated': isAnimated,
+      'contains_masks': containsMasks,
+      'stickers': stickers,
+      'photo_size': thumb,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

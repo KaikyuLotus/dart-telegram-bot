@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -51,12 +53,14 @@ class KeyboardButton {
   }
 
   Map toJson() {
-    var data = {};
-    data['text'] = text;
-    data['request_contact'] = requestContact;
-    data['request_location'] = requestLocation;
-    data['request_poll'] = requestPoll;
-    data.removeWhere((k, v) => v == null);
-    return data;
+    return {
+      'text': text,
+      'request_contact': requestContact,
+      'request_location': requestLocation,
+      'request_poll': requestPoll,
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

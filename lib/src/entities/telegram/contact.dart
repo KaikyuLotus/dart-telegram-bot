@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Contact {
   String phoneNumber;
   String firstName;
@@ -22,4 +24,17 @@ class Contact {
       vcard: json['vcard'],
     );
   }
+
+  Map toJson() {
+    return {
+      'phone_number': phoneNumber,
+      'first_name': firstName,
+      'last_name': lastName,
+      'user_id': userId,
+      'vcard': vcard,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

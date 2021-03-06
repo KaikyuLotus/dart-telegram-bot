@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -37,4 +39,21 @@ class Animation {
       fileSize: json['file_size'],
     );
   }
+
+  Map toJson() {
+    return {
+      'file_id': fileId,
+      'file_unique_id': fileUniqueId,
+      'width': width,
+      'height': height,
+      'duration': duration,
+      'thumb': thumb,
+      'file_name': fileName,
+      'mime_type': mimeType,
+      'file_size': fileSize,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

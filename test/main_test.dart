@@ -22,13 +22,13 @@ void main() {
   var stickerToken = io.Platform.environment['STICKER_TOKEN'];
 
   setUp(() async {
-    print('Setting up bot...');
     if (!initialized) {
-      initialized = true;
+      print('Setting up bot...');
       var token = io.Platform.environment['BOT_TOKEN'];
       if (token == null) throw ('BOT_TOKEN environment variable is missing!');
       testBot = Bot(token);
       await testBot.init();
+      initialized = true;
     }
   });
 
@@ -464,7 +464,6 @@ void main() {
         'Remove keyboard',
         replyMarkup: ReplyKeyboardRemove(true),
       );
-      // TODO maybe some checks here?
     },
     skip: false,
   );
@@ -486,7 +485,6 @@ void main() {
         replyToMessageId: replyId,
         replyMarkup: ForceReply(true, selective: true),
       );
-      // TODO maybe some checks here?
     },
     skip: false,
   );

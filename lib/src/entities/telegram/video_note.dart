@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -28,4 +30,18 @@ class VideoNote {
       fileSize: json['file_size'],
     );
   }
+
+  Map toJson() {
+    return {
+      'file_id': fileId,
+      'file_unique_id': fileUniqueId,
+      'length': length,
+      'duration': duration,
+      'thumb': thumb,
+      'file_size': fileSize,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Invoice {
   String title;
   String description;
@@ -22,4 +24,17 @@ class Invoice {
       totalAmount: json['total_amount']!,
     );
   }
+
+  Map toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'start_parameter': startParameter,
+      'currency': currency,
+      'total_amount': totalAmount,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ChatPermissions {
   bool? canSendMessages;
   bool? canSendMediaMessages;
@@ -31,4 +33,20 @@ class ChatPermissions {
       canPinMessages: json['can_pin_messages'],
     );
   }
+
+  Map toJson() {
+    return {
+      'can_send_messages': canSendMessages,
+      'can_send_media_messages': canSendMediaMessages,
+      'can_send_polls': canSendPolls,
+      'can_send_other_messages': canSendOtherMessages,
+      'can_add_web_page_previews': canAddWebPagePreviews,
+      'can_change_info': canChangeInfo,
+      'can_invite_users': canInviteUsers,
+      'can_pin_messages': canPinMessages,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

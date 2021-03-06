@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -44,4 +46,22 @@ class Sticker {
   static List<Sticker> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => Sticker.fromJson(json[i]));
   }
+
+  Map toJson() {
+    return {
+      'file_id': fileId,
+      'file_unique_id': fileUniqueId,
+      'width': width,
+      'height': height,
+      'is_animated': isAnimated,
+      'thumb': thumb,
+      'emoji': emoji,
+      'set_name': setName,
+      'mask_position': maskPosition,
+      'file_size': fileSize,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

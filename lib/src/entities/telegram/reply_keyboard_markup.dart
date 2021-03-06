@@ -25,17 +25,14 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   }
 
   Map toJson() {
-    var map = {};
-    map['keyboard'] = keyboard;
-    map['resize_keyboard'] = resizeKeyboard;
-    map['one_time_keyboard'] = oneTimeKeyboard;
-    map['selective'] = selective;
-    map.removeWhere((k, v) => v == null);
-    return map;
+    return {
+      'keyboard': keyboard,
+      'resize_keyboard': resizeKeyboard,
+      'one_time_keyboard': oneTimeKeyboard,
+      'selective': selective,
+    }..removeWhere((_, v) => v == null);
   }
 
   @override
-  String toString() {
-    return json.encode(this);
-  }
+  String toString() => json.encode(this);
 }

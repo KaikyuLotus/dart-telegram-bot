@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class PollAnswer {
@@ -18,4 +20,15 @@ class PollAnswer {
       optionIds: json['option_ids']!,
     );
   }
+
+  Map toJson() {
+    return {
+      'poll_id': pollId,
+      'user': user,
+      'option_ids': optionIds,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

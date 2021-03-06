@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -34,4 +36,18 @@ class Game {
       ),
     );
   }
+
+  Map toJson() {
+    return {
+      'title': title,
+      'description': description,
+      'photo': photo,
+      'text': text,
+      'text_entities': textEntities,
+      'animation': animation,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

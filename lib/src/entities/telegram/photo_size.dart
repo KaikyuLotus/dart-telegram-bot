@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class PhotoSize {
   String fileId;
   String fileUniqueId;
@@ -38,4 +40,17 @@ class PhotoSize {
       ),
     );
   }
+
+  Map toJson() {
+    return {
+      'file_id': fileId,
+      'file_unique_id': fileUniqueId,
+      'height': height,
+      'width': width,
+      'file_size': fileSize,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

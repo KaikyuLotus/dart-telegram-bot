@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
@@ -193,4 +195,59 @@ class Message {
       (i) => Message.fromJson(array[i]),
     );
   }
+
+  Map toJson() {
+    return {
+      'message_id': messageId,
+      'from': from,
+      'date': date,
+      'chat': chat,
+      'forward_from': forwardFrom,
+      'forward_from_chat': forwardFromChat,
+      'forward_from_message_id': forwardFromMessageId,
+      'forward_signature': forwardSignature,
+      'forward_sender_name': forwardSenderName,
+      'forward_date': forwardDate,
+      'reply_to_message': replyToMessage,
+      'edit_date': editDate,
+      'media_group_id': mediaGroupId,
+      'author_signature': authorSignature,
+      'text': text,
+      'entities': entities,
+      'caption_entities': captionEntities,
+      'audio': audio,
+      'document': document,
+      'animation': animation,
+      'game': game,
+      'photo': photo,
+      'sticker': sticker,
+      'video': video,
+      'voice': voice,
+      'video_note': videoNote,
+      'caption': caption,
+      'contact': contact,
+      'location': location,
+      'venue': venue,
+      'poll': poll,
+      'new_chat_members': newChatMembers,
+      'left_chat_member': leftChatMember,
+      'new_chat_title': newChatTitle,
+      'new_chat_photo': newChatPhoto,
+      'delete_chat_photo': deleteChatPhoto,
+      'group_chat_created': groupChatCreated,
+      'supergroup_chat_created': supergroupChatCreated,
+      'channel_chat_created': channelChatCreated,
+      'migrate_to_chat_id': migrateToChatId,
+      'migrate_from_chat_id': migrateFromChatId,
+      'pinned_message': pinnedMessage,
+      'invoice': invoice,
+      'successful_payment': successfulPayment,
+      'connected_website': connectedWebsite,
+      'passport_data': passportData,
+      'reply_markup': replyMarkup,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

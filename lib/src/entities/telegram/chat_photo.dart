@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class ChatPhoto {
   String smallFileId;
   String smallFileUniqueId;
@@ -19,4 +21,16 @@ class ChatPhoto {
       bigFileUniqueId: json['big_file_unique_id']!,
     );
   }
+
+  Map toJson() {
+    return {
+      'small_file_id': smallFileId,
+      'small_file_unique_id': smallFileUniqueId,
+      'big_file_id': bigFileId,
+      'big_file_unique_id': bigFileUniqueId,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

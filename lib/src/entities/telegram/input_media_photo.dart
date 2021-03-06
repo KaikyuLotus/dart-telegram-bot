@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InputMediaPhoto extends InputMedia {
@@ -20,7 +23,10 @@ class InputMediaPhoto extends InputMedia {
       'type': type,
       'media': media,
       'caption': caption,
-      'parse_mode': parseMode.toString(),
-    };
+      'parse_mode': EnumHelper.encode(parseMode),
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

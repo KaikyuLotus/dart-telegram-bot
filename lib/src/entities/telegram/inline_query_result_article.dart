@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InlineQueryResultArticle extends InlineQueryResult {
@@ -26,20 +28,22 @@ class InlineQueryResultArticle extends InlineQueryResult {
     this.thumbHeight,
   });
 
-  // TODO improve this
   Map toJson() {
-    var data = <String, dynamic>{};
-    data['type'] = type;
-    data['id'] = id;
-    data['title'] = title;
-    data['input_message_content'] = inputMessageContent;
-    if (replyMarkup != null) data['reply_markup'] = replyMarkup;
-    if (url != null) data['url'] = url;
-    if (hideUrl != null) data['hide_url'] = hideUrl;
-    if (description != null) data['description'] = description;
-    if (thumbUrl != null) data['thumb_url'] = thumbUrl;
-    if (thumbWidth != null) data['thumCbWidth'] = thumbWidth;
-    if (thumbHeight != null) data['thumb_height'] = thumbHeight;
-    return data;
+    return {
+      'type': type,
+      'id': id,
+      'title': title,
+      'input_message_content': inputMessageContent,
+      'reply_markup': replyMarkup,
+      'url': url,
+      'hide_url': hideUrl,
+      'description': description,
+      'thumb_url': thumbUrl,
+      'thumCbWidth': thumbWidth,
+      'thumb_height': thumbHeight,
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

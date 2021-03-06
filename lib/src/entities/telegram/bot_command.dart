@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class BotCommand {
   String command;
   String? description;
@@ -21,10 +23,13 @@ class BotCommand {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Map toJson() {
     return {
       'command': command,
       'description': description,
-    };
+    }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

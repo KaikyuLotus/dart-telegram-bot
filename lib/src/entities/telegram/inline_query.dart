@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class InlineQuery {
@@ -24,4 +26,17 @@ class InlineQuery {
       location: Location.fromJson(json['location']),
     );
   }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'from': from,
+      'query': query,
+      'offset': offset,
+      'location': location,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }

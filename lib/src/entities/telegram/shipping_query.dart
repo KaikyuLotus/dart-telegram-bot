@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
 class ShippingQuery {
@@ -21,4 +23,16 @@ class ShippingQuery {
       shippingAddress: json['shipping_address']!,
     );
   }
+
+  Map toJson() {
+    return {
+      'id': id,
+      'from': from,
+      'invoice_payload': invoicePayload,
+      'shipping_address': shippingAddress,
+    }..removeWhere((_, v) => v == null);
+  }
+
+  @override
+  String toString() => json.encode(this);
 }
