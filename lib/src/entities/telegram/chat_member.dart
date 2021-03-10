@@ -22,6 +22,9 @@ class ChatMember {
   bool? canSendPolls;
   bool? canSendOtherMessages;
   bool? canAddWebPagePreviews;
+  bool? canManageVoiceChats;
+  bool? canManageChat;
+  bool? isAnonymous;
 
   ChatMember({
     required this.user,
@@ -43,6 +46,9 @@ class ChatMember {
     this.canSendPolls,
     this.canSendOtherMessages,
     this.canAddWebPagePreviews,
+    this.canManageVoiceChats,
+    this.canManageChat,
+    this.isAnonymous,
   });
 
   static ChatMember fromJson(Map<String, dynamic> json) {
@@ -69,6 +75,9 @@ class ChatMember {
       canSendPolls: json['can_send_polls'] ?? isCreator,
       canSendOtherMessages: json['can_send_other_messages'] ?? isCreator,
       canAddWebPagePreviews: json['can_add_web_page_previews'] ?? isCreator,
+      canManageVoiceChats: json['can_manage_voice_chats'] ?? isCreator,
+      canManageChat: json['can_manage_chat'] ?? isCreator,
+      isAnonymous: json['is_anonymous'],
     );
   }
 
@@ -100,6 +109,9 @@ class ChatMember {
       'can_send_polls': canSendPolls,
       'can_send_other_messages': canSendOtherMessages,
       'can_add_web_page_previews': canAddWebPagePreviews,
+      'can_manage_voice_chats': canManageVoiceChats,
+      'can_manage_chat': canManageChat,
+      'is_anonymous': isAnonymous,
     }..removeWhere((_, v) => v == null);
   }
 

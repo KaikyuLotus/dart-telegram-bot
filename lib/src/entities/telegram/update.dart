@@ -17,6 +17,8 @@ class Update {
   PreCheckoutQuery? preCheckoutQuery;
   Poll? poll;
   PollAnswer? pollAnswer;
+  ChatMemberUpdated? myChatMember;
+  ChatMemberUpdated? chatMember;
 
   Update({
     required this.updateId,
@@ -31,6 +33,8 @@ class Update {
     this.preCheckoutQuery,
     this.poll,
     this.pollAnswer,
+    this.myChatMember,
+    this.chatMember,
   });
 
   static Update fromJson(Map<String, dynamic> json) {
@@ -80,6 +84,14 @@ class Update {
         PollAnswer.fromJson,
         json['poll_answer'],
       ),
+      myChatMember: callIfNotNull(
+        ChatMemberUpdated.fromJson,
+        json['my_chat_member'],
+      ),
+      chatMember: callIfNotNull(
+        ChatMemberUpdated.fromJson,
+        json['chat_member'],
+      ),
     );
   }
 
@@ -101,6 +113,8 @@ class Update {
       'pre_checkout_query': preCheckoutQuery,
       'poll': poll,
       'poll_answer': pollAnswer,
+      'my_chat_member': myChatMember,
+      'chat_member': chatMember,
     }..removeWhere((_, v) => v == null);
   }
 

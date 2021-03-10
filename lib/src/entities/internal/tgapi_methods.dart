@@ -135,6 +135,7 @@ class TGAPIMethods {
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
+    bool? disableContentTypeDetection,
   }) {
     return _client.apiCall(_token, 'sendDocument', {
       'chat_id': chatId,
@@ -145,7 +146,8 @@ class TGAPIMethods {
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
+      'disable_content_type_detection': disableContentTypeDetection,
     });
   }
 
@@ -451,18 +453,25 @@ class TGAPIMethods {
     ChatID chatId,
     int userId, {
     int? untilDate,
+    bool? revokeMessages,
   }) {
     return _client.apiCall(_token, 'kickChatMember', {
       'chat_id': chatId,
       'user_id': userId,
       'until_date': untilDate,
+      'revoke_messages': revokeMessages,
     });
   }
 
-  Future<bool> unbanChatMember(ChatID chatId, int userId) {
+  Future<bool> unbanChatMember(
+    ChatID chatId,
+    int userId, {
+    bool? onlyIfBanned,
+  }) {
     return _client.apiCall(_token, 'unbanChatMember', {
       'chat_id': chatId,
       'user_id': userId,
+      'only_if_banned': onlyIfBanned,
     });
   }
 
@@ -483,6 +492,7 @@ class TGAPIMethods {
   Future<bool> promoteChatMember(
     ChatID chatId,
     int userId, {
+    bool? isAnonymous,
     bool? canChangeInfo,
     bool? canPostMessages,
     bool? canEditMessages,
@@ -491,6 +501,8 @@ class TGAPIMethods {
     bool? canRestrictMembers,
     bool? canPinMessages,
     bool? canPromoteMembers,
+    bool? canManageVoiceChats,
+    bool? canManageChat,
   }) {
     return _client.apiCall(_token, 'promoteChatMember', {
       'chat_id': chatId,
@@ -502,7 +514,10 @@ class TGAPIMethods {
       'can_invite_users': canInviteUsers,
       'can_restrict_members': canRestrictMembers,
       'can_pin_messages': canPinMessages,
-      'can_promote_members': canPromoteMembers
+      'can_promote_members': canPromoteMembers,
+      'can_manage_voice_chats': canManageVoiceChats,
+      'can_manage_chat': canManageChat,
+      'is_anonymous': isAnonymous,
     });
   }
 
@@ -798,7 +813,7 @@ class TGAPIMethods {
 
   Future<Message> sendDice(
     ChatID chatId, {
-    String? emoji,
+    Emoji? emoji,
     bool? disableNotification,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
@@ -884,6 +899,46 @@ class TGAPIMethods {
       'reply_markup': replyMarkup,
     });
   }
+
+  Future<ChatInviteLink> createChatInviteLink(
+    ChatID chatId, {
+    int? expireDate,
+    int? memberLimit,
+  }) {
+    return _client.apiCall(_token, 'createChatInviteLink', {
+      'chat_id': chatId,
+      'expire_date': expireDate,
+      'member_limit': memberLimit,
+    });
+  }
+
+  Future<ChatInviteLink> editChatInviteLink(
+    ChatID chatId,
+    String inviteLink, {
+    int? expireDate,
+    int? memberLimit,
+  }) {
+    return _client.apiCall(_token, 'editChatInviteLink', {
+      'chat_id': chatId,
+      'invite_link': inviteLink,
+      'expire_date': expireDate,
+      'member_limit': memberLimit,
+    });
+  }
+
+  Future<ChatInviteLink> revokeChatInviteLink(
+    ChatID chatId,
+    String inviteLink,
+  ) {
+    return _client.apiCall(_token, 'revokeChatInviteLink', {
+      'chat_id': chatId,
+      'invite_link': inviteLink,
+    });
+  }
+
+  Future<bool> logOut() => _client.apiCall(_token, 'logOut');
+
+  Future<bool> close() => _client.apiCall(_token, 'close');
 
   Future<Uint8List> download(String path) {
     return _client.apiDownload(_token, path);

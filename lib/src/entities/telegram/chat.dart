@@ -11,6 +11,7 @@ class Chat {
   String? firstName;
   String? lastName;
   ChatPhoto? photo;
+  String? bio;
   String? description;
   String? inviteLink;
   Message? pinnedMessage;
@@ -18,6 +19,9 @@ class Chat {
   int? slowModeDelay;
   String? stickerSetName;
   bool? canSetStickerSet;
+  int? messageAutoDeleteTime;
+  int? linkedChatId;
+  ChatLocation? location;
 
   Chat({
     required this.id,
@@ -27,6 +31,7 @@ class Chat {
     this.firstName,
     this.lastName,
     this.photo,
+    this.bio,
     this.description,
     this.inviteLink,
     this.pinnedMessage,
@@ -34,6 +39,9 @@ class Chat {
     this.slowModeDelay,
     this.stickerSetName,
     this.canSetStickerSet,
+    this.linkedChatId,
+    this.messageAutoDeleteTime,
+    this.location,
   });
 
   static Chat fromJson(Map<String, dynamic> json) {
@@ -45,6 +53,7 @@ class Chat {
       firstName: json['first_name'],
       lastName: json['last_name'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
+      bio: json['bio'],
       description: json['description'],
       inviteLink: json['invite_link'],
       pinnedMessage: callIfNotNull(Message.fromJson, json['pinned_message']),
@@ -52,6 +61,12 @@ class Chat {
       slowModeDelay: json['slow_mode_delay'],
       stickerSetName: json['sticker_set_name'],
       canSetStickerSet: json['can_set_sticker_set'],
+      linkedChatId: json['linked_chat_id'],
+      messageAutoDeleteTime: json['message_auto_delete_time'],
+      location: callIfNotNull(
+        ChatLocation.fromJson,
+        json['location'],
+      ),
     );
   }
 

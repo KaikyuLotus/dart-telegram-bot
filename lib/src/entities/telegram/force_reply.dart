@@ -23,7 +23,6 @@ class ForceReply extends ReplyMarkup {
       'force_reply': forceReply,
       'selective': selective,
     }..removeWhere((_, v) => v == null);
-    ;
   }
 
   @override

@@ -9,6 +9,7 @@ class Audio {
   int duration;
   String? performer;
   String? title;
+  String? fileName;
   String? mimeType;
   int? fileSize;
   PhotoSize? thumb;
@@ -19,6 +20,7 @@ class Audio {
     required this.duration,
     this.performer,
     this.title,
+    this.fileName,
     this.mimeType,
     this.fileSize,
     this.thumb,
@@ -31,6 +33,7 @@ class Audio {
       duration: json['duration']!,
       performer: json['performer'],
       title: json['title'],
+      fileName: json['file_name'],
       mimeType: json['mime_type'],
       fileSize: json['file_size'],
       thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
@@ -44,6 +47,7 @@ class Audio {
       'duration': duration,
       'performer': performer,
       'title': title,
+      'file_name': fileName,
       'mime_type': mimeType,
       'file_size': fileSize,
       'thumb': thumb,

@@ -259,8 +259,8 @@ void main() {
       expect(message.animation, isNotNull);
       expect(message.animation!.fileUniqueId, isNotNull);
       expect(message.caption, equals('Test'));
-      expect(message.animation!.width, equals(220));
-      expect(message.animation!.height, equals(126));
+      expect(message.animation!.width, equals(320));
+      expect(message.animation!.height, equals(180));
     },
     skip: false,
   );

@@ -45,6 +45,7 @@ class Message {
   bool? groupChatCreated;
   bool? supergroupChatCreated;
   bool? channelChatCreated;
+  MessageAutoDeleteTimerChanged? messageAutoDeleteTimerChanged;
   int? migrateToChatId;
   int? migrateFromChatId;
   Message? pinnedMessage;
@@ -94,6 +95,7 @@ class Message {
     this.groupChatCreated,
     this.supergroupChatCreated,
     this.channelChatCreated,
+    this.messageAutoDeleteTimerChanged,
     this.migrateToChatId,
     this.migrateFromChatId,
     this.pinnedMessage,
@@ -163,6 +165,10 @@ class Message {
       groupChatCreated: json['group_chat_created'],
       supergroupChatCreated: json['supergroup_chat_created'],
       channelChatCreated: json['channel_chat_created'],
+      messageAutoDeleteTimerChanged: callIfNotNull(
+        MessageAutoDeleteTimerChanged.fromJson,
+        json['message_auto_delete_timer_changed'],
+      ),
       migrateToChatId: json['migrate_to_chat_id'],
       migrateFromChatId: json['migrate_from_chat_id'],
       pinnedMessage: callIfNotNull(

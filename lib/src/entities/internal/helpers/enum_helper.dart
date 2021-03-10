@@ -16,7 +16,8 @@ class EnumHelper {
         '${_getEnumClassFromValues(values)}.${value.toUpperCase()}';
     try {
       return values.firstWhere(
-          (e) => '${e.toString().toUpperCase()}' == neededEnum.toUpperCase());
+        (e) => '${e.toString().toUpperCase()}' == neededEnum.toUpperCase(),
+      );
     } on StateError {
       log.severe('Could not find "$neededEnum" in [${values.join(', ')}]');
       rethrow;

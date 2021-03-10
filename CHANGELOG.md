@@ -174,3 +174,8 @@ This is a beta release
 - Implemented more API methods
 - Add serialization methods to all entities
 - Add some more entities
+
+## 0.4.1
+
+- Implemented Bot API 5.1 changes
+- Add some more missing impls
