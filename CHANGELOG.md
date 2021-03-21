@@ -1,139 +1,39 @@
-## 0.0.1
+## 0.4.1
 
-- Initial version: setting up skeleton
+- Implemented Bot API 5.1 changes
+- Add some more missing impls
 
-## 0.0.2
+## 0.4.0-beta.5
 
-- Fixed http package version
+- Implemented more API methods
+- Add serialization methods to all entities
+- Add some more entities
 
-## 0.0.3
+## 0.4.0-beta.4
 
-- Minor improvements to stability
+- Minor fixes with code formatting
 
-## 0.0.4
+## 0.4.0-beta.3
 
-- Implemented ChatAction.fromString
+- Minor fixes with code formatting
+- Fix changelog formatting
+- Improved example
+- Removed dependency on dart:io, now this lib is compatible with JavaScript platform
 
-## 0.0.5
+## 0.4.0-beta.2
 
-- Improvements to ChatMember object
+- Minor fixes with code formatting
+- Renamed an example to main.dart
+- Fix changelog formatting
 
-## 0.0.6
+## 0.4.0-beta.1
 
-- Improvements to Telegram API Client
+- Migrate to Dart sound null safe
+- Minor bug fixes and improvements
 
-## 0.0.7
+## 0.3.1
 
-- Minor fixes on start() function
-
-## 0.0.8
-
-- Fixed event loop, now it's not using sleep anymore
-
-## 0.0.9
-
-- Improved bot loop, now it's not blocking and it's a correct Future
-
-## 0.0.9+1
-
-- Small improvement for previous version
-
-## 0.0.9+2
-
-- Added the possibility to chose if the http client should be only closed or restarted
-
-## 0.0.9+3
-
-- Bug fix for event loop
-
-## 0.1.0
-
-- Added functions to download files
-- Fixed File size from String to int
-- Added small test
-
-## 0.1.1
-
-- Fixed tests
-- Implemented some inline stuff
-
-## 0.1.2
-
-- added editMessageText
-
-## 0.1.3
-
-- Critical bug fixes on update
-
-## 0.1.4
-
-- Fixed onUpdate getting executed when a command was executed first
-- Improved command callback error checking
-
-## 0.1.4+1
-
-- Fixed an issues with command and updates
-
-## 0.1.4+2
-
-- Fixed an issues with command and updates
-
-## 0.1.4+3
-
-- Fixed issue in api client for chat member list mapping
-
-## 0.1.4+4
-
-- Added some more logs on APIException
-
-## 0.1.4+5
-
-- Added some more logs on APIException
-
-## 0.1.4+6
-
-- Fixed wrong type in APIException
-
-## 0.1.5
-
-- Added bot command utilities
-- Improved bot command handling
-
-## 0.1.5+1
-
-- Fixed minor issue
-
-## 0.1.6
-
-- Added setMyCommands
-- Added getMyCommands
-
-## 0.1.7
-
-- Minor fixes to InputMedia classes
-
-## 0.1.7-b1
-
-This is a beta release
-- Bot events and commands now are executed in real async
-- Minor fixes to input media
-
-## 0.1.8-b1
-
-Fixed version string
-This is a beta release
-- Bot events and commands now are executed in real async
-- Minor fixes to input media
-
-## 0.1.8-b2
-
-- Minor code quality fixes 
-
-## 0.2.0
-
-- Improved package structure
-- Added part and part of in Telegram entities
-- General refactoring
+- Fix wrong import
 
 ## 0.3.0
 
@@ -143,39 +43,139 @@ This is a beta release
 - Minor changes to enums
 - Added logging
 
-## 0.3.1
+## 0.2.0
 
-- Fix wrong import
+- Improved package structure
+- Added part and part of in Telegram entities
+- General refactoring
 
-## 0.4.0-beta.1
+## 0.1.8-b2
 
-- Migrate to Dart sound null safe
-- Minor bug fixes and improvements
+- Minor code quality fixes 
 
-## 0.4.0-beta.2
+## 0.1.8-b1
 
-- Minor fixes with code formatting
-- Renamed an example to main.dart
-- Fix changelog formatting
+Fixed version string
+This is a beta release
+- Bot events and commands now are executed in real async
+- Minor fixes to input media
 
-## 0.4.0-beta.3
+## 0.1.7-b1
 
-- Minor fixes with code formatting
-- Fix changelog formatting
-- Improved example
-- Removed dependency on dart:io, now this lib is compatible with JavaScript platform
+This is a beta release
+- Bot events and commands now are executed in real async
+- Minor fixes to input media
 
-## 0.4.0-beta.4
+## 0.1.7
 
-- Minor fixes with code formatting
+- Minor fixes to InputMedia classes
 
-## 0.4.0-beta.5
+## 0.1.6
 
-- Implemented more API methods
-- Add serialization methods to all entities
-- Add some more entities
+- Added setMyCommands
+- Added getMyCommands
 
-## 0.4.1
+## 0.1.5+1
 
-- Implemented Bot API 5.1 changes
-- Add some more missing impls
+- Fixed minor issue
+
+## 0.1.5
+
+- Added bot command utilities
+- Improved bot command handling
+
+## 0.1.4+6
+
+- Fixed wrong type in APIException
+
+## 0.1.4+5
+
+- Added some more logs on APIException
+
+## 0.1.4+4
+
+- Added some more logs on APIException
+
+## 0.1.4+3
+
+- Fixed issue in api client for chat member list mapping
+
+## 0.1.4+2
+
+- Fixed an issues with command and updates
+
+## 0.1.4+1
+
+- Fixed an issues with command and updates
+
+## 0.1.4
+
+- Fixed onUpdate getting executed when a command was executed first
+- Improved command callback error checking
+
+## 0.1.3
+
+- Critical bug fixes on update
+
+## 0.1.2
+
+- added editMessageText
+
+## 0.1.1
+
+- Fixed tests
+- Implemented some inline stuff
+
+## 0.1.0
+
+- Added functions to download files
+- Fixed File size from String to int
+- Added small test
+
+## 0.0.9+3
+
+- Bug fix for event loop
+
+## 0.0.9+2
+
+- Added the possibility to chose if the http client should be only closed or restarted
+
+## 0.0.9+1
+
+- Small improvement for previous version
+
+## 0.0.9
+
+- Improved bot loop, now it's not blocking and it's a correct Future
+
+## 0.0.8
+
+- Fixed event loop, now it's not using sleep anymore
+
+## 0.0.7
+
+- Minor fixes on start() function
+
+## 0.0.6
+
+- Improvements to Telegram API Client
+
+## 0.0.5
+
+- Improvements to ChatMember object
+
+## 0.0.4
+
+- Implemented ChatAction.fromString
+
+## 0.0.3
+
+- Minor improvements to stability
+
+## 0.0.2
+
+- Fixed http package version
+
+## 0.0.1
+
+- Initial version: setting up skeleton
