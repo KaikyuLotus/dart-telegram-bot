@@ -10,8 +10,7 @@ class Bot extends TGAPIMethods {
   final log = Logger('Bot');
 
   final List<Future Function(Bot, Update)> _updateCallbacks = [];
-  final Map<String, Future<dynamic> Function(Bot, Update)> _commandCallbacks =
-      {};
+  final Map<String, Future Function(Bot, Update)> _commandCallbacks = {};
 
   final int _timeout;
 
@@ -19,7 +18,7 @@ class Bot extends TGAPIMethods {
   int _offset = 0;
 
   int? _id;
-  String? _first_name;
+  String? _firstName;
   String? _username;
 
   bool get isRunning => _isRunning;
@@ -30,7 +29,7 @@ class Bot extends TGAPIMethods {
 
   int? get id => _id;
 
-  String? get first_name => _first_name;
+  String? get firstName => _firstName;
 
   String? get username => _username;
 
@@ -45,7 +44,7 @@ class Bot extends TGAPIMethods {
   Future updateMe() async {
     var user = await getMe();
     _id = user.id;
-    _first_name = user.firstName;
+    _firstName = user.firstName;
     _username = user.username!;
   }
 

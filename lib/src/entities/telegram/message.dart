@@ -37,7 +37,7 @@ class Message {
   Location? location;
   Venue? venue;
   Poll? poll;
-  List<User?>? newChatMembers;
+  List<User>? newChatMembers;
   User? leftChatMember;
   String? newChatTitle;
   List<PhotoSize>? newChatPhoto;

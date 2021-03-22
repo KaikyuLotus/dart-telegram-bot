@@ -1,3 +1,11 @@
+## 0.5.0-beta.1+2
+
+- Hotfix for User in newChatMembers in Message being nullable
+
+## 0.5.0-beta.1+1
+
+- Hotfix for variable name case
+
 ## 0.5.0-beta.1
 
 - Breaking change update
