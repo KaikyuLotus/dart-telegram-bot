@@ -1,3 +1,18 @@
+enum UpdateType {
+  MESSAGE,
+  EDITED_MESSAGE,
+  CHANNEL_POST,
+  INLINE_QUERY,
+  CHOSEN_INLINE_RESULT,
+  CALLBACK_QUERY,
+  SHIPPING_QUERY,
+  PRE_CHECKOUT_QUERY,
+  POLL,
+  POLL_ANSWER,
+  MY_CHAT_MEMBER,
+  CHAT_MEMBER,
+}
+
 enum ParseMode {
   MARKDOWN,
   MARKDOWNV2,
@@ -25,26 +40,26 @@ enum ChatAction {
 class Emoji {
   final String _emoji;
 
-  static final _validValues = <String>['🎲', '🎯', '🏀', '⚽', '🎳', '🎰'];
+  static const _values = {
+    '🎲': DICE,
+    '🎯': DART,
+    '🏀': BASKETBALL,
+    '⚽': FOOTBALL,
+    '🎳': BOWLING,
+    '🎰': CASINO,
+  };
 
-  static final Emoji DICE = Emoji._('🎲');
-  static final Emoji DART = Emoji._('🎯');
-  static final Emoji BASKETBALL = Emoji._('🏀');
-  static final Emoji FOOTBALL = Emoji._('⚽');
-  static final Emoji BOWLING = Emoji._('🎳');
-  static final Emoji CASINO = Emoji._('🎰');
+  static const Emoji DICE = Emoji._('🎲');
+  static const Emoji DART = Emoji._('🎯');
+  static const Emoji BASKETBALL = Emoji._('🏀');
+  static const Emoji FOOTBALL = Emoji._('⚽');
+  static const Emoji BOWLING = Emoji._('🎳');
+  static const Emoji CASINO = Emoji._('🎰');
 
-  Emoji._(this._emoji);
+  const Emoji._(this._emoji);
 
-  Emoji fromString(String emoji) {
-    if (!_validValues.contains(emoji)) {
-      throw ArgumentError.value(emoji, 'Unknown emoji');
-    }
-    return Emoji._(emoji);
-  }
+  Emoji forValue(String emoji) => _values[emoji]!;
 
   @override
-  String toString() {
-    return _emoji;
-  }
+  String toString() => _emoji;
 }

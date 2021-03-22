@@ -1,3 +1,11 @@
+## 0.5.0-beta.1
+
+- Breaking change update
+- Add allowedUpdates to getUpdates
+- Major changes to Bot class, it should not be extended not
+- Improvements to bot class
+- Minor other improvements
+
 ## 0.4.1
 
 - Implemented Bot API 5.1 changes

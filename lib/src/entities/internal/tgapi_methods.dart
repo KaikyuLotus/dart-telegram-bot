@@ -13,18 +13,23 @@ class TGAPIMethods {
     _token = token;
   }
 
-  void closeClient([bool restart = false]) {
-    _client.close(restart);
-  }
+  void closeClient() => _client.close();
 
   Future<User> getMe() {
     return _client.apiCall(_token, 'getMe');
   }
 
-  Future<List<Update>> getUpdates({int? timeout, int? offset}) {
+  Future<List<Update>> getUpdates({
+    int? timeout,
+    int? offset,
+    int? limit,
+    List<UpdateType>? allowedUpdates,
+  }) {
     return _client.apiCall(_token, 'getUpdates', {
       'timeout': timeout,
       'offset': offset,
+      'limit': limit,
+      'allowed_updates': allowedUpdates,
     });
   }
 

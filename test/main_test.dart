@@ -26,18 +26,36 @@ void main() {
       print('Setting up bot...');
       var token = io.Platform.environment['BOT_TOKEN'];
       if (token == null) throw ('BOT_TOKEN environment variable is missing!');
-      testBot = Bot(token);
-      await testBot.init();
+      testBot = await Bot.fromToken(token);
       initialized = true;
     }
   });
+
+  test(
+    'Get updates with some allowedUpdates works',
+    () async {
+      await testBot.getUpdates(
+        offset: 0,
+        allowedUpdates: [UpdateType.MESSAGE, UpdateType.CHAT_MEMBER],
+      );
+    },
+    skip: false,
+  );
+
+  test(
+    'Bot can update name and username while running',
+    () async {
+      await testBot.updateMe();
+    },
+    skip: false,
+  );
 
   test(
     'A bot does not start if the token is wrong',
     () {
       expect(
         () async {
-          await Bot('Wrong token').init();
+          await Bot.fromToken('Wrong token');
         },
         throwsA(TypeMatcher<APIException>()),
       );
@@ -46,23 +64,10 @@ void main() {
   );
 
   test(
-    'Cannot start a not initialized bot',
-    () {
-      expect(
-        () async {
-          await Bot('Wrong token').start();
-        },
-        throwsA(TypeMatcher<InvalidBotState>()),
-      );
-    },
-    skip: false,
-  );
-
-  test(
     'Cannot stop a non-running bot',
-    () {
+    () async {
       expect(
-        Bot('Wrongtoken').stop,
+        testBot.stop,
         throwsA(TypeMatcher<InvalidBotState>()),
       );
     },

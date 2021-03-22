@@ -27,7 +27,12 @@ class TGAPIClient {
     'Chat': (d) => Chat.fromJson(d),
   };
 
-  var _client = Client();
+  Client? _coreClient;
+
+  Client get _client {
+    _coreClient ??= Client();
+    return _coreClient!;
+  }
 
   MultipartRequest _buildMultipartRequest(
     Uri uri,
@@ -73,13 +78,8 @@ class TGAPIClient {
 
   Future<Uint8List> apiDownload(String? token, String? path) async {
     var uri = Uri.https(BASE_URL, '/file/bot$token/$path');
-    var response = await _client
-        .send(
-          Request('GET', uri),
-        )
-        .timeout(
-          Duration(seconds: 120),
-        );
+    var response =
+        await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
     if (response.statusCode != 200) {
       throw APIException(
         'Error while downloading the file with path /$path',
@@ -106,10 +106,12 @@ class TGAPIClient {
         })
         ..removeWhere((k, v) => v is HttpFile)
         ..updateAll((k, v) {
-          if (v is List) {
-            return json.encode(v);
+          if (v is List<UpdateType>) {
+            return json.encode(v.map(EnumHelper.encode).toList());
           }
-          if (v is ParseMode || v is PollType || v is ChatAction) {
+          if (v is List) return json.encode(v);
+          if ([ParseMode, PollType, ChatAction, UpdateType]
+              .contains(v.runtimeType)) {
             return EnumHelper.encode(v);
           }
           return '$v';
@@ -133,16 +135,12 @@ class TGAPIClient {
     }
 
     var result = jsonResp['result'];
-    if (result is T) {
-      return result;
-    }
+    if (result is T) return result;
 
     try {
       var apiType = T.toString();
       var converter = _typeFactories[apiType];
-      if (converter == null) {
-        throw Exception('Unknown API type $apiType');
-      }
+      if (converter == null) throw Exception('Unknown API type $apiType');
       return converter(result) as T;
     } catch (e, s) {
       log.severe(
@@ -159,14 +157,8 @@ class TGAPIClient {
     }
   }
 
-  void close([bool restart = false]) {
-    try {
-      _client.close();
-      if (restart) {
-        _client = Client();
-      }
-    } catch (e, s) {
-      log.severe('Cannot close http client', e, s);
-    }
+  void close() {
+    _client.close();
+    _coreClient = null;
   }
 }
