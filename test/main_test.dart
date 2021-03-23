@@ -26,7 +26,7 @@ void main() {
       print('Setting up bot...');
       var token = io.Platform.environment['BOT_TOKEN'];
       if (token == null) throw ('BOT_TOKEN environment variable is missing!');
-      testBot = await Bot.fromToken(token);
+      testBot = Bot(token: token);
       initialized = true;
     }
   });
@@ -55,7 +55,8 @@ void main() {
     () {
       expect(
         () async {
-          await Bot.fromToken('Wrong token');
+          // TODO fix test
+          Bot(token: 'Wrong token');
         },
         throwsA(TypeMatcher<APIException>()),
       );

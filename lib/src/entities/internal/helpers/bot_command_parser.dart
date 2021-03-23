@@ -16,9 +16,9 @@ class BotCommandParser {
         targetBotUsername.toLowerCase() == botUsername!.toLowerCase();
   }
 
-  bool matchesCommand(String command, {String? targetBotUsername}) {
-    if (targetBotUsername != null) {
-      if (!isToBot(targetBotUsername)) {
+  bool matchesCommand(String command, {String? username}) {
+    if (username != null) {
+      if (!isToBot(username)) {
         return false;
       }
     }

@@ -4,16 +4,14 @@ import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/src/entities/internal/tgapi_client.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
-class TGAPIMethods {
+class TGAPIMethods  {
   final _client = TGAPIClient();
 
   late String _token;
 
-  TGAPIMethods(String token) {
-    _token = token;
-  }
-
   void closeClient() => _client.close();
+
+  void setup(String token) => _token = token;
 
   Future<User> getMe() {
     return _client.apiCall(_token, 'getMe');

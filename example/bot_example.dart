@@ -6,7 +6,7 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 void main(List<String> arguments) async {
   var token = Platform.environment['BOT_TOKEN']!;
 
-  var bot = await Bot.fromToken(token);
+  var bot = Bot(token: token);
   print('Bot @${bot.username} ready!');
 
   bot.onUpdate(_update);
