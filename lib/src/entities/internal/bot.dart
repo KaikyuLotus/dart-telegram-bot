@@ -91,14 +91,28 @@ class Bot with TGAPIMethods {
     closeClient();
   }
 
+  Future _criticalErrorHandler(Object e, StackTrace st) async {
+    log.severe('An exception occurred during an exception handling');
+    log.severe(e, st);
+  }
+
   Future _onConnectionError(Bot bot, Object error, StackTrace st) async {
     log.severe('Connection error', error, st);
-    await connectionErrorHandler?.call(bot, error, st);
+    runZonedGuarded(
+      () {
+        connectionErrorHandler?.call(bot, error, st);
+      },
+      _criticalErrorHandler,
+    );
   }
 
   Future _onError(Bot bot, Update update, Object error, StackTrace st) async {
     log.severe('Update crashed', error, st);
-    await errorHandler?.call(bot, update, error, st);
+    _runProtected(
+      () => errorHandler?.call(bot, update, error, st),
+      update,
+      customErrHandler: (b, u, e, s) => _criticalErrorHandler(e, s),
+    );
   }
 
   Future _setup() async {
@@ -112,8 +126,15 @@ class Bot with TGAPIMethods {
     await _onReady?.call(this);
   }
 
-  void _runProtected(dynamic Function() foo, Update update) {
-    runZonedGuarded(foo, (e, s) => _onError(this, update, e, s));
+  void _runProtected(
+    dynamic Function() foo,
+    Update update, {
+    Future Function(Bot, Update, Object, StackTrace)? customErrHandler,
+  }) {
+    runZonedGuarded(
+      foo,
+      (e, s) => (customErrHandler ?? _onError)(this, update, e, s),
+    );
   }
 
   Future _cleanUpdates() async {
