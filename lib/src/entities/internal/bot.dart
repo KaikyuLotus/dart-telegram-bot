@@ -12,42 +12,83 @@ class Bot with TGAPIMethods {
   final _updateCallbacks = <Future Function(Bot, Update)>[];
   final _commandCallbacks = <String, Future Function(Bot, Update)>{};
 
-  final FutureOr Function(Bot)? _onReady;
-  final FutureOr Function(Bot, Object, StackTrace)? _onStartFailed;
+  final FutureOr Function(Bot)? _onReadyEvent;
+  final FutureOr Function(Bot, Object, StackTrace)? _onStartFailedEvent;
 
   Future Function(Bot, Update, Object, StackTrace)? errorHandler;
+
 
   Future Function(Bot, Object, StackTrace)? connectionErrorHandler;
 
   bool _isRunning = false;
   int _offset = 0;
   int? _id;
-  String? _firstName;
+  String? _name;
   String? _username;
 
+  var _log = Logger('Bot');
+
+  /// List of alloed updates to be received<br>
+  /// Can be changed while the bot is running
   List<UpdateType>? allowedUpdates;
 
-  var log = Logger('Bot');
-
+  /// Returns current bot id, may be null if [onReady] has not been called already
   int? get id => _id;
 
-  String? get firstName => _firstName;
+  /// Returns current bot name, may be null if [onReady] has not been called already
+  String? get name => _name;
 
+  /// Returns current bot username, may be null if [onReady] has not been called already
   String? get username => _username;
 
+  /// Returns true if the bot is currently getting updates, false otherwise
   bool get isRunning => _isRunning;
 
+  /// Create a new bot with the given [token].
+  /// As soon as bot is created, a getMe is called to validate the given [token].
+  ///
+  /// If the [token] is valid, [id], [username], [name] will be not nullable anymore.
+  ///
+  /// Also, if the [token] is valid, [onReady] gets called.
+  /// Otherwise [onStartFailed] gets called instead.
+  ///
+  /// If [onReady] or [onStartFailed] throws an exception, it is currently only
+  /// logged in the logger, make sure to catch exception if something may file
   Bot({
     required String token,
     int timeout = 10,
     FutureOr Function(Bot)? onReady,
     FutureOr Function(Bot, Object, StackTrace)? onStartFailed,
     this.allowedUpdates,
-  })  : _onReady = onReady,
+  })  : _onReadyEvent = onReady,
         _timeout = timeout,
-        _onStartFailed = onStartFailed {
+        _onStartFailedEvent = onStartFailed {
     setup(token);
     _setup();
+  }
+
+  /// Override this method when extending this class
+  ///
+  /// Gets called when bot token is validated with a getMe
+  ///
+  /// When this method is called, [username], [name] and [id] are
+  /// guaranteed to be not null
+  Future onReady(Bot bot) async {}
+
+
+  /// Override this method when extending this class
+  ///
+  /// Gets called when token validation through getMe fails
+  Future onStartFailed(Bot bot, Object err, StackTrace st) async {}
+
+  Future _onReady() async {
+    _runProtectedSimple(() => onReady(this));
+    _runProtectedSimple(() => _onReadyEvent?.call(this));
+  }
+
+  Future _onStartFailed(Object err, StackTrace st) async {
+    _runProtectedSimple(() => onStartFailed(this, err, st));
+    _runProtectedSimple(() => _onStartFailedEvent?.call(this, err, st));
   }
 
   /// Update bot info, useful if bot info are changed from
@@ -55,12 +96,12 @@ class Bot with TGAPIMethods {
   Future updateMe() async {
     var user = await getMe();
     _id = user.id;
-    _firstName = user.firstName;
+    _name = user.firstName;
     _username = user.username!;
-    log = Logger(_firstName!);
+    _log = Logger(_name!);
   }
 
-  /// Start getting updates
+  /// Start getting updates, if [clean] is true, previous updates will be dropped
   Future start({bool clean = false}) async {
     if (clean) {
       await _cleanUpdates();
@@ -79,7 +120,8 @@ class Bot with TGAPIMethods {
   }
 
   /// Adds a new command callback
-  /// which will be executed when the given command is received<br>
+  /// which will be executed when the given command is received
+  ///
   /// If a command callback throws an error, [errorHandler] is called
   void onCommand(String command, Future Function(Bot, Update) callback) {
     _commandCallbacks[command] = callback;
@@ -92,22 +134,19 @@ class Bot with TGAPIMethods {
   }
 
   Future _criticalErrorHandler(Object e, StackTrace st) async {
-    log.severe('An exception occurred during an exception handling');
-    log.severe(e, st);
+    _log.severe('An exception occurred during an exception handling');
+    _log.severe(e, st);
   }
 
   Future _onConnectionError(Bot bot, Object error, StackTrace st) async {
-    log.severe('Connection error', error, st);
-    runZonedGuarded(
-      () {
-        connectionErrorHandler?.call(bot, error, st);
-      },
-      _criticalErrorHandler,
-    );
+    _log.severe('Connection error', error, st);
+    _runProtectedSimple(() {
+      connectionErrorHandler?.call(bot, error, st);
+    });
   }
 
   Future _onError(Bot bot, Update update, Object error, StackTrace st) async {
-    log.severe('Update crashed', error, st);
+    _log.severe('Update crashed', error, st);
     _runProtected(
       () => errorHandler?.call(bot, update, error, st),
       update,
@@ -119,11 +158,20 @@ class Bot with TGAPIMethods {
     try {
       await updateMe();
     } catch (e, s) {
-      await _onStartFailed?.call(this, e, s);
+      await _onStartFailed(e, s);
       closeClient();
       return;
     }
-    await _onReady?.call(this);
+    await _onReady();
+  }
+
+  void _runProtectedSimple(Function foo) {
+    runZonedGuarded(
+      () {
+        foo();
+      },
+      _criticalErrorHandler,
+    );
   }
 
   void _runProtected(

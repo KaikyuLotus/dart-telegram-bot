@@ -73,3 +73,4 @@ export 'src/entities/telegram/voice_chat_started.dart';
 export 'src/entities/telegram/voice_chat_ended.dart';
 export 'src/entities/telegram/message_auto_delete_timer_changed.dart';
 export 'src/entities/telegram/chat_location.dart';
+export 'src/entities/telegram/message_id.dart';

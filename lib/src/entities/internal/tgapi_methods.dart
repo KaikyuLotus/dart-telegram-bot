@@ -4,19 +4,29 @@ import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/src/entities/internal/tgapi_client.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
 
-class TGAPIMethods  {
+class TGAPIMethods {
   final _client = TGAPIClient();
 
   late String _token;
 
+  /// Close the http client
   void closeClient() => _client.close();
 
+  /// Setup token to be used for API calls
   void setup(String token) => _token = token;
 
+  /// A simple method for testing your bot's auth token.
+  ///
+  /// Requires no parameters.
+  ///
+  /// Returns basic information about the bot in form of a User object.
   Future<User> getMe() {
     return _client.apiCall(_token, 'getMe');
   }
 
+  /// Use this method to receive incoming updates using long polling.
+  ///
+  /// An List of [Update] objects is returned.
   Future<List<Update>> getUpdates({
     int? timeout,
     int? offset,
@@ -31,6 +41,9 @@ class TGAPIMethods  {
     });
   }
 
+  /// Use this method to send text messages.
+  ///
+  /// The sent [Message] is returned.
   Future<Message> sendMessage(ChatID chatId, String text,
       {ParseMode? parseMode,
       bool? disableWebPagePreview,
@@ -50,7 +63,13 @@ class TGAPIMethods  {
     });
   }
 
-  Future<Message> copyMessage(
+  /// Use this method to copy messages of any kind.
+  ///
+  /// The method is analogous to the method forwardMessage,
+  /// but the copied message doesn't have a link to the original message.
+  ///
+  /// Returns the [MessageId] of the sent message on success.
+  Future<MessageId> copyMessage(
     ChatID chatId,
     ChatID fromChatId,
     int messageId, {
@@ -76,6 +95,9 @@ class TGAPIMethods  {
     });
   }
 
+  /// Use this method to send photos.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendPhoto(
     ChatID chatId,
     HttpFile photo, {
@@ -98,6 +120,17 @@ class TGAPIMethods  {
     });
   }
 
+  /// Use this method to send audio files,
+  /// if you want Telegram clients to display them in the music player.
+  ///
+  /// Your audio must be in the .MP3 or .M4A format.
+  ///
+  /// On success, the sent [Message] is returned.
+  ///
+  /// Bots can currently send audio files of up to 50 MB in size,
+  /// this limit may be changed in the future.
+  ///
+  /// For sending voice messages, use the [sendVoice] method instead.
   Future<Message> sendAudio(
     ChatID chatId,
     HttpFile audio, {
@@ -128,6 +161,12 @@ class TGAPIMethods  {
     });
   }
 
+  /// Use this method to send general files.
+  ///
+  /// On success, the sent [Message] is returned.
+  ///
+  /// Bots can currently send files of any type of up to 50 MB in size,
+  /// this limit may be changed in the future.
   Future<Message> sendDocument(
     ChatID chatId,
     HttpFile document, {
