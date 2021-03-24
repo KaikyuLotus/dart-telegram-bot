@@ -11,21 +11,18 @@ Future onUpdate(Bot bot, Update update) async {
 }
 
 void main() async {
-
   Future onReady(Bot bot) async {
     print('Bot ${bot.firstName} ready');
 
     bot.onUpdate(onUpdate);
 
-    await bot.start(
-      clean: true,
-      allowedUpdates: [UpdateType.MESSAGE],
-    );
+    await bot.start(clean: true);
   }
 
   Bot(
     token: Platform.environment['BOT_TOKEN']!,
     onReady: onReady,
     onStartFailed: (bot, e, s) => print('Start failed'),
+    allowedUpdates: [UpdateType.MESSAGE],
   );
 }

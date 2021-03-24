@@ -7,10 +7,17 @@ import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
 class Bot with TGAPIMethods {
-  final List<Future Function(Bot, Update)> _updateCallbacks = [];
-  final Map<String, Future Function(Bot, Update)> _commandCallbacks = {};
-
   final int _timeout;
+
+  final _updateCallbacks = <Future Function(Bot, Update)>[];
+  final _commandCallbacks = <String, Future Function(Bot, Update)>{};
+
+  final FutureOr Function(Bot)? _onReady;
+  final FutureOr Function(Bot, Object, StackTrace)? _onStartFailed;
+
+  Future Function(Bot, Update, Object, StackTrace)? errorHandler;
+
+  Future Function(Bot, Object, StackTrace)? connectionErrorHandler;
 
   bool _isRunning = false;
   int _offset = 0;
@@ -18,13 +25,9 @@ class Bot with TGAPIMethods {
   String? _firstName;
   String? _username;
 
+  List<UpdateType>? allowedUpdates;
+
   var log = Logger('Bot');
-
-  bool get isRunning => _isRunning;
-
-  int get offset => _offset;
-
-  int? get timeout => _timeout;
 
   int? get id => _id;
 
@@ -32,36 +35,19 @@ class Bot with TGAPIMethods {
 
   String? get username => _username;
 
-  Future Function(Bot, Update, Object, StackTrace)? errorHandler;
-
-  Future Function(Bot, Object, StackTrace)? connectionErrorHandler;
-
-  final FutureOr Function(Bot)? _onReady;
-
-  final FutureOr Function(Bot, Object, StackTrace)? _onStartFailed;
+  bool get isRunning => _isRunning;
 
   Bot({
     required String token,
     int timeout = 10,
     FutureOr Function(Bot)? onReady,
     FutureOr Function(Bot, Object, StackTrace)? onStartFailed,
+    this.allowedUpdates,
   })  : _onReady = onReady,
         _timeout = timeout,
         _onStartFailed = onStartFailed {
     setup(token);
     _setup();
-  }
-
-  Future _setup() async {
-    try {
-      await updateMe();
-    } catch (e, s) {
-      await _onStartFailed?.call(this, e, s);
-      closeClient();
-      return;
-    }
-
-    await _onReady?.call(this);
   }
 
   /// Update bot info, useful if bot info are changed from
@@ -75,24 +61,13 @@ class Bot with TGAPIMethods {
   }
 
   /// Start getting updates
-  Future<Bot> start({
-    bool clean = false,
-    List<UpdateType>? allowedUpdates,
-  }) async {
+  Future start({bool clean = false}) async {
     if (clean) {
-      var updates = await getUpdates(timeout: 0, offset: -1);
-      if (updates.isNotEmpty) {
-        _offset = updates[0].updateId + 1;
-      }
+      await _cleanUpdates();
     }
-
-    await _eventLoop(allowedUpdates);
-
+    await _eventLoop();
     // Clean last read update
     await getUpdates(timeout: 0, offset: _offset);
-
-    // Compatibility
-    return this;
   }
 
   /// Adds a new update handler
@@ -110,35 +85,42 @@ class Bot with TGAPIMethods {
     _commandCallbacks[command] = callback;
   }
 
-  /// Stops bot if it's running, only closes the client if not
+  /// Stops bot if it's running, only closes the http client if not
   void stop() {
     _isRunning = false;
     closeClient();
   }
 
-  Future _onConnectionError(
-    Bot bot,
-    Object error,
-    StackTrace stackTrace,
-  ) async {
-    var handler = connectionErrorHandler;
-    if (handler == null) {
-      return log.severe('A connection error occurred', error, stackTrace);
-    }
-    await handler(bot, error, stackTrace);
+  Future _onConnectionError(Bot bot, Object error, StackTrace st) async {
+    log.severe('Connection error', error, st);
+    await connectionErrorHandler?.call(bot, error, st);
   }
 
-  Future _onError(
-    Bot bot,
-    Update update,
-    Object error,
-    StackTrace stackTrace,
-  ) async {
-    var handler = errorHandler;
-    if (handler == null) {
-      return log.severe('An update crashed', error, stackTrace);
+  Future _onError(Bot bot, Update update, Object error, StackTrace st) async {
+    log.severe('Update crashed', error, st);
+    await errorHandler?.call(bot, update, error, st);
+  }
+
+  Future _setup() async {
+    try {
+      await updateMe();
+    } catch (e, s) {
+      await _onStartFailed?.call(this, e, s);
+      closeClient();
+      return;
     }
-    await handler(bot, update, error, stackTrace);
+    await _onReady?.call(this);
+  }
+
+  void _runProtected(dynamic Function() foo, Update update) {
+    runZonedGuarded(foo, (e, s) => _onError(this, update, e, s));
+  }
+
+  Future _cleanUpdates() async {
+    var updates = await getUpdates(timeout: 0, offset: -1);
+    if (updates.isNotEmpty) {
+      _offset = updates[0].updateId + 1;
+    }
   }
 
   Future<bool> _checkCommands(Update update) async {
@@ -148,16 +130,14 @@ class Bot with TGAPIMethods {
     if (cmdParser == null) return false;
 
     var anyExecuted = false;
-    for (var command in _commandCallbacks.keys) {
-      var isMatching = cmdParser.matchesCommand(command, username: username);
-      if (isMatching) {
-        try {
-          await _commandCallbacks[command]?.call(this, update);
-        } catch (e, s) {
-          await _onError(this, update, e, s);
-        }
-        anyExecuted = true;
-      }
+    for (var commandEntry in _commandCallbacks.entries) {
+      var isMatching = cmdParser.matchesCommand(
+        commandEntry.key,
+        username: username,
+      );
+      if (!isMatching) continue;
+      anyExecuted = true;
+      _runProtected(() => commandEntry.value.call(this, update), update);
     }
     return anyExecuted;
   }
@@ -165,43 +145,37 @@ class Bot with TGAPIMethods {
   Future _handleUpdate(Update update) async {
     if (await _checkCommands(update)) return;
     for (var callback in _updateCallbacks) {
-      try {
-        await callback(this, update);
-      } catch (e, s) {
-        log.severe('Unhandled exception in callback', e, s);
-        await _onError(this, update, e, s);
-      }
+      _runProtected(() => callback(this, update), update);
     }
   }
 
   Future _loopBody() async {
-    var updates = await getUpdates(timeout: _timeout, offset: _offset);
-    if (updates.isEmpty) return;
-
-    _offset = updates.last.updateId + 1;
-
-    for (var update in updates) {
-      runZonedGuarded(
-        () {
-          _handleUpdate(update);
-        },
-        (e, s) => _onError(this, update, e, s),
+    try {
+      var updates = await getUpdates(
+        timeout: _timeout,
+        offset: _offset,
+        allowedUpdates: allowedUpdates,
       );
+      if (updates.isEmpty) return;
+
+      _offset = updates.last.updateId + 1;
+
+      for (var update in updates) {
+        _runProtected(() => _handleUpdate(update), update);
+      }
+    } catch (e, s) {
+      if (e is ClientException) {
+        // Delay to avoid spam
+        await Future.delayed(Duration(seconds: 1));
+      }
+      await _onConnectionError(this, e, s);
     }
   }
 
-  Future _eventLoop(List<UpdateType>? allowedUpdates) async {
+  Future _eventLoop() async {
     _isRunning = true;
     while (_isRunning) {
-      try {
-        await _loopBody();
-      } catch (e, s) {
-        if (e is ClientException) {
-          // Delay to avoid spam
-          await Future.delayed(Duration(seconds: 1));
-        }
-        await _onConnectionError(this, e, s);
-      }
+      await _loopBody();
     }
   }
 }
