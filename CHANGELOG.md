@@ -1,3 +1,10 @@
+## 0.5.1-beta.1
+
+- Major changes to Bot structure
+- Major improvements to Bot
+- Added some docs
+- Updated examples
+
 ## 0.5.0-beta.1+2
 
 - Hotfix for User in newChatMembers in Message being nullable
