@@ -193,6 +193,13 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send video files,
+  /// Telegram clients support mp4 videos (other formats may be sent as Document).
+  ///
+  /// On success, the sent [Message] is returned.
+  ///
+  /// Bots can currently send video files of up to 50 MB in size,
+  /// this limit may be changed in the future.
   Future<Message> sendVideo(
     ChatID chatId,
     HttpFile video, {
@@ -225,6 +232,12 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send animation files (GIF or H.264/MPEG-4 AVC video without sound).
+  ///
+  /// On success, the sent [Message] is returned.
+  ///
+  /// Bots can currently send animation files of up to 50 MB in size,
+  /// this limit may be changed in the future.
   Future<Message> sendAnimation(
     ChatID chatId,
     HttpFile animation, {
@@ -255,6 +268,16 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send audio files,
+  /// if you want Telegram clients to display the file as a playable voice message.
+  ///
+  /// For this to work, your audio must be in an .OGG file encoded with OPUS
+  /// (other formats may be sent as Audio or Document).
+  ///
+  /// On success, the sent [Message] is returned.
+  ///
+  /// Bots can currently send voice messages of up to 50 MB in size,
+  /// this limit may be changed in the future.
   Future<Message> sendVoice(
     ChatID chatId,
     HttpFile voice, {
@@ -279,6 +302,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send video messages.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendVideoNote(
     ChatID chatId,
     HttpFile videoNote, {
@@ -301,6 +327,11 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send a group of photos, videos,documents or audios as an album.
+  ///
+  /// Documents and audio files can be only grouped in an album with messages of the same type.
+  ///
+  /// On success, an list of Messages that were sent is returned.
   Future<List<Message>> sendMediaGroup(
     ChatID chatId,
     List<InputMedia> media, {
@@ -317,6 +348,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send point on the map.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendLocation(
     ChatID chatId,
     double latitude,
@@ -339,22 +373,41 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to edit live location messages.
+  ///
+  /// A location can be edited until its live_period expires or editing is
+  /// explicitly disabled by a call to stopMessageLiveLocation.
+  ///
+  /// On success, the edited [Message] is returned.
   Future<Message> editMessageLiveLocation(
     double latitude,
     double longitude, {
-    String? inlineMessageId,
     ChatID? chatId,
     int? messageId,
     ReplyMarkup? replyMarkup,
   }) {
-    if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException(
-        'If inlineMessageId is null then chatId and messageId must be defined',
-      );
-    }
     return _client.apiCall(_token, 'editMessageLiveLocation', {
       'chat_id': chatId,
       'message_id': messageId,
+      'latitude': latitude,
+      'longitude': longitude,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  /// Use this method to edit live location messages.
+  ///
+  /// A location can be edited until its live_period expires or editing is
+  /// explicitly disabled by a call to stopMessageLiveLocation.
+  ///
+  /// On success, true is returned.
+  Future<bool> editMessageLiveLocationInline(
+    double latitude,
+    double longitude, {
+    String? inlineMessageId,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageLiveLocation', {
       'inline_message_id': inlineMessageId,
       'latitude': latitude,
       'longitude': longitude,
@@ -362,6 +415,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to stop updating a live location message before live_period expires.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> stopMessageLiveLocation({
     String? inlineMessageId,
     ChatID? chatId,
@@ -381,6 +437,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send information about a venue.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendVenue(
     ChatID chatId,
     double latitude,
@@ -409,6 +468,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send phone contacts.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendContact(
     ChatID chatId,
     String phoneNumber,
@@ -433,6 +495,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send a native poll.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendPoll(
     ChatID chatId,
     String question,
@@ -467,6 +532,14 @@ class TGAPIMethods {
     );
   }
 
+  /// Use this method when you need to tell the user that something is happening
+  /// on the bot's side.
+  ///
+  /// The status is set for 5 seconds or less
+  /// (when a message arrives from your bot,
+  /// Telegram clients clear its typing status).
+  ///
+  /// Returns true on success.
   Future<bool> sendChatAction(ChatID chatId, ChatAction action) {
     return _client.apiCall(
       _token,
@@ -475,6 +548,9 @@ class TGAPIMethods {
     );
   }
 
+  /// Use this method to get a list of profile pictures for a user.
+  ///
+  /// Returns a [UserProfilePhotos] object.
   Future<UserProfilePhotos> getUserProfilePhotos(
     ChatID chatId, {
     int? offset,
@@ -487,10 +563,30 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to get basic info about a file and prepare it for downloading.
+  ///
+  /// For the moment, bots can download files of up to 20MB in size.
+  ///
+  /// On success, a [File] object is returned.
+  /// The file can then be downloaded using [download] method.
+  ///
+  /// It is guaranteed that the link will be valid for at least 1 hour.
+  ///
+  /// When the link expires, a new one can be requested by calling getFile again.
   Future<File> getFile(String fileId) {
     return _client.apiCall(_token, 'getFile', {'file_id': fileId});
   }
 
+  /// Use this method to kick a user from a group, a supergroup or a channel.
+  ///
+  /// In the case of supergroups and channels, the user will not be able to
+  /// return to the chat on their own using invite
+  /// links, etc., unless unbanned first.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns true on success.
   Future<bool> kickChatMember(
     ChatID chatId,
     int userId, {
@@ -505,6 +601,18 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to unban a previously kicked user in a supergroup or channel.
+  /// The user will not return to the group or channel automatically,
+  /// but will be able to join via link, etc.
+  ///
+  /// The bot must be an administrator for this to work.
+  /// By default, this method guarantees that after the call the user is not
+  /// a member of the chat, but will be able to join it.
+  ///
+  /// So if the user is a member of the chat they will also be removed from the chat.
+  /// If you don't want this, use the parameter [onlyIfBanned].
+  ///
+  /// Returns true on success.
   Future<bool> unbanChatMember(
     ChatID chatId,
     int userId, {
@@ -517,6 +625,13 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to restrict a user in a supergroup.
+  /// The bot must be an administrator in the supergroup for this to work and
+  /// must have the appropriate admin rights.
+  ///
+  /// Pass True for all permissions to lift restrictions from a user.
+  ///
+  /// Returns True on success.
   Future<bool> restrictChatMember(
     ChatID chatId,
     int userId,
@@ -531,6 +646,14 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to promote or demote a user in a supergroup or a channel.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the appropriate admin rights.
+  ///
+  /// Pass False for all boolean parameters to demote a user.
+  ///
+  /// Returns True on success.
   Future<bool> promoteChatMember(
     ChatID chatId,
     int userId, {
@@ -563,6 +686,10 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to set a custom title for an administrator in a supergroup
+  /// promoted by the bot.
+  ///
+  /// Returns True on success.
   Future<bool> setChatAdministratorCustomTitle(
     ChatID chatId,
     int userId,
@@ -575,6 +702,12 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to set default chat permissions for all members.
+  ///
+  /// The bot must be an administrator in the group or a supergroup for this
+  /// to work and must have the can_restrict_members admin rights.
+  ///
+  /// Returns True on success.
   Future<bool> setChatPermissions(ChatID chatId, ChatPermissions permissions) {
     return _client.apiCall(_token, 'setChatPermissions', {
       'chat_id': chatId,
@@ -582,12 +715,27 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to generate a new primary invite link for a chat;
+  /// any previously generated primary link is revoked.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns the new invite link as [String] on success.
   Future<String> exportChatInviteLink(ChatID chatId) {
     return _client.apiCall(_token, 'exportChatInviteLink', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to set a new profile photo for the chat.
+  ///
+  /// Photos can't be changed for private chats.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns True on success.
   Future<bool> setChatPhoto(ChatID chatId, HttpFile photo) {
     return _client.apiCall(_token, 'setChatPhoto', {
       'chat_id': chatId,
@@ -595,12 +743,25 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to delete a chat photo.
+  /// Photos can't be changed for private chats.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns True on success.
   Future<bool> deleteChatPhoto(ChatID chatId) {
     return _client.apiCall(_token, 'deleteChatPhoto', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to change the title of a chat.
+  /// Titles can't be changed for private chats.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns True on success.
   Future<bool> setChatTitle(ChatID chatId, String title) {
     return _client.apiCall(_token, 'setChatTitle', {
       'chat_id': chatId,
@@ -608,6 +769,13 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to change the description of a group,
+  /// a supergroup or a channel.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns True on success.
   Future<bool> setChatDescription(ChatID chatId, String description) {
     return _client.apiCall(_token, 'setChatDescription', {
       'chat_id': chatId,
@@ -615,6 +783,13 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to add a message to the list of pinned messages in a chat.
+  ///
+  /// If the chat is not a private chat, the bot must be an administrator
+  /// in the chat for this to work and must have the 'can_pin_messages'
+  /// admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+  ///
+  /// Returns True on success.
   Future<bool> pinChatMessage(
     ChatID chatId,
     int messageId, {
@@ -627,6 +802,14 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to remove a message from the list of
+  /// pinned messages in a chat.
+  ///
+  /// If the chat is not a private chat, the bot must be an administrator in
+  /// the chat for this to work and must have the 'can_pin_messages'
+  /// admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+  ///
+  /// Returns True on success.
   Future<bool> unpinChatMessage(ChatID chatId, {int? messageId}) {
     return _client.apiCall(_token, 'unpinChatMessage', {
       'chat_id': chatId,
@@ -853,6 +1036,9 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to send an animated emoji that will display a random value.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendDice(
     ChatID chatId, {
     Emoji? emoji,
@@ -942,6 +1128,13 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to create an additional invite link for a chat.
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the appropriate admin rights.
+  ///
+  /// The link can be revoked using the method [revokeChatInviteLink].
+  ///
+  /// Returns the new invite link as [ChatInviteLink] object.
   Future<ChatInviteLink> createChatInviteLink(
     ChatID chatId, {
     int? expireDate,
@@ -954,6 +1147,12 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to edit a non-primary invite link created by the bot.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns the edited invite link as a [ChatInviteLink] object.
   Future<ChatInviteLink> editChatInviteLink(
     ChatID chatId,
     String inviteLink, {
@@ -968,6 +1167,14 @@ class TGAPIMethods {
     });
   }
 
+  /// Use this method to revoke an invite link created by the bot.
+  ///
+  /// If the primary link is revoked, a new link is automatically generated.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the appropriate admin rights.
+  ///
+  /// Returns the revoked invite link as [ChatInviteLink] object.
   Future<ChatInviteLink> revokeChatInviteLink(
     ChatID chatId,
     String inviteLink,

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class MessageId {
-  String messageId;
+  int messageId;
 
   MessageId({required this.messageId});
 
