@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class InputTextMessageContent extends InputMessageContent {
   String messageText;
@@ -20,7 +19,7 @@ class InputTextMessageContent extends InputMessageContent {
   static InputTextMessageContent fromJson(Map<String, dynamic> json) {
     return InputTextMessageContent(
       json['message_text']!,
-      parseMode: EnumHelper.decode(ParseMode.values, json['parse_mode']),
+      parseMode: ParseMode.forValue(json['parse_mode']),
       entities: callIfNotNull(
         MessageEntity.listFromJsonArray,
         json['entities'],
@@ -32,7 +31,7 @@ class InputTextMessageContent extends InputMessageContent {
   Map toJson() {
     return {
       'message_text': messageText,
-      'parse_mode': EnumHelper.encode(parseMode),
+      'parse_mode': parseMode,
       'entities': entities,
       'disable_web_page_preview': disableWebPagePreview,
     }..removeWhere((_, v) => v == null);

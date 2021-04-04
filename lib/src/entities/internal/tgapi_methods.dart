@@ -1,10 +1,10 @@
 import 'dart:typed_data';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/src/entities/internal/tgapi_client.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../dart_telegram_bot.dart';
+import '../../../telegram_entities.dart';
+import 'tgapi_client.dart';
 
-class TGAPIMethods {
+mixin TGAPIMethods {
   final _client = TGAPIClient();
 
   late String _token;
@@ -13,16 +13,14 @@ class TGAPIMethods {
   void closeClient() => _client.close();
 
   /// Setup token to be used for API calls
-  void setup(String token) => _token = token;
+  set token(String token) => _token = token;
 
   /// A simple method for testing your bot's auth token.
   ///
   /// Requires no parameters.
   ///
   /// Returns basic information about the bot in form of a User object.
-  Future<User> getMe() {
-    return _client.apiCall(_token, 'getMe');
-  }
+  Future<User> getMe() => _client.apiCall(_token, 'getMe');
 
   /// Use this method to receive incoming updates using long polling.
   ///
@@ -194,7 +192,8 @@ class TGAPIMethods {
   }
 
   /// Use this method to send video files,
-  /// Telegram clients support mp4 videos (other formats may be sent as Document).
+  /// Telegram clients support mp4 videos
+  /// (other formats may be sent as Document).
   ///
   /// On success, the sent [Message] is returned.
   ///
@@ -269,7 +268,8 @@ class TGAPIMethods {
   }
 
   /// Use this method to send audio files,
-  /// if you want Telegram clients to display the file as a playable voice message.
+  /// if you want Telegram clients to display
+  /// the file as a playable voice message.
   ///
   /// For this to work, your audio must be in an .OGG file encoded with OPUS
   /// (other formats may be sent as Audio or Document).
@@ -327,9 +327,11 @@ class TGAPIMethods {
     });
   }
 
-  /// Use this method to send a group of photos, videos,documents or audios as an album.
+  /// Use this method to send a group of photos,
+  /// videos,documents or audios as an album.
   ///
-  /// Documents and audio files can be only grouped in an album with messages of the same type.
+  /// Documents and audio files can be only grouped
+  /// in an album with messages of the same type.
   ///
   /// On success, an list of Messages that were sent is returned.
   Future<List<Message>> sendMediaGroup(
@@ -415,7 +417,8 @@ class TGAPIMethods {
     });
   }
 
-  /// Use this method to stop updating a live location message before live_period expires.
+  /// Use this method to stop updating a live
+  /// location message before live_period expires.
   ///
   /// On success, the sent [Message] is returned.
   Future<Message> stopMessageLiveLocation({
@@ -563,7 +566,8 @@ class TGAPIMethods {
     });
   }
 
-  /// Use this method to get basic info about a file and prepare it for downloading.
+  /// Use this method to get basic info about
+  /// a file and prepare it for downloading.
   ///
   /// For the moment, bots can download files of up to 20MB in size.
   ///
@@ -572,7 +576,8 @@ class TGAPIMethods {
   ///
   /// It is guaranteed that the link will be valid for at least 1 hour.
   ///
-  /// When the link expires, a new one can be requested by calling getFile again.
+  /// When the link expires, a new one can
+  /// be requested by calling getFile again.
   Future<File> getFile(String fileId) {
     return _client.apiCall(_token, 'getFile', {'file_id': fileId});
   }
@@ -601,7 +606,8 @@ class TGAPIMethods {
     });
   }
 
-  /// Use this method to unban a previously kicked user in a supergroup or channel.
+  /// Use this method to unban a previously
+  /// kicked user in a supergroup or channel.
   /// The user will not return to the group or channel automatically,
   /// but will be able to join via link, etc.
   ///
@@ -609,7 +615,8 @@ class TGAPIMethods {
   /// By default, this method guarantees that after the call the user is not
   /// a member of the chat, but will be able to join it.
   ///
-  /// So if the user is a member of the chat they will also be removed from the chat.
+  /// So if the user is a member of the chat
+  /// they will also be removed from the chat.
   /// If you don't want this, use the parameter [onlyIfBanned].
   ///
   /// Returns true on success.
@@ -787,7 +794,8 @@ class TGAPIMethods {
   ///
   /// If the chat is not a private chat, the bot must be an administrator
   /// in the chat for this to work and must have the 'can_pin_messages'
-  /// admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+  /// admin right in a supergroup or
+  /// 'can_edit_messages' admin right in a channel.
   ///
   /// Returns True on success.
   Future<bool> pinChatMessage(
@@ -807,7 +815,8 @@ class TGAPIMethods {
   ///
   /// If the chat is not a private chat, the bot must be an administrator in
   /// the chat for this to work and must have the 'can_pin_messages'
-  /// admin right in a supergroup or 'can_edit_messages' admin right in a channel.
+  /// admin right in a supergroup or
+  /// 'can_edit_messages' admin right in a channel.
   ///
   /// Returns True on success.
   Future<bool> unpinChatMessage(ChatID chatId, {int? messageId}) {
@@ -1036,7 +1045,8 @@ class TGAPIMethods {
     });
   }
 
-  /// Use this method to send an animated emoji that will display a random value.
+  /// Use this method to send an animated
+  /// emoji that will display a random value.
   ///
   /// On success, the sent [Message] is returned.
   Future<Message> sendDice(
@@ -1188,6 +1198,12 @@ class TGAPIMethods {
   Future<bool> logOut() => _client.apiCall(_token, 'logOut');
 
   Future<bool> close() => _client.apiCall(_token, 'close');
+
+  Future<bool> deleteWebhook({bool? dropPendingUpdates}) {
+    return _client.apiCall(_token, 'deleteWebhook', {
+      'drop_pending_updates': dropPendingUpdates,
+    });
+  }
 
   Future<Uint8List> download(String path) {
     return _client.apiDownload(_token, path);

@@ -3,23 +3,37 @@ import 'dart:io';
 
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:logging/logging.dart';
 
 void main(List<String> arguments) async {
+  Logger.root.level = Level.FINE; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    print(
+      '[${record.level.name}] ${record.time}: ${record.message}',
+    );
+    if (record.error != null) {
+      print(record.error);
+    }
+    if (record.stackTrace != null) {
+      print(record.stackTrace);
+    }
+  });
+
   var token = Platform.environment['BOT_TOKEN']!;
 
   var bot = Bot(
     token: token,
     onReady: onReady,
     onStartFailed: onStartFailed,
-    allowedUpdates: [UpdateType.MESSAGE, UpdateType.EDITED_MESSAGE],
+    allowedUpdates: UpdateType.allBut([UpdateType.editedMessage]),
   );
 
   bot.onUpdate(_onUpdate);
 
   bot.onCommand('buttons', (bot, update) async {
     var buttons = [
-      [InlineKeyboardButton.CallbackData('Button 1', 'btn1')],
-      [InlineKeyboardButton.CallbackData('Button 2', 'btn2')]
+      [InlineKeyboardButton.callbackData('Button 1', 'btn1')],
+      [InlineKeyboardButton.callbackData('Button 2', 'btn2')]
     ];
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
@@ -32,7 +46,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*Chat ID*: `${update.message!.chat.id}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -40,7 +54,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*Message ID*: `${update.message!.messageId}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -48,7 +62,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*ID*: `${update.message!.from!.id}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -57,7 +71,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*ID*: `${update.message!.replyToMessage!.from!.id}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -75,7 +89,9 @@ void main(List<String> arguments) async {
   });
 }
 
-Function defaultErrorHandler = (e, s) => print('something failed: $e\n$s');
+void defaultErrorHandler(Object e, StackTrace s) {
+  print('something failed: $e\n$s');
+}
 
 void onStartFailed(Bot bot, Object err, StackTrace st) {
   print('Failed to start: $err\n$st');
@@ -114,7 +130,7 @@ Future _onUpdate(Bot bot, Update update) async {
             inputMessageContent: InputTextMessageContent(
               '[$text](https://www.youtube.com'
               '/results?search_query=Zekk+-+TOMOYO)',
-              parseMode: ParseMode.MARKDOWN,
+              parseMode: ParseMode.markdown,
             ),
           )
         ],

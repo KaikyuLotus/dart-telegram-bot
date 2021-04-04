@@ -2,28 +2,46 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
+
+import '../../../dart_telegram_bot.dart';
+import '../../../telegram_entities.dart';
 
 class TGAPIClient {
   static final log = Logger('TGAPIClient');
 
-  static final BASE_URL = 'api.telegram.org';
+  static final baseUrl = 'api.telegram.org';
 
+  // TODO
+  //   I can't remove lambdas since some
+  //   function have different parameter and return type,
+  //   either make two maps, one for lists mappers and one for map mappers
+  //   or pass mapper as parameter
   static final _typeFactories = {
+    // ignore: unnecessary_lambdas
     'User': (d) => User.fromJson(d),
+    // ignore: unnecessary_lambdas
     'List<Update>': (d) => Update.listFromJsonArray(d),
+    // ignore: unnecessary_lambdas
     'Message': (d) => Message.fromJson(d),
+    // ignore: unnecessary_lambdas
     'List<Message>': (d) => Message.listFromJsonArray(d),
+    // ignore: unnecessary_lambdas
     'UserProfilePhotos': (d) => UserProfilePhotos.fromJson(d),
+    // ignore: unnecessary_lambdas
     'File': (d) => File.fromJson(d),
+    // ignore: unnecessary_lambdas
     'List<ChatMember>': (d) => ChatMember.listFromJsonArray(d),
+    // ignore: unnecessary_lambdas
     'List<BotCommand>': (d) => BotCommand.listFromJsonArray(d),
+    // ignore: unnecessary_lambdas
     'ChatMember': (d) => ChatMember.fromJson(d),
+    // ignore: unnecessary_lambdas
     'Poll': (d) => Poll.fromJson(d),
+    // ignore: unnecessary_lambdas
     'StickerSet': (d) => StickerSet.fromJson(d),
+    // ignore: unnecessary_lambdas
     'Chat': (d) => Chat.fromJson(d),
   };
 
@@ -58,16 +76,16 @@ class TGAPIClient {
     return Request('GET', uri);
   }
 
-  Future<Map<String, dynamic>?> _execute(
+  Future<Map<String, dynamic>> _execute(
     String? token,
     String method, [
     Map<String, dynamic>? query,
     Map<String, HttpFile>? files,
   ]) async {
     var uri = Uri.https(
-      BASE_URL,
+      baseUrl,
       '/bot$token/$method',
-      query != null ? query.cast() : null,
+      query?.cast(),
     );
     var response = await _client
         .send(_getRequest(uri, files))
@@ -77,7 +95,7 @@ class TGAPIClient {
   }
 
   Future<Uint8List> apiDownload(String? token, String? path) async {
-    var uri = Uri.https(BASE_URL, '/file/bot$token/$path');
+    var uri = Uri.https(baseUrl, '/file/bot$token/$path');
     var response =
         await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
     if (response.statusCode != 200) {
@@ -106,25 +124,12 @@ class TGAPIClient {
         })
         ..removeWhere((k, v) => v is HttpFile)
         ..updateAll((k, v) {
-          if (v is List<UpdateType>) {
-            return json.encode(v.map(EnumHelper.encode).toList());
-          }
           if (v is List) return json.encode(v);
-          if ([ParseMode, PollType, ChatAction, UpdateType]
-              .contains(v.runtimeType)) {
-            return EnumHelper.encode(v);
-          }
           return '$v';
         });
     }
 
     var jsonResp = await _execute(token, method, query, files);
-    if (jsonResp == null) {
-      throw Exception(
-        'Bot API returned null, or could not convert message to a json object',
-      );
-    }
-
     if (!jsonResp['ok']) {
       throw APIException(
         jsonResp['description'] ?? 'No description',
@@ -142,7 +147,7 @@ class TGAPIClient {
       var converter = _typeFactories[apiType];
       if (converter == null) throw Exception('Unknown API type $apiType');
       return converter(result) as T;
-    } catch (e, s) {
+    } on Exception catch (e, s) {
       log.severe(
         'Could not convert Telegram API response to target entity',
         e,

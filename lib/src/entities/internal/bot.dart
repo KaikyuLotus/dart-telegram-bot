@@ -1,10 +1,11 @@
 import 'dart:async';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/src/entities/internal/tgapi_methods.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
+
+import '../../../dart_telegram_bot.dart';
+import '../../../telegram_entities.dart';
+import 'tgapi_methods.dart';
 
 class Bot with TGAPIMethods {
   final int _timeout;
@@ -16,7 +17,6 @@ class Bot with TGAPIMethods {
   final FutureOr Function(Bot, Object, StackTrace)? _onStartFailedEvent;
 
   Future Function(Bot, Update, Object, StackTrace)? errorHandler;
-
 
   Future Function(Bot, Object, StackTrace)? connectionErrorHandler;
 
@@ -32,22 +32,27 @@ class Bot with TGAPIMethods {
   /// Can be changed while the bot is running
   List<UpdateType>? allowedUpdates;
 
-  /// Returns current bot id, may be null if [onReady] has not been called already
+  /// Returns current bot id, may be null if
+  /// [onReady] has not been called already
   int? get id => _id;
 
-  /// Returns current bot name, may be null if [onReady] has not been called already
+  /// Returns current bot name, may be null if
+  /// [onReady] has not been called already
   String? get name => _name;
 
-  /// Returns current bot username, may be null if [onReady] has not been called already
+  /// Returns current bot username, may be null if
+  /// [onReady] has not been called already
   String? get username => _username;
 
   /// Returns true if the bot is currently getting updates, false otherwise
   bool get isRunning => _isRunning;
 
   /// Create a new bot with the given [token].
-  /// As soon as bot is created, a getMe is called to validate the given [token].
+  /// As soon as bot is created, a getMe is called
+  /// to validate the given [token].
   ///
-  /// If the [token] is valid, [id], [username], [name] will be not nullable anymore.
+  /// If the [token] is valid, [id], [username], [name]
+  /// will be not nullable anymore.
   ///
   /// Also, if the [token] is valid, [onReady] gets called.
   /// Otherwise [onStartFailed] gets called instead.
@@ -63,7 +68,7 @@ class Bot with TGAPIMethods {
   })  : _onReadyEvent = onReady,
         _timeout = timeout,
         _onStartFailedEvent = onStartFailed {
-    setup(token);
+    this.token = token;
     _setup();
   }
 
@@ -74,7 +79,6 @@ class Bot with TGAPIMethods {
   /// When this method is called, [username], [name] and [id] are
   /// guaranteed to be not null
   Future onReady(Bot bot) async {}
-
 
   /// Override this method when extending this class
   ///
@@ -101,7 +105,8 @@ class Bot with TGAPIMethods {
     _log = Logger(_name!);
   }
 
-  /// Start getting updates, if [clean] is true, previous updates will be dropped
+  /// Start getting updates, if [clean] is true,
+  /// previous updates will be dropped
   Future start({bool clean = false}) async {
     if (clean) {
       await _cleanUpdates();
@@ -157,7 +162,7 @@ class Bot with TGAPIMethods {
   Future _setup() async {
     try {
       await updateMe();
-    } catch (e, s) {
+    } on Exception catch (e, s) {
       await _onStartFailed(e, s);
       closeClient();
       return;
@@ -185,12 +190,7 @@ class Bot with TGAPIMethods {
     );
   }
 
-  Future _cleanUpdates() async {
-    var updates = await getUpdates(timeout: 0, offset: -1);
-    if (updates.isNotEmpty) {
-      _offset = updates[0].updateId + 1;
-    }
-  }
+  Future _cleanUpdates() => deleteWebhook(dropPendingUpdates: true);
 
   Future<bool> _checkCommands(Update update) async {
     var message = update.message;
@@ -232,12 +232,11 @@ class Bot with TGAPIMethods {
       for (var update in updates) {
         _runProtected(() => _handleUpdate(update), update);
       }
-    } catch (e, s) {
-      if (e is ClientException) {
-        // Delay to avoid spam
-        await Future.delayed(Duration(seconds: 1));
-      }
+    } on ClientException catch (e, s) {
       await _onConnectionError(this, e, s);
+      await Future.delayed(Duration(seconds: 1));
+    } on Exception catch (e, s) {
+      _log.severe('Loop body error', e, s);
     }
   }
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class KeyboardButton {
   String text;
@@ -16,11 +16,11 @@ class KeyboardButton {
     this.requestPoll,
   });
 
-  KeyboardButton.RequestContact(this.text, this.requestContact);
+  KeyboardButton.requestContact(this.text, {this.requestContact});
 
-  KeyboardButton.RequestLocation(this.text, this.requestLocation);
+  KeyboardButton.requestLocation(this.text, {this.requestLocation});
 
-  KeyboardButton.RequestPoll(this.text, this.requestPoll);
+  KeyboardButton.requestPoll(this.text, this.requestPoll);
 
   static KeyboardButton fromJson(Map<String, dynamic> json) {
     return KeyboardButton._(

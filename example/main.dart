@@ -24,7 +24,8 @@ void main() async {
   /// Either extend Bot and override [onReady] and [onStartFailed]
   MyBot(token);
 
-  /// Or initialize your bot and pass [onReady] and [onStartFailed] as parameters
+  /// Or initialize your bot and pass [onReady] and
+  /// [onStartFailed] as parameters
   Future onUpdate(Bot bot, Update update) async {
     if (update.message?.text == 'stop') {
       await bot.sendMessage(ChatID(update.message!.chat.id), 'Stopping...');
@@ -42,6 +43,6 @@ void main() async {
     token: token,
     onReady: onReady,
     onStartFailed: (bot, e, s) => print('Start failed'),
-    allowedUpdates: [UpdateType.MESSAGE],
+    allowedUpdates: UpdateType.allBut([UpdateType.channelPost]),
   );
 }

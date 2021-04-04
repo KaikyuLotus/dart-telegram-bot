@@ -1,4 +1,4 @@
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../../telegram_entities.dart';
 
 class BotCommandParser {
   static final _commandRegex = RegExp(

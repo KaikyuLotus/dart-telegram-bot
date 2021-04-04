@@ -1,3 +1,11 @@
+## 0.5.2
+
+- New stable release!
+- Now using effective_dart, fixed all issues
+- Improved enums (breaks compatibility with previous enums names)
+- Improved pending updates cleanup
+- Add allowed updates shortcuts
+
 ## 0.5.1-beta.1
 
 - Major changes to Bot structure

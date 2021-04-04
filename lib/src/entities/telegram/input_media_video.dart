@@ -1,14 +1,13 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
 
 class InputMediaVideo extends InputMedia {
-  String type;
+  final String type = 'video';
   String media;
   HttpFile? thumb;
   String? caption;
-  String? parseMode;
+  ParseMode? parseMode;
   List<MessageEntity>? captionEntities;
   int? width;
   int? height;
@@ -16,7 +15,6 @@ class InputMediaVideo extends InputMedia {
   bool? supportsStreaming;
 
   InputMediaVideo({
-    required this.type,
     required this.media,
     this.thumb,
     this.caption,
@@ -34,7 +32,7 @@ class InputMediaVideo extends InputMedia {
       'media': media,
       'thumb': thumb,
       'caption': caption,
-      'parse_mode': EnumHelper.encode(parseMode),
+      'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'width': width,
       'height': height,

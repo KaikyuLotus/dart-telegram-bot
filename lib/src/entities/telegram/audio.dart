@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
+
+import '../internal/helpers/util.dart';
 
 class Audio {
   String fileId;
