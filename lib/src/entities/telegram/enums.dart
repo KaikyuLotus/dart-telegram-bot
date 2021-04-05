@@ -12,32 +12,32 @@ class _Enum<T> {
 }
 
 class UpdateType extends _Enum<String> {
-  static const message = UpdateType._('MESSAGE');
-  static const editedMessage = UpdateType._('EDITED_MESSAGE');
-  static const channelPost = UpdateType._('CHANNEL_POST');
-  static const inlineQuery = UpdateType._('INLINE_QUERY');
-  static const chosenInlineResult = UpdateType._('CHOSEN_INLINE_RESULT');
-  static const callbackQuery = UpdateType._('CALLBACK_QUERY');
-  static const shippingQuery = UpdateType._('SHIPPING_QUERY');
-  static const preCheckoutQuery = UpdateType._('PRE_CHECKOUT_QUERY');
-  static const poll = UpdateType._('POLL');
-  static const pollAnswer = UpdateType._('POLL_ANSWER');
-  static const myChatMember = UpdateType._('MY_CHAT_MEMBER');
-  static const chatMember = UpdateType._('CHAT_MEMBER');
+  static const message = UpdateType._('message');
+  static const editedMessage = UpdateType._('edited_message');
+  static const channelPost = UpdateType._('channel_post');
+  static const inlineQuery = UpdateType._('inline_query');
+  static const chosenInlineResult = UpdateType._('chosen_inline_result');
+  static const callbackQuery = UpdateType._('callback_query');
+  static const shippingQuery = UpdateType._('shipping_query');
+  static const preCheckoutQuery = UpdateType._('pre_checkout_query');
+  static const poll = UpdateType._('poll');
+  static const pollAnswer = UpdateType._('poll_answer');
+  static const myChatMember = UpdateType._('my_chat_member');
+  static const chatMember = UpdateType._('chat_member');
 
   static const values = {
-    'MESSAGE': message,
-    'EDITED_MESSAGE': editedMessage,
-    'CHANNEL_POST': channelPost,
-    'INLINE_QUERY': inlineQuery,
-    'CHOSEN_INLINE_RESULT': chosenInlineResult,
-    'CALLBACK_QUERY': callbackQuery,
-    'SHIPPING_QUERY': shippingQuery,
-    'PRE_CHECKOUT_QUERY': preCheckoutQuery,
-    'POLL': poll,
-    'POLL_ANSWER': pollAnswer,
-    'MY_CHAT_MEMBER': myChatMember,
-    'CHAT_MEMBER': chatMember,
+    'message': message,
+    'edited_message': editedMessage,
+    'channel_post': channelPost,
+    'inline_query': inlineQuery,
+    'chosen_inline_result': chosenInlineResult,
+    'callback_query': callbackQuery,
+    'shipping_query': shippingQuery,
+    'pre_checkout_query': preCheckoutQuery,
+    'poll': poll,
+    'poll_answer': pollAnswer,
+    'my_chat_member': myChatMember,
+    'chat_member': chatMember,
   };
 
   static List<UpdateType> get all => values.values.toList();
@@ -54,14 +54,14 @@ class UpdateType extends _Enum<String> {
 }
 
 class ParseMode extends _Enum<String> {
-  static const markdown = ParseMode._('MARKDOWN');
-  static const markdownV2 = ParseMode._('MARKDOWNV2');
-  static const html = ParseMode._('HTML');
+  static const markdown = ParseMode._('markdown');
+  static const markdownV2 = ParseMode._('markdownv2');
+  static const html = ParseMode._('html');
 
   static const values = {
-    'MARKDOWN': markdown,
-    'MARKDOWNV2': markdownV2,
-    'HTML': html,
+    'markdown': markdown,
+    'markdownv2': markdownV2,
+    'html': html,
   };
 
   const ParseMode._(String value) : super(value);
@@ -70,12 +70,12 @@ class ParseMode extends _Enum<String> {
 }
 
 class PollType extends _Enum<String> {
-  static const regular = PollType._('REGULAR');
-  static const quiz = PollType._('QUIZ');
+  static const regular = PollType._('regular');
+  static const quiz = PollType._('quiz');
 
   static const values = {
-    'REGULAR': regular,
-    'QUIZ': quiz,
+    'regular': regular,
+    'quiz': quiz,
   };
 
   const PollType._(String value) : super(value);
@@ -84,28 +84,28 @@ class PollType extends _Enum<String> {
 }
 
 class ChatAction extends _Enum<String> {
-  static const typing = ChatAction._('TYPING');
-  static const uploadPhoto = ChatAction._('UPLOAD_PHOTO');
-  static const recordVideo = ChatAction._('RECORD_VIDEO');
-  static const uploadVideo = ChatAction._('UPLOAD_VIDEO');
-  static const recordAudio = ChatAction._('RECORD_AUDIO');
-  static const uploadAudio = ChatAction._('UPLOAD_AUDIO');
-  static const uploadDocument = ChatAction._('UPLOAD_DOCUMENT');
-  static const findLocation = ChatAction._('FIND_LOCATION');
-  static const recordVideoNote = ChatAction._('RECORD_VIDEO_NOTE');
-  static const uploadVideoNote = ChatAction._('UPLOAD_VIDEO_NOTE');
+  static const typing = ChatAction._('typing');
+  static const uploadPhoto = ChatAction._('upload_photo');
+  static const recordVideo = ChatAction._('record_video');
+  static const uploadVideo = ChatAction._('upload_video');
+  static const recordAudio = ChatAction._('record_audio');
+  static const uploadAudio = ChatAction._('upload_audio');
+  static const uploadDocument = ChatAction._('upload_document');
+  static const findLocation = ChatAction._('find_location');
+  static const recordVideoNote = ChatAction._('record_video_note');
+  static const uploadVideoNote = ChatAction._('upload_video_note');
 
   static const values = {
-    'TYPING': typing,
-    'UPLOAD_PHOTO': uploadPhoto,
-    'RECORD_VIDEO': recordVideo,
-    'UPLOAD_VIDEO': uploadVideo,
-    'RECORD_AUDIO': recordAudio,
-    'UPLOAD_AUDIO': uploadAudio,
-    'UPLOAD_DOCUMENT': uploadDocument,
-    'FIND_LOCATION': findLocation,
-    'RECORD_VIDEO_NOTE': recordVideoNote,
-    'UPLOAD_VIDEO_NOTE': uploadVideoNote,
+    'typing': typing,
+    'upload_photo': uploadPhoto,
+    'record_video': recordVideo,
+    'upload_video': uploadVideo,
+    'record_audio': recordAudio,
+    'upload_audio': uploadAudio,
+    'upload_document': uploadDocument,
+    'find_location': findLocation,
+    'record_video_note': recordVideoNote,
+    'upload_video_note': uploadVideoNote,
   };
 
   const ChatAction._(String value) : super(value);

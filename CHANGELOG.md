@@ -1,3 +1,7 @@
+## 0.5.3
+
+- Fix uppercase enums
+
 ## 0.5.2
 
 - New stable release!
