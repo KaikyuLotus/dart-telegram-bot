@@ -1,3 +1,7 @@
+## 0.5.3+1
+
+- Add missing types in Telegram response entity map
+
 ## 0.5.3
 
 - Fix uppercase enums

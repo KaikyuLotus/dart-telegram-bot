@@ -42,13 +42,16 @@ mixin TGAPIMethods {
   /// Use this method to send text messages.
   ///
   /// The sent [Message] is returned.
-  Future<Message> sendMessage(ChatID chatId, String text,
-      {ParseMode? parseMode,
-      bool? disableWebPagePreview,
-      bool? disableNotification,
-      int? replyToMessageId,
-      bool? allowSendingWithoutReply,
-      ReplyMarkup? replyMarkup}) {
+  Future<Message> sendMessage(
+    ChatID chatId,
+    String text, {
+    ParseMode? parseMode,
+    bool? disableWebPagePreview,
+    bool? disableNotification,
+    int? replyToMessageId,
+    bool? allowSendingWithoutReply,
+    ReplyMarkup? replyMarkup,
+  }) {
     return _client.apiCall(_token, 'sendMessage', {
       'chat_id': chatId,
       'text': text,

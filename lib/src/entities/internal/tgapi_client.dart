@@ -8,41 +8,30 @@ import 'package:logging/logging.dart';
 import '../../../dart_telegram_bot.dart';
 import '../../../telegram_entities.dart';
 
+// ignore: unnecessary_lambdas
 class TGAPIClient {
   static final log = Logger('TGAPIClient');
 
   static final baseUrl = 'api.telegram.org';
 
-  // TODO
-  //   I can't remove lambdas since some
-  //   function have different parameter and return type,
-  //   either make two maps, one for lists mappers and one for map mappers
-  //   or pass mapper as parameter
-  static final _typeFactories = {
-    // ignore: unnecessary_lambdas
-    'User': (d) => User.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'List<Update>': (d) => Update.listFromJsonArray(d),
-    // ignore: unnecessary_lambdas
-    'Message': (d) => Message.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'List<Message>': (d) => Message.listFromJsonArray(d),
-    // ignore: unnecessary_lambdas
-    'UserProfilePhotos': (d) => UserProfilePhotos.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'File': (d) => File.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'List<ChatMember>': (d) => ChatMember.listFromJsonArray(d),
-    // ignore: unnecessary_lambdas
-    'List<BotCommand>': (d) => BotCommand.listFromJsonArray(d),
-    // ignore: unnecessary_lambdas
-    'ChatMember': (d) => ChatMember.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'Poll': (d) => Poll.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'StickerSet': (d) => StickerSet.fromJson(d),
-    // ignore: unnecessary_lambdas
-    'Chat': (d) => Chat.fromJson(d),
+  static final _listTypeFactories = <String, Function(List<dynamic>)>{
+    'List<Update>': Update.listFromJsonArray,
+    'List<Message>': Message.listFromJsonArray,
+    'List<ChatMember>': ChatMember.listFromJsonArray,
+    'List<BotCommand>': BotCommand.listFromJsonArray,
+  };
+
+  static final _typeFactories = <String, Function(Map<String, dynamic>)>{
+    'User': User.fromJson,
+    'Message': Message.fromJson,
+    'UserProfilePhotos': UserProfilePhotos.fromJson,
+    'File': File.fromJson,
+    'ChatMember': ChatMember.fromJson,
+    'Poll': Poll.fromJson,
+    'StickerSet': StickerSet.fromJson,
+    'Chat': Chat.fromJson,
+    'ChatInviteLink': ChatInviteLink.fromJson,
+    'MessageId': MessageId.fromJson,
   };
 
   Client? _coreClient;
@@ -144,9 +133,14 @@ class TGAPIClient {
 
     try {
       var apiType = T.toString();
-      var converter = _typeFactories[apiType];
+      dynamic converter;
+      if (apiType.startsWith('List')) {
+        converter = _listTypeFactories[apiType];
+      } else {
+        converter = _typeFactories[apiType];
+      }
       if (converter == null) throw Exception('Unknown API type $apiType');
-      return converter(result) as T;
+      return converter.call(result) as T;
     } on Exception catch (e, s) {
       log.severe(
         'Could not convert Telegram API response to target entity',
