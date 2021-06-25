@@ -1,3 +1,22 @@
+## 0.5.4-b2
+
+- Updated to bot API 5.3
+
+## 0.5.4-b2
+
+- Fix editMessageText caption parameters
+
+## 0.5.4-b1
+
+- Add missing InlineQueryResult objects, some are still not completed
+- Add entities argument in methods like sendMessage
+- Minor fix in sendVideoNote
+
+## 0.5.3+2
+
+- Updated README.md
+- Minor fixes
+
 ## 0.5.3+1
 
 - Add missing types in Telegram response entity map

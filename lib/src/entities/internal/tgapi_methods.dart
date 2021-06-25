@@ -46,6 +46,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String text, {
     ParseMode? parseMode,
+    List<MessageEntity>? entities,
     bool? disableWebPagePreview,
     bool? disableNotification,
     int? replyToMessageId,
@@ -56,6 +57,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'text': text,
       'parse_mode': parseMode,
+      'entities': entities,
       'disable_notification': disableNotification,
       'disable_web_page_preview': disableWebPagePreview,
       'reply_to_message_id': replyToMessageId,
@@ -104,6 +106,7 @@ mixin TGAPIMethods {
     HttpFile photo, {
     String? caption,
     ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
     bool? disableNotification,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
@@ -114,6 +117,7 @@ mixin TGAPIMethods {
       'photo': photo,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
@@ -137,6 +141,7 @@ mixin TGAPIMethods {
     HttpFile audio, {
     String? caption,
     ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
     int? duration,
     String? performer,
     String? title,
@@ -151,6 +156,7 @@ mixin TGAPIMethods {
       'audio': audio,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'duration': duration,
       'performer': performer,
       'title': title,
@@ -174,6 +180,7 @@ mixin TGAPIMethods {
     HttpFile? thumb,
     String? caption,
     ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
     bool? disableNotification,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
@@ -185,6 +192,7 @@ mixin TGAPIMethods {
       'document': document,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'thumb': thumb,
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
@@ -211,6 +219,7 @@ mixin TGAPIMethods {
     HttpFile? thumb,
     String? caption,
     ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
     bool? supportsStreaming,
     bool? disableNotification,
     int? replyToMessageId,
@@ -226,6 +235,7 @@ mixin TGAPIMethods {
       'thumb': thumb,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
@@ -249,6 +259,7 @@ mixin TGAPIMethods {
     HttpFile? thumb,
     String? caption,
     ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
     bool? disableNotification,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
@@ -263,6 +274,7 @@ mixin TGAPIMethods {
       'thumb': thumb,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
@@ -286,6 +298,7 @@ mixin TGAPIMethods {
     HttpFile voice, {
     String? caption,
     ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
     int? duration,
     bool? disableNotification,
     int? replyToMessageId,
@@ -297,6 +310,7 @@ mixin TGAPIMethods {
       'voice': voice,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'duration': duration,
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
@@ -323,6 +337,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'video_note': videoNote,
       'duration': duration,
+      'length': length,
       'disable_notification': disableNotification,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
@@ -1070,6 +1085,7 @@ mixin TGAPIMethods {
     int? messageId,
     String? inlineMessageId,
     ParseMode? parseMode,
+    List<MessageEntity>? entities,
     bool? disableWebPagePreview,
     ReplyMarkup? replyMarkup,
   }) {
@@ -1085,7 +1101,34 @@ mixin TGAPIMethods {
       'inline_message_id': inlineMessageId,
       'text': text,
       'parse_mode': parseMode,
+      'entities': entities,
       'disable_web_page_preview': disableWebPagePreview,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<Message> editMessageCaption({
+    ChatID? chatId,
+    int? messageId,
+    String? inlineMessageId,
+    String? caption,
+    ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
+    ReplyMarkup? replyMarkup,
+  }) {
+    if (inlineMessageId == null && (chatId == null || messageId == null)) {
+      throw MalformedAPICallException(
+        'If inlineMessageId is null then chatId and messageId must be defined',
+      );
+    }
+
+    return _client.apiCall(_token, 'editMessageCaption', {
+      'chat_id': chatId,
+      'message_id': messageId,
+      'inline_message_id': inlineMessageId,
+      'caption': caption,
+      'parse_mode': parseMode,
+      'caption_entities': captionEntities,
       'reply_markup': replyMarkup
     });
   }
