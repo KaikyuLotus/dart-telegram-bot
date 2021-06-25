@@ -1,4 +1,4 @@
-## 0.5.4-b2
+## 0.6.0
 
 - Updated to bot API 5.3
 
