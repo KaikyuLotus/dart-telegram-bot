@@ -585,7 +585,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'getFile', {'file_id': fileId});
   }
 
-  /// Use this method to kick a user from a group, a supergroup or a channel.
+  /// Use this method to ban a user in a group, a supergroup or a channel.
   ///
   /// In the case of supergroups and channels, the user will not be able to
   /// return to the chat on their own using invite
@@ -595,18 +595,33 @@ mixin TGAPIMethods {
   /// have the appropriate admin rights.
   ///
   /// Returns true on success.
+  Future<bool> banChatMember(
+    ChatID chatId,
+    int userId, {
+    int? untilDate,
+    bool? revokeMessages,
+  }) {
+    return _client.apiCall(_token, 'banChatMember', {
+      'chat_id': chatId,
+      'user_id': userId,
+      'until_date': untilDate,
+      'revoke_messages': revokeMessages,
+    });
+  }
+
+  @Deprecated('Use banChatMember instead')
   Future<bool> kickChatMember(
     ChatID chatId,
     int userId, {
     int? untilDate,
     bool? revokeMessages,
   }) {
-    return _client.apiCall(_token, 'kickChatMember', {
-      'chat_id': chatId,
-      'user_id': userId,
-      'until_date': untilDate,
-      'revoke_messages': revokeMessages,
-    });
+    return banChatMember(
+      chatId,
+      userId,
+      untilDate: untilDate,
+      revokeMessages: revokeMessages,
+    );
   }
 
   /// Use this method to unban a previously
@@ -853,10 +868,15 @@ mixin TGAPIMethods {
     });
   }
 
-  Future<int> getChatMembersCount(ChatID chatId) {
-    return _client.apiCall(_token, 'getChatMembersCount', {
+  Future<int> getChatMemberCount(ChatID chatId) {
+    return _client.apiCall(_token, 'getChatMemberCount', {
       'chat_id': chatId,
     });
+  }
+
+  @Deprecated('Use getChatMemberCount instead')
+  Future<int> getChatMembersCount(ChatID chatId) {
+    return getChatMemberCount(chatId);
   }
 
   Future<ChatMember> getChatMember(ChatID chatId, int userId) {
@@ -1012,14 +1032,36 @@ mixin TGAPIMethods {
     });
   }
 
-  Future<bool> setMyCommands(List<BotCommand> botCommands) {
+  Future<bool> setMyCommands(
+    List<BotCommand> botCommands, {
+    BotCommandScope? scope,
+    String? languageCode,
+  }) {
     return _client.apiCall(_token, 'setMyCommands', {
       'commands': botCommands,
+      'scope': scope,
+      'language_code': languageCode,
     });
   }
 
-  Future<List<BotCommand>> getMyCommands() {
-    return _client.apiCall(_token, 'getMyCommands');
+  Future<bool> deleteMyCommands({
+    BotCommandScope? scope,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'deleteMyCommands', {
+      'scope': scope,
+      'language_code': languageCode,
+    });
+  }
+
+  Future<List<BotCommand>> getMyCommands({
+    BotCommandScope? scope,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyCommands', {
+      'scope': scope,
+      'language_code': languageCode,
+    });
   }
 
   Future<Message> editMessageText(
