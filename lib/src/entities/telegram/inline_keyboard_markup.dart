@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
 
 class InlineKeyboardMarkup extends ReplyMarkup {
   List<List<InlineKeyboardButton>> inlineKeyboard;

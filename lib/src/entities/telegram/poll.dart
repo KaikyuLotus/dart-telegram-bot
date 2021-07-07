@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class Poll {
   String id;
@@ -43,7 +42,7 @@ class Poll {
       totalVoterCount: json['total_voter_count']!,
       isClosed: json['is_closed']!,
       isAnonymous: json['is_anonymous']!,
-      type: EnumHelper.decode(PollType.values, json['type']!),
+      type: PollType.forValue(json['type']),
       allowsMultipleAnswers: json['allows_multiple_answers']!,
       correctOptionId: json['correct_option_id'],
       explanation: json['explanation'],
@@ -64,7 +63,7 @@ class Poll {
       'total_voter_count': totalVoterCount,
       'is_closed': isClosed,
       'is_anonymous': isAnonymous,
-      'type': EnumHelper.encode(type),
+      'type': type,
       'allows_multiple_answers': allowsMultipleAnswers,
       'correct_option_id': correctOptionId,
       'explanation': explanation,

@@ -1,17 +1,15 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
 
 class InputMediaPhoto extends InputMedia {
-  String type;
+  final String type = 'photo';
   String media;
   String? caption;
   ParseMode? parseMode;
   List<MessageEntity>? captionEntities;
 
   InputMediaPhoto({
-    required this.type,
     required this.media,
     this.caption,
     this.parseMode,
@@ -23,7 +21,7 @@ class InputMediaPhoto extends InputMedia {
       'type': type,
       'media': media,
       'caption': caption,
-      'parse_mode': EnumHelper.encode(parseMode),
+      'parse_mode': parseMode,
     }..removeWhere((_, v) => v == null);
   }
 

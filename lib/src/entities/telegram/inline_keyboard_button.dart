@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class InlineKeyboardButton {
   String text;
@@ -24,22 +24,22 @@ class InlineKeyboardButton {
     this.pay,
   });
 
-  InlineKeyboardButton.URL(this.text, this.url);
+  InlineKeyboardButton.url(this.text, this.url);
 
-  InlineKeyboardButton.LoginURL(this.text, this.loginUrl);
+  InlineKeyboardButton.loginURL(this.text, this.loginUrl);
 
-  InlineKeyboardButton.CallbackData(this.text, this.callbackData);
+  InlineKeyboardButton.callbackData(this.text, this.callbackData);
 
-  InlineKeyboardButton.SwitchInlineQuery(this.text, this.switchInlineQuery);
+  InlineKeyboardButton.switchInlineQuery(this.text, this.switchInlineQuery);
 
-  InlineKeyboardButton.SwitchInlineQueryCurrentChat(
+  InlineKeyboardButton.switchInlineQueryCurrentChat(
     this.text,
     this.switchInlineQueryCurrentChat,
   );
 
-  InlineKeyboardButton.CallbackGame(this.text, this.callbackGame);
+  InlineKeyboardButton.callbackGame(this.text, this.callbackGame);
 
-  InlineKeyboardButton.Pay(this.text, this.pay);
+  InlineKeyboardButton.pay(this.text, {this.pay});
 
   static InlineKeyboardButton fromJson(Map<String, dynamic> json) {
     return InlineKeyboardButton._(

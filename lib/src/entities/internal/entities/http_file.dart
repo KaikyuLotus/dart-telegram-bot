@@ -16,6 +16,10 @@ class HttpFile {
     _bytes = bytes;
   }
 
+  HttpFile.fromUrl(String url) {
+    _token = url;
+  }
+
   HttpFile.fromToken(String token) {
     _token = token;
   }

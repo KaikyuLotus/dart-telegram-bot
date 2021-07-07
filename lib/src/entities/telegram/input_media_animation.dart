@@ -1,21 +1,19 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
 
 class InputMediaAnimation extends InputMedia {
-  String type;
+  final String type = 'animation';
   String media;
   HttpFile? thumb;
   String? caption;
-  String? parseMode;
+  ParseMode? parseMode;
   List<MessageEntity>? captionEntities;
   int? width;
   int? height;
   int? duration;
 
   InputMediaAnimation({
-    required this.type,
     required this.media,
     this.thumb,
     this.caption,
@@ -32,7 +30,7 @@ class InputMediaAnimation extends InputMedia {
       'media': media,
       'thumb': thumb,
       'caption': caption,
-      'parse_mode': EnumHelper.encode(parseMode),
+      'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'width': width,
       'height': height,

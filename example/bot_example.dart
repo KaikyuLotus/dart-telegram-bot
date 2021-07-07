@@ -1,20 +1,39 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:dart_telegram_bot/dart_telegram_bot.dart';
 import 'package:dart_telegram_bot/telegram_entities.dart';
+import 'package:logging/logging.dart';
 
 void main(List<String> arguments) async {
+  Logger.root.level = Level.FINE; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    print(
+      '[${record.level.name}] ${record.time}: ${record.message}',
+    );
+    if (record.error != null) {
+      print(record.error);
+    }
+    if (record.stackTrace != null) {
+      print(record.stackTrace);
+    }
+  });
+
   var token = Platform.environment['BOT_TOKEN']!;
 
-  var bot = await Bot.fromToken(token);
-  print('Bot @${bot.username} ready!');
+  var bot = Bot(
+    token: token,
+    onReady: onReady,
+    onStartFailed: onStartFailed,
+    allowedUpdates: UpdateType.allBut([UpdateType.editedMessage]),
+  );
 
-  bot.onUpdate(_update);
+  bot.onUpdate(_onUpdate);
 
   bot.onCommand('buttons', (bot, update) async {
     var buttons = [
-      [InlineKeyboardButton.CallbackData('Button 1', 'btn1')],
-      [InlineKeyboardButton.CallbackData('Button 2', 'btn2')]
+      [InlineKeyboardButton.callbackData('Button 1', 'btn1')],
+      [InlineKeyboardButton.callbackData('Button 2', 'btn2')]
     ];
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
@@ -27,7 +46,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*Chat ID*: `${update.message!.chat.id}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -35,7 +54,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*Message ID*: `${update.message!.messageId}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -43,7 +62,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*ID*: `${update.message!.from!.id}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -52,7 +71,7 @@ void main(List<String> arguments) async {
     await bot.sendMessage(
       ChatID(update.message!.chat.id),
       '*ID*: `${update.message!.replyToMessage!.from!.id}`',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
     );
   });
 
@@ -68,29 +87,41 @@ void main(List<String> arguments) async {
       correctOptionId: 1,
     );
   });
-
-  await bot.start(
-    clean: true,
-    allowedUpdates: [UpdateType.MESSAGE],
-  );
 }
 
-Function defaultErrorHandler = (e, s) => print('something failed: $e\n$s');
+void defaultErrorHandler(Object e, StackTrace s) {
+  print('something failed: $e\n$s');
+}
 
-// THIS IS JUST A TEST FUNCTION
-Future _update(Bot bot, Update update) async {
+void onStartFailed(Bot bot, Object err, StackTrace st) {
+  print('Failed to start: $err\n$st');
+}
+
+Future onReady(Bot bot) async {
+  print('Bot @${bot.username} ready!');
+  await bot.start(clean: true);
+}
+
+Future _onUpdate(Bot bot, Update update) async {
   if (update.callbackQuery != null) {
     var callbackData = update.callbackQuery!.data;
-    await bot.sendMessage(
+    return bot.sendMessage(
       ChatID(update.callbackQuery!.message!.chat.id),
       'Tapped: $callbackData',
+    );
+  }
+
+  if (update.editedMessage != null) {
+    return bot.sendMessage(
+      ChatID(update.editedMessage!.chat.id),
+      'A message has been edited',
     );
   }
 
   if (update.inlineQuery != null) {
     if (update.inlineQuery!.query.isNotEmpty) {
       var text = DateTime.now().toString();
-      await bot.answerInlineQuery(
+      return bot.answerInlineQuery(
         update.inlineQuery!.id,
         [
           InlineQueryResultArticle(
@@ -99,7 +130,7 @@ Future _update(Bot bot, Update update) async {
             inputMessageContent: InputTextMessageContent(
               '[$text](https://www.youtube.com'
               '/results?search_query=Zekk+-+TOMOYO)',
-              parseMode: ParseMode.MARKDOWN,
+              parseMode: ParseMode.markdown,
             ),
           )
         ],
@@ -118,7 +149,7 @@ Future _update(Bot bot, Update update) async {
 
   if (update.message!.video != null) {
     var fileId = update.message!.video!.fileId;
-    await bot.sendVideo(
+    return bot.sendVideo(
       chatId,
       HttpFile.fromToken(fileId),
       caption: 'Video ID: $fileId',
@@ -126,7 +157,7 @@ Future _update(Bot bot, Update update) async {
   }
 
   if (update.message!.sticker != null) {
-    await bot.sendMessage(
+    return bot.sendMessage(
       chatId,
       'Sticker ID: ${update.message!.sticker!.fileId}',
     );
@@ -137,7 +168,7 @@ Future _update(Bot bot, Update update) async {
     var size = '${update.message!.photo!.last.width}'
         'x${update.message!.photo!.last.height}';
     var msg = 'Photo ID: $bigPhotoId\nSize: $size';
-    await bot.sendPhoto(
+    return bot.sendPhoto(
       chatId,
       HttpFile.fromToken(bigPhotoId),
       caption: msg,
@@ -146,7 +177,7 @@ Future _update(Bot bot, Update update) async {
 
   if (update.message!.audio != null) {
     var fileId = update.message!.audio!.fileId;
-    await bot.sendAudio(
+    return bot.sendAudio(
       chatId,
       HttpFile.fromToken(fileId),
       caption: 'Audio ID: $fileId',
@@ -155,7 +186,7 @@ Future _update(Bot bot, Update update) async {
 
   if (update.message!.document != null) {
     var fileId = update.message!.document!.fileId;
-    await bot.sendDocument(
+    return bot.sendDocument(
       chatId,
       HttpFile.fromToken(fileId),
       caption: 'Document ID: $fileId',
@@ -164,7 +195,7 @@ Future _update(Bot bot, Update update) async {
 
   if (update.message!.voice != null) {
     var fileId = update.message!.voice!.fileId;
-    await bot.sendVoice(
+    return bot.sendVoice(
       chatId,
       HttpFile.fromToken(fileId),
       caption: 'Voice ID: $fileId',
@@ -173,7 +204,7 @@ Future _update(Bot bot, Update update) async {
 
   if (update.message!.animation != null) {
     var fileId = update.message!.animation!.fileId;
-    await bot.sendAnimation(
+    return bot.sendAnimation(
       chatId,
       HttpFile.fromToken(fileId),
       caption: 'Animation ID: $fileId',
@@ -184,12 +215,12 @@ Future _update(Bot bot, Update update) async {
     var location = update.message!.location!;
     var resp = 'Longitude: ${location.longitude}'
         '\nLatitude:${location.latitude}';
-    await bot.sendMessage(chatId, resp);
+    return bot.sendMessage(chatId, resp);
   }
 
   if (update.message!.contact != null) {
     var contact = update.message!.contact!;
-    await bot.sendContact(
+    return bot.sendContact(
       chatId,
       contact.phoneNumber,
       contact.firstName,
@@ -200,12 +231,12 @@ Future _update(Bot bot, Update update) async {
     var user = update.message!.forwardFrom!;
     var resp = 'Forwarded from ${user.firstName} '
         '(${user.id} / @${user.username})';
-    await bot.sendMessage(chatId, resp);
+    return bot.sendMessage(chatId, resp);
   }
 
   if (update.message!.videoNote != null) {
     var note = update.message!.videoNote!;
-    await bot.sendVideoNote(
+    return bot.sendVideoNote(
       chatId,
       HttpFile.fromToken(note.fileId),
     );

@@ -1,10 +1,9 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
 
 class InputMediaDocument extends InputMedia {
-  String type;
+  final String type = 'document';
   String media;
   HttpFile? thumb;
   String? caption;
@@ -13,7 +12,6 @@ class InputMediaDocument extends InputMedia {
   bool? disableContentTypeDetection;
 
   InputMediaDocument({
-    required this.type,
     required this.media,
     this.thumb,
     this.caption,
@@ -28,7 +26,7 @@ class InputMediaDocument extends InputMedia {
       'media': media,
       'thumb': thumb,
       'caption': caption,
-      'parse_mode': EnumHelper.encode(parseMode),
+      'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'disable_content_type_detection': disableContentTypeDetection,
     }..removeWhere((_, v) => v == null);

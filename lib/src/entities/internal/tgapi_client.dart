@@ -2,29 +2,36 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:dart_telegram_bot/dart_telegram_bot.dart';
-import 'package:dart_telegram_bot/telegram_entities.dart';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
+import '../../../dart_telegram_bot.dart';
+import '../../../telegram_entities.dart';
+
+// ignore: unnecessary_lambdas
 class TGAPIClient {
   static final log = Logger('TGAPIClient');
 
-  static final BASE_URL = 'api.telegram.org';
+  static final baseUrl = 'api.telegram.org';
 
-  static final _typeFactories = {
-    'User': (d) => User.fromJson(d),
-    'List<Update>': (d) => Update.listFromJsonArray(d),
-    'Message': (d) => Message.fromJson(d),
-    'List<Message>': (d) => Message.listFromJsonArray(d),
-    'UserProfilePhotos': (d) => UserProfilePhotos.fromJson(d),
-    'File': (d) => File.fromJson(d),
-    'List<ChatMember>': (d) => ChatMember.listFromJsonArray(d),
-    'List<BotCommand>': (d) => BotCommand.listFromJsonArray(d),
-    'ChatMember': (d) => ChatMember.fromJson(d),
-    'Poll': (d) => Poll.fromJson(d),
-    'StickerSet': (d) => StickerSet.fromJson(d),
-    'Chat': (d) => Chat.fromJson(d),
+  static final _listTypeFactories = <String, Function(List<dynamic>)>{
+    'List<Update>': Update.listFromJsonArray,
+    'List<Message>': Message.listFromJsonArray,
+    'List<ChatMember>': ChatMember.listFromJsonArray,
+    'List<BotCommand>': BotCommand.listFromJsonArray,
+  };
+
+  static final _typeFactories = <String, Function(Map<String, dynamic>)>{
+    'User': User.fromJson,
+    'Message': Message.fromJson,
+    'UserProfilePhotos': UserProfilePhotos.fromJson,
+    'File': File.fromJson,
+    'ChatMember': ChatMember.fromJson,
+    'Poll': Poll.fromJson,
+    'StickerSet': StickerSet.fromJson,
+    'Chat': Chat.fromJson,
+    'ChatInviteLink': ChatInviteLink.fromJson,
+    'MessageId': MessageId.fromJson,
   };
 
   Client? _coreClient;
@@ -58,16 +65,16 @@ class TGAPIClient {
     return Request('GET', uri);
   }
 
-  Future<Map<String, dynamic>?> _execute(
+  Future<Map<String, dynamic>> _execute(
     String? token,
     String method, [
     Map<String, dynamic>? query,
     Map<String, HttpFile>? files,
   ]) async {
     var uri = Uri.https(
-      BASE_URL,
+      baseUrl,
       '/bot$token/$method',
-      query != null ? query.cast() : null,
+      query?.cast(),
     );
     var response = await _client
         .send(_getRequest(uri, files))
@@ -77,7 +84,7 @@ class TGAPIClient {
   }
 
   Future<Uint8List> apiDownload(String? token, String? path) async {
-    var uri = Uri.https(BASE_URL, '/file/bot$token/$path');
+    var uri = Uri.https(baseUrl, '/file/bot$token/$path');
     var response =
         await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
     if (response.statusCode != 200) {
@@ -106,25 +113,12 @@ class TGAPIClient {
         })
         ..removeWhere((k, v) => v is HttpFile)
         ..updateAll((k, v) {
-          if (v is List<UpdateType>) {
-            return json.encode(v.map(EnumHelper.encode).toList());
-          }
           if (v is List) return json.encode(v);
-          if ([ParseMode, PollType, ChatAction, UpdateType]
-              .contains(v.runtimeType)) {
-            return EnumHelper.encode(v);
-          }
           return '$v';
         });
     }
 
     var jsonResp = await _execute(token, method, query, files);
-    if (jsonResp == null) {
-      throw Exception(
-        'Bot API returned null, or could not convert message to a json object',
-      );
-    }
-
     if (!jsonResp['ok']) {
       throw APIException(
         jsonResp['description'] ?? 'No description',
@@ -139,10 +133,15 @@ class TGAPIClient {
 
     try {
       var apiType = T.toString();
-      var converter = _typeFactories[apiType];
+      dynamic converter;
+      if (apiType.startsWith('List')) {
+        converter = _listTypeFactories[apiType];
+      } else {
+        converter = _typeFactories[apiType];
+      }
       if (converter == null) throw Exception('Unknown API type $apiType');
-      return converter(result) as T;
-    } catch (e, s) {
+      return converter.call(result) as T;
+    } on Exception catch (e, s) {
       log.severe(
         'Could not convert Telegram API response to target entity',
         e,

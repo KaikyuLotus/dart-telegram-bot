@@ -26,7 +26,7 @@ void main() {
       print('Setting up bot...');
       var token = io.Platform.environment['BOT_TOKEN'];
       if (token == null) throw ('BOT_TOKEN environment variable is missing!');
-      testBot = await Bot.fromToken(token);
+      testBot = Bot(token: token);
       initialized = true;
     }
   });
@@ -36,7 +36,7 @@ void main() {
     () async {
       await testBot.getUpdates(
         offset: 0,
-        allowedUpdates: [UpdateType.MESSAGE, UpdateType.CHAT_MEMBER],
+        allowedUpdates: [UpdateType.message, UpdateType.chatMember],
       );
     },
     skip: false,
@@ -55,7 +55,8 @@ void main() {
     () {
       expect(
         () async {
-          await Bot.fromToken('Wrong token');
+          // TODO fix test
+          Bot(token: 'Wrong token');
         },
         throwsA(TypeMatcher<APIException>()),
       );
@@ -83,7 +84,7 @@ void main() {
         replyToMessageId: replyId,
         disableNotification: true,
         disableWebPagePreview: true,
-        parseMode: ParseMode.MARKDOWN,
+        parseMode: ParseMode.markdown,
       );
       expect(message.entities!.length, equals(1));
       expect(message.entities!.first.type, equals('bold'));
@@ -104,7 +105,7 @@ void main() {
           await io.File('resources/test.jpg').readAsBytes(),
         ),
         caption: '*Test*',
-        parseMode: ParseMode.MARKDOWN,
+        parseMode: ParseMode.markdown,
         replyToMessageId: replyId,
         disableNotification: true,
       );
@@ -138,7 +139,7 @@ void main() {
           await io.File('resources/audio.mp3').readAsBytes(),
         ),
         caption: '*Test*',
-        parseMode: ParseMode.MARKDOWN,
+        parseMode: ParseMode.markdown,
         duration: 1,
         performer: 'Kai',
         title: 'Nya',
@@ -180,7 +181,7 @@ void main() {
         ),
         // thumb: HttpFile.fromPath('resources/test.jpg'),
         caption: '*Test*',
-        parseMode: ParseMode.MARKDOWN,
+        parseMode: ParseMode.markdown,
         disableNotification: true,
         replyToMessageId: replyId,
       );
@@ -215,7 +216,7 @@ void main() {
       ),
       // thumb: HttpFile.fromPath('resources/test.jpg'),
       caption: '*Test*',
-      parseMode: ParseMode.MARKDOWN,
+      parseMode: ParseMode.markdown,
       disableNotification: true,
       replyToMessageId: replyId,
     );
@@ -253,7 +254,7 @@ void main() {
         height: 126,
         // thumb: HttpFile.fromPath('resources/test.jpg'),
         caption: '*Test*',
-        parseMode: ParseMode.MARKDOWN,
+        parseMode: ParseMode.markdown,
         disableNotification: true,
         replyToMessageId: replyId,
       );
@@ -293,7 +294,7 @@ void main() {
         ),
         caption: '*Test*',
         duration: 1,
-        parseMode: ParseMode.MARKDOWN,
+        parseMode: ParseMode.markdown,
         disableNotification: true,
         replyToMessageId: replyId,
       );
@@ -326,7 +327,7 @@ void main() {
     () async {
       var ok = await testBot.sendChatAction(
         ChatID(chatId),
-        ChatAction.TYPING,
+        ChatAction.typing,
       );
       expect(ok, isTrue);
     },
@@ -352,12 +353,12 @@ void main() {
     () async {
       var buttons = [
         [
-          InlineKeyboardButton.CallbackData('Button 1', 'btn1'),
-          InlineKeyboardButton.CallbackData('Button 2', 'btn2'),
+          InlineKeyboardButton.callbackData('Button 1', 'btn1'),
+          InlineKeyboardButton.callbackData('Button 2', 'btn2'),
         ],
         [
-          InlineKeyboardButton.CallbackData('Button 3', 'btn3'),
-          InlineKeyboardButton.CallbackData('Button 4', 'btn4'),
+          InlineKeyboardButton.callbackData('Button 3', 'btn3'),
+          InlineKeyboardButton.callbackData('Button 4', 'btn4'),
         ]
       ];
       var message = await testBot.sendMessage(
@@ -381,14 +382,18 @@ void main() {
     () async {
       var buttons = [
         [
-          InlineKeyboardButton.CallbackData('Button 1', 'cbd1'),
-          InlineKeyboardButton.URL('URL', 'https://www.google.com/'),
+          InlineKeyboardButton.callbackData('Button 1', 'cbd1'),
+          InlineKeyboardButton.url('URL', 'https://www.google.com/'),
         ],
         [
-          InlineKeyboardButton.SwitchInlineQuery(
-              'Button 3', 'dart-telegram-bot!'),
-          InlineKeyboardButton.SwitchInlineQueryCurrentChat(
-              'Button 4', 'dart-telegram-bot in current chat!'),
+          InlineKeyboardButton.switchInlineQuery(
+            'Button 3',
+            'dart-telegram-bot!',
+          ),
+          InlineKeyboardButton.switchInlineQueryCurrentChat(
+            'Button 4',
+            'dart-telegram-bot in current chat!',
+          ),
         ]
       ];
       var message = await testBot.sendMessage(
@@ -423,21 +428,22 @@ void main() {
   );
 
   test(
-    'sendMessage with ReplyMarkup (ReplyKeyboardMarkup) with mixed buttons types works',
+    'sendMessage with ReplyMarkup (ReplyKeyboardMarkup)'
+    ' with mixed buttons types works',
     () async {
       var buttons = [
         [
-          KeyboardButton.RequestContact('Contact', true),
-          KeyboardButton.RequestLocation('Location', true),
+          KeyboardButton.requestContact('Contact', requestContact: true),
+          KeyboardButton.requestLocation('Location', requestLocation: true),
         ],
         [
-          KeyboardButton.RequestPoll(
+          KeyboardButton.requestPoll(
             'Poll (Quitz)',
-            KeyboardButtonPollType(type: PollType.QUIZ),
+            KeyboardButtonPollType(type: PollType.quiz),
           ),
-          KeyboardButton.RequestPoll(
+          KeyboardButton.requestPoll(
             'Poll (Regular)',
-            KeyboardButtonPollType(type: PollType.REGULAR),
+            KeyboardButtonPollType(type: PollType.regular),
           )
         ]
       ];
@@ -457,7 +463,7 @@ void main() {
     'sendMessage with ReplyMarkup (ReplyKeyboardRemove) works',
     () async {
       var buttons = [
-        [KeyboardButton.RequestLocation('Location', true)]
+        [KeyboardButton.requestLocation('Location', requestLocation: true)]
       ];
       await testBot.sendMessage(
         ChatID(chatId),
@@ -467,7 +473,7 @@ void main() {
       await testBot.sendMessage(
         ChatID(chatId),
         'Remove keyboard',
-        replyMarkup: ReplyKeyboardRemove(true),
+        replyMarkup: ReplyKeyboardRemove(removeKeyboard: true),
       );
     },
     skip: false,
@@ -477,7 +483,7 @@ void main() {
     'sendMessage with ReplyMarkup (ForceReply) works',
     () async {
       var buttons = [
-        [KeyboardButton.RequestLocation('Location', true)]
+        [KeyboardButton.requestLocation('Location', requestLocation: true)]
       ];
       await testBot.sendMessage(
         ChatID(chatId),
@@ -488,7 +494,7 @@ void main() {
         ChatID(chatId),
         'Remove',
         replyToMessageId: replyId,
-        replyMarkup: ForceReply(true, selective: true),
+        replyMarkup: ForceReply(selective: true),
       );
     },
     skip: false,

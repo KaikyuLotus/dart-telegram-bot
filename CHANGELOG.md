@@ -1,3 +1,45 @@
+## 0.6.0
+
+- Updated to bot API 5.3
+
+## 0.5.4-b2
+
+- Fix editMessageText caption parameters
+
+## 0.5.4-b1
+
+- Add missing InlineQueryResult objects, some are still not completed
+- Add entities argument in methods like sendMessage
+- Minor fix in sendVideoNote
+
+## 0.5.3+2
+
+- Updated README.md
+- Minor fixes
+
+## 0.5.3+1
+
+- Add missing types in Telegram response entity map
+
+## 0.5.3
+
+- Fix uppercase enums
+
+## 0.5.2
+
+- New stable release!
+- Now using effective_dart, fixed all issues
+- Improved enums (breaks compatibility with previous enums names)
+- Improved pending updates cleanup
+- Add allowed updates shortcuts
+
+## 0.5.1-beta.1
+
+- Major changes to Bot structure
+- Major improvements to Bot
+- Added some docs
+- Updated examples
+
 ## 0.5.0-beta.1+2
 
 - Hotfix for User in newChatMembers in Message being nullable
