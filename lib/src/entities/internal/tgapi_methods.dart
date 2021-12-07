@@ -1235,13 +1235,17 @@ mixin TGAPIMethods {
   /// Returns the new invite link as [ChatInviteLink] object.
   Future<ChatInviteLink> createChatInviteLink(
     ChatID chatId, {
+    String? name,
     int? expireDate,
     int? memberLimit,
+    bool? createsJoinRequest,
   }) {
     return _client.apiCall(_token, 'createChatInviteLink', {
       'chat_id': chatId,
+      'name': name,
       'expire_date': expireDate,
       'member_limit': memberLimit,
+      'creates_join_request': createsJoinRequest,
     });
   }
 
@@ -1254,14 +1258,18 @@ mixin TGAPIMethods {
   Future<ChatInviteLink> editChatInviteLink(
     ChatID chatId,
     String inviteLink, {
+    String? name,
     int? expireDate,
     int? memberLimit,
+    String? createsJoinRequest,
   }) {
     return _client.apiCall(_token, 'editChatInviteLink', {
       'chat_id': chatId,
       'invite_link': inviteLink,
+      'name': name,
       'expire_date': expireDate,
       'member_limit': memberLimit,
+      'creates_join_request': createsJoinRequest,
     });
   }
 
@@ -1280,6 +1288,38 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'revokeChatInviteLink', {
       'chat_id': chatId,
       'invite_link': inviteLink,
+    });
+  }
+
+  /// Use this method to approve a chat join request.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the can_invite_users administrator right.
+  ///
+  /// Returns True on success.
+  Future<bool> approveChatJoinRequest(
+    ChatID chatId,
+    int userId,
+  ) {
+    return _client.apiCall(_token, 'approveChatJoinRequest', {
+      'chat_id': chatId,
+      'user_id': userId,
+    });
+  }
+
+  /// Use this method to decline a chat join request.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the can_invite_users administrator right.
+  ///
+  /// Returns True on success.
+  Future<bool> declineChatJoinRequest(
+    ChatID chatId,
+    int userId,
+  ) {
+    return _client.apiCall(_token, 'declineChatJoinRequest', {
+      'chat_id': chatId,
+      'user_id': userId,
     });
   }
 

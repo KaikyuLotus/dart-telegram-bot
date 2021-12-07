@@ -16,6 +16,7 @@ export 'src/entities/telegram/callback_game.dart';
 export 'src/entities/telegram/callback_query.dart';
 export 'src/entities/telegram/chat.dart';
 export 'src/entities/telegram/chat_invite_link.dart';
+export 'src/entities/telegram/chat_join_request.dart';
 export 'src/entities/telegram/chat_location.dart';
 export 'src/entities/telegram/chat_member.dart';
 export 'src/entities/telegram/chat_member_updated.dart';
