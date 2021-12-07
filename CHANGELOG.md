@@ -1,3 +1,7 @@
+## 0.6.1
+
+- Support multiline commands
+
 ## 0.6.0
 
 - Updated to bot API 5.3

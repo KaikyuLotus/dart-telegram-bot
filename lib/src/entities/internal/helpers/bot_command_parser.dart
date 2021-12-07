@@ -2,8 +2,10 @@ import '../../../../telegram_entities.dart';
 
 class BotCommandParser {
   static final _commandRegex = RegExp(
-      r'^(?:\/|!)(\w+)(?:@(\w+(?:bot)))?(?:\s(.+))?$',
-      caseSensitive: false);
+    r'^(?:\/|!)(\w+)(?:@(\w+(?:bot)))?(?:\s(.+))?$',
+    caseSensitive: false,
+    multiLine: true,
+  );
 
   String command;
   String? botUsername;
