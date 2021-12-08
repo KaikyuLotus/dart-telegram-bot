@@ -1323,6 +1323,44 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to ban a channel chat in a supergroup or a channel.
+  ///
+  /// The owner of the chat will not be able to send messages and
+  /// join live streams on behalf of the chat, unless it is unbanned first.
+  ///
+  /// The bot must be an administrator in the supergroup or channel
+  /// for this to work and must have the appropriate administrator rights.
+  ///
+  /// Returns True on success.
+  Future<bool> banChatSenderChat(
+    ChatID chatId,
+    int senderChatId,
+    int? untilDate,
+  ) {
+    return _client.apiCall(_token, 'banChatSenderChat', {
+      'chat_id': chatId,
+      'sender_chat_id': senderChatId,
+      'until_date': untilDate
+    });
+  }
+
+  /// Use this method to unban a previously banned channel chat
+  /// in a supergroup or channel.
+  ///
+  /// The bot must be an administrator for this to work and
+  /// must have the appropriate administrator rights.
+  ///
+  /// Returns True on success.
+  Future<bool> unbanChatSenderChat(
+    ChatID chatId,
+    int senderChatId,
+  ) {
+    return _client.apiCall(_token, 'unbanChatSenderChat', {
+      'chat_id': chatId,
+      'sender_chat_id': senderChatId,
+    });
+  }
+
   Future<bool> logOut() => _client.apiCall(_token, 'logOut');
 
   Future<bool> close() => _client.apiCall(_token, 'close');

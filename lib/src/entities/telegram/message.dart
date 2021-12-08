@@ -15,28 +15,31 @@ class Message {
   String? forwardSignature;
   String? forwardSenderName;
   int? forwardDate;
+  bool? isAutomaticForward;
   Message? replyToMessage;
   User? viaBot;
   int? editDate;
+  bool? hasProtectedContent;
   String? mediaGroupId;
   String? authorSignature;
   String? text;
   List<MessageEntity>? entities;
-  List<MessageEntity>? captionEntities;
+  Animation? animation;
   Audio? audio;
   Document? document;
-  Animation? animation;
   List<PhotoSize>? photo;
-  Game? game;
   Sticker? sticker;
   Video? video;
-  Voice? voice;
   VideoNote? videoNote;
+  Voice? voice;
   String? caption;
+  List<MessageEntity>? captionEntities;
   Contact? contact;
-  Location? location;
-  Venue? venue;
+  Dice? dice;
+  Game? game;
   Poll? poll;
+  Venue? venue;
+  Location? location;
   List<User>? newChatMembers;
   User? leftChatMember;
   String? newChatTitle;
@@ -53,11 +56,17 @@ class Message {
   SuccessfulPayment? successfulPayment;
   String? connectedWebsite;
   PassportData? passportData;
+  ProximityAlertTriggered? proximityAlertTriggered;
+  VoiceChatScheduled? voiceChatScheduled;
+  VoiceChatStarted? voiceChatStarted;
+  VoiceChatEnded? voiceChatEnded;
+  VoiceChatParticipantsInvited? voiceChatParticipantsInvited;
   ReplyMarkup? replyMarkup;
 
   Message({
     required this.messageId,
     this.from,
+    this.senderChat,
     required this.date,
     required this.chat,
     this.forwardFrom,
@@ -66,27 +75,31 @@ class Message {
     this.forwardSignature,
     this.forwardSenderName,
     this.forwardDate,
+    this.isAutomaticForward,
     this.replyToMessage,
+    this.viaBot,
     this.editDate,
+    this.hasProtectedContent,
     this.mediaGroupId,
     this.authorSignature,
     this.text,
     this.entities,
-    this.captionEntities,
+    this.animation,
     this.audio,
     this.document,
-    this.animation,
-    this.game,
     this.photo,
     this.sticker,
     this.video,
-    this.voice,
     this.videoNote,
+    this.voice,
     this.caption,
+    this.captionEntities,
     this.contact,
-    this.location,
-    this.venue,
+    this.dice,
+    this.game,
     this.poll,
+    this.venue,
+    this.location,
     this.newChatMembers,
     this.leftChatMember,
     this.newChatTitle,
@@ -103,6 +116,11 @@ class Message {
     this.successfulPayment,
     this.connectedWebsite,
     this.passportData,
+    this.proximityAlertTriggered,
+    this.voiceChatScheduled,
+    this.voiceChatStarted,
+    this.voiceChatEnded,
+    this.voiceChatParticipantsInvited,
     this.replyMarkup,
   });
 
@@ -110,6 +128,7 @@ class Message {
     return Message(
       messageId: json['message_id']!,
       from: callIfNotNull(User.fromJson, json['from']),
+      senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
       date: json['date']!,
       chat: Chat.fromJson(json['chat']!),
       forwardFrom: callIfNotNull(User.fromJson, json['forward_from']),
@@ -121,11 +140,14 @@ class Message {
       forwardSignature: json['forward_signature'],
       forwardSenderName: json['forward_sender_name'],
       forwardDate: json['forward_date'],
+      isAutomaticForward: json['is_automatic_forward'],
       replyToMessage: callIfNotNull(
         Message.fromJson,
         json['reply_to_message'],
       ),
+      viaBot: callIfNotNull(User.fromJson, json['via_bot']),
       editDate: json['edit_date'],
+      hasProtectedContent: json['has_protected_content'],
       mediaGroupId: json['media_group_id'],
       authorSignature: json['author_signature'],
       text: json['text'],
@@ -133,24 +155,25 @@ class Message {
         MessageEntity.listFromJsonArray,
         json['entities'],
       ),
+      animation: callIfNotNull(Animation.fromJson, json['animation']),
+      audio: callIfNotNull(Audio.fromJson, json['audio']),
+      document: callIfNotNull(Document.fromJson, json['document']),
+      photo: callIfNotNull(PhotoSize.listFromJsonArray, json['photo']),
+      sticker: callIfNotNull(Sticker.fromJson, json['sticker']),
+      video: callIfNotNull(Video.fromJson, json['video']),
+      videoNote: callIfNotNull(VideoNote.fromJson, json['video_note']),
+      voice: callIfNotNull(Voice.fromJson, json['voice']),
+      caption: json['caption'],
       captionEntities: callIfNotNull(
         MessageEntity.listFromJsonArray,
         json['caption_entities'],
       ),
-      audio: callIfNotNull(Audio.fromJson, json['audio']),
-      document: callIfNotNull(Document.fromJson, json['document']),
-      animation: callIfNotNull(Animation.fromJson, json['animation']),
-      game: callIfNotNull(Game.fromJson, json['game']),
-      photo: callIfNotNull(PhotoSize.listFromJsonArray, json['photo']),
-      sticker: callIfNotNull(Sticker.fromJson, json['sticker']),
-      video: callIfNotNull(Video.fromJson, json['video']),
-      voice: callIfNotNull(Voice.fromJson, json['voice']),
-      videoNote: callIfNotNull(VideoNote.fromJson, json['video_note']),
-      caption: json['caption'],
       contact: callIfNotNull(Contact.fromJson, json['contact']),
-      location: callIfNotNull(Location.fromJson, json['location']),
-      venue: callIfNotNull(Venue.fromJson, json['venue']),
+      dice: callIfNotNull(Dice.fromJson, json['dice']),
+      game: callIfNotNull(Game.fromJson, json['game']),
       poll: callIfNotNull(Poll.fromJson, json['poll']),
+      venue: callIfNotNull(Venue.fromJson, json['venue']),
+      location: callIfNotNull(Location.fromJson, json['location']),
       newChatMembers: callIfNotNull(
         User.listFromJsonArray,
         json['new_chat_members'],
@@ -188,6 +211,26 @@ class Message {
         PassportData.fromJson,
         json['passport_data'],
       ),
+      proximityAlertTriggered: callIfNotNull(
+        ProximityAlertTriggered.fromJson,
+        json['proximity_alert_triggered'],
+      ),
+      voiceChatScheduled: callIfNotNull(
+        VoiceChatScheduled.fromJson,
+        json['voice_chat_scheduled'],
+      ),
+      voiceChatStarted: callIfNotNull(
+        VoiceChatStarted.fromJson,
+        json['voice_chat_started'],
+      ),
+      voiceChatEnded: callIfNotNull(
+        VoiceChatEnded.fromJson,
+        json['voice_chat_ended'],
+      ),
+      voiceChatParticipantsInvited: callIfNotNull(
+        VoiceChatParticipantsInvited.fromJson,
+        json['voice_chat_participants_invited'],
+      ),
       replyMarkup: callIfNotNull(
         InlineKeyboardMarkup.fromJson,
         json['reply_markup'],
@@ -206,6 +249,7 @@ class Message {
     return {
       'message_id': messageId,
       'from': from,
+      'sender_chat': senderChat,
       'date': date,
       'chat': chat,
       'forward_from': forwardFrom,
@@ -214,27 +258,31 @@ class Message {
       'forward_signature': forwardSignature,
       'forward_sender_name': forwardSenderName,
       'forward_date': forwardDate,
+      'is_automatic_forward': isAutomaticForward,
       'reply_to_message': replyToMessage,
+      'via_bot': viaBot,
       'edit_date': editDate,
+      'has_protected_content': hasProtectedContent,
       'media_group_id': mediaGroupId,
       'author_signature': authorSignature,
       'text': text,
       'entities': entities,
-      'caption_entities': captionEntities,
+      'animation': animation,
       'audio': audio,
       'document': document,
-      'animation': animation,
-      'game': game,
       'photo': photo,
       'sticker': sticker,
       'video': video,
-      'voice': voice,
       'video_note': videoNote,
+      'voice': voice,
       'caption': caption,
+      'captionEntities': captionEntities,
       'contact': contact,
-      'location': location,
-      'venue': venue,
+      'dice': dice,
+      'game': game,
       'poll': poll,
+      'venue': venue,
+      'location': location,
       'new_chat_members': newChatMembers,
       'left_chat_member': leftChatMember,
       'new_chat_title': newChatTitle,
@@ -243,6 +291,7 @@ class Message {
       'group_chat_created': groupChatCreated,
       'supergroup_chat_created': supergroupChatCreated,
       'channel_chat_created': channelChatCreated,
+      'message_auto_delete_timer_changed': messageAutoDeleteTimerChanged,
       'migrate_to_chat_id': migrateToChatId,
       'migrate_from_chat_id': migrateFromChatId,
       'pinned_message': pinnedMessage,
@@ -250,6 +299,11 @@ class Message {
       'successful_payment': successfulPayment,
       'connected_website': connectedWebsite,
       'passport_data': passportData,
+      'proximity_alert_triggered': proximityAlertTriggered,
+      'voice_chat_scheduled': voiceChatScheduled,
+      'voice_chat_started': voiceChatStarted,
+      'voice_chat_ended': voiceChatEnded,
+      'voice_chat_participants_invited': voiceChatParticipantsInvited,
       'reply_markup': replyMarkup,
     }..removeWhere((_, v) => v == null);
   }

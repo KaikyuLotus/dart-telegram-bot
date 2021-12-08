@@ -12,14 +12,16 @@ class Chat {
   String? lastName;
   ChatPhoto? photo;
   String? bio;
+  bool? hasPrivateForwards;
   String? description;
   String? inviteLink;
   Message? pinnedMessage;
   ChatPermissions? permissions;
   int? slowModeDelay;
+  int? messageAutoDeleteTime;
+  bool? hasProtectedContent;
   String? stickerSetName;
   bool? canSetStickerSet;
-  int? messageAutoDeleteTime;
   int? linkedChatId;
   ChatLocation? location;
 
@@ -32,15 +34,17 @@ class Chat {
     this.lastName,
     this.photo,
     this.bio,
+    this.hasPrivateForwards,
     this.description,
     this.inviteLink,
     this.pinnedMessage,
     this.permissions,
     this.slowModeDelay,
+    this.messageAutoDeleteTime,
+    this.hasProtectedContent,
     this.stickerSetName,
     this.canSetStickerSet,
     this.linkedChatId,
-    this.messageAutoDeleteTime,
     this.location,
   });
 
@@ -54,15 +58,17 @@ class Chat {
       lastName: json['last_name'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       bio: json['bio'],
+      hasPrivateForwards: json['has_private_forwards'],
       description: json['description'],
       inviteLink: json['invite_link'],
       pinnedMessage: callIfNotNull(Message.fromJson, json['pinned_message']),
       permissions: callIfNotNull(ChatPermissions.fromJson, json['permissions']),
       slowModeDelay: json['slow_mode_delay'],
+      messageAutoDeleteTime: json['message_auto_delete_time'],
+      hasProtectedContent: json['has_protected_content'],
       stickerSetName: json['sticker_set_name'],
       canSetStickerSet: json['can_set_sticker_set'],
       linkedChatId: json['linked_chat_id'],
-      messageAutoDeleteTime: json['message_auto_delete_time'],
       location: callIfNotNull(
         ChatLocation.fromJson,
         json['location'],
@@ -79,13 +85,19 @@ class Chat {
       'first_name': firstName,
       'last_name': lastName,
       'photo': photo,
+      'bio': bio,
+      'has_private_forwards': hasPrivateForwards,
       'description': description,
       'invite_link': inviteLink,
       'pinned_message': pinnedMessage,
       'permissions': permissions,
       'slow_mode_delay': slowModeDelay,
+      'message_auto_delete_time': messageAutoDeleteTime,
+      'has_protected_content': hasProtectedContent,
       'sticker_set_name': stickerSetName,
       'can_set_sticker_set': canSetStickerSet,
+      'linked_chat_id': linkedChatId,
+      'location': location,
     }..removeWhere((_, v) => v == null);
   }
 
