@@ -91,6 +91,7 @@ class ChatAction extends _Enum<String> {
   static const recordAudio = ChatAction._('record_audio');
   static const uploadAudio = ChatAction._('upload_audio');
   static const uploadDocument = ChatAction._('upload_document');
+  static const chooseSticker = ChatAction._('choose_sticker');
   static const findLocation = ChatAction._('find_location');
   static const recordVideoNote = ChatAction._('record_video_note');
   static const uploadVideoNote = ChatAction._('upload_video_note');
@@ -102,6 +103,7 @@ class ChatAction extends _Enum<String> {
     'upload_video': uploadVideo,
     'record_audio': recordAudio,
     'upload_audio': uploadAudio,
+    'choose_sticker': chooseSticker,
     'upload_document': uploadDocument,
     'find_location': findLocation,
     'record_video_note': recordVideoNote,
