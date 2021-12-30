@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class PreCheckoutQuery {
   String id;
@@ -24,12 +25,12 @@ class PreCheckoutQuery {
   static PreCheckoutQuery fromJson(Map<String, dynamic> json) {
     return PreCheckoutQuery(
       id: json['id']!,
-      from: json['from']!,
+      from: User.fromJson(json['from']!),
       currency: json['currency']!,
       totalAmount: json['total_amount']!,
       invoicePayload: json['invoice_payload']!,
       shippingOptionId: json['shipping_option_id'],
-      orderInfo: json['order_info'],
+      orderInfo: callIfNotNull(OrderInfo.fromJson, json['order_info']),
     );
   }
 

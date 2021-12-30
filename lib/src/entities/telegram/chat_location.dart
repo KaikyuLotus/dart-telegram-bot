@@ -13,8 +13,8 @@ class ChatLocation {
 
   static ChatLocation fromJson(Map<String, dynamic> json) {
     return ChatLocation(
-      location: json['location'],
-      address: json['address'],
+      location: Location.fromJson(json['location']!),
+      address: json['address']!,
     );
   }
 

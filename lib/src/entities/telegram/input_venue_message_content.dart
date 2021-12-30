@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-class InlineQueryResultVenue extends InlineQueryResult {
-  String type = 'venue';
-  String id;
+class InputVenueMessageContent extends InputMessageContent {
   double latitude;
   double longitude;
   String title;
@@ -13,33 +11,33 @@ class InlineQueryResultVenue extends InlineQueryResult {
   String? foursquareType;
   String? googlePlaceId;
   String? googlePlaceType;
-  InlineKeyboardMarkup? replyMarkup;
-  InputMessageContent? inputMessageContent;
-  String? thumbUrl;
-  int? thumbWidth;
-  int? thumbHeight;
 
-  InlineQueryResultVenue({
-    required this.id,
-    required this.latitude,
-    required this.longitude,
-    required this.title,
-    required this.address,
+  InputVenueMessageContent(
+    this.latitude,
+    this.longitude,
+    this.title,
+    this.address, {
     this.foursquareId,
     this.foursquareType,
     this.googlePlaceId,
     this.googlePlaceType,
-    this.replyMarkup,
-    this.inputMessageContent,
-    this.thumbUrl,
-    this.thumbWidth,
-    this.thumbHeight,
   });
+
+  static InputVenueMessageContent fromJson(Map<String, dynamic> json) {
+    return InputVenueMessageContent(
+      json['latitude']!,
+      json['longitude']!,
+      json['title']!,
+      json['address']!,
+      foursquareId: json['foursquare_id'],
+      foursquareType: json['foursquare_type'],
+      googlePlaceId: json['google_place_id'],
+      googlePlaceType: json['google_place_type'],
+    );
+  }
 
   Map toJson() {
     return {
-      'type': type,
-      'id': id,
       'latitude': latitude,
       'longitude': longitude,
       'title': title,
@@ -48,11 +46,6 @@ class InlineQueryResultVenue extends InlineQueryResult {
       'foursquare_type': foursquareType,
       'google_place_id': googlePlaceId,
       'google_place_type': googlePlaceType,
-      'reply_markup': replyMarkup,
-      'input_message_content': inputMessageContent,
-      'thumb_url': thumbUrl,
-      'thumb_width': thumbWidth,
-      'thumb_height': thumbHeight,
     }..removeWhere((_, v) => v == null);
   }
 

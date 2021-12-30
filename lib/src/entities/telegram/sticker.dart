@@ -38,7 +38,7 @@ class Sticker {
       thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
       emoji: json['emoji'],
       setName: json['set_name'],
-      maskPosition: json['mask_position'],
+      maskPosition: callIfNotNull(MaskPosition.fromJson, json['mask_position']),
       fileSize: json['file_size'],
     );
   }

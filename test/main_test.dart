@@ -672,9 +672,9 @@ void main() {
   );
 
   test(
-    'getChatMembersCount works',
+    'getChatMemberCount works',
     () async {
-      var count = await testBot.getChatMembersCount(ChatID(groupId));
+      var count = await testBot.getChatMemberCount(ChatID(groupId));
       expect(count, greaterThan(1));
     },
     skip: false,

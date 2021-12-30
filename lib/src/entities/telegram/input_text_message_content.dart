@@ -19,7 +19,7 @@ class InputTextMessageContent extends InputMessageContent {
   static InputTextMessageContent fromJson(Map<String, dynamic> json) {
     return InputTextMessageContent(
       json['message_text']!,
-      parseMode: ParseMode.forValue(json['parse_mode']),
+      parseMode: callIfNotNull(ParseMode.forValue, json['parse_mode']),
       entities: callIfNotNull(
         MessageEntity.listFromJsonArray,
         json['entities'],

@@ -18,9 +18,9 @@ class ShippingQuery {
   static ShippingQuery fromJson(Map<String, dynamic> json) {
     return ShippingQuery(
       id: json['id']!,
-      from: json['from']!,
+      from: User.fromJson(json['from']!),
       invoicePayload: json['invoice_payload']!,
-      shippingAddress: json['shipping_address']!,
+      shippingAddress: ShippingAddress.fromJson(json['shipping_address']!),
     );
   }
 

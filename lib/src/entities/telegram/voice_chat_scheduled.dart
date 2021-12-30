@@ -9,13 +9,13 @@ class VoiceChatScheduled {
 
   static VoiceChatScheduled fromJson(Map<String, dynamic> json) {
     return VoiceChatScheduled(
-      startDate: json['startDate'],
+      startDate: json['start_date'],
     );
   }
 
   Map toJson() {
     return {
-      'startDate': startDate,
+      'start_date': startDate,
     };
   }
 

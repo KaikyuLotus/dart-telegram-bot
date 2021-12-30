@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class EncryptedPassportElement {
   String type;
@@ -33,11 +34,14 @@ class EncryptedPassportElement {
       data: json['data'],
       phoneNumber: json['phone_number'],
       email: json['email'],
-      files: PassportFile.listFromJsonArray(json['files']),
-      frontSide: PassportFile.fromJson(json['front_side']),
-      reverseSide: PassportFile.fromJson(json['reverse_side']),
-      selfie: PassportFile.fromJson(json['selfie']),
-      translation: PassportFile.listFromJsonArray(json['translation']),
+      files: callIfNotNull(PassportFile.listFromJsonArray, json['files']),
+      frontSide: callIfNotNull(PassportFile.fromJson, json['front_side']),
+      reverseSide: callIfNotNull(PassportFile.fromJson, json['reverse_side']),
+      selfie: callIfNotNull(PassportFile.fromJson, json['selfie']),
+      translation: callIfNotNull(
+        PassportFile.listFromJsonArray,
+        json['translation'],
+      ),
       hash: json['hash']!,
     );
   }
