@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
-import '../../../dart_telegram_bot.dart';
 import '../../../telegram_entities.dart';
 import 'tgapi_methods.dart';
 

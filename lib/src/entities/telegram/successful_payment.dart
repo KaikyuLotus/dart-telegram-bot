@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class SuccessfulPayment {
   String currency;
@@ -27,7 +28,7 @@ class SuccessfulPayment {
       totalAmount: json['total_amount']!,
       invoicePayload: json['invoice_payload']!,
       shippingOptionId: json['shipping_option_id'],
-      orderInfo: json['order_info'],
+      orderInfo: callIfNotNull(OrderInfo.fromJson, json['order_info']),
       telegramPaymentChargeId: json['telegram_payment_charge_id']!,
       providerPaymentChargeId: json['provider_payment_charge_id']!,
     );

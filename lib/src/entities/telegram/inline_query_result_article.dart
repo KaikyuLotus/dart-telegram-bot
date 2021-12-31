@@ -39,7 +39,7 @@ class InlineQueryResultArticle extends InlineQueryResult {
       'hide_url': hideUrl,
       'description': description,
       'thumb_url': thumbUrl,
-      'thumCbWidth': thumbWidth,
+      'thumb_width': thumbWidth,
       'thumb_height': thumbHeight,
     }..removeWhere((_, v) => v == null);
   }

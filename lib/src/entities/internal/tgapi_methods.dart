@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import '../../../dart_telegram_bot.dart';
 import '../../../telegram_entities.dart';
 import 'tgapi_client.dart';
 
@@ -49,6 +48,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? entities,
     bool? disableWebPagePreview,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -58,11 +58,32 @@ mixin TGAPIMethods {
       'text': text,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_notification': disableNotification,
       'disable_web_page_preview': disableWebPagePreview,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
+    });
+  }
+
+  /// Use this method to forward messages of any kind.
+  /// Service messages can't be forwarded.
+  ///
+  /// On success, the sent [Message] is returned.
+  Future<Message> forwardMessage(
+    ChatID chatId,
+    ChatID fromChatId,
+    int messageId, {
+    bool? disableNotification,
+    bool? protectContent,
+  }) {
+    return _client.apiCall(_token, 'forwardMessage', {
+      'chat_id': chatId,
+      'from_chat_id': fromChatId,
+      'message_id': messageId,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
     });
   }
 
@@ -80,6 +101,7 @@ mixin TGAPIMethods {
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -92,6 +114,7 @@ mixin TGAPIMethods {
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
@@ -108,6 +131,7 @@ mixin TGAPIMethods {
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -119,6 +143,7 @@ mixin TGAPIMethods {
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -147,6 +172,7 @@ mixin TGAPIMethods {
     String? title,
     HttpFile? thumb,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -162,6 +188,7 @@ mixin TGAPIMethods {
       'title': title,
       'thumb': thumb,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -182,6 +209,7 @@ mixin TGAPIMethods {
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -195,6 +223,7 @@ mixin TGAPIMethods {
       'caption_entities': captionEntities,
       'thumb': thumb,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
@@ -222,6 +251,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     bool? supportsStreaming,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -238,6 +268,7 @@ mixin TGAPIMethods {
       'caption_entities': captionEntities,
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -261,6 +292,7 @@ mixin TGAPIMethods {
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -276,6 +308,7 @@ mixin TGAPIMethods {
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -301,6 +334,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     int? duration,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -313,6 +347,7 @@ mixin TGAPIMethods {
       'caption_entities': captionEntities,
       'duration': duration,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -329,6 +364,7 @@ mixin TGAPIMethods {
     int? length,
     HttpFile? thumb,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -339,6 +375,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'length': length,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -356,6 +393,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     List<InputMedia> media, {
     bool? disableNotification,
+    bool? protectContent,
     bool? allowSendingWithoutReply,
     int? replyToMessageId,
   }) {
@@ -363,6 +401,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'media': media,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_to_message_id': replyToMessageId
     });
@@ -377,6 +416,7 @@ mixin TGAPIMethods {
     double longitude, {
     int? livePeriod,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -387,6 +427,7 @@ mixin TGAPIMethods {
       'longitude': longitude,
       'live_period': livePeriod,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -440,21 +481,28 @@ mixin TGAPIMethods {
   ///
   /// On success, the sent [Message] is returned.
   Future<Message> stopMessageLiveLocation({
-    String? inlineMessageId,
     ChatID? chatId,
     int? messageId,
     ReplyMarkup? replyMarkup,
   }) {
-    if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException(
-        'If inlineMessageId is null then chatId and messageId must be defined',
-      );
-    }
     return _client.apiCall(_token, 'stopMessageLiveLocation', {
       'chat_id': chatId,
       'message_id': messageId,
-      'inline_message_id': inlineMessageId,
       'reply_markup': replyMarkup
+    });
+  }
+
+  /// Use this method to stop updating a live
+  /// location message before live_period expires.
+  ///
+  /// On success, true is returned.
+  Future<bool> stopMessageLiveLocationInline({
+    String? inlineMessageId,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'stopMessageLiveLocation', {
+      'inline_message_id': inlineMessageId,
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -470,6 +518,7 @@ mixin TGAPIMethods {
     String? foursquareId,
     String? foursquareType,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -483,6 +532,7 @@ mixin TGAPIMethods {
       'foursquare_id': foursquareId,
       'foursquare_type': foursquareType,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -499,6 +549,7 @@ mixin TGAPIMethods {
     String? lastName,
     String? vcard,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply, //Asendinvoice
     ReplyMarkup? replyMarkup,
@@ -510,6 +561,7 @@ mixin TGAPIMethods {
       'last_name': lastName,
       'vcard': vcard,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -529,28 +581,26 @@ mixin TGAPIMethods {
     int? correctOptionId,
     bool? isClosed,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
   }) {
-    return _client.apiCall(
-      _token,
-      'sendPoll',
-      {
-        'chat_id': chatId,
-        'question': question,
-        'options': options,
-        'is_anonymous': isAnonymous,
-        'type': type,
-        'allows_multiple_answers': allowsMultipleAnswers,
-        'correct_option_id': correctOptionId,
-        'is_closed': isClosed,
-        'disable_notification': disableNotification,
-        'reply_to_message_id': replyToMessageId,
-        'allow_sending_without_reply': allowSendingWithoutReply,
-        'reply_markup': replyMarkup
-      },
-    );
+    return _client.apiCall(_token, 'sendPoll', {
+      'chat_id': chatId,
+      'question': question,
+      'options': options,
+      'is_anonymous': isAnonymous,
+      'type': type,
+      'allows_multiple_answers': allowsMultipleAnswers,
+      'correct_option_id': correctOptionId,
+      'is_closed': isClosed,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'reply_to_message_id': replyToMessageId,
+      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_markup': replyMarkup,
+    });
   }
 
   /// Use this method when you need to tell the user that something is happening
@@ -1033,6 +1083,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     HttpFile sticker, {
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -1041,6 +1092,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'sticker': sticker,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup
@@ -1080,24 +1132,34 @@ mixin TGAPIMethods {
   }
 
   Future<Message> editMessageText(
-    String text, {
+    String text,
     ChatID? chatId,
-    int? messageId,
-    String? inlineMessageId,
+    int? messageId, {
     ParseMode? parseMode,
     List<MessageEntity>? entities,
     bool? disableWebPagePreview,
     ReplyMarkup? replyMarkup,
   }) {
-    if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException(
-        'If inlineMessageId is null then chatId and messageId must be defined',
-      );
-    }
-
     return _client.apiCall(_token, 'editMessageText', {
       'chat_id': chatId,
       'message_id': messageId,
+      'text': text,
+      'parse_mode': parseMode,
+      'entities': entities,
+      'disable_web_page_preview': disableWebPagePreview,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<bool> editMessageTextInline(
+    String text,
+    String? inlineMessageId, {
+    ParseMode? parseMode,
+    List<MessageEntity>? entities,
+    bool? disableWebPagePreview,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageText', {
       'inline_message_id': inlineMessageId,
       'text': text,
       'parse_mode': parseMode,
@@ -1107,24 +1169,32 @@ mixin TGAPIMethods {
     });
   }
 
-  Future<Message> editMessageCaption({
+  Future<Message> editMessageCaption(
     ChatID? chatId,
-    int? messageId,
-    String? inlineMessageId,
+    int? messageId, {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
     ReplyMarkup? replyMarkup,
   }) {
-    if (inlineMessageId == null && (chatId == null || messageId == null)) {
-      throw MalformedAPICallException(
-        'If inlineMessageId is null then chatId and messageId must be defined',
-      );
-    }
-
     return _client.apiCall(_token, 'editMessageCaption', {
       'chat_id': chatId,
       'message_id': messageId,
+      'caption': caption,
+      'parse_mode': parseMode,
+      'caption_entities': captionEntities,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<bool> editMessageCaptionInline(
+    String? inlineMessageId, {
+    String? caption,
+    ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageCaption', {
       'inline_message_id': inlineMessageId,
       'caption': caption,
       'parse_mode': parseMode,
@@ -1141,6 +1211,7 @@ mixin TGAPIMethods {
     ChatID chatId, {
     Emoji? emoji,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
@@ -1149,6 +1220,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'emoji': emoji,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
@@ -1159,6 +1231,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String gameShortName, {
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     InlineKeyboardMarkup? replyMarkup,
@@ -1167,6 +1240,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'game_short_name': gameShortName,
       'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
@@ -1195,6 +1269,7 @@ mixin TGAPIMethods {
     bool? sendEmailToProvider,
     bool? isFlexible,
     bool? disableNotification,
+    bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     InlineKeyboardMarkup? replyMarkup,
@@ -1220,6 +1295,8 @@ mixin TGAPIMethods {
       'send_phone_number_to_provider': sendPhoneNumberToProvider,
       'send_email_to_provider': sendEmailToProvider,
       'is_flexible': isFlexible,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,

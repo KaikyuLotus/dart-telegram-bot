@@ -1,19 +1,22 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class InlineQuery {
   String id;
   User from;
-  Location? location;
   String query;
   String offset;
+  String? chatType;
+  Location? location;
 
   InlineQuery({
     required this.id,
     required this.from,
     required this.query,
     required this.offset,
+    this.chatType,
     this.location,
   });
 
@@ -23,7 +26,8 @@ class InlineQuery {
       from: User.fromJson(json['from']!),
       query: json['query']!,
       offset: json['offset']!,
-      location: Location.fromJson(json['location']),
+      chatType: json['chat_type'],
+      location: callIfNotNull(Location.fromJson, json['location']),
     );
   }
 
@@ -33,6 +37,7 @@ class InlineQuery {
       'from': from,
       'query': query,
       'offset': offset,
+      'chat_type': chatType,
       'location': location,
     }..removeWhere((_, v) => v == null);
   }

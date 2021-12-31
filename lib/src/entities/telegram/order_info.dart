@@ -1,26 +1,30 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 class OrderInfo {
-  String name;
-  String phoneNumber;
-  String email;
-  ShippingAddress shippingAddress;
+  String? name;
+  String? phoneNumber;
+  String? email;
+  ShippingAddress? shippingAddress;
 
   OrderInfo({
-    required this.name,
-    required this.phoneNumber,
-    required this.email,
-    required this.shippingAddress,
+    this.name,
+    this.phoneNumber,
+    this.email,
+    this.shippingAddress,
   });
 
   static OrderInfo fromJson(Map<String, dynamic> json) {
     return OrderInfo(
-      name: json['name']!,
-      phoneNumber: json['phone_number']!,
-      email: json['email']!,
-      shippingAddress: json['shipping_address']!,
+      name: json['name'],
+      phoneNumber: json['phone_number'],
+      email: json['email'],
+      shippingAddress: callIfNotNull(
+        ShippingAddress.fromJson,
+        json['shipping_address'],
+      ),
     );
   }
 

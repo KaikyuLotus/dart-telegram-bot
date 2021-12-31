@@ -1,3 +1,9 @@
+## 0.7.0-b1
+
+- Updated to bot API 5.6
+- Added a few missing objects
+- Minor fixes
+
 ## 0.6.1
 
 - Support multiline commands

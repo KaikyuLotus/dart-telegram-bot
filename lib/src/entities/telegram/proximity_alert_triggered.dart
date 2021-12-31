@@ -15,8 +15,8 @@ class ProximityAlertTriggered {
 
   static ProximityAlertTriggered fromJson(Map<String, dynamic> json) {
     return ProximityAlertTriggered(
-      traveler: json['traveler'],
-      watcher: json['watcher'],
+      traveler: User.fromJson(json['traveler']),
+      watcher: User.fromJson(json['watcher']),
       distance: json['distance'],
     );
   }

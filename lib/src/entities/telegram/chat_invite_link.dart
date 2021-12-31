@@ -28,7 +28,7 @@ class ChatInviteLink {
   static ChatInviteLink fromJson(Map<String, dynamic> json) {
     return ChatInviteLink(
       inviteLink: json['invite_link']!,
-      creator: json['creator']!,
+      creator: User.fromJson(json['creator']!),
       createsJoinRequest: json['creates_join_request']!,
       isPrimary: json['is_primary']!,
       isRevoked: json['is_revoked']!,
