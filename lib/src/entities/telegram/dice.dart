@@ -13,7 +13,7 @@ class Dice {
 
   static Dice fromJson(Map<String, dynamic> json) {
     return Dice(
-      emoji: json['emoji'],
+      emoji: Emoji.forValue(json['emoji']),
       value: json['value'],
     );
   }

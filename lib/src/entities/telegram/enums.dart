@@ -15,6 +15,7 @@ class UpdateType extends _Enum<String> {
   static const message = UpdateType._('message');
   static const editedMessage = UpdateType._('edited_message');
   static const channelPost = UpdateType._('channel_post');
+  static const editedChannelPost = UpdateType._('edited_channel_post');
   static const inlineQuery = UpdateType._('inline_query');
   static const chosenInlineResult = UpdateType._('chosen_inline_result');
   static const callbackQuery = UpdateType._('callback_query');
@@ -24,11 +25,13 @@ class UpdateType extends _Enum<String> {
   static const pollAnswer = UpdateType._('poll_answer');
   static const myChatMember = UpdateType._('my_chat_member');
   static const chatMember = UpdateType._('chat_member');
+  static const chatJoinRequest = UpdateType._('chat_join_request');
 
   static const values = {
     'message': message,
     'edited_message': editedMessage,
     'channel_post': channelPost,
+    'edited_channel_post': editedChannelPost,
     'inline_query': inlineQuery,
     'chosen_inline_result': chosenInlineResult,
     'callback_query': callbackQuery,
@@ -38,6 +41,7 @@ class UpdateType extends _Enum<String> {
     'poll_answer': pollAnswer,
     'my_chat_member': myChatMember,
     'chat_member': chatMember,
+    'chat_join_request': chatJoinRequest,
   };
 
   static List<UpdateType> get all => values.values.toList();
@@ -88,8 +92,8 @@ class ChatAction extends _Enum<String> {
   static const uploadPhoto = ChatAction._('upload_photo');
   static const recordVideo = ChatAction._('record_video');
   static const uploadVideo = ChatAction._('upload_video');
-  static const recordAudio = ChatAction._('record_audio');
-  static const uploadAudio = ChatAction._('upload_audio');
+  static const recordVoice = ChatAction._('record_voice');
+  static const uploadVoice = ChatAction._('upload_voice');
   static const uploadDocument = ChatAction._('upload_document');
   static const chooseSticker = ChatAction._('choose_sticker');
   static const findLocation = ChatAction._('find_location');
@@ -101,10 +105,10 @@ class ChatAction extends _Enum<String> {
     'upload_photo': uploadPhoto,
     'record_video': recordVideo,
     'upload_video': uploadVideo,
-    'record_audio': recordAudio,
-    'upload_audio': uploadAudio,
-    'choose_sticker': chooseSticker,
+    'record_voice': recordVoice,
+    'upload_voice': uploadVoice,
     'upload_document': uploadDocument,
+    'choose_sticker': chooseSticker,
     'find_location': findLocation,
     'record_video_note': recordVideoNote,
     'upload_video_note': uploadVideoNote,
