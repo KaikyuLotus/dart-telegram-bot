@@ -1,3 +1,9 @@
+## 0.7.0-b2
+
+- Added Error(s) catch clause
+- Switched from EffectiveDart to Lints
+- Minor fixes
+
 ## 0.7.0-b1
 
 - Updated to bot API 5.6

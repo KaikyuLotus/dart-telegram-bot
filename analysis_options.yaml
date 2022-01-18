@@ -1,7 +1,8 @@
-include: package:effective_dart/analysis_options.yaml
+include: package:lints/recommended.yaml
 
 linter:
   rules:
+    avoid_catching_errors: false
     public_member_api_docs: false
 
 analyzer:
