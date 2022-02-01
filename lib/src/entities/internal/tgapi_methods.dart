@@ -414,7 +414,10 @@ mixin TGAPIMethods {
     ChatID chatId,
     double latitude,
     double longitude, {
+    double? horizontalAccuracy,
     int? livePeriod,
+    int? heading,
+    int? proximityAlertRadius,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -425,7 +428,10 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'latitude': latitude,
       'longitude': longitude,
+      'horizontal_accuracy': horizontalAccuracy,
       'live_period': livePeriod,
+      'heading': heading,
+      'proximity_alert_radius': proximityAlertRadius,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -445,6 +451,9 @@ mixin TGAPIMethods {
     double longitude, {
     ChatID? chatId,
     int? messageId,
+    double? horizontalAccuracy,
+    int? heading,
+    int> proximityAlertRadius,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageLiveLocation', {
@@ -452,6 +461,9 @@ mixin TGAPIMethods {
       'message_id': messageId,
       'latitude': latitude,
       'longitude': longitude,
+      'horizontal_accuracy': horizontalAccuracy,
+      'heading': heading,
+      'proximity_alert_radius': proximityAlertRadius, 
       'reply_markup': replyMarkup
     });
   }
@@ -466,12 +478,18 @@ mixin TGAPIMethods {
     double latitude,
     double longitude, {
     String? inlineMessageId,
+    double? horizontalAccuracy,
+    int? heading,
+    int> proximityAlertRadius,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageLiveLocation', {
       'inline_message_id': inlineMessageId,
       'latitude': latitude,
       'longitude': longitude,
+      'horizontal_accuracy': horizontalAccuracy,
+      'heading': heading,
+      'proximity_alert_radius': proximityAlertRadius,
       'reply_markup': replyMarkup
     });
   }
@@ -517,6 +535,8 @@ mixin TGAPIMethods {
     String address, {
     String? foursquareId,
     String? foursquareType,
+    String? googlePlaceId,
+    String? googlePlaceType,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -531,6 +551,8 @@ mixin TGAPIMethods {
       'address': address,
       'foursquare_id': foursquareId,
       'foursquare_type': foursquareType,
+      'google_place_id': googlePlaceId,
+      'google_place_type': googlePlaceType,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -579,6 +601,11 @@ mixin TGAPIMethods {
     String? type,
     bool? allowsMultipleAnswers,
     int? correctOptionId,
+    String? explanation,
+    String? explanationParseMode,
+    List<MessageEntity>? explanationEntities,
+    int? openPeriod,
+    int? closeDate,
     bool? isClosed,
     bool? disableNotification,
     bool? protectContent,
@@ -594,7 +621,36 @@ mixin TGAPIMethods {
       'type': type,
       'allows_multiple_answers': allowsMultipleAnswers,
       'correct_option_id': correctOptionId,
+      'explanation': explanation,
+      'explanation_parse_mode': explanationParseMode,
+      'explanation_entities': explanationEntities,
+      'open_period': openPeriod,
+      'close_date': closeDate,
       'is_closed': isClosed,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'reply_to_message_id': replyToMessageId,
+      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to send an animated
+  /// emoji that will display a random value.
+  ///
+  /// On success, the sent [Message] is returned.
+  Future<Message> sendDice(
+    ChatID chatId, {
+    Emoji? emoji,
+    bool? disableNotification,
+    bool? protectContent,
+    int? replyToMessageId,
+    bool? allowSendingWithoutReply,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'sendDice', {
+      'chat_id': chatId,
+      'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -672,21 +728,6 @@ mixin TGAPIMethods {
       'until_date': untilDate,
       'revoke_messages': revokeMessages,
     });
-  }
-
-  @Deprecated('Use banChatMember instead')
-  Future<bool> kickChatMember(
-    ChatID chatId,
-    int userId, {
-    int? untilDate,
-    bool? revokeMessages,
-  }) {
-    return banChatMember(
-      chatId,
-      userId,
-      untilDate: untilDate,
-      revokeMessages: revokeMessages,
-    );
   }
 
   /// Use this method to unban a previously
@@ -792,6 +833,42 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to ban a channel chat in a supergroup or a channel.
+  ///
+  /// The owner of the chat will not be able to send messages and
+  /// join live streams on behalf of the chat, unless it is unbanned first.
+  ///
+  /// The bot must be an administrator in the supergroup or channel
+  /// for this to work and must have the appropriate administrator rights.
+  ///
+  /// Returns True on success.
+  Future<bool> banChatSenderChat(
+    ChatID chatId,
+    int senderChatId,
+  ) {
+    return _client.apiCall(_token, 'banChatSenderChat', {
+      'chat_id': chatId,
+      'sender_chat_id': senderChatId,
+    });
+  }
+
+  /// Use this method to unban a previously banned channel chat
+  /// in a supergroup or channel.
+  ///
+  /// The bot must be an administrator for this to work and
+  /// must have the appropriate administrator rights.
+  ///
+  /// Returns True on success.
+  Future<bool> unbanChatSenderChat(
+    ChatID chatId,
+    int senderChatId,
+  ) {
+    return _client.apiCall(_token, 'unbanChatSenderChat', {
+      'chat_id': chatId,
+      'sender_chat_id': senderChatId,
+    });
+  }
+
   /// Use this method to set default chat permissions for all members.
   ///
   /// The bot must be an administrator in the group or a supergroup for this
@@ -815,6 +892,103 @@ mixin TGAPIMethods {
   Future<String> exportChatInviteLink(ChatID chatId) {
     return _client.apiCall(_token, 'exportChatInviteLink', {
       'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to create an additional invite link for a chat.
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the appropriate admin rights.
+  ///
+  /// The link can be revoked using the method [revokeChatInviteLink].
+  ///
+  /// Returns the new invite link as [ChatInviteLink] object.
+  Future<ChatInviteLink> createChatInviteLink(
+    ChatID chatId, {
+    String? name,
+    int? expireDate,
+    int? memberLimit,
+    bool? createsJoinRequest,
+  }) {
+    return _client.apiCall(_token, 'createChatInviteLink', {
+      'chat_id': chatId,
+      'name': name,
+      'expire_date': expireDate,
+      'member_limit': memberLimit,
+      'creates_join_request': createsJoinRequest,
+    });
+  }
+
+  /// Use this method to edit a non-primary invite link created by the bot.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate admin rights.
+  ///
+  /// Returns the edited invite link as a [ChatInviteLink] object.
+  Future<ChatInviteLink> editChatInviteLink(
+    ChatID chatId,
+    String inviteLink, {
+    String? name,
+    int? expireDate,
+    int? memberLimit,
+    String? createsJoinRequest,
+  }) {
+    return _client.apiCall(_token, 'editChatInviteLink', {
+      'chat_id': chatId,
+      'invite_link': inviteLink,
+      'name': name,
+      'expire_date': expireDate,
+      'member_limit': memberLimit,
+      'creates_join_request': createsJoinRequest,
+    });
+  }
+
+  /// Use this method to revoke an invite link created by the bot.
+  ///
+  /// If the primary link is revoked, a new link is automatically generated.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the appropriate admin rights.
+  ///
+  /// Returns the revoked invite link as [ChatInviteLink] object.
+  Future<ChatInviteLink> revokeChatInviteLink(
+    ChatID chatId,
+    String inviteLink,
+  ) {
+    return _client.apiCall(_token, 'revokeChatInviteLink', {
+      'chat_id': chatId,
+      'invite_link': inviteLink,
+    });
+  }
+
+  /// Use this method to approve a chat join request.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the can_invite_users administrator right.
+  ///
+  /// Returns True on success.
+  Future<bool> approveChatJoinRequest(
+    ChatID chatId,
+    int userId,
+  ) {
+    return _client.apiCall(_token, 'approveChatJoinRequest', {
+      'chat_id': chatId,
+      'user_id': userId,
+    });
+  }
+
+  /// Use this method to decline a chat join request.
+  ///
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the can_invite_users administrator right.
+  ///
+  /// Returns True on success.
+  Future<bool> declineChatJoinRequest(
+    ChatID chatId,
+    int userId,
+  ) {
+    return _client.apiCall(_token, 'declineChatJoinRequest', {
+      'chat_id': chatId,
+      'user_id': userId,
     });
   }
 
@@ -939,11 +1113,6 @@ mixin TGAPIMethods {
     });
   }
 
-  @Deprecated('Use getChatMemberCount instead')
-  Future<int> getChatMembersCount(ChatID chatId) {
-    return getChatMemberCount(chatId);
-  }
-
   Future<ChatMember> getChatMember(ChatID chatId, int userId) {
     return _client.apiCall(_token, 'getChatMember', {
       'chat_id': chatId,
@@ -977,125 +1146,6 @@ mixin TGAPIMethods {
       'show_alert': showAlert,
       'url': url,
       'cache_time': cacheTime
-    });
-  }
-
-  Future<Poll> stopPoll(
-    ChatID chatId,
-    int messageId, {
-    ReplyMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'stopPoll', {
-      'chat_id': chatId,
-      'message_id': messageId,
-      'reply_markup': replyMarkup,
-    });
-  }
-
-  Future<bool> deleteMessage(ChatID chatId, int messageId) {
-    return _client.apiCall(_token, 'deleteMessage', {
-      'chat_id': chatId,
-      'message_id': messageId,
-    });
-  }
-
-  Future<StickerSet> getStickerSet(String name) {
-    return _client.apiCall(_token, 'getStickerSet', {'name': name});
-  }
-
-  Future<File> uploadStickerFile(String userId, HttpFile pngSticker) {
-    return _client.apiCall(_token, 'uploadStickerFile', {
-      'user_id': userId,
-      'png_sticker': pngSticker,
-    });
-  }
-
-  Future<bool> createNewStickerSet(
-    String userId,
-    String name,
-    String title,
-    HttpFile pngSticker,
-    String emojis, {
-    bool? containsMasks,
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'createNewStickerSet', {
-      'user_id': userId,
-      'name': name,
-      'title': title,
-      'png_sticker': pngSticker,
-      'emojis': emojis,
-      'contains_masks': containsMasks,
-      'mask_position': maskPosition
-    });
-  }
-
-  Future<bool> addStickerToSet(
-    String userId,
-    String name,
-    HttpFile pngSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'addStickerToSet', {
-      'user_id': userId,
-      'name': name,
-      'png_sticker': pngSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  Future<bool> setStickerPositionInSet(String sticker, int position) {
-    return _client.apiCall(_token, 'setStickerPositionInSet', {
-      'sticker': sticker,
-      'position': position,
-    });
-  }
-
-  Future<bool> deleteStickerFromSet(String sticker) {
-    return _client.apiCall(_token, 'deleteStickerFromSet', {
-      'sticker': sticker,
-    });
-  }
-
-  Future<bool> answerInlineQuery(
-    String inlineQueryId,
-    List<InlineQueryResult> results, {
-    int? cacheTime,
-    bool? isPersonal,
-    String? nextOffset,
-    String? switchPmText,
-    String? switchPmParameter,
-  }) {
-    return _client.apiCall(_token, 'answerInlineQuery', {
-      'inline_query_id': inlineQueryId,
-      'results': results,
-      'cache_time': cacheTime,
-      'is_personal': isPersonal,
-      'next_offset': nextOffset,
-      'switch_pm_text': switchPmText,
-      'switch_pm_parameter': switchPmParameter,
-    });
-  }
-
-  Future<Message> sendSticker(
-    ChatID chatId,
-    HttpFile sticker, {
-    bool? disableNotification,
-    bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
-    ReplyMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'sendSticker', {
-      'chat_id': chatId,
-      'sticker': sticker,
-      'disable_notification': disableNotification,
-      'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
     });
   }
 
@@ -1203,27 +1253,254 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to send an animated
-  /// emoji that will display a random value.
-  ///
-  /// On success, the sent [Message] is returned.
-  Future<Message> sendDice(
-    ChatID chatId, {
-    Emoji? emoji,
+  Future<Message> editMessageMedia(
+    ChatID? chatId,
+    int? messageId,
+    InputMedia media, {
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageMedia', {
+      'chat_id': chatId,
+      'message_id': messageId,
+      'media': media,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<bool> editMessageMediaInline(
+    String? inlineMessageId, {
+    InputMedia media,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageMedia', {
+      'inline_message_id': inlineMessageId,
+      'media': media,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<Message> editMessageReplyMarkup(
+    ChatID? chatId,
+    int? messageId, {
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageReplyMarkup', {
+      'chat_id': chatId,
+      'message_id': messageId,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<bool> editMessageReplyMarkupInline(
+    String? inlineMessageId, {
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageReplyMarkup', {
+      'inline_message_id': inlineMessageId,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<Poll> stopPoll(
+    ChatID chatId,
+    int messageId, {
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'stopPoll', {
+      'chat_id': chatId,
+      'message_id': messageId,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  Future<bool> deleteMessage(ChatID chatId, int messageId) {
+    return _client.apiCall(_token, 'deleteMessage', {
+      'chat_id': chatId,
+      'message_id': messageId,
+    });
+  }
+
+  Future<Message> sendSticker(
+    ChatID chatId,
+    HttpFile sticker, {
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
     bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
   }) {
-    return _client.apiCall(_token, 'sendDice', {
+    return _client.apiCall(_token, 'sendSticker', {
       'chat_id': chatId,
-      'emoji': emoji,
+      'sticker': sticker,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup,
+      'reply_markup': replyMarkup
+    });
+  }
+
+  Future<StickerSet> getStickerSet(String name) {
+    return _client.apiCall(_token, 'getStickerSet', {'name': name});
+  }
+
+  Future<File> uploadStickerFile(String userId, HttpFile pngSticker) {
+    return _client.apiCall(_token, 'uploadStickerFile', {
+      'user_id': userId,
+      'png_sticker': pngSticker,
+    });
+  }
+
+  Future<bool> createNewStickerSet(
+    String userId,
+    String name,
+    String title,
+    HttpFile pngSticker,
+    String emojis, {
+    bool? containsMasks,
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'createNewStickerSet', {
+      'user_id': userId,
+      'name': name,
+      'title': title,
+      'png_sticker': pngSticker,
+      'emojis': emojis,
+      'contains_masks': containsMasks,
+      'mask_position': maskPosition
+    });
+  }
+
+  Future<bool> createNewStickerSetTgs(
+    String userId,
+    String name,
+    String title,
+    HttpFile tgsSticker,
+    String emojis, {
+    bool? containsMasks,
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'createNewStickerSet', {
+      'user_id': userId,
+      'name': name,
+      'title': title,
+      'tgs_sticker': tgsSticker,
+      'emojis': emojis,
+      'contains_masks': containsMasks,
+      'mask_position': maskPosition
+    });
+  }
+
+  Future<bool> createNewStickerSetWebm(
+    String userId,
+    String name,
+    String title,
+    HttpFile webmSticker,
+    String emojis, {
+    bool? containsMasks,
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'createNewStickerSet', {
+      'user_id': userId,
+      'name': name,
+      'title': title,
+      'webm_sticker': webmSticker,
+      'emojis': emojis,
+      'contains_masks': containsMasks,
+      'mask_position': maskPosition
+    });
+  }
+
+  Future<bool> addStickerToSet(
+    String userId,
+    String name,
+    HttpFile pngSticker,
+    String emojis, {
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'addStickerToSet', {
+      'user_id': userId,
+      'name': name,
+      'png_sticker': pngSticker,
+      'emojis': emojis,
+      'mask_position': maskPosition,
+    });
+  }
+
+  Future<bool> addStickerToSetTgs(
+    String userId,
+    String name,
+    HttpFile tgsSticker,
+    String emojis, {
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'addStickerToSet', {
+      'user_id': userId,
+      'name': name,
+      'tgs_sticker': tgsSticker,
+      'emojis': emojis,
+      'mask_position': maskPosition,
+    });
+  }
+
+  Future<bool> addStickerToSetWebm(
+    String userId,
+    String name,
+    HttpFile webmSticker,
+    String emojis, {
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'addStickerToSet', {
+      'user_id': userId,
+      'name': name,
+      'webm_sticker': webmSticker,
+      'emojis': emojis,
+      'mask_position': maskPosition,
+    });
+  }  
+
+  Future<bool> setStickerPositionInSet(String sticker, int position) {
+    return _client.apiCall(_token, 'setStickerPositionInSet', {
+      'sticker': sticker,
+      'position': position,
+    });
+  }
+
+  Future<bool> deleteStickerFromSet(String sticker) {
+    return _client.apiCall(_token, 'deleteStickerFromSet', {
+      'sticker': sticker,
+    });
+  }
+
+  Future<bool> setStickerSetThumb(
+    String name,
+    String userId, {
+    HttpFile? thumb,
+  }) {
+    return _client.apiCall(_token, 'setStickerSetThumb', {
+      'user_id': userId,
+      'name': name,
+      'thumb': thumb,
+    });
+  }
+
+  Future<bool> answerInlineQuery(
+    String inlineQueryId,
+    List<InlineQueryResult> results, {
+    int? cacheTime,
+    bool? isPersonal,
+    String? nextOffset,
+    String? switchPmText,
+    String? switchPmParameter,
+  }) {
+    return _client.apiCall(_token, 'answerInlineQuery', {
+      'inline_query_id': inlineQueryId,
+      'results': results,
+      'cache_time': cacheTime,
+      'is_personal': isPersonal,
+      'next_offset': nextOffset,
+      'switch_pm_text': switchPmText,
+      'switch_pm_parameter': switchPmParameter,
     });
   }
 
@@ -1244,6 +1521,62 @@ mixin TGAPIMethods {
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
+    });
+  }
+
+  Future<Message> setGameScore(
+    int userId,
+    int score, {
+    bool? force,
+    bool? disableEditMessage,
+    ChatID? chatId,
+    int? messageId,
+  }) {
+    return _client.apiCall(_token, 'setGameScore', {
+      'user_id': userId,
+      'score': score,
+      'force': force,
+      'disable_edit_message': disableEditMessage,
+      'chat_id': chatId,
+      'message_id': messageId,
+    });
+  }
+
+  Future<bool> setGameScoreInline(
+    int userId,
+    int score, {
+    bool? force,
+    bool? disableEditMessage,
+    String? inlineMessageId,
+  }) {
+    return _client.apiCall(_token, 'setGameScore', {
+      'user_id': userId,
+      'score': score,
+      'force': force,
+      'disable_edit_message': disableEditMessage,
+      'inline_message_id': inlineMessageId,
+    });
+  }
+
+  Future<List<GameHighScore>> getGameHighScores(
+    int userId, {
+    ChatID? chatId,
+    int? messageId,
+  }) {
+    return _client.apiCall(_token, 'getGameHighScores', {
+      'user_id': userId,
+      'chat_id': chatId,
+      'message_id': messageId,
+    });
+  }
+
+  Future<List<GameHighScore>> getGameHighScoresInline(
+    int userId, {
+    String? inlineMessageId,
+  }) {
+    return _client.apiCall(_token, 'getGameHighScores', {
+      'user_id': userId,
+      'inline_message_id': inlineMessageId,
     });
   }
 
@@ -1300,141 +1633,6 @@ mixin TGAPIMethods {
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
-    });
-  }
-
-  /// Use this method to create an additional invite link for a chat.
-  /// The bot must be an administrator in the chat for this to work and
-  /// must have the appropriate admin rights.
-  ///
-  /// The link can be revoked using the method [revokeChatInviteLink].
-  ///
-  /// Returns the new invite link as [ChatInviteLink] object.
-  Future<ChatInviteLink> createChatInviteLink(
-    ChatID chatId, {
-    String? name,
-    int? expireDate,
-    int? memberLimit,
-    bool? createsJoinRequest,
-  }) {
-    return _client.apiCall(_token, 'createChatInviteLink', {
-      'chat_id': chatId,
-      'name': name,
-      'expire_date': expireDate,
-      'member_limit': memberLimit,
-      'creates_join_request': createsJoinRequest,
-    });
-  }
-
-  /// Use this method to edit a non-primary invite link created by the bot.
-  ///
-  /// The bot must be an administrator in the chat for this to work and must
-  /// have the appropriate admin rights.
-  ///
-  /// Returns the edited invite link as a [ChatInviteLink] object.
-  Future<ChatInviteLink> editChatInviteLink(
-    ChatID chatId,
-    String inviteLink, {
-    String? name,
-    int? expireDate,
-    int? memberLimit,
-    String? createsJoinRequest,
-  }) {
-    return _client.apiCall(_token, 'editChatInviteLink', {
-      'chat_id': chatId,
-      'invite_link': inviteLink,
-      'name': name,
-      'expire_date': expireDate,
-      'member_limit': memberLimit,
-      'creates_join_request': createsJoinRequest,
-    });
-  }
-
-  /// Use this method to revoke an invite link created by the bot.
-  ///
-  /// If the primary link is revoked, a new link is automatically generated.
-  ///
-  /// The bot must be an administrator in the chat for this to work and
-  /// must have the appropriate admin rights.
-  ///
-  /// Returns the revoked invite link as [ChatInviteLink] object.
-  Future<ChatInviteLink> revokeChatInviteLink(
-    ChatID chatId,
-    String inviteLink,
-  ) {
-    return _client.apiCall(_token, 'revokeChatInviteLink', {
-      'chat_id': chatId,
-      'invite_link': inviteLink,
-    });
-  }
-
-  /// Use this method to approve a chat join request.
-  ///
-  /// The bot must be an administrator in the chat for this to work and
-  /// must have the can_invite_users administrator right.
-  ///
-  /// Returns True on success.
-  Future<bool> approveChatJoinRequest(
-    ChatID chatId,
-    int userId,
-  ) {
-    return _client.apiCall(_token, 'approveChatJoinRequest', {
-      'chat_id': chatId,
-      'user_id': userId,
-    });
-  }
-
-  /// Use this method to decline a chat join request.
-  ///
-  /// The bot must be an administrator in the chat for this to work and
-  /// must have the can_invite_users administrator right.
-  ///
-  /// Returns True on success.
-  Future<bool> declineChatJoinRequest(
-    ChatID chatId,
-    int userId,
-  ) {
-    return _client.apiCall(_token, 'declineChatJoinRequest', {
-      'chat_id': chatId,
-      'user_id': userId,
-    });
-  }
-
-  /// Use this method to ban a channel chat in a supergroup or a channel.
-  ///
-  /// The owner of the chat will not be able to send messages and
-  /// join live streams on behalf of the chat, unless it is unbanned first.
-  ///
-  /// The bot must be an administrator in the supergroup or channel
-  /// for this to work and must have the appropriate administrator rights.
-  ///
-  /// Returns True on success.
-  Future<bool> banChatSenderChat(
-    ChatID chatId,
-    int senderChatId,
-    int? untilDate,
-  ) {
-    return _client.apiCall(_token, 'banChatSenderChat', {
-      'chat_id': chatId,
-      'sender_chat_id': senderChatId,
-      'until_date': untilDate
-    });
-  }
-
-  /// Use this method to unban a previously banned channel chat
-  /// in a supergroup or channel.
-  ///
-  /// The bot must be an administrator for this to work and
-  /// must have the appropriate administrator rights.
-  ///
-  /// Returns True on success.
-  Future<bool> unbanChatSenderChat(
-    ChatID chatId,
-    int senderChatId,
-  ) {
-    return _client.apiCall(_token, 'unbanChatSenderChat', {
-      'chat_id': chatId,
-      'sender_chat_id': senderChatId,
     });
   }
 
