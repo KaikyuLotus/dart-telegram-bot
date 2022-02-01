@@ -9,6 +9,7 @@ class Sticker {
   int width;
   int height;
   bool isAnimated;
+  bool isVideo;
   PhotoSize? thumb;
   String? emoji;
   String? setName;
@@ -21,6 +22,7 @@ class Sticker {
     required this.width,
     required this.height,
     required this.isAnimated,
+    required this.isVideo,
     this.thumb,
     this.emoji,
     this.setName,
@@ -35,6 +37,7 @@ class Sticker {
       width: json['width']!,
       height: json['height']!,
       isAnimated: json['is_animated']!,
+      isVideo: json['is_video']!,
       thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
       emoji: json['emoji'],
       setName: json['set_name'],
@@ -54,6 +57,7 @@ class Sticker {
       'width': width,
       'height': height,
       'is_animated': isAnimated,
+      'is_video': isVideo,
       'thumb': thumb,
       'emoji': emoji,
       'set_name': setName,
