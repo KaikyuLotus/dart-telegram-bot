@@ -63,7 +63,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -146,7 +146,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -191,7 +191,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -271,7 +271,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -311,7 +311,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -350,7 +350,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -378,7 +378,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -403,7 +403,7 @@ mixin TGAPIMethods {
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_to_message_id': replyToMessageId
+      'reply_to_message_id': replyToMessageId,
     });
   }
 
@@ -436,7 +436,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -453,7 +453,7 @@ mixin TGAPIMethods {
     int? messageId,
     double? horizontalAccuracy,
     int? heading,
-    int> proximityAlertRadius,
+    int? proximityAlertRadius,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageLiveLocation', {
@@ -463,8 +463,8 @@ mixin TGAPIMethods {
       'longitude': longitude,
       'horizontal_accuracy': horizontalAccuracy,
       'heading': heading,
-      'proximity_alert_radius': proximityAlertRadius, 
-      'reply_markup': replyMarkup
+      'proximity_alert_radius': proximityAlertRadius,
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -480,7 +480,7 @@ mixin TGAPIMethods {
     String? inlineMessageId,
     double? horizontalAccuracy,
     int? heading,
-    int> proximityAlertRadius,
+    int? proximityAlertRadius,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageLiveLocation', {
@@ -490,7 +490,7 @@ mixin TGAPIMethods {
       'horizontal_accuracy': horizontalAccuracy,
       'heading': heading,
       'proximity_alert_radius': proximityAlertRadius,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -506,7 +506,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'stopMessageLiveLocation', {
       'chat_id': chatId,
       'message_id': messageId,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -557,7 +557,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -586,7 +586,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1145,7 +1145,7 @@ mixin TGAPIMethods {
       'text': text,
       'show_alert': showAlert,
       'url': url,
-      'cache_time': cacheTime
+      'cache_time': cacheTime,
     });
   }
 
@@ -1197,7 +1197,7 @@ mixin TGAPIMethods {
       'parse_mode': parseMode,
       'entities': entities,
       'disable_web_page_preview': disableWebPagePreview,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1215,7 +1215,7 @@ mixin TGAPIMethods {
       'parse_mode': parseMode,
       'entities': entities,
       'disable_web_page_preview': disableWebPagePreview,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1233,7 +1233,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1249,7 +1249,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1263,19 +1263,19 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'message_id': messageId,
       'media': media,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
   Future<bool> editMessageMediaInline(
-    String? inlineMessageId, {
-    InputMedia media,
+    String? inlineMessageId,
+    InputMedia media, {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageMedia', {
       'inline_message_id': inlineMessageId,
       'media': media,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1287,7 +1287,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'editMessageReplyMarkup', {
       'chat_id': chatId,
       'message_id': messageId,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1297,7 +1297,7 @@ mixin TGAPIMethods {
   }) {
     return _client.apiCall(_token, 'editMessageReplyMarkup', {
       'inline_message_id': inlineMessageId,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1336,7 +1336,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup
+      'reply_markup': replyMarkup,
     });
   }
 
@@ -1367,7 +1367,7 @@ mixin TGAPIMethods {
       'png_sticker': pngSticker,
       'emojis': emojis,
       'contains_masks': containsMasks,
-      'mask_position': maskPosition
+      'mask_position': maskPosition,
     });
   }
 
@@ -1387,7 +1387,7 @@ mixin TGAPIMethods {
       'tgs_sticker': tgsSticker,
       'emojis': emojis,
       'contains_masks': containsMasks,
-      'mask_position': maskPosition
+      'mask_position': maskPosition,
     });
   }
 
@@ -1407,7 +1407,7 @@ mixin TGAPIMethods {
       'webm_sticker': webmSticker,
       'emojis': emojis,
       'contains_masks': containsMasks,
-      'mask_position': maskPosition
+      'mask_position': maskPosition,
     });
   }
 
@@ -1457,7 +1457,7 @@ mixin TGAPIMethods {
       'emojis': emojis,
       'mask_position': maskPosition,
     });
-  }  
+  }
 
   Future<bool> setStickerPositionInSet(String sticker, int position) {
     return _client.apiCall(_token, 'setStickerPositionInSet', {
