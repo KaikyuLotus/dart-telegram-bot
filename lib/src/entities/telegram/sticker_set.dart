@@ -7,6 +7,7 @@ class StickerSet {
   String name;
   String title;
   bool isAnimated;
+  bool isVideo;
   bool containsMasks;
   List<Sticker> stickers;
   PhotoSize? thumb;
@@ -15,6 +16,7 @@ class StickerSet {
     required this.name,
     required this.title,
     required this.isAnimated,
+    required this.isVideo,
     required this.containsMasks,
     required this.stickers,
     this.thumb,
@@ -25,6 +27,7 @@ class StickerSet {
       name: json['name']!,
       title: json['title']!,
       isAnimated: json['is_animated']!,
+      isVideo: json['is_video']!,
       containsMasks: json['contains_masks']!,
       stickers: Sticker.listFromJsonArray(json['stickers']!),
       thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
@@ -36,6 +39,7 @@ class StickerSet {
       'name': name,
       'title': title,
       'is_animated': isAnimated,
+      'is_video': isVideo,
       'contains_masks': containsMasks,
       'stickers': stickers,
       'photo_size': thumb,

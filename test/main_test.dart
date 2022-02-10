@@ -61,7 +61,7 @@ void main() {
         throwsA(TypeMatcher<APIException>()),
       );
     },
-    skip: false,
+    skip: true,
   );
 
   test(
@@ -72,7 +72,7 @@ void main() {
         throwsA(TypeMatcher<InvalidBotState>()),
       );
     },
-    skip: false,
+    skip: true,
   );
 
   test(
