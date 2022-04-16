@@ -8,12 +8,14 @@ class KeyboardButton {
   bool? requestContact;
   bool? requestLocation;
   KeyboardButtonPollType? requestPoll;
+  WebAppInfo? webApp;
 
   KeyboardButton._({
     required this.text,
     this.requestContact,
     this.requestLocation,
     this.requestPoll,
+    this.webApp,
   });
 
   KeyboardButton.requestContact(this.text, {this.requestContact});
@@ -21,6 +23,8 @@ class KeyboardButton {
   KeyboardButton.requestLocation(this.text, {this.requestLocation});
 
   KeyboardButton.requestPoll(this.text, this.requestPoll);
+
+  KeyboardButton.requestWebApp(this.text, this.webApp);
 
   static KeyboardButton fromJson(Map<String, dynamic> json) {
     return KeyboardButton._(
@@ -30,6 +34,10 @@ class KeyboardButton {
       requestPoll: callIfNotNull(
         KeyboardButtonPollType.fromJson,
         json['request_poll'],
+      ),
+      webApp: callIfNotNull(
+        WebAppInfo.fromJson,
+        json['web_app'],
       ),
     );
   }
@@ -58,6 +66,7 @@ class KeyboardButton {
       'request_contact': requestContact,
       'request_location': requestLocation,
       'request_poll': requestPoll,
+      'web_app': webApp,
     }..removeWhere((_, v) => v == null);
   }
 

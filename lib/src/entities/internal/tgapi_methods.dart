@@ -797,7 +797,7 @@ mixin TGAPIMethods {
     bool? canRestrictMembers,
     bool? canPinMessages,
     bool? canPromoteMembers,
-    bool? canManageVoiceChats,
+    bool? canManageVideoChats,
     bool? canManageChat,
   }) {
     return _client.apiCall(_token, 'promoteChatMember', {
@@ -811,7 +811,7 @@ mixin TGAPIMethods {
       'can_restrict_members': canRestrictMembers,
       'can_pin_messages': canPinMessages,
       'can_promote_members': canPromoteMembers,
-      'can_manage_voice_chats': canManageVoiceChats,
+      'can_manage_video_chats': canManageVideoChats,
       'can_manage_chat': canManageChat,
       'is_anonymous': isAnonymous,
     });
@@ -1181,6 +1181,42 @@ mixin TGAPIMethods {
     });
   }
 
+  Future<bool> setChatMenuButton({
+    ChatID? chatId,
+    MenuButton? menuButton,
+  }) {
+    return _client.apiCall(_token, 'setChatMenuButton', {
+      'chat_id': chatId,
+      'menu_button': menuButton,
+    });
+  }
+
+  Future<MenuButton> getChatMenuButton({
+    ChatID? chatId,
+  }) {
+    return _client.apiCall(_token, 'getChatMenuButton', {
+      'chat_id': chatId,
+    });
+  }
+
+  Future<bool> setMyDefaultAdministratorRights({
+    ChatAdministratorRights? rights,
+    bool? forChannels,
+  }) {
+    return _client.apiCall(_token, 'setMyDefaultAdministratorRights', {
+      'rights': rights,
+      'for_channels': forChannels,
+    });
+  }
+
+  Future<ChatAdministratorRights> getMyDefaultAdministratorRights({
+    bool? forChannels,
+  }) {
+    return _client.apiCall(_token, 'getMyDefaultAdministratorRights', {
+      'for_channels': forChannels,
+    });
+  }
+
   Future<Message> editMessageText(
     String text,
     ChatID? chatId,
@@ -1501,6 +1537,16 @@ mixin TGAPIMethods {
       'next_offset': nextOffset,
       'switch_pm_text': switchPmText,
       'switch_pm_parameter': switchPmParameter,
+    });
+  }
+
+  Future<SentWebAppMessage> answerWebAppQuery(
+    String webAppQueryId,
+    InlineQueryResult? result,
+  ) {
+    return _client.apiCall(_token, 'answerWebAppQuery', {
+      'web_app_query_id': webAppQueryId,
+      'result': result,
     });
   }
 

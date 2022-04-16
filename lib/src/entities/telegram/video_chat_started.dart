@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 /// Currently holds no information
-class VoiceChatStarted {
-  VoiceChatStarted();
+class VideoChatStarted {
+  VideoChatStarted();
 
-  static VoiceChatStarted fromJson(Map<String, dynamic> json) {
-    return VoiceChatStarted();
+  static VideoChatStarted fromJson(Map<String, dynamic> json) {
+    return VideoChatStarted();
   }
 
   Map toJson() {
