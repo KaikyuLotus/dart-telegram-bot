@@ -8,6 +8,7 @@ class InlineKeyboardButton {
   String? url;
   LoginUrl? loginUrl;
   String? callbackData;
+  WebAppInfo? webApp;
   String? switchInlineQuery;
   String? switchInlineQueryCurrentChat;
   CallbackGame? callbackGame;
@@ -18,6 +19,7 @@ class InlineKeyboardButton {
     this.url,
     this.loginUrl,
     this.callbackData,
+    this.webApp,
     this.switchInlineQuery,
     this.switchInlineQueryCurrentChat,
     this.callbackGame,
@@ -29,6 +31,8 @@ class InlineKeyboardButton {
   InlineKeyboardButton.loginURL(this.text, this.loginUrl);
 
   InlineKeyboardButton.callbackData(this.text, this.callbackData);
+
+  InlineKeyboardButton.webApp(this.text, this.webApp);
 
   InlineKeyboardButton.switchInlineQuery(this.text, this.switchInlineQuery);
 
@@ -47,6 +51,7 @@ class InlineKeyboardButton {
       url: json['url'],
       loginUrl: callIfNotNull(LoginUrl.fromJson, json['login_url']),
       callbackData: json['callback_data'],
+      webApp: callIfNotNull(WebAppInfo.fromJson, json['web_app']),
       switchInlineQuery: json['switch_inline_query'],
       switchInlineQueryCurrentChat: json['switch_inline_query_current_chat'],
       callbackGame: callIfNotNull(CallbackGame.fromJson, json['callback_game']),
@@ -78,6 +83,7 @@ class InlineKeyboardButton {
       'url': url,
       'login_url': loginUrl,
       'callback_data': callbackData,
+      'web_app': webApp,
       'switch_inline_query': switchInlineQuery,
       'switch_inline_query_current_chat': switchInlineQueryCurrentChat,
       'callback_game': callbackGame,

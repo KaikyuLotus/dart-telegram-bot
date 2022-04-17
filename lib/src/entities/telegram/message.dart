@@ -57,10 +57,11 @@ class Message {
   String? connectedWebsite;
   PassportData? passportData;
   ProximityAlertTriggered? proximityAlertTriggered;
-  VoiceChatScheduled? voiceChatScheduled;
-  VoiceChatStarted? voiceChatStarted;
-  VoiceChatEnded? voiceChatEnded;
-  VoiceChatParticipantsInvited? voiceChatParticipantsInvited;
+  VideoChatScheduled? videoChatScheduled;
+  VideoChatStarted? videoChatStarted;
+  VideoChatEnded? videoChatEnded;
+  VideoChatParticipantsInvited? videoChatParticipantsInvited;
+  WebAppData? webAppData;
   ReplyMarkup? replyMarkup;
 
   Message({
@@ -117,10 +118,11 @@ class Message {
     this.connectedWebsite,
     this.passportData,
     this.proximityAlertTriggered,
-    this.voiceChatScheduled,
-    this.voiceChatStarted,
-    this.voiceChatEnded,
-    this.voiceChatParticipantsInvited,
+    this.videoChatScheduled,
+    this.videoChatStarted,
+    this.videoChatEnded,
+    this.videoChatParticipantsInvited,
+    this.webAppData,
     this.replyMarkup,
   });
 
@@ -215,21 +217,25 @@ class Message {
         ProximityAlertTriggered.fromJson,
         json['proximity_alert_triggered'],
       ),
-      voiceChatScheduled: callIfNotNull(
-        VoiceChatScheduled.fromJson,
-        json['voice_chat_scheduled'],
+      videoChatScheduled: callIfNotNull(
+        VideoChatScheduled.fromJson,
+        json['video_chat_scheduled'],
       ),
-      voiceChatStarted: callIfNotNull(
-        VoiceChatStarted.fromJson,
-        json['voice_chat_started'],
+      videoChatStarted: callIfNotNull(
+        VideoChatStarted.fromJson,
+        json['video_chat_started'],
       ),
-      voiceChatEnded: callIfNotNull(
-        VoiceChatEnded.fromJson,
-        json['voice_chat_ended'],
+      videoChatEnded: callIfNotNull(
+        VideoChatEnded.fromJson,
+        json['video_chat_ended'],
       ),
-      voiceChatParticipantsInvited: callIfNotNull(
-        VoiceChatParticipantsInvited.fromJson,
-        json['voice_chat_participants_invited'],
+      videoChatParticipantsInvited: callIfNotNull(
+        VideoChatParticipantsInvited.fromJson,
+        json['video_chat_participants_invited'],
+      ),
+      webAppData: callIfNotNull(
+        WebAppData.fromJson,
+        json['web_app_data'],
       ),
       replyMarkup: callIfNotNull(
         InlineKeyboardMarkup.fromJson,
@@ -300,10 +306,11 @@ class Message {
       'connected_website': connectedWebsite,
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,
-      'voice_chat_scheduled': voiceChatScheduled,
-      'voice_chat_started': voiceChatStarted,
-      'voice_chat_ended': voiceChatEnded,
-      'voice_chat_participants_invited': voiceChatParticipantsInvited,
+      'video_chat_scheduled': videoChatScheduled,
+      'video_chat_started': videoChatStarted,
+      'video_chat_ended': videoChatEnded,
+      'video_chat_participants_invited': videoChatParticipantsInvited,
+      'web_app_data': webAppData,
       'reply_markup': replyMarkup,
     }..removeWhere((_, v) => v == null);
   }
