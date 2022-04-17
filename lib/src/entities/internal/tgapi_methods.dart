@@ -18,12 +18,12 @@ mixin TGAPIMethods {
   ///
   /// Requires no parameters.
   ///
-  /// Returns basic information about the bot in form of a User object.
+  /// Returns basic information about the bot in form of a [User] object.
   Future<User> getMe() => _client.apiCall(_token, 'getMe');
 
   /// Use this method to receive incoming updates using long polling.
   ///
-  /// An List of [Update] objects is returned.
+  /// An array of [Update] objects is returned.
   Future<List<Update>> getUpdates({
     int? timeout,
     int? offset,
@@ -40,7 +40,7 @@ mixin TGAPIMethods {
 
   /// Use this method to send text messages.
   ///
-  /// The sent [Message] is returned.
+  /// On success, the sent [Message] is returned.
   Future<Message> sendMessage(
     ChatID chatId,
     String text, {
@@ -89,7 +89,9 @@ mixin TGAPIMethods {
 
   /// Use this method to copy messages of any kind.
   ///
-  /// The method is analogous to the method forwardMessage,
+  /// Service messages and invoice messages can't be copied.
+  ///
+  /// The method is analogous to the method [forwardMessage],
   /// but the copied message doesn't have a link to the original message.
   ///
   /// Returns the [MessageId] of the sent message on success.
@@ -233,7 +235,7 @@ mixin TGAPIMethods {
 
   /// Use this method to send video files,
   /// Telegram clients support mp4 videos
-  /// (other formats may be sent as Document).
+  /// (other formats may be sent as [Document]).
   ///
   /// On success, the sent [Message] is returned.
   ///
@@ -320,7 +322,7 @@ mixin TGAPIMethods {
   /// the file as a playable voice message.
   ///
   /// For this to work, your audio must be in an .OGG file encoded with OPUS
-  /// (other formats may be sent as Audio or Document).
+  /// (other formats may be sent as [Audio] or [Document]).
   ///
   /// On success, the sent [Message] is returned.
   ///
@@ -388,7 +390,7 @@ mixin TGAPIMethods {
   /// Documents and audio files can be only grouped
   /// in an album with messages of the same type.
   ///
-  /// On success, an list of Messages that were sent is returned.
+  /// On success, an array of [Message] that were sent is returned.
   Future<List<Message>> sendMediaGroup(
     ChatID chatId,
     List<InputMedia> media, {
@@ -443,7 +445,7 @@ mixin TGAPIMethods {
   /// Use this method to edit live location messages.
   ///
   /// A location can be edited until its live_period expires or editing is
-  /// explicitly disabled by a call to stopMessageLiveLocation.
+  /// explicitly disabled by a call to [stopMessageLiveLocation].
   ///
   /// On success, the edited [Message] is returned.
   Future<Message> editMessageLiveLocation(
@@ -471,9 +473,9 @@ mixin TGAPIMethods {
   /// Use this method to edit live location messages.
   ///
   /// A location can be edited until its live_period expires or editing is
-  /// explicitly disabled by a call to stopMessageLiveLocation.
+  /// explicitly disabled by a call to [stopMessageLiveLocation].
   ///
-  /// On success, true is returned.
+  /// On success, True is returned.
   Future<bool> editMessageLiveLocationInline(
     double latitude,
     double longitude, {
@@ -497,7 +499,7 @@ mixin TGAPIMethods {
   /// Use this method to stop updating a live
   /// location message before live_period expires.
   ///
-  /// On success, the sent [Message] is returned.
+  /// On success, the edited [Message] is returned.
   Future<Message> stopMessageLiveLocation({
     ChatID? chatId,
     int? messageId,
@@ -513,7 +515,7 @@ mixin TGAPIMethods {
   /// Use this method to stop updating a live
   /// location message before live_period expires.
   ///
-  /// On success, true is returned.
+  /// On success, True is returned.
   Future<bool> stopMessageLiveLocationInline({
     String? inlineMessageId,
     ReplyMarkup? replyMarkup,
@@ -573,7 +575,7 @@ mixin TGAPIMethods {
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
-    bool? allowSendingWithoutReply, //Asendinvoice
+    bool? allowSendingWithoutReply,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendContact', {
@@ -666,7 +668,7 @@ mixin TGAPIMethods {
   /// (when a message arrives from your bot,
   /// Telegram clients clear its typing status).
   ///
-  /// Returns true on success.
+  /// Returns True on success.
   Future<bool> sendChatAction(ChatID chatId, ChatAction action) {
     return _client.apiCall(
       _token,
@@ -701,7 +703,7 @@ mixin TGAPIMethods {
   /// It is guaranteed that the link will be valid for at least 1 hour.
   ///
   /// When the link expires, a new one can
-  /// be requested by calling getFile again.
+  /// be requested by calling [getFile] again.
   Future<File> getFile(String fileId) {
     return _client.apiCall(_token, 'getFile', {'file_id': fileId});
   }
@@ -715,7 +717,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
-  /// Returns true on success.
+  /// Returns True on success.
   Future<bool> banChatMember(
     ChatID chatId,
     int userId, {
@@ -743,7 +745,7 @@ mixin TGAPIMethods {
   /// they will also be removed from the chat.
   /// If you don't want this, use the parameter [onlyIfBanned].
   ///
-  /// Returns true on success.
+  /// Returns True on success.
   Future<bool> unbanChatMember(
     ChatID chatId,
     int userId, {
@@ -835,8 +837,8 @@ mixin TGAPIMethods {
 
   /// Use this method to ban a channel chat in a supergroup or a channel.
   ///
-  /// The owner of the chat will not be able to send messages and
-  /// join live streams on behalf of the chat, unless it is unbanned first.
+  /// Until the chat is unbanned, the owner of the banned chat won't be able to
+  /// send messages on behalf of any of their channels.
   ///
   /// The bot must be an administrator in the supergroup or channel
   /// for this to work and must have the appropriate administrator rights.
@@ -875,7 +877,10 @@ mixin TGAPIMethods {
   /// to work and must have the can_restrict_members admin rights.
   ///
   /// Returns True on success.
-  Future<bool> setChatPermissions(ChatID chatId, ChatPermissions permissions) {
+  Future<bool> setChatPermissions(
+    ChatID chatId,
+    ChatPermissions permissions,
+  ) {
     return _client.apiCall(_token, 'setChatPermissions', {
       'chat_id': chatId,
       'permissions': permissions,
@@ -896,6 +901,7 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to create an additional invite link for a chat.
+  ///
   /// The bot must be an administrator in the chat for this to work and
   /// must have the appropriate admin rights.
   ///
@@ -1008,7 +1014,9 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to delete a chat photo.
+  ///
   /// Photos can't be changed for private chats.
+  ///
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
@@ -1020,6 +1028,7 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to change the title of a chat.
+  ///
   /// Titles can't be changed for private chats.
   ///
   /// The bot must be an administrator in the chat for this to work and must
@@ -1083,36 +1092,65 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to clear the list of pinned messages in a chat.
+  ///
+  /// If the chat is not a private chat, the bot must be an administrator in
+  /// the chat for this to work and must have the 'can_pin_messages'
+  /// administrator right in a supergroup or 'can_edit_messages' administrator
+  /// right in a channel.
+  ///
+  /// Returns True on success.
   Future<bool> unpinAllChatMessages(ChatID chatId) {
     return _client.apiCall(_token, 'unpinAllChatMessages', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method for your bot to leave a group, supergroup or channel.
+  ///
+  /// Returns True on success.
   Future<bool> leaveChat(ChatID chatId) {
     return _client.apiCall(_token, 'leaveChat', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to get up to date information about the chat
+  /// (current name of the user for one-on-one conversations, current username
+  /// of a user, group or channel, etc.).
+  ///
+  /// Returns a [Chat] object on success.
   Future<Chat> getChat(ChatID chatId) {
     return _client.apiCall(_token, 'getChat', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to get a list of administrators in a chat.
+  ///
+  /// On success, returns an Array of [ChatMember] objects that contains information
+  /// about all chat administrators except other bots.
+  ///
+  /// If the chat is a group or a supergroup and no administrators were
+  /// appointed, only the creator will be returned.
   Future<List<ChatMember>> getChatAdministrators(ChatID chatId) {
     return _client.apiCall(_token, 'getChatAdministrators', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to get the number of members in a chat.
+  ///
+  /// Returns [int] on success.
   Future<int> getChatMemberCount(ChatID chatId) {
     return _client.apiCall(_token, 'getChatMemberCount', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to get information about a member of a chat.
+  ///
+  /// Returns a [ChatMember] object on success.
   Future<ChatMember> getChatMember(ChatID chatId, int userId) {
     return _client.apiCall(_token, 'getChatMember', {
       'chat_id': chatId,
@@ -1120,6 +1158,15 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to set a new group sticker set for a supergroup.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate administrator rights.
+  ///
+  /// Use the field can_set_sticker_set optionally returned in [getChat]
+  /// requests to check if the bot can use this method.
+  ///
+  /// Returns True on success.
   Future<bool> setChatStickerSet(ChatID chatId, String stickerSetName) {
     return _client.apiCall(_token, 'setChatStickerSet', {
       'chat_id': chatId,
@@ -1127,12 +1174,28 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to delete a group sticker set from a supergroup.
+  ///
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the appropriate administrator rights.
+  ///
+  /// Use the field can_set_sticker_set optionally returned in [getChat]
+  /// requests to check if the bot can use this method.
+  ///
+  /// Returns True on success.
   Future<bool> deleteChatStickerSet(ChatID chatId) {
     return _client.apiCall(_token, 'deleteChatStickerSet', {
       'chat_id': chatId,
     });
   }
 
+  /// Use this method to send answers to callback queries sent from
+  /// inline keyboards.
+  ///
+  /// The answer will be displayed to the user as a notification at the top of
+  /// the chat screen or as an alert.
+  ///
+  /// On success, True is returned.
   Future<bool> answerCallbackQuery(
     String callbackQueryId, {
     String? text,
@@ -1149,6 +1212,11 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the list of the bot's commands.
+  /// See https://core.telegram.org/bots#commands for more details about
+  /// bot commands.
+  ///
+  /// Returns True on success.
   Future<bool> setMyCommands(
     List<BotCommand> botCommands, {
     BotCommandScope? scope,
@@ -1161,6 +1229,12 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to delete the list of the bot's commands for the given
+  /// scope and user language.
+  ///
+  /// After deletion, higher level commands will be shown to affected users.
+  ///
+  /// Returns True on success.
   Future<bool> deleteMyCommands({
     BotCommandScope? scope,
     String? languageCode,
@@ -1171,6 +1245,12 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get the current list of the bot's commands for the
+  /// given scope and user language.
+  ///
+  /// Returns Array of [BotCommand] on success.
+  ///
+  /// If commands aren't set, an empty list is returned.
   Future<List<BotCommand>> getMyCommands({
     BotCommandScope? scope,
     String? languageCode,
@@ -1181,6 +1261,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the bot's menu button in a private chat,
+  /// or the default menu button.
+  ///
+  /// Returns True on success.
   Future<bool> setChatMenuButton({
     ChatID? chatId,
     MenuButton? menuButton,
@@ -1191,6 +1275,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get the current value of the bot's menu button in
+  /// a private chat, or the default menu button.
+  ///
+  /// Returns [MenuButton] on success.
   Future<MenuButton> getChatMenuButton({
     ChatID? chatId,
   }) {
@@ -1199,6 +1287,13 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the default administrator rights requested by
+  /// the bot when it's added as an administrator to groups or channels.
+  ///
+  /// These rights will be suggested to users, but they are are free to modify
+  /// the list before adding the bot.
+  ///
+  /// Returns True on success.
   Future<bool> setMyDefaultAdministratorRights({
     ChatAdministratorRights? rights,
     bool? forChannels,
@@ -1209,6 +1304,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get the current default administrator rights
+  /// of the bot.
+  ///
+  /// Returns [ChatAdministratorRights] on success.
   Future<ChatAdministratorRights> getMyDefaultAdministratorRights({
     bool? forChannels,
   }) {
@@ -1217,6 +1316,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit text and game messages.
+  ///
+  /// On success, the edited [Message] is returned.
   Future<Message> editMessageText(
     String text,
     ChatID? chatId,
@@ -1237,6 +1339,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit text and game messages.
+  ///
+  /// On success, True is returned.
   Future<bool> editMessageTextInline(
     String text,
     String? inlineMessageId, {
@@ -1255,6 +1360,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit captions of messages.
+  ///
+  /// On success, the edited [Message] is returned.
   Future<Message> editMessageCaption(
     ChatID? chatId,
     int? messageId, {
@@ -1273,6 +1381,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit captions of messages.
+  ///
+  /// On success, True is returned.
   Future<bool> editMessageCaptionInline(
     String? inlineMessageId, {
     String? caption,
@@ -1289,6 +1400,17 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit animation, audio, document, photo,
+  /// or video messages.
+  ///
+  /// If a message is part of a message album, then it can be edited only to
+  /// an audio for audio albums, only to a document for document albums and to
+  /// a photo or a video otherwise.
+  ///
+  /// When an inline message is edited, a new file can't be uploaded;
+  /// use a previously uploaded file via its file_id or specify a URL.
+  ///
+  /// On success, the edited [Message] is returned.
   Future<Message> editMessageMedia(
     ChatID? chatId,
     int? messageId,
@@ -1303,6 +1425,17 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit animation, audio, document, photo,
+  /// or video messages.
+  ///
+  /// If a message is part of a message album, then it can be edited only to
+  /// an audio for audio albums, only to a document for document albums and to
+  /// a photo or a video otherwise.
+  ///
+  /// When an inline message is edited, a new file can't be uploaded;
+  /// use a previously uploaded file via its file_id or specify a URL.
+  ///
+  /// On success, True is returned.
   Future<bool> editMessageMediaInline(
     String? inlineMessageId,
     InputMedia media, {
@@ -1315,6 +1448,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit only the reply markup of messages.
+  ///
+  /// On success, the edited [Message] is returned.
   Future<Message> editMessageReplyMarkup(
     ChatID? chatId,
     int? messageId, {
@@ -1327,6 +1463,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to edit only the reply markup of messages.
+  ///
+  /// On success, True is returned.
   Future<bool> editMessageReplyMarkupInline(
     String? inlineMessageId, {
     ReplyMarkup? replyMarkup,
@@ -1337,6 +1476,9 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to stop a poll which was sent by the bot.
+  ///
+  /// On success, the stopped [Poll] is returned.
   Future<Poll> stopPoll(
     ChatID chatId,
     int messageId, {
@@ -1349,6 +1491,22 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to delete a message, including service messages,
+  /// with the following limitations:
+  /// - A message can only be deleted if it was sent less than 48 hours ago.
+  /// - A dice message in a private chat can only be deleted if it was sent
+  /// more than 24 hours ago.
+  /// - Bots can delete outgoing messages in private chats, groups,
+  /// and supergroups.
+  /// - Bots can delete incoming messages in private chats.
+  /// - Bots granted can_post_messages permissions can delete outgoing messages
+  /// in channels.
+  /// - If the bot is an administrator of a group, it can delete an
+  /// message there.
+  /// - If the bot has can_delete_messages permission in a supergroup or
+  /// a channel, it can delete any message there.
+  ///
+  /// Returns True on success.
   Future<bool> deleteMessage(ChatID chatId, int messageId) {
     return _client.apiCall(_token, 'deleteMessage', {
       'chat_id': chatId,
@@ -1356,6 +1514,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to send static .WEBP, animated .TGS,
+  /// or video .WEBM stickers.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendSticker(
     ChatID chatId,
     HttpFile sticker, {
@@ -1376,10 +1538,18 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get a sticker set.
+  ///
+  /// On success, a [StickerSet] object is returned.
   Future<StickerSet> getStickerSet(String name) {
     return _client.apiCall(_token, 'getStickerSet', {'name': name});
   }
 
+  /// Use this method to upload a .PNG file with a sticker for later use in
+  /// [createNewStickerSet] and [addStickerToSet] methods
+  /// (can be used multiple times).
+  ///
+  /// Returns the uploaded [File] on success.
   Future<File> uploadStickerFile(String userId, HttpFile pngSticker) {
     return _client.apiCall(_token, 'uploadStickerFile', {
       'user_id': userId,
@@ -1387,6 +1557,11 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to create a new sticker set owned by a user.
+  ///
+  /// The bot will be able to edit the sticker set thus created.
+  ///
+  /// Returns True on success.
   Future<bool> createNewStickerSet(
     String userId,
     String name,
@@ -1407,6 +1582,11 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to create a new sticker set owned by a user.
+  ///
+  /// The bot will be able to edit the sticker set thus created.
+  ///
+  /// Returns True on success.
   Future<bool> createNewStickerSetTgs(
     String userId,
     String name,
@@ -1427,6 +1607,11 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to create a new sticker set owned by a user.
+  ///
+  /// The bot will be able to edit the sticker set thus created.
+  ///
+  /// Returns True on success.
   Future<bool> createNewStickerSetWebm(
     String userId,
     String name,
@@ -1447,6 +1632,15 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to add a new sticker to a set created by the bot.
+  ///
+  /// Animated stickers can be added to animated sticker sets and only to them.
+  ///
+  /// Animated sticker sets can have up to 50 stickers.
+  ///
+  /// Static sticker sets can have up to 120 stickers.
+  ///
+  /// Returns True on success.
   Future<bool> addStickerToSet(
     String userId,
     String name,
@@ -1463,6 +1657,15 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to add a new sticker to a set created by the bot.
+  ///
+  /// Animated stickers can be added to animated sticker sets and only to them.
+  ///
+  /// Animated sticker sets can have up to 50 stickers.
+  ///
+  /// Static sticker sets can have up to 120 stickers.
+  ///
+  /// Returns True on success.
   Future<bool> addStickerToSetTgs(
     String userId,
     String name,
@@ -1479,6 +1682,15 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to add a new sticker to a set created by the bot.
+  ///
+  /// Animated stickers can be added to animated sticker sets and only to them.
+  ///
+  /// Animated sticker sets can have up to 50 stickers.
+  ///
+  /// Static sticker sets can have up to 120 stickers.
+  ///
+  /// Returns True on success.
   Future<bool> addStickerToSetWebm(
     String userId,
     String name,
@@ -1495,6 +1707,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to move a sticker in a set created by the bot to
+  /// a specific position.
+  ///
+  /// Returns True on success.
   Future<bool> setStickerPositionInSet(String sticker, int position) {
     return _client.apiCall(_token, 'setStickerPositionInSet', {
       'sticker': sticker,
@@ -1502,12 +1718,20 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to delete a sticker from a set created by the bot.
+  ///
+  /// Returns True on success.
   Future<bool> deleteStickerFromSet(String sticker) {
     return _client.apiCall(_token, 'deleteStickerFromSet', {
       'sticker': sticker,
     });
   }
 
+  /// Use this method to set the thumbnail of a sticker set.
+  /// Animated thumbnails can be set for animated sticker sets only.
+  /// Video thumbnails can be set only for video sticker sets only.
+  ///
+  /// Returns True on success.
   Future<bool> setStickerSetThumb(
     String name,
     String userId, {
@@ -1520,6 +1744,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to send answers to an inline query.
+  ///
+  /// On success, True is returned.
+  /// No more than 50 results per query are allowed.
   Future<bool> answerInlineQuery(
     String inlineQueryId,
     List<InlineQueryResult> results, {
@@ -1540,6 +1768,11 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to set the result of an interaction with a Web App and
+  /// send a corresponding message on behalf of the user to the chat from which
+  /// the query originated.
+  ///
+  /// On success, a [SentWebAppMessage] object is returned.
   Future<SentWebAppMessage> answerWebAppQuery(
     String webAppQueryId,
     InlineQueryResult? result,
@@ -1550,82 +1783,9 @@ mixin TGAPIMethods {
     });
   }
 
-  Future<Message> sendGame(
-    ChatID chatId,
-    String gameShortName, {
-    bool? disableNotification,
-    bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
-    InlineKeyboardMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'sendGame', {
-      'chat_id': chatId,
-      'game_short_name': gameShortName,
-      'disable_notification': disableNotification,
-      'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_markup': replyMarkup,
-    });
-  }
-
-  Future<Message> setGameScore(
-    int userId,
-    int score, {
-    bool? force,
-    bool? disableEditMessage,
-    ChatID? chatId,
-    int? messageId,
-  }) {
-    return _client.apiCall(_token, 'setGameScore', {
-      'user_id': userId,
-      'score': score,
-      'force': force,
-      'disable_edit_message': disableEditMessage,
-      'chat_id': chatId,
-      'message_id': messageId,
-    });
-  }
-
-  Future<bool> setGameScoreInline(
-    int userId,
-    int score, {
-    bool? force,
-    bool? disableEditMessage,
-    String? inlineMessageId,
-  }) {
-    return _client.apiCall(_token, 'setGameScore', {
-      'user_id': userId,
-      'score': score,
-      'force': force,
-      'disable_edit_message': disableEditMessage,
-      'inline_message_id': inlineMessageId,
-    });
-  }
-
-  Future<List<GameHighScore>> getGameHighScores(
-    int userId, {
-    ChatID? chatId,
-    int? messageId,
-  }) {
-    return _client.apiCall(_token, 'getGameHighScores', {
-      'user_id': userId,
-      'chat_id': chatId,
-      'message_id': messageId,
-    });
-  }
-
-  Future<List<GameHighScore>> getGameHighScoresInline(
-    int userId, {
-    String? inlineMessageId,
-  }) {
-    return _client.apiCall(_token, 'getGameHighScores', {
-      'user_id': userId,
-      'inline_message_id': inlineMessageId,
-    });
-  }
-
+  /// Use this method to send invoices.
+  ///
+  /// On success, the sent [Message] is returned.
   Future<Message> sendInvoice(
     ChatID chatId,
     String title,
@@ -1682,10 +1842,174 @@ mixin TGAPIMethods {
     });
   }
 
+  /// If you sent an invoice requesting a shipping address and the parameter
+  /// is_flexible was specified, the Bot API will send an [Update] with a
+  /// shipping_query field to the bot.
+  ///
+  /// Use this method to reply to shipping queries.
+  ///
+  /// On success, True is returned.
+  Future<bool> answerShippingQuery(
+    String shippingQueryId,
+    bool ok,
+    List<ShippingOption>? shippingOptions,
+    String errorMessage,
+  ) {
+    return _client.apiCall(_token, 'answerShippingQuery', {
+      'shipping_query_id': shippingQueryId,
+      'ok': ok,
+      'shipping_options': shippingOptions,
+      'error_message': errorMessage,
+    });
+  }
+
+  /// Once the user has confirmed their payment and shipping details,
+  /// the Bot API sends the final confirmation in the form of an Update with
+  /// the field pre_checkout_query.
+  ///
+  /// Use this method to respond to such pre-checkout queries.
+  ///
+  /// On success, True is returned.
+  ///
+  /// Note: The Bot API must receive an answer within 10 seconds after the
+  /// pre-checkout query was sent.
+  Future<bool> answerPreCheckoutQuery(
+    String preCheckoutQueryId,
+    bool ok,
+    String errorMessage,
+  ) {
+    return _client.apiCall(_token, 'answerPreCheckoutQuery', {
+      'pre_checkout_query_id': preCheckoutQueryId,
+      'ok': ok,
+      'error_message': errorMessage,
+    });
+  }
+
+  /// Use this method to send a game.
+  ///
+  /// On success, the sent [Message] is returned.
+  Future<Message> sendGame(
+    ChatID chatId,
+    String gameShortName, {
+    bool? disableNotification,
+    bool? protectContent,
+    int? replyToMessageId,
+    bool? allowSendingWithoutReply,
+    InlineKeyboardMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'sendGame', {
+      'chat_id': chatId,
+      'game_short_name': gameShortName,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'reply_to_message_id': replyToMessageId,
+      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to set the score of the specified user in a game message.
+  ///
+  /// On success, the [Message] is returned.
+  ///
+  /// Returns an error, if the new score is not greater than the user's current
+  /// score in the chat and [force] is False.
+  Future<Message> setGameScore(
+    int userId,
+    int score, {
+    bool? force,
+    bool? disableEditMessage,
+    ChatID? chatId,
+    int? messageId,
+  }) {
+    return _client.apiCall(_token, 'setGameScore', {
+      'user_id': userId,
+      'score': score,
+      'force': force,
+      'disable_edit_message': disableEditMessage,
+      'chat_id': chatId,
+      'message_id': messageId,
+    });
+  }
+
+  /// Use this method to set the score of the specified user in a game message.
+  ///
+  /// On success, True is returned.
+  ///
+  /// Returns an error, if the new score is not greater than the user's current
+  /// score in the chat and [force] is False.
+  Future<bool> setGameScoreInline(
+    int userId,
+    int score, {
+    bool? force,
+    bool? disableEditMessage,
+    String? inlineMessageId,
+  }) {
+    return _client.apiCall(_token, 'setGameScore', {
+      'user_id': userId,
+      'score': score,
+      'force': force,
+      'disable_edit_message': disableEditMessage,
+      'inline_message_id': inlineMessageId,
+    });
+  }
+
+  /// Use this method to get data for high score tables.
+  /// Will return the score of the specified user and several of their neighbors
+  /// in a game.
+  ///
+  /// On success, returns an Array of [GameHighScore] objects
+  Future<List<GameHighScore>> getGameHighScores(
+    int userId, {
+    ChatID? chatId,
+    int? messageId,
+  }) {
+    return _client.apiCall(_token, 'getGameHighScores', {
+      'user_id': userId,
+      'chat_id': chatId,
+      'message_id': messageId,
+    });
+  }
+
+  Future<List<GameHighScore>> getGameHighScoresInline(
+    int userId, {
+    String? inlineMessageId,
+  }) {
+    return _client.apiCall(_token, 'getGameHighScores', {
+      'user_id': userId,
+      'inline_message_id': inlineMessageId,
+    });
+  }
+
+  /// Use this method to log out from the cloud Bot API server before launching
+  /// the bot locally.
+  /// You must log out the bot before running it locally, otherwise there
+  /// is no guarantee that the bot will receive updates.
+  ///
+  /// After a successful call, you can immediately log in on a local server, but
+  /// will not be able to log in back to the cloud Bot API server for 10 minutes
+  ///
+  /// Returns True on success.
+  ///
+  /// Requires no parameters.
   Future<bool> logOut() => _client.apiCall(_token, 'logOut');
 
+  /// Use this method to close the bot instance before moving it from one
+  /// local server to another.
+  /// You need to delete the webhook before calling this method to ensure that
+  /// the bot isn't launched again after server restart.
+  ///
+  /// The method will return error 429 in the first 10 minutes after the bot
+  /// is launched.
+  ///
+  /// Returns True on success.
+  ///
+  /// Requires no parameters.
   Future<bool> close() => _client.apiCall(_token, 'close');
 
+  /// Use this method to remove webhook integration if you decide to switch
+  /// back to getUpdates.
+  /// Returns True on success.
   Future<bool> deleteWebhook({bool? dropPendingUpdates}) {
     return _client.apiCall(_token, 'deleteWebhook', {
       'drop_pending_updates': dropPendingUpdates,
