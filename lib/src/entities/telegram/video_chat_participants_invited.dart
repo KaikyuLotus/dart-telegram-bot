@@ -3,13 +3,13 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
-class VoiceChatParticipantsInvited {
+class VideoChatParticipantsInvited {
   List<User>? users;
 
-  VoiceChatParticipantsInvited(users);
+  VideoChatParticipantsInvited(users);
 
-  static VoiceChatParticipantsInvited fromJson(Map<String, dynamic> json) {
-    return VoiceChatParticipantsInvited(
+  static VideoChatParticipantsInvited fromJson(Map<String, dynamic> json) {
+    return VideoChatParticipantsInvited(
       callIfNotNull(
         User.listFromJsonArray,
         json['users'],

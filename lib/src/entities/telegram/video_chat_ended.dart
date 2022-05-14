@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-class VoiceChatEnded {
+class VideoChatEnded {
   int duration;
 
-  VoiceChatEnded(this.duration);
+  VideoChatEnded(this.duration);
 
-  static VoiceChatEnded fromJson(Map<String, dynamic> json) {
-    return VoiceChatEnded(json['duration']);
+  static VideoChatEnded fromJson(Map<String, dynamic> json) {
+    return VideoChatEnded(json['duration']);
   }
 
   Map toJson() {

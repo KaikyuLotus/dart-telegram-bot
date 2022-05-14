@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-class VoiceChatScheduled {
+class VideoChatScheduled {
   int startDate;
 
-  VoiceChatScheduled({
+  VideoChatScheduled({
     required this.startDate,
   });
 
-  static VoiceChatScheduled fromJson(Map<String, dynamic> json) {
-    return VoiceChatScheduled(
+  static VideoChatScheduled fromJson(Map<String, dynamic> json) {
+    return VideoChatScheduled(
       startDate: json['start_date'],
     );
   }
