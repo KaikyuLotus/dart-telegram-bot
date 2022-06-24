@@ -1842,6 +1842,55 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to create a link for an invoice.
+  ///
+  /// Returns the created invoice link as String on success.
+  Future<String> createInvoiceLink(
+    String title,
+    String description,
+    String payload,
+    String providerToken,
+    String currency,
+    List<LabeledPrice> prices, {
+    int? maxTipAmount,
+    List<int>? suggestedTipAmounts,
+    String? providerData,
+    String? photoUrl,
+    int? photoSize,
+    int? photoWidth,
+    int? photoHeight,
+    bool? needName,
+    bool? needPhoneNumber,
+    bool? needEmail,
+    bool? needShippingAddress,
+    bool? sendPhoneNumberToProvider,
+    bool? sendEmailToProvider,
+    bool? isFlexible,
+  }) {
+    return _client.apiCall(_token, 'createInvoiceLink', {
+      'title': title,
+      'description': description,
+      'payload': payload,
+      'provider_token': providerToken,
+      'currency': currency,
+      'prices': prices,
+      'max_tip_amount': maxTipAmount,
+      'suggested_tip_amounts': suggestedTipAmounts,
+      'provider_data': providerData,
+      'photo_url': photoUrl,
+      'photo_size': photoSize,
+      'photo_width': photoWidth,
+      'photo_height': photoHeight,
+      'need_name': needName,
+      'need_phone_number': needPhoneNumber,
+      'need_email': needEmail,
+      'need_shipping_address': needShippingAddress,
+      'send_phone_number_to_provider': sendPhoneNumberToProvider,
+      'send_email_to_provider': sendEmailToProvider,
+      'is_flexible': isFlexible,
+    });
+  }
+
   /// If you sent an invoice requesting a shipping address and the parameter
   /// is_flexible was specified, the Bot API will send an [Update] with a
   /// shipping_query field to the bot.

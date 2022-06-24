@@ -13,6 +13,8 @@ class Chat {
   ChatPhoto? photo;
   String? bio;
   bool? hasPrivateForwards;
+  bool? joinToSendMessages;
+  bool? joinByRequest;
   String? description;
   String? inviteLink;
   Message? pinnedMessage;
@@ -35,6 +37,8 @@ class Chat {
     this.photo,
     this.bio,
     this.hasPrivateForwards,
+    this.joinToSendMessages,
+    this.joinByRequest,
     this.description,
     this.inviteLink,
     this.pinnedMessage,
@@ -59,6 +63,8 @@ class Chat {
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       bio: json['bio'],
       hasPrivateForwards: json['has_private_forwards'],
+      joinToSendMessages: json['join_to_send_messages'],
+      joinByRequest: json['join_by_request'],
       description: json['description'],
       inviteLink: json['invite_link'],
       pinnedMessage: callIfNotNull(Message.fromJson, json['pinned_message']),
@@ -87,6 +93,8 @@ class Chat {
       'photo': photo,
       'bio': bio,
       'has_private_forwards': hasPrivateForwards,
+      'join_to_send_messages': joinToSendMessages,
+      'join_by_request': joinByRequest,
       'description': description,
       'invite_link': inviteLink,
       'pinned_message': pinnedMessage,

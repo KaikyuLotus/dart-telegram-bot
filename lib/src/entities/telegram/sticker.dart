@@ -13,6 +13,7 @@ class Sticker {
   PhotoSize? thumb;
   String? emoji;
   String? setName;
+  File? premiumAnimation;
   MaskPosition? maskPosition;
   int? fileSize;
 
@@ -26,6 +27,7 @@ class Sticker {
     this.thumb,
     this.emoji,
     this.setName,
+    this.premiumAnimation,
     this.maskPosition,
     this.fileSize,
   });
@@ -41,6 +43,7 @@ class Sticker {
       thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
       emoji: json['emoji'],
       setName: json['set_name'],
+      premiumAnimation: callIfNotNull(File.fromJson, json['premium_animation']),
       maskPosition: callIfNotNull(MaskPosition.fromJson, json['mask_position']),
       fileSize: json['file_size'],
     );
@@ -61,6 +64,7 @@ class Sticker {
       'thumb': thumb,
       'emoji': emoji,
       'set_name': setName,
+      'premium_animation': premiumAnimation,
       'mask_position': maskPosition,
       'file_size': fileSize,
     }..removeWhere((_, v) => v == null);
