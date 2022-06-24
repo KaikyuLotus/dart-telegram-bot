@@ -1,6 +1,6 @@
 name: dart_telegram_bot
 description: A Telegram Bot API wrapper made to make fast Telegram bots with as less code as possible.
-version: 0.7.0-b2
+version: 0.7.0-b3
 homepage: https://github.com/KaikyuDev/dart-telegram-bot
 
 environment:

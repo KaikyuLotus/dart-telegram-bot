@@ -1,3 +1,9 @@
+## 0.7.0-b3
+
+- Updated to bot API 6.1
+- Added missing documentation
+- Minor fixes
+
 ## 0.7.0-b2
 
 - Added Error(s) catch clause
