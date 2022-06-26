@@ -7,6 +7,8 @@ class User {
   String? lastName;
   String? username;
   String? languageCode;
+  bool? isPremium;
+  bool? addedToAttachmentMenu;
   bool? canJoinGroups;
   bool? canReadAllGroupMessages;
   bool? supportsInlineQueries;
@@ -18,6 +20,8 @@ class User {
     this.lastName,
     this.username,
     this.languageCode,
+    this.isPremium,
+    this.addedToAttachmentMenu,
     this.canJoinGroups,
     this.canReadAllGroupMessages,
     this.supportsInlineQueries,
@@ -31,6 +35,8 @@ class User {
       lastName: json['last_name'],
       username: json['username'],
       languageCode: json['language_code'],
+      isPremium: json['is_premium'],
+      addedToAttachmentMenu: json['added_to_attachment_menu'],
       canJoinGroups: json['can_join_groups'],
       canReadAllGroupMessages: json['can_read_all_group_messages'],
       supportsInlineQueries: json['supports_inline_queries'],
@@ -49,6 +55,8 @@ class User {
       'last_name': lastName,
       'username': username,
       'language_code': languageCode,
+      'is_premium': isPremium,
+      'added_to_attachment_menu': addedToAttachmentMenu,
       'can_join_groups': canJoinGroups,
       'can_read_all_group_messages': canReadAllGroupMessages,
       'supports_inline_queries': supportsInlineQueries,

@@ -2,7 +2,7 @@ class ChatID {
   int? chatId;
   String? chatUsername;
 
-  ChatID._internal({this.chatId, this.chatUsername});
+  ChatID._internal({this.chatUsername});
 
   ChatID(this.chatId);
 
