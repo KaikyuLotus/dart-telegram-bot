@@ -10,6 +10,7 @@ class MessageEntity {
   String? url;
   User? user;
   String? language;
+  String? customEmojiId;
 
   MessageEntity({
     required this.type,
@@ -18,6 +19,7 @@ class MessageEntity {
     this.url,
     this.user,
     this.language,
+    this.customEmojiId,
   });
 
   static MessageEntity fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class MessageEntity {
       url: json['url'],
       user: callIfNotNull(User.fromJson, json['user']),
       language: json['language'],
+      customEmojiId: json['custom_emoji_id'],
     );
   }
 
@@ -46,6 +49,7 @@ class MessageEntity {
       'url': url,
       'user': user,
       'language': language,
+      'custom_emoji_id': customEmojiId,
     }..removeWhere((_, v) => v == null);
   }
 

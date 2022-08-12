@@ -6,6 +6,7 @@ import '../internal/helpers/util.dart';
 class Sticker {
   String fileId;
   String fileUniqueId;
+  String type;
   int width;
   int height;
   bool isAnimated;
@@ -15,11 +16,13 @@ class Sticker {
   String? setName;
   File? premiumAnimation;
   MaskPosition? maskPosition;
+  String? customEmojiId;
   int? fileSize;
 
   Sticker({
     required this.fileId,
     required this.fileUniqueId,
+    required this.type,
     required this.width,
     required this.height,
     required this.isAnimated,
@@ -29,6 +32,7 @@ class Sticker {
     this.setName,
     this.premiumAnimation,
     this.maskPosition,
+    this.customEmojiId,
     this.fileSize,
   });
 
@@ -36,6 +40,7 @@ class Sticker {
     return Sticker(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,
+      type: json['type'],
       width: json['width']!,
       height: json['height']!,
       isAnimated: json['is_animated']!,
@@ -45,6 +50,7 @@ class Sticker {
       setName: json['set_name'],
       premiumAnimation: callIfNotNull(File.fromJson, json['premium_animation']),
       maskPosition: callIfNotNull(MaskPosition.fromJson, json['mask_position']),
+      customEmojiId: json['custom_emoji_id'],
       fileSize: json['file_size'],
     );
   }
@@ -57,6 +63,7 @@ class Sticker {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,
+      'type': type,
       'width': width,
       'height': height,
       'is_animated': isAnimated,
@@ -66,6 +73,7 @@ class Sticker {
       'set_name': setName,
       'premium_animation': premiumAnimation,
       'mask_position': maskPosition,
+      'custom_emoji_id': customEmojiId,
       'file_size': fileSize,
     }..removeWhere((_, v) => v == null);
   }

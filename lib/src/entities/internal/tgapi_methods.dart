@@ -1545,6 +1545,15 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'getStickerSet', {'name': name});
   }
 
+  /// Use this method to get information about
+  /// custom emoji stickers by their identifiers.
+  /// Returns an Array of [Sticker] objects
+  Future<List<Sticker>> getCustomEmojiStickers(List<String> customEmojiIds) {
+    return _client.apiCall(_token, 'getCustomEmojiStickers', {
+      'custom_emoji_ids': getCustomEmojiStickers,
+    });
+  }
+
   /// Use this method to upload a .PNG file with a sticker for later use in
   /// [createNewStickerSet] and [addStickerToSet] methods
   /// (can be used multiple times).
@@ -1568,7 +1577,7 @@ mixin TGAPIMethods {
     String title,
     HttpFile pngSticker,
     String emojis, {
-    bool? containsMasks,
+    String? stickerType,
     MaskPosition? maskPosition,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
@@ -1576,8 +1585,8 @@ mixin TGAPIMethods {
       'name': name,
       'title': title,
       'png_sticker': pngSticker,
+      'sticker_type': stickerType,
       'emojis': emojis,
-      'contains_masks': containsMasks,
       'mask_position': maskPosition,
     });
   }
@@ -1593,7 +1602,7 @@ mixin TGAPIMethods {
     String title,
     HttpFile tgsSticker,
     String emojis, {
-    bool? containsMasks,
+    String? stickerType,
     MaskPosition? maskPosition,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
@@ -1601,8 +1610,8 @@ mixin TGAPIMethods {
       'name': name,
       'title': title,
       'tgs_sticker': tgsSticker,
+      'sticker_type': stickerType,
       'emojis': emojis,
-      'contains_masks': containsMasks,
       'mask_position': maskPosition,
     });
   }
@@ -1618,7 +1627,7 @@ mixin TGAPIMethods {
     String title,
     HttpFile webmSticker,
     String emojis, {
-    bool? containsMasks,
+    String? stickerType,
     MaskPosition? maskPosition,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
@@ -1626,8 +1635,8 @@ mixin TGAPIMethods {
       'name': name,
       'title': title,
       'webm_sticker': webmSticker,
+      'sticker_type': stickerType,
       'emojis': emojis,
-      'contains_masks': containsMasks,
       'mask_position': maskPosition,
     });
   }

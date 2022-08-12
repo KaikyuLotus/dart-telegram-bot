@@ -1,3 +1,7 @@
+## 0.7.0-b4
+
+- Updated to bot API 6.2
+
 ## 0.7.0-b3
 
 - Updated to bot API 6.1

@@ -13,6 +13,7 @@ class Chat {
   ChatPhoto? photo;
   String? bio;
   bool? hasPrivateForwards;
+  bool? hasRestrictedVoiceAndVideoMessages;
   bool? joinToSendMessages;
   bool? joinByRequest;
   String? description;
@@ -37,6 +38,7 @@ class Chat {
     this.photo,
     this.bio,
     this.hasPrivateForwards,
+    this.hasRestrictedVoiceAndVideoMessages,
     this.joinToSendMessages,
     this.joinByRequest,
     this.description,
@@ -63,6 +65,8 @@ class Chat {
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       bio: json['bio'],
       hasPrivateForwards: json['has_private_forwards'],
+      hasRestrictedVoiceAndVideoMessages:
+          json['has_restricted_voice_and_video_messages'],
       joinToSendMessages: json['join_to_send_messages'],
       joinByRequest: json['join_by_request'],
       description: json['description'],
@@ -93,6 +97,8 @@ class Chat {
       'photo': photo,
       'bio': bio,
       'has_private_forwards': hasPrivateForwards,
+      'has_restricted_voice_and_video_messages':
+          hasRestrictedVoiceAndVideoMessages,
       'join_to_send_messages': joinToSendMessages,
       'join_by_request': joinByRequest,
       'description': description,
