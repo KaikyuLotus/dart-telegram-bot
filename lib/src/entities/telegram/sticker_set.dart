@@ -3,15 +3,32 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
+/// This object represents a sticker set.
 class StickerSet {
+  /// Sticker set name
   String name;
+
+  /// Sticker set title
   String title;
+
+  /// Type of stickers in the set, currently one of “regular”, “mask”,
+  /// “custom_emoji”
   String stickerType;
+
+  /// True, if the sticker set contains animated stickers
   bool isAnimated;
+
+  /// True, if the sticker set contains video stickers
   bool isVideo;
+
+  /// List of all set stickers
   List<Sticker> stickers;
+
+  /// Optional.
+  /// Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
   PhotoSize? thumb;
 
+  /// Basic constructor
   StickerSet({
     required this.name,
     required this.title,
@@ -22,6 +39,7 @@ class StickerSet {
     this.thumb,
   });
 
+  /// Creates a object from a json
   static StickerSet fromJson(Map<String, dynamic> json) {
     return StickerSet(
       name: json['name']!,
@@ -34,6 +52,7 @@ class StickerSet {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'name': name,

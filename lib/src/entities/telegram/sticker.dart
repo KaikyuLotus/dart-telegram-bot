@@ -3,22 +3,62 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
+/// This object represents a sticker.
 class Sticker {
+  /// Identifier for this file, which can be used to download or reuse the file
   String fileId;
+
+  /// Unique identifier for this file, which is supposed to be the same over
+  /// time and for different bots.
+  /// Can't be used to download or reuse the file.
   String fileUniqueId;
+
+  /// Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”.
+  /// The type of the sticker is independent from its format, which is
+  /// determined by the fields is_animated and is_video.
   String type;
+
+  /// Sticker width
   int width;
+
+  /// Sticker height
   int height;
+
+  /// True, if the sticker is animated
   bool isAnimated;
+
+  /// True, if the sticker is a video sticker
   bool isVideo;
+
+  /// Optional.
+  /// Sticker thumbnail in the .WEBP or .JPG format
   PhotoSize? thumb;
+
+  /// Optional.
+  /// Emoji associated with the sticker
   String? emoji;
+
+  /// Optional.
+  /// Name of the sticker set to which the sticker belongs
   String? setName;
+
+  /// Optional.
+  /// For premium regular stickers, premium animation for the sticker
   File? premiumAnimation;
+
+  /// Optional.
+  /// For mask stickers, the position where the mask should be placed
   MaskPosition? maskPosition;
+
+  /// Optional.
+  /// For custom emoji stickers, unique identifier of the custom emoji
   String? customEmojiId;
+
+  /// Optional.
+  /// File size in bytes
   int? fileSize;
 
+  /// Basic constructor
   Sticker({
     required this.fileId,
     required this.fileUniqueId,
@@ -36,6 +76,7 @@ class Sticker {
     this.fileSize,
   });
 
+  /// Creates a object from a json
   static Sticker fromJson(Map<String, dynamic> json) {
     return Sticker(
       fileId: json['file_id']!,
@@ -55,10 +96,12 @@ class Sticker {
     );
   }
 
+  /// Creates a list of object from a json array
   static List<Sticker> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => Sticker.fromJson(json[i]));
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'file_id': fileId,

@@ -3,13 +3,26 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
+/// Represents a join request sent to a chat.
 class ChatJoinRequest {
+  /// Chat to which the request was sent
   Chat chat;
+
+  /// User that sent the join request
   User from;
+
+  /// Date the request was sent in Unix time
   int date;
+
+  /// Optional.
+  /// Bio of the user.
   String? bio;
+
+  /// Optional.
+  /// Chat invite link that was used by the user to send the join request
   ChatInviteLink? inviteLink;
 
+  /// Basic constructor
   ChatJoinRequest({
     required this.chat,
     required this.from,
@@ -18,6 +31,7 @@ class ChatJoinRequest {
     this.inviteLink,
   });
 
+  /// Creates a object from a json
   static ChatJoinRequest fromJson(Map<String, dynamic> json) {
     return ChatJoinRequest(
       chat: Chat.fromJson(json['chat']!),
@@ -28,6 +42,7 @@ class ChatJoinRequest {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'chat': chat,

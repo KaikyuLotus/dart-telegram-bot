@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import '../../../telegram_entities.dart';
 import 'tgapi_client.dart';
 
+/// Telegram Methods
 mixin TGAPIMethods {
   final _client = TGAPIClient();
 
@@ -2029,6 +2030,10 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get data for high score tables.
+  /// Will return the score of the specified user and several of their neighbors
+  /// in a game.
+  /// Returns an Array of [GameHighScore] objects.
   Future<List<GameHighScore>> getGameHighScoresInline(
     int userId, {
     String? inlineMessageId,
@@ -2074,6 +2079,7 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Download a file from path
   Future<Uint8List> download(String path) {
     return _client.apiDownload(_token, path);
   }

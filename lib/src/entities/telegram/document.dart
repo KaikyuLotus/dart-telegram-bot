@@ -3,14 +3,37 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
+/// This object represents a general file
+/// (as opposed to photos, voice messages and audio files).
 class Document {
+  /// Identifier for this file, which can be used to download or reuse the file
   String fileId;
+
+  /// Unique identifier for this file, which is supposed to be the same over
+  /// time and for different bots. Can't be used to download or reuse the file.
   String fileUniqueId;
+
+  /// Optional.
+  /// Document thumbnail as defined by sender
   PhotoSize? thumb;
+
+  /// Optional.
+  /// Original filename as defined by sender
   String? fileName;
+
+  /// Optional.
+  /// MIME type of the file as defined by sender
   String? mimeType;
+
+  /// Optional.
+  /// File size in bytes.
+  /// It can be bigger than 2^31 and some programming languages may have
+  /// difficulty/silent defects in interpreting it.
+  /// But it has at most 52 significant bits, so a signed 64-bit integer or
+  /// double-precision float type are safe for storing this value.
   int? fileSize;
 
+  /// Basic constructor
   Document({
     required this.fileId,
     required this.fileUniqueId,
@@ -20,6 +43,7 @@ class Document {
     this.fileSize,
   });
 
+  /// Creates a object from a json
   static Document fromJson(Map<String, dynamic> json) {
     return Document(
       fileId: json['file_id']!,
@@ -31,6 +55,7 @@ class Document {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'file_id': fileId,
