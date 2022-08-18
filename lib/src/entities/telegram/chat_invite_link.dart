@@ -2,17 +2,45 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
+/// Represents an invite link for a chat.
 class ChatInviteLink {
+  /// The invite link.
+  /// If the link was created by another chat administrator, then the second
+  /// part of the link will be replaced with “…”.
   String inviteLink;
+
+  /// Creator of the link
   User creator;
+
+  /// True, if users joining the chat via the link need to be approved by chat
+  /// administrators
   bool createsJoinRequest;
+
+  ///True, if the link is primary
   bool isPrimary;
+
+  ///True, if the link is revoked
   bool isRevoked;
+
+  ///Optional.
+  ///Invite link name
   String? name;
+
+  /// Optional.
+  /// Point in time (Unix timestamp) when the link will expire or has been
+  /// expired
   int? expireDate;
+
+  /// Optional.
+  /// The maximum number of users that can be members of the chat simultaneously
+  /// after joining the chat via this invite link; 1-99999
   int? memberLimit;
+
+  /// Optional.
+  /// Number of pending join requests created using this link
   int? pendingJoinRequestCount;
 
+  /// Basic constructor
   ChatInviteLink({
     required this.inviteLink,
     required this.creator,
@@ -25,6 +53,7 @@ class ChatInviteLink {
     this.pendingJoinRequestCount,
   });
 
+  /// Creates a object from a json
   static ChatInviteLink fromJson(Map<String, dynamic> json) {
     return ChatInviteLink(
       inviteLink: json['invite_link']!,
@@ -39,6 +68,7 @@ class ChatInviteLink {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'invite_link': inviteLink,

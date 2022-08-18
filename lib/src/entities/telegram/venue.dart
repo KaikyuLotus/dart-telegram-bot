@@ -2,15 +2,36 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
+/// This object represents a venue.
 class Venue {
+  /// Venue location. Can't be a live location
   Location location;
+
+  /// Name of the venue
   String title;
+
+  /// Address of the venue
   String address;
+
+  /// Optional.
+  /// Foursquare identifier of the venue
   String? foursquareId;
+
+  /// Optional.
+  /// Foursquare type of the venue.
+  /// (For example, “arts_entertainment/default”, “arts_entertainment/aquarium”
+  /// or “food/icecream”.)
   String? foursquareType;
+
+  /// Optional.
+  /// Google Places identifier of the venue
   String? googlePlaceId;
+
+  /// Optional.
+  /// Google Places type of the venue.
   String? googlePlaceType;
 
+  /// Basic constructor
   Venue({
     required this.location,
     required this.title,
@@ -21,6 +42,7 @@ class Venue {
     this.googlePlaceType,
   });
 
+  /// Creates a object from a json
   static Venue fromJson(Map<String, dynamic> json) {
     return Venue(
       location: Location.fromJson(json['location']!),
@@ -33,6 +55,7 @@ class Venue {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'location': location,

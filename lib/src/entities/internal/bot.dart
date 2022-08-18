@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import '../../../telegram_entities.dart';
 import 'tgapi_methods.dart';
 
+/// Telegram Bot Object
 class Bot with TGAPIMethods {
   final int _timeout;
 
@@ -15,8 +16,10 @@ class Bot with TGAPIMethods {
   final FutureOr Function(Bot)? _onReadyEvent;
   final FutureOr Function(Bot, Object, StackTrace)? _onStartFailedEvent;
 
+  /// Error Handler
   Future Function(Bot, Update, Object, StackTrace)? errorHandler;
 
+  /// Connection Error Handler
   Future Function(Bot, Object, StackTrace)? connectionErrorHandler;
 
   bool _isRunning = false;
