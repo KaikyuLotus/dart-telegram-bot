@@ -2,16 +2,40 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
+/// Represents the content of a venue message to be sent as the result of an
+/// inline query.
 class InputVenueMessageContent extends InputMessageContent {
+  /// Latitude of the venue in degrees
   double latitude;
+
+  /// Longitude of the venue in degrees
   double longitude;
+
+  /// Name of the venue
   String title;
+
+  /// Address of the venue
   String address;
+
+  /// Optional.
+  /// Foursquare identifier of the venue, if known
   String? foursquareId;
+
+  /// Optional.
+  /// Foursquare type of the venue, if known.
+  /// (For example, “arts_entertainment/default”, “arts_entertainment/aquarium”
+  /// or “food/icecream”.)
   String? foursquareType;
+
+  /// Optional.
+  /// Google Places identifier of the venue
   String? googlePlaceId;
+
+  /// Optional.
+  /// Google Places type of the venue.
   String? googlePlaceType;
 
+  /// Basic constructor
   InputVenueMessageContent(
     this.latitude,
     this.longitude,
@@ -23,6 +47,7 @@ class InputVenueMessageContent extends InputMessageContent {
     this.googlePlaceType,
   });
 
+  /// Creates a object from a json
   static InputVenueMessageContent fromJson(Map<String, dynamic> json) {
     return InputVenueMessageContent(
       json['latitude']!,
@@ -36,6 +61,7 @@ class InputVenueMessageContent extends InputMessageContent {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'latitude': latitude,

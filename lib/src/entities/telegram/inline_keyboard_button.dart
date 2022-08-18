@@ -3,15 +3,55 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
+/// This object represents one button of an inline keyboard.
+/// You must use exactly one of the optional fields.
 class InlineKeyboardButton {
+  /// Label text on the button
   String text;
+
+  /// Optional.
+  /// HTTP or tg:// URL to be opened when the button is pressed.
+  /// Links tg://user?id=<user_id> can be used to mention a user by their
+  /// ID without using a username, if this is allowed by their privacy settings.
   String? url;
+
+  /// Optional.
+  /// An HTTPS URL used to automatically authorize the user.
+  /// Can be used as a replacement for the Telegram Login Widget.
   LoginUrl? loginUrl;
+
+  /// Optional.
+  /// Data to be sent in a callback query to the bot when button is pressed,
+  /// 1-64 bytes
   String? callbackData;
+
+  /// Optional.
+  /// Description of the Web App that will be launched when the user presses the
+  /// button.
+  /// The Web App will be able to send an arbitrary message on behalf of the
+  /// user using the method answerWebAppQuery. Available only in private chats
+  /// between a user and the bot.
   WebAppInfo? webApp;
+
+  /// Optional.
+  /// If set, pressing the button will prompt the user to select one of their
+  /// chats, open that chat and insert the bot's username and the specified
+  /// inline query in the input field.
+  /// May be empty, in which case just the bot's username will be inserted.
   String? switchInlineQuery;
+
+  /// Optional.
+  /// If set, pressing the button will insert the bot's username and the
+  /// specified inline query in the current chat's input field.
+  /// May be empty, in which case only the bot's username will be inserted.
   String? switchInlineQueryCurrentChat;
+
+  /// Optional. Description of the game that will be launched when the user
+  /// presses the button.
   CallbackGame? callbackGame;
+
+  /// Optional.
+  /// Specify True, to send a Pay button.
   bool? pay;
 
   InlineKeyboardButton._(
@@ -26,25 +66,34 @@ class InlineKeyboardButton {
     this.pay,
   });
 
+  /// Url constructor
   InlineKeyboardButton.url(this.text, this.url);
 
+  /// LoginUrl constructor
   InlineKeyboardButton.loginURL(this.text, this.loginUrl);
 
+  /// CallbackData constructor
   InlineKeyboardButton.callbackData(this.text, this.callbackData);
 
+  /// WebApp constructor
   InlineKeyboardButton.webApp(this.text, this.webApp);
 
+  /// SwitchInlineQuery constructor
   InlineKeyboardButton.switchInlineQuery(this.text, this.switchInlineQuery);
 
+  /// SwitchInlineQueryCurrentChat constructor
   InlineKeyboardButton.switchInlineQueryCurrentChat(
     this.text,
     this.switchInlineQueryCurrentChat,
   );
 
+  /// CallbackGame constructor
   InlineKeyboardButton.callbackGame(this.text, this.callbackGame);
 
+  /// Pay constructor
   InlineKeyboardButton.pay(this.text, {this.pay});
 
+  /// Creates a object from a json
   static InlineKeyboardButton fromJson(Map<String, dynamic> json) {
     return InlineKeyboardButton._(
       json['text']!,
@@ -59,6 +108,7 @@ class InlineKeyboardButton {
     );
   }
 
+  /// Creates a list of object from a json array
   static List<InlineKeyboardButton> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,
@@ -66,6 +116,7 @@ class InlineKeyboardButton {
     );
   }
 
+  /// Creates a list of list of object from a json array
   static List<List<InlineKeyboardButton>> listOfListsFromJsonArray(
       List<dynamic> json) {
     return List.generate(
@@ -77,6 +128,7 @@ class InlineKeyboardButton {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'text': text,
