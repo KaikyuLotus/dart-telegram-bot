@@ -6,14 +6,29 @@ import 'package:dart_telegram_bot/telegram_entities.dart';
 class MyBot extends Bot {
   MyBot(String token) : super(token: token);
 
-  @override
-  Future onStartFailed(Bot bot, Object err, StackTrace st) async {
-    print('Bot did not start correctly: $err');
+  Future onBotCommand(Bot bot, Update update) async {
+    var args = BotCommandParser.fromMessage(update.message!)!.args;
+    if (args.isEmpty) {
+      return bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        'No arguments provided',
+      );
+    }
+
+    if (args.length < 2) {
+      return bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        'No enough arguments provided',
+      );
+    }
+
+    // Do stuff with correct arguments provided
   }
 
   @override
   Future onReady(Bot bot) async {
     print('Bot ${bot.name} ready');
+    onCommand('my_command', onBotCommand);
     await start(clean: true);
   }
 }

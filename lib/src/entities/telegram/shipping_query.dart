@@ -2,12 +2,21 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
+/// This object contains information about an incoming shipping query.
 class ShippingQuery {
+  /// Unique query identifier
   String id;
+
+  /// User who sent the query
   User from;
+
+  /// Bot specified invoice payload
   String invoicePayload;
+
+  /// User specified shipping address
   ShippingAddress shippingAddress;
 
+  /// Basic constructor
   ShippingQuery({
     required this.id,
     required this.from,
@@ -15,15 +24,17 @@ class ShippingQuery {
     required this.shippingAddress,
   });
 
+  /// Creates a object from a json
   static ShippingQuery fromJson(Map<String, dynamic> json) {
     return ShippingQuery(
       id: json['id']!,
-      from: json['from']!,
+      from: User.fromJson(json['from']!),
       invoicePayload: json['invoice_payload']!,
-      shippingAddress: json['shipping_address']!,
+      shippingAddress: ShippingAddress.fromJson(json['shipping_address']!),
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'id': id,

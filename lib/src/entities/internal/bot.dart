@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 
-import '../../../dart_telegram_bot.dart';
 import '../../../telegram_entities.dart';
 import 'tgapi_methods.dart';
 
+/// Telegram Bot Object
 class Bot with TGAPIMethods {
   final int _timeout;
 
@@ -16,8 +16,10 @@ class Bot with TGAPIMethods {
   final FutureOr Function(Bot)? _onReadyEvent;
   final FutureOr Function(Bot, Object, StackTrace)? _onStartFailedEvent;
 
+  /// Error Handler
   Future Function(Bot, Update, Object, StackTrace)? errorHandler;
 
+  /// Connection Error Handler
   Future Function(Bot, Object, StackTrace)? connectionErrorHandler;
 
   bool _isRunning = false;
@@ -28,7 +30,7 @@ class Bot with TGAPIMethods {
 
   var _log = Logger('Bot');
 
-  /// List of alloed updates to be received<br>
+  /// List of allowed updates to be received<br>
   /// Can be changed while the bot is running
   List<UpdateType>? allowedUpdates;
 
@@ -51,14 +53,15 @@ class Bot with TGAPIMethods {
   /// As soon as bot is created, a getMe is called
   /// to validate the given [token].
   ///
-  /// If the [token] is valid, [id], [username], [name]
-  /// will be not nullable anymore.
+  /// If the [token] is valid, [id], [name], [username]
+  /// will be not null anymore.
   ///
   /// Also, if the [token] is valid, [onReady] gets called.
   /// Otherwise [onStartFailed] gets called instead.
   ///
-  /// If [onReady] or [onStartFailed] throws an exception, it is currently only
-  /// logged in the logger, make sure to catch exception if something may file
+  /// If [onReady] or [onStartFailed] throw an exception,
+  /// it is currently only logged in the logger.
+  /// Make sure to catch exception if something may fail.
   Bot({
     required String token,
     int timeout = 10,
@@ -76,7 +79,7 @@ class Bot with TGAPIMethods {
   ///
   /// Gets called when bot token is validated with a getMe
   ///
-  /// When this method is called, [username], [name] and [id] are
+  /// When this method is called, [id], [name] and [username] are
   /// guaranteed to be not null
   Future onReady(Bot bot) async {}
 
@@ -236,6 +239,8 @@ class Bot with TGAPIMethods {
       await _onConnectionError(this, e, s);
       await Future.delayed(Duration(seconds: 1));
     } on Exception catch (e, s) {
+      _log.severe('Loop body exception', e, s);
+    } on Error catch (e, s) {
       _log.severe('Loop body error', e, s);
     }
   }

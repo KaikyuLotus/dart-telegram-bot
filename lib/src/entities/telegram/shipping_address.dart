@@ -1,13 +1,26 @@
 import 'dart:convert';
 
+/// This object represents a shipping address.
 class ShippingAddress {
+  /// Two-letter ISO 3166-1 alpha-2 country code
   String countryCode;
+
+  /// State, if applicable
   String state;
+
+  /// City
   String city;
+
+  /// First line for the address
   String streetLine1;
+
+  /// Second line for the address
   String streetLine2;
+
+  /// Address post code
   String postCode;
 
+  /// Basic constructor
   ShippingAddress({
     required this.countryCode,
     required this.state,
@@ -17,6 +30,7 @@ class ShippingAddress {
     required this.postCode,
   });
 
+  /// Creates a object from a json
   static ShippingAddress fromJson(Map<String, dynamic> json) {
     return ShippingAddress(
       countryCode: json['country_code']!,
@@ -28,6 +42,7 @@ class ShippingAddress {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'country_code': countryCode,

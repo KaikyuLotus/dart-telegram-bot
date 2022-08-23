@@ -3,14 +3,29 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
+/// This object represents changes in the status of a chat member.
 class ChatMemberUpdated {
+  /// Chat the user belongs to
   Chat chat;
+
+  /// Performer of the action, which resulted in the change
   User from;
+
+  /// Date the change was done in Unix time
   int date;
+
+  /// Previous information about the chat member
   ChatMember oldChatMember;
+
+  /// New information about the chat member
   ChatMember newChatMember;
+
+  /// Optional.
+  /// Chat invite link, which was used by the user to join the chat;
+  /// for joining by invite link events only.
   ChatInviteLink? inviteLink;
 
+  /// Basic constructor
   ChatMemberUpdated({
     required this.chat,
     required this.from,
@@ -20,6 +35,7 @@ class ChatMemberUpdated {
     this.inviteLink,
   });
 
+  /// Creates a object from a json
   static ChatMemberUpdated fromJson(Map<String, dynamic> json) {
     return ChatMemberUpdated(
       chat: Chat.fromJson(json['chat']!),
@@ -31,6 +47,7 @@ class ChatMemberUpdated {
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'chat': chat,

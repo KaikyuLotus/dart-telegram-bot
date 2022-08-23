@@ -1,9 +1,1 @@
-include: package:effective_dart/analysis_options.yaml
-
-linter:
-  rules:
-    public_member_api_docs: false
-
-analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+include: package:lints/recommended.yaml

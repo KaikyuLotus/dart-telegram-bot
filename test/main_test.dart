@@ -61,7 +61,7 @@ void main() {
         throwsA(TypeMatcher<APIException>()),
       );
     },
-    skip: false,
+    skip: true,
   );
 
   test(
@@ -72,7 +72,7 @@ void main() {
         throwsA(TypeMatcher<InvalidBotState>()),
       );
     },
-    skip: false,
+    skip: true,
   );
 
   test(
@@ -672,9 +672,9 @@ void main() {
   );
 
   test(
-    'getChatMembersCount works',
+    'getChatMemberCount works',
     () async {
-      var count = await testBot.getChatMembersCount(ChatID(groupId));
+      var count = await testBot.getChatMemberCount(ChatID(groupId));
       expect(count, greaterThan(1));
     },
     skip: false,

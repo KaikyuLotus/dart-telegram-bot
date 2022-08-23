@@ -1,29 +1,48 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
+/// This object represents information about an order.
 class OrderInfo {
-  String name;
-  String phoneNumber;
-  String email;
-  ShippingAddress shippingAddress;
+  /// Optional.
+  /// User name
+  String? name;
 
+  /// Optional.
+  /// User's phone number
+  String? phoneNumber;
+
+  /// Optional.
+  /// User email
+  String? email;
+
+  /// Optional.
+  /// User shipping address
+  ShippingAddress? shippingAddress;
+
+  /// Basic constructor
   OrderInfo({
-    required this.name,
-    required this.phoneNumber,
-    required this.email,
-    required this.shippingAddress,
+    this.name,
+    this.phoneNumber,
+    this.email,
+    this.shippingAddress,
   });
 
+  /// Creates a object from a json
   static OrderInfo fromJson(Map<String, dynamic> json) {
     return OrderInfo(
-      name: json['name']!,
-      phoneNumber: json['phone_number']!,
-      email: json['email']!,
-      shippingAddress: json['shipping_address']!,
+      name: json['name'],
+      phoneNumber: json['phone_number'],
+      email: json['email'],
+      shippingAddress: callIfNotNull(
+        ShippingAddress.fromJson,
+        json['shipping_address'],
+      ),
     );
   }
 
+  /// Creates a json from the object
   Map toJson() {
     return {
       'name': name,

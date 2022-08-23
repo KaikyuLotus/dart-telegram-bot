@@ -1,3 +1,33 @@
+## 1.0.0
+
+- Stable release
+
+## 0.7.0-b4
+
+- Updated to bot API 6.2
+
+## 0.7.0-b3
+
+- Updated to bot API 6.1
+- Added missing documentation
+- Minor fixes
+
+## 0.7.0-b2
+
+- Added Error(s) catch clause
+- Switched from EffectiveDart to Lints
+- Minor fixes
+
+## 0.7.0-b1
+
+- Updated to bot API 5.6
+- Added a few missing objects
+- Minor fixes
+
+## 0.6.1
+
+- Support multiline commands
+
 ## 0.6.0
 
 - Updated to bot API 5.3

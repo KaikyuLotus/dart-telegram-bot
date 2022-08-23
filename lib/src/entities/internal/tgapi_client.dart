@@ -9,9 +9,12 @@ import '../../../dart_telegram_bot.dart';
 import '../../../telegram_entities.dart';
 
 // ignore: unnecessary_lambdas
+/// TGAPIClient
 class TGAPIClient {
+  /// Logger
   static final log = Logger('TGAPIClient');
 
+  /// Telegram API BaseUrl
   static final baseUrl = 'api.telegram.org';
 
   static final _listTypeFactories = <String, Function(List<dynamic>)>{
@@ -83,6 +86,7 @@ class TGAPIClient {
     return json.decode(stringResponse);
   }
 
+  /// Download a file from path
   Future<Uint8List> apiDownload(String? token, String? path) async {
     var uri = Uri.https(baseUrl, '/file/bot$token/$path');
     var response =
@@ -98,6 +102,7 @@ class TGAPIClient {
     return response.stream.toBytes();
   }
 
+  /// ApiCall
   Future<T> apiCall<T>(
     String? token,
     String method, [
@@ -156,6 +161,7 @@ class TGAPIClient {
     }
   }
 
+  /// Close the client
   void close() {
     _client.close();
     _coreClient = null;
