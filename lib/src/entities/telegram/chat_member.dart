@@ -91,6 +91,11 @@ class ChatMember {
   /// True, if the user's presence in the chat is hidden
   bool? isAnonymous;
 
+  /// Optional.
+  /// True, if the user is allowed to create, rename, close, and reopen forum
+  /// topics; supergroups only
+  bool? canManageTopics;
+
   /// Basic constructor
   ChatMember({
     required this.user,
@@ -115,6 +120,7 @@ class ChatMember {
     this.canManageVideoChats,
     this.canManageChat,
     this.isAnonymous,
+    this.canManageTopics,
   });
 
   /// Creates a object from a json
@@ -145,6 +151,7 @@ class ChatMember {
       canManageVideoChats: json['can_manage_video_chats'] ?? isCreator,
       canManageChat: json['can_manage_chat'] ?? isCreator,
       isAnonymous: json['is_anonymous'],
+      canManageTopics: json['can_manage_topics'],
     );
   }
 
@@ -181,6 +188,7 @@ class ChatMember {
       'can_manage_video_chats': canManageVideoChats,
       'can_manage_chat': canManageChat,
       'is_anonymous': isAnonymous,
+      'can_manage_topics': canManageTopics,
     }..removeWhere((_, v) => v == null);
   }
 

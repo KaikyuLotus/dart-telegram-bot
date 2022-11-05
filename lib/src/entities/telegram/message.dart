@@ -9,6 +9,11 @@ class Message {
   int messageId;
 
   /// Optional.
+  /// Unique identifier of a message thread to which the message belongs;
+  /// for supergroups only
+  int? messageThreadId;
+
+  /// Optional.
   /// Sender of the message; empty for messages sent to channels.
   /// For backward compatibility, the field contains a fake sender user in
   /// non-channel chats, if the message was sent on behalf of a chat.
@@ -56,6 +61,10 @@ class Message {
   /// Optional.
   /// For forwarded messages, date the original message was sent in Unix time
   int? forwardDate;
+
+  /// Optional.
+  /// True, if the message is sent to a forum topic
+  bool? isTopicMessage;
 
   /// Optional.
   /// True, if the message is a channel post that was automatically forwarded
@@ -259,6 +268,18 @@ class Message {
   ProximityAlertTriggered? proximityAlertTriggered;
 
   /// Optional.
+  /// Service message: forum topic created
+  ForumTopicCreated? forumTopicCreated;
+
+  /// Optional.
+  /// Service message: forum topic closed
+  ForumTopicClosed? forumTopicClosed;
+
+  /// 	Optional.
+  /// Service message: forum topic reopened
+  ForumTopicReopened? forumTopicReopened;
+
+  /// Optional.
   /// Service message: video chat scheduled
   VideoChatScheduled? videoChatScheduled;
 
@@ -286,6 +307,7 @@ class Message {
   /// Basic constructor
   Message({
     required this.messageId,
+    this.messageThreadId,
     this.from,
     this.senderChat,
     required this.date,
@@ -296,6 +318,7 @@ class Message {
     this.forwardSignature,
     this.forwardSenderName,
     this.forwardDate,
+    this.isTopicMessage,
     this.isAutomaticForward,
     this.replyToMessage,
     this.viaBot,
@@ -338,6 +361,9 @@ class Message {
     this.connectedWebsite,
     this.passportData,
     this.proximityAlertTriggered,
+    this.forumTopicCreated,
+    this.forumTopicClosed,
+    this.forumTopicReopened,
     this.videoChatScheduled,
     this.videoChatStarted,
     this.videoChatEnded,
@@ -350,6 +376,7 @@ class Message {
   static Message fromJson(Map<String, dynamic> json) {
     return Message(
       messageId: json['message_id']!,
+      messageThreadId: json['message_thread_id'],
       from: callIfNotNull(User.fromJson, json['from']),
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
       date: json['date']!,
@@ -363,6 +390,7 @@ class Message {
       forwardSignature: json['forward_signature'],
       forwardSenderName: json['forward_sender_name'],
       forwardDate: json['forward_date'],
+      isTopicMessage: json['is_topic_message'],
       isAutomaticForward: json['is_automatic_forward'],
       replyToMessage: callIfNotNull(
         Message.fromJson,
@@ -438,6 +466,18 @@ class Message {
         ProximityAlertTriggered.fromJson,
         json['proximity_alert_triggered'],
       ),
+      forumTopicCreated: callIfNotNull(
+        ForumTopicCreated.fromJson,
+        json['forum_topic_created'],
+      ),
+      forumTopicClosed: callIfNotNull(
+        ForumTopicClosed.fromJson,
+        json['forum_topic_closed'],
+      ),
+      forumTopicReopened: callIfNotNull(
+        ForumTopicReopened.fromJson,
+        json['forum_topic_reopened'],
+      ),
       videoChatScheduled: callIfNotNull(
         VideoChatScheduled.fromJson,
         json['video_chat_scheduled'],
@@ -477,6 +517,7 @@ class Message {
   Map toJson() {
     return {
       'message_id': messageId,
+      'message_thread_id': messageThreadId,
       'from': from,
       'sender_chat': senderChat,
       'date': date,
@@ -487,6 +528,7 @@ class Message {
       'forward_signature': forwardSignature,
       'forward_sender_name': forwardSenderName,
       'forward_date': forwardDate,
+      'is_topic_message': isTopicMessage,
       'is_automatic_forward': isAutomaticForward,
       'reply_to_message': replyToMessage,
       'via_bot': viaBot,
@@ -529,6 +571,9 @@ class Message {
       'connected_website': connectedWebsite,
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,
+      'forum_topic_created': forumTopicCreated,
+      'forum_topic_closed': forumTopicClosed,
+      'forum_topic_reopened': forumTopicReopened,
       'video_chat_scheduled': videoChatScheduled,
       'video_chat_started': videoChatStarted,
       'video_chat_ended': videoChatEnded,

@@ -32,8 +32,24 @@ class Chat {
   String? lastName;
 
   /// Optional.
+  /// True if the supergroup chat is a forum (has topics enabled)
+  bool? isForum;
+
+  /// Optional.
   /// Chat photo. Returned only in getChat.
   ChatPhoto? photo;
+
+  /// Optional.
+  /// If non-empty, the list of all active chat usernames;
+  /// for private chats, supergroups and channels.
+  /// Returned only in getChat.
+  List<String>? activeUsernames;
+
+  /// Optional.
+  /// Custom emoji identifier of emoji status of the other party in a
+  /// private chat.
+  /// Returned only in getChat.
+  String? emojiStatusCustomEmojiId;
 
   /// Optional.
   /// Bio of the other party in a private chat. Returned only in getChat.
@@ -133,7 +149,10 @@ class Chat {
     this.username,
     this.firstName,
     this.lastName,
+    this.isForum,
     this.photo,
+    this.activeUsernames,
+    this.emojiStatusCustomEmojiId,
     this.bio,
     this.hasPrivateForwards,
     this.hasRestrictedVoiceAndVideoMessages,
@@ -161,7 +180,10 @@ class Chat {
       username: json['username'],
       firstName: json['first_name'],
       lastName: json['last_name'],
+      isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
+      activeUsernames: List.from(json['active_usernames']),
+      emojiStatusCustomEmojiId: json['emoji_status_custom_emoji_id'],
       bio: json['bio'],
       hasPrivateForwards: json['has_private_forwards'],
       hasRestrictedVoiceAndVideoMessages:
@@ -194,7 +216,10 @@ class Chat {
       'username': username,
       'first_name': firstName,
       'last_name': lastName,
+      'is_forum': isForum,
       'photo': photo,
+      'active_usernames': activeUsernames,
+      'emoji_status_custom_emoji_id': emojiStatusCustomEmojiId,
       'bio': bio,
       'has_private_forwards': hasPrivateForwards,
       'has_restricted_voice_and_video_messages':
