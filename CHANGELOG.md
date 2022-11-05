@@ -1,3 +1,7 @@
+## 1.0.0-b1
+
+- Updated to bot API 6.3
+
 ## 1.0.0
 
 - Stable release

@@ -45,6 +45,7 @@ mixin TGAPIMethods {
   Future<Message> sendMessage(
     ChatID chatId,
     String text, {
+    int? messageThreadId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
     bool? disableWebPagePreview,
@@ -57,6 +58,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendMessage', {
       'chat_id': chatId,
       'text': text,
+      'message_thread_id': messageThreadId,
       'parse_mode': parseMode,
       'entities': entities,
       'disable_web_page_preview': disableWebPagePreview,
@@ -76,6 +78,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     ChatID fromChatId,
     int messageId, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
   }) {
@@ -83,6 +86,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'from_chat_id': fromChatId,
       'message_id': messageId,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
     });
@@ -100,6 +104,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     ChatID fromChatId,
     int messageId, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -113,6 +118,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'from_chat_id': fromChatId,
       'message_id': messageId,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -130,6 +136,7 @@ mixin TGAPIMethods {
   Future<Message> sendPhoto(
     ChatID chatId,
     HttpFile photo, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -142,6 +149,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendPhoto', {
       'chat_id': chatId,
       'photo': photo,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -167,6 +175,7 @@ mixin TGAPIMethods {
   Future<Message> sendAudio(
     ChatID chatId,
     HttpFile audio, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -183,6 +192,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendAudio', {
       'chat_id': chatId,
       'audio': audio,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -207,6 +217,7 @@ mixin TGAPIMethods {
   Future<Message> sendDocument(
     ChatID chatId,
     HttpFile document, {
+    int? messageThreadId,
     HttpFile? thumb,
     String? caption,
     ParseMode? parseMode,
@@ -221,6 +232,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendDocument', {
       'chat_id': chatId,
       'document': document,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -245,6 +257,7 @@ mixin TGAPIMethods {
   Future<Message> sendVideo(
     ChatID chatId,
     HttpFile video, {
+    int? messageThreadId,
     int? duration,
     int? width,
     int? height,
@@ -262,6 +275,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendVideo', {
       'chat_id': chatId,
       'video': video,
+      'message_thread_id': messageThreadId,
       'duration': duration,
       'width': width,
       'height': height,
@@ -287,6 +301,7 @@ mixin TGAPIMethods {
   Future<Message> sendAnimation(
     ChatID chatId,
     HttpFile animation, {
+    int? messageThreadId,
     int? duration,
     int? width,
     int? height,
@@ -303,6 +318,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendAnimation', {
       'chat_id': chatId,
       'animation': animation,
+      'message_thread_id': messageThreadId,
       'duration': duration,
       'width': width,
       'height': height,
@@ -332,6 +348,7 @@ mixin TGAPIMethods {
   Future<Message> sendVoice(
     ChatID chatId,
     HttpFile voice, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -345,6 +362,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendVoice', {
       'chat_id': chatId,
       'voice': voice,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -363,6 +381,7 @@ mixin TGAPIMethods {
   Future<Message> sendVideoNote(
     ChatID chatId,
     HttpFile videoNote, {
+    int? messageThreadId,
     int? duration,
     int? length,
     HttpFile? thumb,
@@ -375,6 +394,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendVideoNote', {
       'chat_id': chatId,
       'video_note': videoNote,
+      'message_thread_id': messageThreadId,
       'duration': duration,
       'length': length,
       'disable_notification': disableNotification,
@@ -395,6 +415,7 @@ mixin TGAPIMethods {
   Future<List<Message>> sendMediaGroup(
     ChatID chatId,
     List<InputMedia> media, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
     bool? allowSendingWithoutReply,
@@ -403,6 +424,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendMediaGroup', {
       'chat_id': chatId,
       'media': media,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'allow_sending_without_reply': allowSendingWithoutReply,
@@ -417,6 +439,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     double latitude,
     double longitude, {
+    int? messageThreadId,
     double? horizontalAccuracy,
     int? livePeriod,
     int? heading,
@@ -431,6 +454,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'latitude': latitude,
       'longitude': longitude,
+      'message_thread_id': messageThreadId,
       'horizontal_accuracy': horizontalAccuracy,
       'live_period': livePeriod,
       'heading': heading,
@@ -536,6 +560,7 @@ mixin TGAPIMethods {
     double longitude,
     String title,
     String address, {
+    int? messageThreadId,
     String? foursquareId,
     String? foursquareType,
     String? googlePlaceId,
@@ -552,6 +577,7 @@ mixin TGAPIMethods {
       'longitude': longitude,
       'title': title,
       'address': address,
+      'message_thread_id': messageThreadId,
       'foursquare_id': foursquareId,
       'foursquare_type': foursquareType,
       'google_place_id': googlePlaceId,
@@ -571,6 +597,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String phoneNumber,
     String? firstName, {
+    int? messageThreadId,
     String? lastName,
     String? vcard,
     bool? disableNotification,
@@ -584,6 +611,7 @@ mixin TGAPIMethods {
       'phone_number': phoneNumber,
       'first_name': firstName,
       'last_name': lastName,
+      'message_thread_id': messageThreadId,
       'vcard': vcard,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -600,6 +628,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String question,
     List<String> options, {
+    int? messageThreadId,
     bool? isAnonymous,
     String? type,
     bool? allowsMultipleAnswers,
@@ -620,6 +649,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'question': question,
       'options': options,
+      'message_thread_id': messageThreadId,
       'is_anonymous': isAnonymous,
       'type': type,
       'allows_multiple_answers': allowsMultipleAnswers,
@@ -644,6 +674,7 @@ mixin TGAPIMethods {
   /// On success, the sent [Message] is returned.
   Future<Message> sendDice(
     ChatID chatId, {
+    int? messageThreadId,
     Emoji? emoji,
     bool? disableNotification,
     bool? protectContent,
@@ -653,6 +684,7 @@ mixin TGAPIMethods {
   }) {
     return _client.apiCall(_token, 'sendDice', {
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -802,6 +834,7 @@ mixin TGAPIMethods {
     bool? canPromoteMembers,
     bool? canManageVideoChats,
     bool? canManageChat,
+    bool? canManageTopics,
   }) {
     return _client.apiCall(_token, 'promoteChatMember', {
       'chat_id': chatId,
@@ -817,6 +850,7 @@ mixin TGAPIMethods {
       'can_manage_video_chats': canManageVideoChats,
       'can_manage_chat': canManageChat,
       'is_anonymous': isAnonymous,
+      'can_manage_topics': canManageTopics,
     });
   }
 
@@ -1190,6 +1224,111 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get custom emoji stickers, which can be used as a
+  /// forum topic icon by any user.
+  /// Requires no parameters.
+  /// Returns an Array of [Sticker] objects.
+  Future<List<Sticker>> getForumTopicIconStickers() {
+    return _client.apiCall(_token, 'getForumTopicIconStickers');
+  }
+
+  /// Use this method to create a topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the can_manage_topics administrator rights.
+  /// Returns information about the created topic as a [ForumTopic] object.
+  Future<ForumTopic> createForumTopic(
+    ChatID chatId,
+    String name, {
+    int? iconColor,
+    String? iconCustomEmojiId,
+  }) {
+    return _client.apiCall(_token, 'createForumTopic', {
+      'chat_id': chatId,
+      'name': name,
+      'icon_color': iconColor,
+      'icon_custom_emoji_id': iconCustomEmojiId,
+    });
+  }
+
+  /// Use this method to edit name and icon of a topic in a forum supergroup
+  /// chat.
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have can_manage_topics administrator rights,
+  /// unless it is the creator of the topic.
+  /// Returns True on success.
+  Future<ForumTopic> editForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+    String name,
+    String iconCustomEmojiId,
+  ) {
+    return _client.apiCall(_token, 'editForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+      'name': name,
+      'icon_custom_emoji_id': iconCustomEmojiId,
+    });
+  }
+
+  /// Use this method to close an open topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights,
+  /// unless it is the creator of the topic.
+  /// Returns True on success.
+  Future<ForumTopic> closeForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'closeForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to reopen a closed topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights,
+  /// unless it is the creator of the topic.
+  /// Returns True on success.
+  Future<ForumTopic> reopenForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'reopenForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to delete a forum topic along with all its messages in a
+  /// forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_delete_messages administrator rights.
+  /// Returns True on success.
+  Future<ForumTopic> deleteForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'deleteForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to clear the list of pinned messages in a forum topic.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_pin_messages administrator right in the supergroup.
+  /// Returns True on success.
+  Future<ForumTopic> unpinAllForumTopicMessages(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'unpinAllForumTopicMessages', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
   /// Use this method to send answers to callback queries sent from
   /// inline keyboards.
   ///
@@ -1522,6 +1661,7 @@ mixin TGAPIMethods {
   Future<Message> sendSticker(
     ChatID chatId,
     HttpFile sticker, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -1531,6 +1671,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendSticker', {
       'chat_id': chatId,
       'sticker': sticker,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -1805,6 +1946,7 @@ mixin TGAPIMethods {
     String startParameter,
     String currency,
     List<LabeledPrice> prices, {
+    int? messageThreadId,
     String? providerData,
     String? photoUrl,
     int? photoSize,
@@ -1832,6 +1974,7 @@ mixin TGAPIMethods {
       'start_parameter': startParameter,
       'currency': currency,
       'prices': prices,
+      'message_thread_id': messageThreadId,
       'provider_data': providerData,
       'photo_url': photoUrl,
       'photo_size': photoSize,
@@ -1950,6 +2093,7 @@ mixin TGAPIMethods {
   Future<Message> sendGame(
     ChatID chatId,
     String gameShortName, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -1959,6 +2103,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendGame', {
       'chat_id': chatId,
       'game_short_name': gameShortName,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,

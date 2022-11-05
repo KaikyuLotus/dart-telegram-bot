@@ -40,6 +40,11 @@ class ChatPermissions {
   /// True, if the user is allowed to pin messages. Ignored in public supergroups
   bool? canPinMessages;
 
+  /// Optional.
+  /// True, if the user is allowed to create forum topics.
+  /// If omitted defaults to the value of can_pin_messages
+  bool? canManageTopics;
+
   /// Basic constructor
   ChatPermissions({
     this.canSendMessages,
@@ -50,6 +55,7 @@ class ChatPermissions {
     this.canChangeInfo,
     this.canInviteUsers,
     this.canPinMessages,
+    this.canManageTopics,
   });
 
   /// Creates a object from a json
@@ -63,6 +69,7 @@ class ChatPermissions {
       canChangeInfo: json['can_change_info'],
       canInviteUsers: json['can_invite_users'],
       canPinMessages: json['can_pin_messages'],
+      canManageTopics: json['can_manage_topics'],
     );
   }
 
@@ -77,6 +84,7 @@ class ChatPermissions {
       'can_change_info': canChangeInfo,
       'can_invite_users': canInviteUsers,
       'can_pin_messages': canPinMessages,
+      'can_manage_topics': canManageTopics,
     }..removeWhere((_, v) => v == null);
   }
 

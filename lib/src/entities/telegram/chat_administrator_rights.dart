@@ -44,6 +44,11 @@ class ChatAdministratorRights {
   /// True, if the user is allowed to pin messages; groups and supergroups only
   bool? canPinMessages;
 
+  /// Optional.
+  /// True, if the user is allowed to create, rename, close, and reopen forum
+  /// topics; supergroups only
+  bool? canManageTopics;
+
   /// Basic constructor
   ChatAdministratorRights(
     this.isAnonymous,
@@ -57,6 +62,7 @@ class ChatAdministratorRights {
     this.canPostMessages,
     this.canEditMessages,
     this.canPinMessages,
+    this.canManageTopics,
   );
 
   /// Creates a object from a json
@@ -73,6 +79,7 @@ class ChatAdministratorRights {
       json['can_post_messages'],
       json['can_edit_messages'],
       json['can_pin_messages'],
+      json['can_manage_topics'],
     );
   }
 
@@ -90,6 +97,7 @@ class ChatAdministratorRights {
       'can_post_messages': canPostMessages,
       'can_edit_messages': canEditMessages,
       'can_pin_messages': canPinMessages,
+      'can_manage_topics': canManageTopics,
     };
   }
 }
