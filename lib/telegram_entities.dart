@@ -122,3 +122,7 @@ export 'src/entities/telegram/menu_button_commands.dart';
 export 'src/entities/telegram/menu_button_web_app.dart';
 export 'src/entities/telegram/menu_button_default.dart';
 export 'src/entities/telegram/chat_administrator_rights.dart';
+export 'src/entities/telegram/forum_topic_edited.dart';
+export 'src/entities/telegram/general_forum_topic_hidden.dart';
+export 'src/entities/telegram/general_forum_topic_unhidden.dart';
+export 'src/entities/telegram/write_access_allowed.dart';

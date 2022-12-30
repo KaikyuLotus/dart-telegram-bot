@@ -9,6 +9,13 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   List<List<KeyboardButton>> keyboard;
 
   /// Optional.
+  /// Requests clients to always show the keyboard when the regular
+  /// keyboard is hidden.
+  /// Defaults to false, in which case the custom keyboard can be hidden and
+  /// opened with a keyboard icon.
+  bool? isPersistent;
+
+  /// Optional.
   /// Requests clients to resize the keyboard vertically for optimal fit
   /// (e.g., make the keyboard smaller if there are just two rows of buttons).
   /// Defaults to false, in which case the custom keyboard is always of the
@@ -40,6 +47,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   /// Basic constructor
   ReplyKeyboardMarkup(
     this.keyboard, {
+    this.isPersistent,
     this.resizeKeyboard,
     this.oneTimeKeyboard,
     this.inputFieldPlaceholder,
@@ -50,6 +58,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   static ReplyKeyboardMarkup fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardMarkup(
       KeyboardButton.listOfListsFromJsonArray(json['keyboard']!),
+      isPersistent: json['is_persistent'],
       resizeKeyboard: json['resize_keyboard'],
       oneTimeKeyboard: json['one_time_keyboard'],
       inputFieldPlaceholder: json['input_field_placeholder'],
@@ -61,6 +70,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   Map toJson() {
     return {
       'keyboard': keyboard,
+      'is_persistent': isPersistent,
       'resize_keyboard': resizeKeyboard,
       'one_time_keyboard': oneTimeKeyboard,
       'input_field_placeholder': inputFieldPlaceholder,

@@ -151,6 +151,10 @@ class Message {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the message media is covered by a spoiler animation
+  bool? hasMediaSpoiler;
+
+  /// Optional.
   /// Message is a shared contact, information about the contact
   Contact? contact;
 
@@ -259,6 +263,11 @@ class Message {
   String? connectedWebsite;
 
   /// Optional.
+  /// Service message: the user allowed the bot added to the attachment
+  /// menu to write messages
+  WriteAccessAllowed? writeAccessAllowed;
+
+  /// Optional.
   /// Telegram Passport data
   PassportData? passportData;
 
@@ -272,12 +281,24 @@ class Message {
   ForumTopicCreated? forumTopicCreated;
 
   /// Optional.
+  /// Service message: forum topic edited
+  ForumTopicEdited? forumTopicEdited;
+
+  /// Optional.
   /// Service message: forum topic closed
   ForumTopicClosed? forumTopicClosed;
 
   /// 	Optional.
   /// Service message: forum topic reopened
   ForumTopicReopened? forumTopicReopened;
+
+  /// Optional.
+  /// Service message: the 'General' forum topic hidden
+  GeneralForumTopicHidden? generalForumTopicHidden;
+
+  /// Optional.
+  /// Service message: the 'General' forum topic unhidden
+  GeneralForumTopicUnhidden? generalForumTopicUnhidden;
 
   /// Optional.
   /// Service message: video chat scheduled
@@ -338,6 +359,7 @@ class Message {
     this.voice,
     this.caption,
     this.captionEntities,
+    this.hasMediaSpoiler,
     this.contact,
     this.dice,
     this.game,
@@ -419,6 +441,7 @@ class Message {
         MessageEntity.listFromJsonArray,
         json['caption_entities'],
       ),
+      hasMediaSpoiler: json['has_media_spoiler'],
       contact: callIfNotNull(Contact.fromJson, json['contact']),
       dice: callIfNotNull(Dice.fromJson, json['dice']),
       game: callIfNotNull(Game.fromJson, json['game']),
@@ -548,6 +571,7 @@ class Message {
       'voice': voice,
       'caption': caption,
       'captionEntities': captionEntities,
+      'has_media_spoiler': hasMediaSpoiler,
       'contact': contact,
       'dice': dice,
       'game': game,
