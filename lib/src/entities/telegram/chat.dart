@@ -182,7 +182,7 @@ class Chat {
       lastName: json['last_name'],
       isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
-      activeUsernames: List.from(json['active_usernames']),
+      activeUsernames: List.from(json['active_usernames'] ?? []),
       emojiStatusCustomEmojiId: json['emoji_status_custom_emoji_id'],
       bio: json['bio'],
       hasPrivateForwards: json['has_private_forwards'],
