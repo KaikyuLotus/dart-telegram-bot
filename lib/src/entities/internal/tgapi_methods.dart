@@ -140,6 +140,7 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -153,6 +154,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -265,6 +267,7 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? hasSpoiler,
     bool? supportsStreaming,
     bool? disableNotification,
     bool? protectContent,
@@ -283,6 +286,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'has_spoiler': hasSpoiler,
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -309,6 +313,7 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -326,6 +331,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -702,11 +708,19 @@ mixin TGAPIMethods {
   /// Telegram clients clear its typing status).
   ///
   /// Returns True on success.
-  Future<bool> sendChatAction(ChatID chatId, ChatAction action) {
+  Future<bool> sendChatAction(
+    ChatID chatId,
+    ChatAction action, {
+    int? messageThreadId,
+  }) {
     return _client.apiCall(
       _token,
       'sendChatAction',
-      {'chat_id': chatId, 'action': action},
+      {
+        'chat_id': chatId,
+        'message_thread_id': messageThreadId,
+        'action': action,
+      },
     );
   }
 
@@ -1256,12 +1270,12 @@ mixin TGAPIMethods {
   /// must have can_manage_topics administrator rights,
   /// unless it is the creator of the topic.
   /// Returns True on success.
-  Future<ForumTopic> editForumTopic(
+  Future<bool> editForumTopic(
     ChatID chatId,
-    int messageThreadId,
-    String name,
-    String iconCustomEmojiId,
-  ) {
+    int messageThreadId, {
+    String? name,
+    String? iconCustomEmojiId,
+  }) {
     return _client.apiCall(_token, 'editForumTopic', {
       'chat_id': chatId,
       'message_thread_id': messageThreadId,
@@ -1275,7 +1289,7 @@ mixin TGAPIMethods {
   /// have the can_manage_topics administrator rights,
   /// unless it is the creator of the topic.
   /// Returns True on success.
-  Future<ForumTopic> closeForumTopic(
+  Future<bool> closeForumTopic(
     ChatID chatId,
     int messageThreadId,
   ) {
@@ -1290,7 +1304,7 @@ mixin TGAPIMethods {
   /// have the can_manage_topics administrator rights,
   /// unless it is the creator of the topic.
   /// Returns True on success.
-  Future<ForumTopic> reopenForumTopic(
+  Future<bool> reopenForumTopic(
     ChatID chatId,
     int messageThreadId,
   ) {
@@ -1305,7 +1319,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_delete_messages administrator rights.
   /// Returns True on success.
-  Future<ForumTopic> deleteForumTopic(
+  Future<bool> deleteForumTopic(
     ChatID chatId,
     int messageThreadId,
   ) {
@@ -1319,13 +1333,71 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_pin_messages administrator right in the supergroup.
   /// Returns True on success.
-  Future<ForumTopic> unpinAllForumTopicMessages(
+  Future<bool> unpinAllForumTopicMessages(
     ChatID chatId,
     int messageThreadId,
   ) {
     return _client.apiCall(_token, 'unpinAllForumTopicMessages', {
       'chat_id': chatId,
       'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to edit the name of the 'General' topic in a forum
+  /// supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have can_manage_topics administrator rights.
+  /// Returns True on success.
+  Future<bool> editGeneralForumTopic(
+    ChatID chatId,
+    String name,
+  ) {
+    return _client.apiCall(_token, 'editGeneralForumTopic', {
+      'chat_id': chatId,
+      'name': name,
+    });
+  }
+
+  /// Use this method to close an open 'General' topic in a forum
+  /// supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights.
+  /// Returns True on success.
+  Future<bool> closeGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'closeGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to reopen a closed 'General' topic in a forum
+  /// supergroup chat. The bot must be an administrator in the chat for this
+  /// to work and must have the can_manage_topics administrator rights.
+  /// The topic will be automatically unhidden if it was hidden.
+  /// Returns True on success.
+  Future<bool> reopenGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'reopenGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to hide the 'General' topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must have
+  /// the can_manage_topics administrator rights.
+  /// The topic will be automatically closed if it was open.
+  /// Returns True on success.
+  Future<bool> hideGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'hideGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to unhide the 'General' topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must have
+  /// the can_manage_topics administrator rights.
+  /// Returns True on success.
+  Future<bool> unhideGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'unhideGeneralForumTopic', {
+      'chat_id': chatId,
     });
   }
 
