@@ -816,12 +816,14 @@ mixin TGAPIMethods {
     ChatID chatId,
     int userId,
     ChatPermissions permissions, {
+    bool? useIndependentChatPermissions,
     int? untilDate,
   }) {
     return _client.apiCall(_token, 'restrictChatMember', {
       'chat_id': chatId,
       'user_id': userId,
       'permissions': permissions,
+      'use_independent_chat_permissions': useIndependentChatPermissions,
       'until_date': untilDate,
     });
   }
@@ -928,11 +930,13 @@ mixin TGAPIMethods {
   /// Returns True on success.
   Future<bool> setChatPermissions(
     ChatID chatId,
-    ChatPermissions permissions,
-  ) {
+    ChatPermissions permissions, {
+    bool? useIndependentChatPermissions,
+  }) {
     return _client.apiCall(_token, 'setChatPermissions', {
       'chat_id': chatId,
       'permissions': permissions,
+      'use_independent_chat_permissions': useIndependentChatPermissions,
     });
   }
 

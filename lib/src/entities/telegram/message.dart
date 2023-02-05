@@ -259,6 +259,14 @@ class Message {
   SuccessfulPayment? successfulPayment;
 
   /// Optional.
+  /// Service message: a user was shared with the bot
+  UserShared? userShared;
+
+  /// Optional.
+  /// Service message: a chat was shared with the bot
+  ChatShared? chatShared;
+
+  /// Optional.
   /// The domain name of the website on which the user has logged in.
   String? connectedWebsite;
 
@@ -380,6 +388,8 @@ class Message {
     this.pinnedMessage,
     this.invoice,
     this.successfulPayment,
+    this.userShared,
+    this.chatShared,
     this.connectedWebsite,
     this.passportData,
     this.proximityAlertTriggered,
@@ -479,6 +489,14 @@ class Message {
       successfulPayment: callIfNotNull(
         SuccessfulPayment.fromJson,
         json['successful_payment'],
+      ),
+      userShared: callIfNotNull(
+        UserShared.fromJson,
+        json['user_shared'],
+      ),
+      chatShared: callIfNotNull(
+        ChatShared.fromJson,
+        json['chat_shared'],
       ),
       connectedWebsite: json['connected_website'],
       passportData: callIfNotNull(
@@ -592,6 +610,8 @@ class Message {
       'pinned_message': pinnedMessage,
       'invoice': invoice,
       'successful_payment': successfulPayment,
+      'user_shared': userShared,
+      'chat_shared': chatShared,
       'connected_website': connectedWebsite,
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,

@@ -14,6 +14,19 @@ class KeyboardButton {
   String text;
 
   /// Optional.
+  /// If specified, pressing the button will open a list of suitable users.
+  /// Tapping on any user will send their identifier to the bot in a
+  /// “user_shared” service message.
+  /// Available in private chats only.
+  KeyboardButtonRequestUser? requestUser;
+
+  /// Optional.
+  /// If specified, pressing the button will open a list of suitable chats.
+  /// Tapping on a chat will send its identifier to the bot in a “chat_shared”
+  /// service message. Available in private chats only.
+  KeyboardButtonRequestChat? requestChat;
+
+  /// Optional.
   /// If True, the user's phone number will be sent as a contact when the button
   /// is pressed. Available in private chats only.
   bool? requestContact;
@@ -37,11 +50,19 @@ class KeyboardButton {
 
   KeyboardButton._({
     required this.text,
+    this.requestUser,
+    this.requestChat,
     this.requestContact,
     this.requestLocation,
     this.requestPoll,
     this.webApp,
   });
+
+  /// RequestUser constructor
+  KeyboardButton.requestUser(this.text, {this.requestUser});
+
+  /// RequestChat constructor
+  KeyboardButton.requestChat(this.text, {this.requestChat});
 
   /// RequestContact constructor
   KeyboardButton.requestContact(this.text, {this.requestContact});
@@ -59,6 +80,14 @@ class KeyboardButton {
   static KeyboardButton fromJson(Map<String, dynamic> json) {
     return KeyboardButton._(
       text: json['text']!,
+      requestUser: callIfNotNull(
+        KeyboardButtonRequestUser.fromJson,
+        json['request_user'],
+      ),
+      requestChat: callIfNotNull(
+        KeyboardButtonRequestChat.fromJson,
+        json['request_chat'],
+      ),
       requestContact: json['request_contact'],
       requestLocation: json['request_location'],
       requestPoll: callIfNotNull(
@@ -96,6 +125,8 @@ class KeyboardButton {
   Map toJson() {
     return {
       'text': text,
+      'request_user': requestUser,
+      'request_chat': requestChat,
       'request_contact': requestContact,
       'request_location': requestLocation,
       'request_poll': requestPoll,
