@@ -35,7 +35,7 @@ class KeyboardButton {
   /// Available in private chats only.
   WebAppInfo? webApp;
 
-  KeyboardButton._({
+  KeyboardButton({
     required this.text,
     this.requestContact,
     this.requestLocation,
@@ -57,7 +57,7 @@ class KeyboardButton {
 
   /// Creates a object from a json
   static KeyboardButton fromJson(Map<String, dynamic> json) {
-    return KeyboardButton._(
+    return KeyboardButton(
       text: json['text']!,
       requestContact: json['request_contact'],
       requestLocation: json['request_location'],
