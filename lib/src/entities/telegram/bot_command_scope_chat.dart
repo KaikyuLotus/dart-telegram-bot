@@ -8,7 +8,7 @@ class BotCommandScopeChat extends BotCommandScope {
   final String type = 'chat';
 
   /// Unique identifier for the target chat or username of the target supergroup
-  ChatID chatId;
+  int chatId;  
 
   /// Basic constructor
   BotCommandScopeChat(this.chatId);
