@@ -1478,6 +1478,30 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the bot's name.
+  ///
+  /// Returns True on success.
+  Future<bool> setMyName({
+    String? name,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'setMyName', {
+      'name': name,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to get the current bot name for the given user language.
+  ///
+  /// Returns BotName on success.
+  Future<BotName> getMyName({
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyName', {
+      'language_code': languageCode,
+    });
+  }
+
   /// Use this method to change the bot's description, which is shown in the
   /// chat with the bot if the chat is empty.
   ///
@@ -2009,8 +2033,7 @@ mixin TGAPIMethods {
     int? cacheTime,
     bool? isPersonal,
     String? nextOffset,
-    String? switchPmText,
-    String? switchPmParameter,
+    InlineQueryResultsButton? button,
   }) {
     return _client.apiCall(_token, 'answerInlineQuery', {
       'inline_query_id': inlineQueryId,
@@ -2018,8 +2041,7 @@ mixin TGAPIMethods {
       'cache_time': cacheTime,
       'is_personal': isPersonal,
       'next_offset': nextOffset,
-      'switch_pm_text': switchPmText,
-      'switch_pm_parameter': switchPmParameter,
+      'button': button,
     });
   }
 

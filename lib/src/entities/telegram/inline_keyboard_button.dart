@@ -46,6 +46,12 @@ class InlineKeyboardButton {
   /// May be empty, in which case only the bot's username will be inserted.
   String? switchInlineQueryCurrentChat;
 
+  /// Optional.
+  /// If set, pressing the button will prompt the user to select one of their
+  /// chats of the specified type, open that chat and insert the bot's username
+  /// and the specified inline query in the input field
+  SwitchInlineQueryChosenChat? switchInlineQueryChosenChat;
+
   /// Optional. Description of the game that will be launched when the user
   /// presses the button.
   CallbackGame? callbackGame;
@@ -62,6 +68,7 @@ class InlineKeyboardButton {
     this.webApp,
     this.switchInlineQuery,
     this.switchInlineQueryCurrentChat,
+    this.switchInlineQueryChosenChat,
     this.callbackGame,
     this.pay,
   });
@@ -87,6 +94,12 @@ class InlineKeyboardButton {
     this.switchInlineQueryCurrentChat,
   );
 
+  /// SwitchInlineQueryChosenChat constructor
+  InlineKeyboardButton.switchInlineQueryChosenChat(
+    this.text,
+    this.switchInlineQueryChosenChat,
+  );
+
   /// CallbackGame constructor
   InlineKeyboardButton.callbackGame(this.text, this.callbackGame);
 
@@ -103,6 +116,7 @@ class InlineKeyboardButton {
       webApp: callIfNotNull(WebAppInfo.fromJson, json['web_app']),
       switchInlineQuery: json['switch_inline_query'],
       switchInlineQueryCurrentChat: json['switch_inline_query_current_chat'],
+      switchInlineQueryChosenChat: json['switch_inline_query_chosen_chat'],
       callbackGame: callIfNotNull(CallbackGame.fromJson, json['callback_game']),
       pay: json['pay'],
     );
@@ -138,6 +152,7 @@ class InlineKeyboardButton {
       'web_app': webApp,
       'switch_inline_query': switchInlineQuery,
       'switch_inline_query_current_chat': switchInlineQueryCurrentChat,
+      'switch_inline_query_chosen_chat': switchInlineQueryChosenChat,
       'callback_game': callbackGame,
       'pay': pay,
     }..removeWhere((_, v) => v == null);
