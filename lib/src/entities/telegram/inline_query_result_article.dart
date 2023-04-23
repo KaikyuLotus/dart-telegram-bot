@@ -34,15 +34,15 @@ class InlineQueryResultArticle extends InlineQueryResult {
 
   /// Optional.
   /// Url of the thumbnail for the result
-  String? thumbUrl;
+  String? thumbnailUrl;
 
   /// Optional.
   /// Thumbnail width
-  int? thumbWidth;
+  int? thumbnailWidth;
 
   /// Optional.
   /// Thumbnail height
-  int? thumbHeight;
+  int? thumbnailHeight;
 
   /// Basic constructor
   InlineQueryResultArticle({
@@ -53,9 +53,9 @@ class InlineQueryResultArticle extends InlineQueryResult {
     this.url,
     this.hideUrl,
     this.description,
-    this.thumbUrl,
-    this.thumbWidth,
-    this.thumbHeight,
+    this.thumbnailUrl,
+    this.thumbnailWidth,
+    this.thumbnailHeight,
   });
 
   /// Creates a json from the object
@@ -69,9 +69,9 @@ class InlineQueryResultArticle extends InlineQueryResult {
       'url': url,
       'hide_url': hideUrl,
       'description': description,
-      'thumb_url': thumbUrl,
-      'thumb_width': thumbWidth,
-      'thumb_height': thumbHeight,
+      'thumbnail_url': thumbnailUrl,
+      'thumbnail_width': thumbnailWidth,
+      'thumbnail_height': thumbnailHeight,
     }..removeWhere((_, v) => v == null);
   }
 

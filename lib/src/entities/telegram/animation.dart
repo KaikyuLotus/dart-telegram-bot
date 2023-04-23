@@ -24,7 +24,7 @@ class Animation {
 
   /// Optional.
   /// Animation thumbnail as defined by sender
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Optional.
   /// Original animation filename as defined by sender
@@ -49,7 +49,7 @@ class Animation {
     required this.width,
     required this.height,
     required this.duration,
-    this.thumb,
+    this.thumbnail,
     this.fileName,
     this.mimeType,
     this.fileSize,
@@ -63,7 +63,7 @@ class Animation {
       width: json['width']!,
       height: json['height']!,
       duration: json['duration']!,
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       fileName: json['file_name'],
       mimeType: json['mime_type'],
       fileSize: json['file_size'],
@@ -78,7 +78,7 @@ class Animation {
       'width': width,
       'height': height,
       'duration': duration,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'file_name': fileName,
       'mime_type': mimeType,
       'file_size': fileSize,

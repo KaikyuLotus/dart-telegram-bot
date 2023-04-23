@@ -52,15 +52,15 @@ class InlineQueryResultDocument extends InlineQueryResult {
 
   /// Optional.
   /// URL of the thumbnail (JPEG only) for the file
-  String? thumbUrl;
+  String? thumbnailUrl;
 
   /// Optional.
   /// Thumbnail width
-  int? thumbWidth;
+  int? thumbnailWidth;
 
   /// Optional.
   /// Thumbnail height
-  int? thumbHeight;
+  int? thumbnailHeight;
 
   /// Basic constructor
   InlineQueryResultDocument({
@@ -74,9 +74,9 @@ class InlineQueryResultDocument extends InlineQueryResult {
     this.description,
     this.replyMarkup,
     this.inputMessageContent,
-    this.thumbUrl,
-    this.thumbWidth,
-    this.thumbHeight,
+    this.thumbnailUrl,
+    this.thumbnailWidth,
+    this.thumbnailHeight,
   });
 
   /// Creates a json from the object
@@ -93,9 +93,9 @@ class InlineQueryResultDocument extends InlineQueryResult {
       'description': description,
       'reply_markup': replyMarkup,
       'input_message_content': inputMessageContent,
-      'thumb_url': thumbUrl,
-      'thumb_width': thumbWidth,
-      'thumb_height': thumbHeight,
+      'thumbnail_url': thumbnailUrl,
+      'thumbnail_width': thumbnailWidth,
+      'thumbnail_height': thumbnailHeight,
     }..removeWhere((_, v) => v == null);
   }
 

@@ -30,12 +30,12 @@ class InlineQueryResultGif extends InlineQueryResult {
 
   /// URL of the static (JPEG or GIF) or animated (MPEG4) thumbnail for the
   /// result
-  String thumbUrl;
+  String thumbnailUrl;
 
   /// Optional.
   /// MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”,
   /// or “video/mp4”. Defaults to “image/jpeg”
-  String? thumbMimeType;
+  String? thumbnailMimeType;
 
   /// Optional.
   /// Title for the result
@@ -70,8 +70,8 @@ class InlineQueryResultGif extends InlineQueryResult {
     this.gifWidth,
     this.gifHeight,
     this.gifDuration,
-    required this.thumbUrl,
-    this.thumbMimeType,
+    required this.thumbnailUrl,
+    this.thumbnailMimeType,
     this.title,
     this.caption,
     this.parseMode,
@@ -89,8 +89,8 @@ class InlineQueryResultGif extends InlineQueryResult {
       'gif_width': gifWidth,
       'gif_height': gifHeight,
       'gif_duration': gifDuration,
-      'thumb_url': thumbUrl,
-      'thumb_mime_type': thumbMimeType,
+      'thumbnail_url': thumbnailUrl,
+      'thumbnail_mime_type': thumbnailMimeType,
       'title': title,
       'caption': caption,
       'parse_mode': parseMode,

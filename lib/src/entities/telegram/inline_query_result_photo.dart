@@ -18,7 +18,7 @@ class InlineQueryResultPhoto extends InlineQueryResult {
   String photoUrl;
 
   /// URL of the thumbnail for the photo
-  String thumbUrl;
+  String thumbnailUrl;
 
   /// Optional.
   /// Width of the photo
@@ -61,7 +61,7 @@ class InlineQueryResultPhoto extends InlineQueryResult {
   InlineQueryResultPhoto({
     required this.id,
     required this.photoUrl,
-    required this.thumbUrl,
+    required this.thumbnailUrl,
     this.photoWidth,
     this.photoHeight,
     this.title,
@@ -79,7 +79,7 @@ class InlineQueryResultPhoto extends InlineQueryResult {
       'type': type,
       'id': id,
       'photo_url': photoUrl,
-      'thumb_url': thumbUrl,
+      'thumbnail_url': thumbnailUrl,
       'photo_width': photoWidth,
       'photo_height': photoHeight,
       'title': title,

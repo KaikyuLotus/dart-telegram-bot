@@ -184,7 +184,7 @@ mixin TGAPIMethods {
     int? duration,
     String? performer,
     String? title,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -201,7 +201,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'performer': performer,
       'title': title,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -220,7 +220,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     HttpFile document, {
     int? messageThreadId,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -238,7 +238,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -263,7 +263,7 @@ mixin TGAPIMethods {
     int? duration,
     int? width,
     int? height,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -282,7 +282,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'width': width,
       'height': height,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -309,7 +309,7 @@ mixin TGAPIMethods {
     int? duration,
     int? width,
     int? height,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -327,7 +327,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'width': width,
       'height': height,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -390,7 +390,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     int? duration,
     int? length,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -403,6 +403,7 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'duration': duration,
       'length': length,
+      'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -1477,6 +1478,59 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the bot's description, which is shown in the
+  /// chat with the bot if the chat is empty.
+  ///
+  /// Returns True on success.
+  Future<bool> setMyDescription({
+    String? description,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'setMyDescription', {
+      'description': description,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to get the current bot description for the given user
+  /// language.
+  ///
+  /// Returns BotDescription on success.
+  Future<BotDescription> getMyDescription({
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyDescription', {
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to change the bot's short description,
+  /// which is shown on the bot's profile page and is sent together with the
+  /// link when users share the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setMyShortDescription({
+    String? shortDescription,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'setMyShortDescription', {
+      'short_description': shortDescription,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to get the current bot short description for the given
+  /// user language.
+  ///
+  /// Returns BotShortDescription on success.
+  Future<BotDescription> getMyShortDescription({
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyShortDescription', {
+      'language_code': languageCode,
+    });
+  }
+
   /// Use this method to change the bot's menu button in a private chat,
   /// or the default menu button.
   ///
@@ -1738,6 +1792,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     HttpFile sticker, {
     int? messageThreadId,
+    String? emoji,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -1748,6 +1803,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'sticker': sticker,
       'message_thread_id': messageThreadId,
+      'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -1777,10 +1833,15 @@ mixin TGAPIMethods {
   /// (can be used multiple times).
   ///
   /// Returns the uploaded [File] on success.
-  Future<File> uploadStickerFile(String userId, HttpFile pngSticker) {
+  Future<File> uploadStickerFile(
+    String userId,
+    InputSticker sticker,
+    String stickerFormat,
+  ) {
     return _client.apiCall(_token, 'uploadStickerFile', {
       'user_id': userId,
-      'png_sticker': pngSticker,
+      'sticker': sticker,
+      'sticker_format': stickerFormat,
     });
   }
 
@@ -1793,69 +1854,20 @@ mixin TGAPIMethods {
     String userId,
     String name,
     String title,
-    HttpFile pngSticker,
-    String emojis, {
+    String emojis,
+    List<InputSticker> stickers,
+    String stickerFormat, {
     String? stickerType,
-    MaskPosition? maskPosition,
+    bool? needsRepainting,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
       'user_id': userId,
       'name': name,
       'title': title,
-      'png_sticker': pngSticker,
+      'stickers': stickers,
+      'sticker_format': stickerFormat,
       'sticker_type': stickerType,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to create a new sticker set owned by a user.
-  ///
-  /// The bot will be able to edit the sticker set thus created.
-  ///
-  /// Returns True on success.
-  Future<bool> createNewStickerSetTgs(
-    String userId,
-    String name,
-    String title,
-    HttpFile tgsSticker,
-    String emojis, {
-    String? stickerType,
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'createNewStickerSet', {
-      'user_id': userId,
-      'name': name,
-      'title': title,
-      'tgs_sticker': tgsSticker,
-      'sticker_type': stickerType,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to create a new sticker set owned by a user.
-  ///
-  /// The bot will be able to edit the sticker set thus created.
-  ///
-  /// Returns True on success.
-  Future<bool> createNewStickerSetWebm(
-    String userId,
-    String name,
-    String title,
-    HttpFile webmSticker,
-    String emojis, {
-    String? stickerType,
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'createNewStickerSet', {
-      'user_id': userId,
-      'name': name,
-      'title': title,
-      'webm_sticker': webmSticker,
-      'sticker_type': stickerType,
-      'emojis': emojis,
-      'mask_position': maskPosition,
+      'needs_repainting': needsRepainting,
     });
   }
 
@@ -1871,66 +1883,12 @@ mixin TGAPIMethods {
   Future<bool> addStickerToSet(
     String userId,
     String name,
-    HttpFile pngSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
+    InputSticker sticker,
+  ) {
     return _client.apiCall(_token, 'addStickerToSet', {
       'user_id': userId,
       'name': name,
-      'png_sticker': pngSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to add a new sticker to a set created by the bot.
-  ///
-  /// Animated stickers can be added to animated sticker sets and only to them.
-  ///
-  /// Animated sticker sets can have up to 50 stickers.
-  ///
-  /// Static sticker sets can have up to 120 stickers.
-  ///
-  /// Returns True on success.
-  Future<bool> addStickerToSetTgs(
-    String userId,
-    String name,
-    HttpFile tgsSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'addStickerToSet', {
-      'user_id': userId,
-      'name': name,
-      'tgs_sticker': tgsSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to add a new sticker to a set created by the bot.
-  ///
-  /// Animated stickers can be added to animated sticker sets and only to them.
-  ///
-  /// Animated sticker sets can have up to 50 stickers.
-  ///
-  /// Static sticker sets can have up to 120 stickers.
-  ///
-  /// Returns True on success.
-  Future<bool> addStickerToSetWebm(
-    String userId,
-    String name,
-    HttpFile webmSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'addStickerToSet', {
-      'user_id': userId,
-      'name': name,
-      'webm_sticker': webmSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
+      'sticker': sticker,
     });
   }
 
@@ -1954,20 +1912,90 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the list of emoji assigned to a regular or
+  /// custom emoji sticker.
+  /// The sticker must belong to a sticker set created by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerEmojiList(String sticker, List<String> emojiList) {
+    return _client.apiCall(_token, 'setStickerEmojiList', {
+      'sticker': sticker,
+      'emoji_list': emojiList,
+    });
+  }
+
+  /// Use this method to change search keywords assigned to a regular or
+  /// custom emoji sticker. The sticker must belong to a sticker set created
+  /// by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerKeywords(String sticker, List<String> keywords) {
+    return _client.apiCall(_token, 'setStickerKeywords', {
+      'sticker': sticker,
+      'keywords': keywords,
+    });
+  }
+
+  /// Use this method to change the mask position of a mask sticker.
+  /// The sticker must belong to a sticker set that was created by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerMaskPosition(
+    String sticker, {
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'setStickerMaskPosition', {
+      'sticker': sticker,
+      'mask_position': maskPosition,
+    });
+  }
+
+  /// Use this method to set the title of a created sticker set.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerSetTitle(String name, String title) {
+    return _client.apiCall(_token, 'setStickerSetTitle', {
+      'name': name,
+      'title': title,
+    });
+  }
+
   /// Use this method to set the thumbnail of a sticker set.
   /// Animated thumbnails can be set for animated sticker sets only.
   /// Video thumbnails can be set only for video sticker sets only.
   ///
   /// Returns True on success.
-  Future<bool> setStickerSetThumb(
+  Future<bool> setStickerSetThumbnail(
     String name,
     String userId, {
-    HttpFile? thumb,
+    HttpFile? thumbnail,
   }) {
-    return _client.apiCall(_token, 'setStickerSetThumb', {
+    return _client.apiCall(_token, 'setStickerSetThumbnail', {
       'user_id': userId,
       'name': name,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
+    });
+  }
+
+  /// Use this method to set the thumbnail of a custom emoji sticker set.
+  ///
+  /// Returns True on success.
+  Future<bool> setCustomEmojiStickerSetThumbnail(
+    String name, {
+    String? customEmojiId,
+  }) {
+    return _client.apiCall(_token, 'setCustomEmojiStickerSetThumbnail', {
+      'name': name,
+      'custom_emoji_id': customEmojiId,
+    });
+  }
+
+  /// Use this method to delete a sticker set that was created by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> deleteStickerSet(String name) {
+    return _client.apiCall(_token, 'deleteStickerSet', {
+      'name': name,
     });
   }
 

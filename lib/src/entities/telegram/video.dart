@@ -23,7 +23,7 @@ class Video {
 
   /// Optional.
   /// Video thumbnail
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Optional.
   /// Original filename as defined by sender
@@ -47,7 +47,7 @@ class Video {
     required this.width,
     required this.height,
     required this.duration,
-    this.thumb,
+    this.thumbnail,
     this.fileName,
     this.mimeType,
     this.fileSize,
@@ -61,7 +61,7 @@ class Video {
       width: json['width']!,
       height: json['height']!,
       duration: json['duration']!,
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       fileName: json['file_name'],
       mimeType: json['mime_type'],
       fileSize: json['file_size'],
@@ -76,7 +76,7 @@ class Video {
       'width': width,
       'height': height,
       'duration': duration,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'file_name': fileName,
       'mime_type': mimeType,
       'file_size': fileSize,

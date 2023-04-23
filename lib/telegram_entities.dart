@@ -130,3 +130,6 @@ export 'src/entities/telegram/keyboard_button_request_user.dart';
 export 'src/entities/telegram/keyboard_button_request_chat.dart';
 export 'src/entities/telegram/chat_shared.dart';
 export 'src/entities/telegram/user_shared.dart';
+export 'src/entities/telegram/bot_description.dart';
+export 'src/entities/telegram/bot_short_description.dart';
+export 'src/entities/telegram/input_sticker.dart';

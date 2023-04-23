@@ -22,7 +22,7 @@ class VideoNote {
 
   /// Optional.
   /// Video thumbnail
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Optional.
   /// File size in bytes
@@ -34,7 +34,7 @@ class VideoNote {
     required this.fileUniqueId,
     required this.length,
     required this.duration,
-    this.thumb,
+    this.thumbnail,
     this.fileSize,
   });
 
@@ -45,7 +45,7 @@ class VideoNote {
       fileUniqueId: json['file_unique_id']!,
       length: json['length']!,
       duration: json['duration']!,
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       fileSize: json['file_size'],
     );
   }
@@ -57,7 +57,7 @@ class VideoNote {
       'file_unique_id': fileUniqueId,
       'length': length,
       'duration': duration,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'file_size': fileSize,
     }..removeWhere((_, v) => v == null);
   }

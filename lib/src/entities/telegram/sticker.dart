@@ -32,7 +32,7 @@ class Sticker {
 
   /// Optional.
   /// Sticker thumbnail in the .WEBP or .JPG format
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Optional.
   /// Emoji associated with the sticker
@@ -55,6 +55,12 @@ class Sticker {
   String? customEmojiId;
 
   /// Optional.
+  /// True, if the sticker must be repainted to a text color in messages,
+  /// the color of the Telegram Premium badge in emoji status, white color on
+  /// chat photos, or another appropriate color in other places
+  bool? needRepainting;
+
+  /// Optional.
   /// File size in bytes
   int? fileSize;
 
@@ -67,12 +73,13 @@ class Sticker {
     required this.height,
     required this.isAnimated,
     required this.isVideo,
-    this.thumb,
+    this.thumbnail,
     this.emoji,
     this.setName,
     this.premiumAnimation,
     this.maskPosition,
     this.customEmojiId,
+    this.needRepainting,
     this.fileSize,
   });
 
@@ -86,12 +93,13 @@ class Sticker {
       height: json['height']!,
       isAnimated: json['is_animated']!,
       isVideo: json['is_video']!,
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       emoji: json['emoji'],
       setName: json['set_name'],
       premiumAnimation: callIfNotNull(File.fromJson, json['premium_animation']),
       maskPosition: callIfNotNull(MaskPosition.fromJson, json['mask_position']),
       customEmojiId: json['custom_emoji_id'],
+      needRepainting: json['need_repainting'],
       fileSize: json['file_size'],
     );
   }
@@ -111,12 +119,13 @@ class Sticker {
       'height': height,
       'is_animated': isAnimated,
       'is_video': isVideo,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'emoji': emoji,
       'set_name': setName,
       'premium_animation': premiumAnimation,
       'mask_position': maskPosition,
       'custom_emoji_id': customEmojiId,
+      'need_repainting': needRepainting,
       'file_size': fileSize,
     }..removeWhere((_, v) => v == null);
   }
