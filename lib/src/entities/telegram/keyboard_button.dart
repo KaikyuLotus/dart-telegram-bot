@@ -58,6 +58,9 @@ class KeyboardButton {
     this.webApp,
   });
 
+  /// Simple text button constructor
+  KeyboardButton.text(this.text);
+
   /// RequestUser constructor
   KeyboardButton.requestUser(this.text, {this.requestUser});
 
