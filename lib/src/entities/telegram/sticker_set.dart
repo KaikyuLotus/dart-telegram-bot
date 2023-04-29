@@ -26,7 +26,7 @@ class StickerSet {
 
   /// Optional.
   /// Sticker set thumbnail in the .WEBP, .TGS, or .WEBM format
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Basic constructor
   StickerSet({
@@ -36,7 +36,7 @@ class StickerSet {
     required this.isAnimated,
     required this.isVideo,
     required this.stickers,
-    this.thumb,
+    this.thumbnail,
   });
 
   /// Creates a object from a json
@@ -48,7 +48,7 @@ class StickerSet {
       isAnimated: json['is_animated']!,
       isVideo: json['is_video']!,
       stickers: Sticker.listFromJsonArray(json['stickers']!),
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
     );
   }
 
@@ -61,7 +61,7 @@ class StickerSet {
       'is_animated': isAnimated,
       'is_video': isVideo,
       'stickers': stickers,
-      'photo_size': thumb,
+      'photo_size': thumbnail,
     }..removeWhere((_, v) => v == null);
   }
 

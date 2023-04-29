@@ -23,7 +23,7 @@ class InputMediaVideo extends InputMedia {
   /// Thumbnails can't be reused and can be only uploaded as a new file,
   /// so you can pass “attach://<file_attach_name>” if the thumbnail was
   /// uploaded using multipart/form-data under <file_attach_name>.
-  HttpFile? thumb;
+  HttpFile? thumbnail;
 
   /// Optional.
   /// Caption of the video to be sent, 0-1024 characters after entities parsing
@@ -57,7 +57,7 @@ class InputMediaVideo extends InputMedia {
   /// Basic constructor
   InputMediaVideo({
     required this.media,
-    this.thumb,
+    this.thumbnail,
     this.caption,
     this.parseMode,
     this.captionEntities,
@@ -72,7 +72,7 @@ class InputMediaVideo extends InputMedia {
     return {
       'type': type,
       'media': media,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
