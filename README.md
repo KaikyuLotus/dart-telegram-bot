@@ -77,4 +77,12 @@ class MyBot extends Bot {
   }
 }
 ```
+
+To push updates from a webhook
+
+```dart
+Bot bot = Bot('BOT_TOKEN')
+bot.pushUpdate(Update.fromJson(BODY_FROM_WEBHOOK))
+```
+
 Written by Kaikyu Lotus ([Telegram](https://t.me/Kaikyu))

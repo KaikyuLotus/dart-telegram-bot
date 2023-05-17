@@ -81,7 +81,6 @@ export 'src/entities/telegram/message_entity.dart';
 export 'src/entities/telegram/message_id.dart';
 export 'src/entities/telegram/order_info.dart';
 export 'src/entities/telegram/passport_data.dart';
-export 'src/entities/telegram/passport_data.dart';
 export 'src/entities/telegram/passport_file.dart';
 export 'src/entities/telegram/photo_size.dart';
 export 'src/entities/telegram/poll.dart';
