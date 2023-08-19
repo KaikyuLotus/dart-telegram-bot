@@ -1406,6 +1406,12 @@ mixin TGAPIMethods {
     });
   }
 
+  Future<bool> unpinAllGeneralForumTopicMessages(ChatID chatId) {
+    return _client.apiCall(_token, 'unpinAllGeneralForumTopicMessages', {
+      'chat_id': chatId,
+    });
+  }
+
   /// Use this method to send answers to callback queries sent from
   /// inline keyboards.
   ///

@@ -130,6 +130,10 @@ class Message {
   Sticker? sticker;
 
   /// Optional.
+  /// Message is a forwarded story
+  Story? story;
+
+  /// Optional.
   /// Message is a video, information about the video
   Video? video;
 
@@ -362,6 +366,7 @@ class Message {
     this.document,
     this.photo,
     this.sticker,
+    this.story,
     this.video,
     this.videoNote,
     this.voice,
@@ -443,6 +448,7 @@ class Message {
       document: callIfNotNull(Document.fromJson, json['document']),
       photo: callIfNotNull(PhotoSize.listFromJsonArray, json['photo']),
       sticker: callIfNotNull(Sticker.fromJson, json['sticker']),
+      story: callIfNotNull(Story.fromJson, json['story']),
       video: callIfNotNull(Video.fromJson, json['video']),
       videoNote: callIfNotNull(VideoNote.fromJson, json['video_note']),
       voice: callIfNotNull(Voice.fromJson, json['voice']),
@@ -584,6 +590,7 @@ class Message {
       'document': document,
       'photo': photo,
       'sticker': sticker,
+      'story': story,
       'video': video,
       'video_note': videoNote,
       'voice': voice,
