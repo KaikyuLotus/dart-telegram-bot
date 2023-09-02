@@ -136,3 +136,4 @@ export 'src/entities/telegram/input_sticker.dart';
 export 'src/entities/telegram/inline_query_results_button.dart';
 export 'src/entities/telegram/switch_inline_query_chosen_chat.dart';
 export 'src/entities/telegram/bot_name.dart';
+export 'src/entities/telegram/story.dart';

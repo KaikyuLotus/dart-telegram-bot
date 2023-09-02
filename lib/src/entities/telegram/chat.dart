@@ -52,6 +52,12 @@ class Chat {
   String? emojiStatusCustomEmojiId;
 
   /// Optional.
+  /// Expiration date of the emoji status of the other party in a
+  /// private chat, if any.
+  /// Returned only in getChat.
+  int? emojiStatusExpirationDate;
+
+  /// Optional.
   /// Bio of the other party in a private chat. Returned only in getChat.
   String? bio;
 
@@ -165,6 +171,7 @@ class Chat {
     this.photo,
     this.activeUsernames,
     this.emojiStatusCustomEmojiId,
+    this.emojiStatusExpirationDate,
     this.bio,
     this.hasPrivateForwards,
     this.hasRestrictedVoiceAndVideoMessages,
@@ -198,6 +205,7 @@ class Chat {
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       activeUsernames: List.from(json['active_usernames'] ?? []),
       emojiStatusCustomEmojiId: json['emoji_status_custom_emoji_id'],
+      emojiStatusExpirationDate: json['emoji_status_expiration_date'],
       bio: json['bio'],
       hasPrivateForwards: json['has_private_forwards'],
       hasRestrictedVoiceAndVideoMessages:
@@ -236,6 +244,7 @@ class Chat {
       'photo': photo,
       'active_usernames': activeUsernames,
       'emoji_status_custom_emoji_id': emojiStatusCustomEmojiId,
+      'emoji_status_expiration_date': emojiStatusExpirationDate,
       'bio': bio,
       'has_private_forwards': hasPrivateForwards,
       'has_restricted_voice_and_video_messages':
