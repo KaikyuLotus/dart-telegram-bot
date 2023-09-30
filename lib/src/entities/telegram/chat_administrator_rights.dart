@@ -45,6 +45,20 @@ class ChatAdministratorRights {
   bool? canPinMessages;
 
   /// Optional.
+  /// True, if the administrator can post stories in the channel; channels only
+  bool? canPostStories;
+
+  /// Optional.
+  /// True, if the administrator can edit stories posted by other users;
+  /// channels only
+  bool? canEditStories;
+
+  /// Optional.
+  /// True, if the administrator can delete stories posted by other users;
+  /// channels only
+  bool? canDeleteStories;
+
+  /// Optional.
   /// True, if the user is allowed to create, rename, close, and reopen forum
   /// topics; supergroups only
   bool? canManageTopics;
@@ -62,6 +76,9 @@ class ChatAdministratorRights {
     this.canPostMessages,
     this.canEditMessages,
     this.canPinMessages,
+    this.canPostStories,
+    this.canEditStories,
+    this.canDeleteStories,
     this.canManageTopics,
   );
 
@@ -79,6 +96,9 @@ class ChatAdministratorRights {
       json['can_post_messages'],
       json['can_edit_messages'],
       json['can_pin_messages'],
+      json['can_post_stories'],
+      json['can_edit_stories'],
+      json['can_delete_stories'],
       json['can_manage_topics'],
     );
   }
@@ -97,6 +117,9 @@ class ChatAdministratorRights {
       'can_post_messages': canPostMessages,
       'can_edit_messages': canEditMessages,
       'can_pin_messages': canPinMessages,
+      'can_post_stories': canPostStories,
+      'can_edit_stories': canEditStories,
+      'can_delete_stories': canDeleteStories,
       'can_manage_topics': canManageTopics,
     };
   }
