@@ -58,6 +58,20 @@ class ChatMember {
   /// True, if the user is allowed to pin messages; groups and supergroups only
   bool? canPinMessages;
 
+  /// Optional.
+  /// True, if the administrator can post stories in the channel; channels only
+  bool? canPostStories;
+
+  /// Optional.
+  /// True, if the administrator can edit stories posted by other users;
+  /// channels only
+  bool? canEditStories;
+
+  /// Optional.
+  /// True, if the administrator can delete stories posted by other users;
+  /// channels only
+  bool? canDeleteStories;
+
   /// True, if the user is a member of the chat at the moment of the request
   bool? isMember;
 
@@ -125,6 +139,9 @@ class ChatMember {
     this.canChangeInfo,
     this.canInviteUsers,
     this.canPinMessages,
+    this.canPostStories,
+    this.canEditStories,
+    this.canDeleteStories,
     this.isMember,
     this.canSendMessages,
     this.canSendAudios,
@@ -161,6 +178,9 @@ class ChatMember {
       canChangeInfo: json['can_change_info'] ?? isCreator,
       canInviteUsers: json['can_invite_users'] ?? isCreator,
       canPinMessages: json['can_pin_messages'] ?? isCreator,
+      canPostStories: json['can_post_stories'] ?? isCreator,
+      canEditStories: json['can_edit_stories'] ?? isCreator,
+      canDeleteStories: json['can_delete_stories'] ?? isCreator,
       isMember: json['is_member'] ?? isCreator || isAdmin || isMember,
       canSendMessages: json['can_send_messages'] ?? isCreator,
       canSendAudios: json['can_send_audios'] ?? isCreator,
@@ -203,6 +223,9 @@ class ChatMember {
       'can_change_info': canChangeInfo,
       'can_invite_users': canInviteUsers,
       'can_pin_messages': canPinMessages,
+      'can_post_stories': canPostStories,
+      'can_edit_stories': canEditStories,
+      'can_delete_stories': canDeleteStories,
       'is_member': isMember,
       'can_send_messages': canSendMessages,
       'can_send_audios': canSendAudios,
