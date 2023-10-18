@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Update to support http 1.0.0
+   
 ## 1.0.0
 
 - Stable release
