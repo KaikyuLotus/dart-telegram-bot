@@ -53,15 +53,15 @@ class InlineQueryResultVenue extends InlineQueryResult {
 
   /// Optional.
   /// Url of the thumbnail for the result
-  String? thumbUrl;
+  String? thumbnailUrl;
 
   /// Optional.
   /// Thumbnail width
-  int? thumbWidth;
+  int? thumbnailWidth;
 
   /// Optional.
   /// Thumbnail height
-  int? thumbHeight;
+  int? thumbnailHeight;
 
   /// Basic constructor
   InlineQueryResultVenue({
@@ -76,9 +76,9 @@ class InlineQueryResultVenue extends InlineQueryResult {
     this.googlePlaceType,
     this.replyMarkup,
     this.inputMessageContent,
-    this.thumbUrl,
-    this.thumbWidth,
-    this.thumbHeight,
+    this.thumbnailUrl,
+    this.thumbnailWidth,
+    this.thumbnailHeight,
   });
 
   /// Creates a json from the object
@@ -96,9 +96,9 @@ class InlineQueryResultVenue extends InlineQueryResult {
       'google_place_type': googlePlaceType,
       'reply_markup': replyMarkup,
       'input_message_content': inputMessageContent,
-      'thumb_url': thumbUrl,
-      'thumb_width': thumbWidth,
-      'thumb_height': thumbHeight,
+      'thumbnail_url': thumbnailUrl,
+      'thumbnail_width': thumbnailWidth,
+      'thumbnail_height': thumbnailHeight,
     }..removeWhere((_, v) => v == null);
   }
 

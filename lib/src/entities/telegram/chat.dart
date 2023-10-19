@@ -32,8 +32,30 @@ class Chat {
   String? lastName;
 
   /// Optional.
+  /// True if the supergroup chat is a forum (has topics enabled)
+  bool? isForum;
+
+  /// Optional.
   /// Chat photo. Returned only in getChat.
   ChatPhoto? photo;
+
+  /// Optional.
+  /// If non-empty, the list of all active chat usernames;
+  /// for private chats, supergroups and channels.
+  /// Returned only in getChat.
+  List<String>? activeUsernames;
+
+  /// Optional.
+  /// Custom emoji identifier of emoji status of the other party in a
+  /// private chat.
+  /// Returned only in getChat.
+  String? emojiStatusCustomEmojiId;
+
+  /// Optional.
+  /// Expiration date of the emoji status of the other party in a
+  /// private chat, if any.
+  /// Returned only in getChat.
+  int? emojiStatusExpirationDate;
 
   /// Optional.
   /// Bio of the other party in a private chat. Returned only in getChat.
@@ -95,6 +117,18 @@ class Chat {
   int? messageAutoDeleteTime;
 
   /// Optional.
+  /// True, if aggressive anti-spam checks are enabled in the supergroup.
+  /// The field is only available to chat administrators.
+  /// Returned only in getChat.
+  bool? hasAggressiveAntiSpamEnabled;
+
+  /// Optional.
+  /// True, if non-administrators can only get the list of bots and
+  /// administrators in the chat.
+  /// Returned only in getChat.
+  bool? hasHiddenMembers;
+
+  /// Optional.
   /// True, if messages from the chat can't be forwarded to other chats.
   /// Returned only in getChat.
   bool? hasProtectedContent;
@@ -133,7 +167,11 @@ class Chat {
     this.username,
     this.firstName,
     this.lastName,
+    this.isForum,
     this.photo,
+    this.activeUsernames,
+    this.emojiStatusCustomEmojiId,
+    this.emojiStatusExpirationDate,
     this.bio,
     this.hasPrivateForwards,
     this.hasRestrictedVoiceAndVideoMessages,
@@ -145,6 +183,8 @@ class Chat {
     this.permissions,
     this.slowModeDelay,
     this.messageAutoDeleteTime,
+    this.hasAggressiveAntiSpamEnabled,
+    this.hasHiddenMembers,
     this.hasProtectedContent,
     this.stickerSetName,
     this.canSetStickerSet,
@@ -161,7 +201,11 @@ class Chat {
       username: json['username'],
       firstName: json['first_name'],
       lastName: json['last_name'],
+      isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
+      activeUsernames: List.from(json['active_usernames'] ?? []),
+      emojiStatusCustomEmojiId: json['emoji_status_custom_emoji_id'],
+      emojiStatusExpirationDate: json['emoji_status_expiration_date'],
       bio: json['bio'],
       hasPrivateForwards: json['has_private_forwards'],
       hasRestrictedVoiceAndVideoMessages:
@@ -174,6 +218,8 @@ class Chat {
       permissions: callIfNotNull(ChatPermissions.fromJson, json['permissions']),
       slowModeDelay: json['slow_mode_delay'],
       messageAutoDeleteTime: json['message_auto_delete_time'],
+      hasAggressiveAntiSpamEnabled: json['has_aggressive_anti_spam_enabled'],
+      hasHiddenMembers: json['has_hidden_members'],
       hasProtectedContent: json['has_protected_content'],
       stickerSetName: json['sticker_set_name'],
       canSetStickerSet: json['can_set_sticker_set'],
@@ -194,7 +240,11 @@ class Chat {
       'username': username,
       'first_name': firstName,
       'last_name': lastName,
+      'is_forum': isForum,
       'photo': photo,
+      'active_usernames': activeUsernames,
+      'emoji_status_custom_emoji_id': emojiStatusCustomEmojiId,
+      'emoji_status_expiration_date': emojiStatusExpirationDate,
       'bio': bio,
       'has_private_forwards': hasPrivateForwards,
       'has_restricted_voice_and_video_messages':
@@ -207,6 +257,8 @@ class Chat {
       'permissions': permissions,
       'slow_mode_delay': slowModeDelay,
       'message_auto_delete_time': messageAutoDeleteTime,
+      'has_aggressive_anti_spam_enabled': hasAggressiveAntiSpamEnabled,
+      'has_hidden_members': hasHiddenMembers,
       'has_protected_content': hasProtectedContent,
       'sticker_set_name': stickerSetName,
       'can_set_sticker_set': canSetStickerSet,

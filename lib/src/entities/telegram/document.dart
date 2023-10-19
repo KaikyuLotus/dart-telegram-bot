@@ -15,7 +15,7 @@ class Document {
 
   /// Optional.
   /// Document thumbnail as defined by sender
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Optional.
   /// Original filename as defined by sender
@@ -37,7 +37,7 @@ class Document {
   Document({
     required this.fileId,
     required this.fileUniqueId,
-    this.thumb,
+    this.thumbnail,
     this.fileName,
     this.mimeType,
     this.fileSize,
@@ -48,7 +48,7 @@ class Document {
     return Document(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       fileName: json['file_name'],
       mimeType: json['mime_type'],
       fileSize: json['file_size'],
@@ -60,7 +60,7 @@ class Document {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'file_name': fileName,
       'mime_type': mimeType,
       'file_size': fileSize,

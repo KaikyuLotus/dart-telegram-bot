@@ -1,7 +1,39 @@
+## 1.1.0
+
+- Stable release
+
 ## 1.0.1
 
 - Update to support http 1.0.0
    
+## 1.0.0-b7
+
+- Updated to bot API 6.9
+
+## 1.0.0-b6
+
+- Updated to bot API 6.8
+
+## 1.0.0-b5
+
+- Updated to bot API 6.7
+
+## 1.0.0-b4
+
+- Updated to bot API 6.6
+
+## 1.0.0-b3
+
+- Updated to bot API 6.5
+
+## 1.0.0-b2
+
+- Updated to bot API 6.4
+
+## 1.0.0-b1
+
+- Updated to bot API 6.3
+
 ## 1.0.0
 
 - Stable release

@@ -25,6 +25,10 @@ class ChatMemberUpdated {
   /// for joining by invite link events only.
   ChatInviteLink? inviteLink;
 
+  /// Optional.
+  /// True, if the user joined the chat via a chat folder invite link
+  bool? viaChatFolderInviteLink;
+
   /// Basic constructor
   ChatMemberUpdated({
     required this.chat,
@@ -33,6 +37,7 @@ class ChatMemberUpdated {
     required this.oldChatMember,
     required this.newChatMember,
     this.inviteLink,
+    this.viaChatFolderInviteLink,
   });
 
   /// Creates a object from a json
@@ -44,6 +49,7 @@ class ChatMemberUpdated {
       oldChatMember: ChatMember.fromJson(json['old_chat_member']!),
       newChatMember: ChatMember.fromJson(json['new_chat_member']!),
       inviteLink: callIfNotNull(ChatInviteLink.fromJson, json['invite_link']),
+      viaChatFolderInviteLink: json['via_chat_folder_invite_link'],
     );
   }
 
@@ -56,6 +62,7 @@ class ChatMemberUpdated {
       'old_chat_member': oldChatMember,
       'new_chat_member': newChatMember,
       'invite_link': inviteLink,
+      'via_chat_folder_invite_link': viaChatFolderInviteLink,
     }..removeWhere((_, v) => v == null);
   }
 

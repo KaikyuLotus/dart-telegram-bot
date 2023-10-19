@@ -58,6 +58,20 @@ class ChatMember {
   /// True, if the user is allowed to pin messages; groups and supergroups only
   bool? canPinMessages;
 
+  /// Optional.
+  /// True, if the administrator can post stories in the channel; channels only
+  bool? canPostStories;
+
+  /// Optional.
+  /// True, if the administrator can edit stories posted by other users;
+  /// channels only
+  bool? canEditStories;
+
+  /// Optional.
+  /// True, if the administrator can delete stories posted by other users;
+  /// channels only
+  bool? canDeleteStories;
+
   /// True, if the user is a member of the chat at the moment of the request
   bool? isMember;
 
@@ -65,9 +79,23 @@ class ChatMember {
   /// locations and venues
   bool? canSendMessages;
 
-  /// True, if the user is allowed to send audios, documents, photos, videos,
-  /// video notes and voice notes
-  bool? canSendMediaMessages;
+  /// True, if the user is allowed to send audios
+  bool? canSendAudios;
+
+  /// True, if the user is allowed to send documents
+  bool? canSendDocuments;
+
+  /// True, if the user is allowed to send photos
+  bool? canSendPhotos;
+
+  /// True, if the user is allowed to send videos
+  bool? canSendVideos;
+
+  /// True, if the user is allowed to send video notes
+  bool? canSendVideoNotes;
+
+  /// True, if the user is allowed to send voice notes
+  bool? canSendVoiceNotes;
 
   /// True, if the user is allowed to send polls
   bool? canSendPolls;
@@ -91,6 +119,11 @@ class ChatMember {
   /// True, if the user's presence in the chat is hidden
   bool? isAnonymous;
 
+  /// Optional.
+  /// True, if the user is allowed to create, rename, close, and reopen forum
+  /// topics; supergroups only
+  bool? canManageTopics;
+
   /// Basic constructor
   ChatMember({
     required this.user,
@@ -106,15 +139,24 @@ class ChatMember {
     this.canChangeInfo,
     this.canInviteUsers,
     this.canPinMessages,
+    this.canPostStories,
+    this.canEditStories,
+    this.canDeleteStories,
     this.isMember,
     this.canSendMessages,
-    this.canSendMediaMessages,
+    this.canSendAudios,
+    this.canSendDocuments,
+    this.canSendPhotos,
+    this.canSendVideos,
+    this.canSendVideoNotes,
+    this.canSendVoiceNotes,
     this.canSendPolls,
     this.canSendOtherMessages,
     this.canAddWebPagePreviews,
     this.canManageVideoChats,
     this.canManageChat,
     this.isAnonymous,
+    this.canManageTopics,
   });
 
   /// Creates a object from a json
@@ -136,15 +178,24 @@ class ChatMember {
       canChangeInfo: json['can_change_info'] ?? isCreator,
       canInviteUsers: json['can_invite_users'] ?? isCreator,
       canPinMessages: json['can_pin_messages'] ?? isCreator,
+      canPostStories: json['can_post_stories'] ?? isCreator,
+      canEditStories: json['can_edit_stories'] ?? isCreator,
+      canDeleteStories: json['can_delete_stories'] ?? isCreator,
       isMember: json['is_member'] ?? isCreator || isAdmin || isMember,
       canSendMessages: json['can_send_messages'] ?? isCreator,
-      canSendMediaMessages: json['can_send_media_messages'] ?? isCreator,
+      canSendAudios: json['can_send_audios'] ?? isCreator,
+      canSendDocuments: json['can_send_documents'] ?? isCreator,
+      canSendPhotos: json['can_send_photos'] ?? isCreator,
+      canSendVideos: json['can_send_videos'] ?? isCreator,
+      canSendVideoNotes: json['can_send_video_notes'] ?? isCreator,
+      canSendVoiceNotes: json['can_send_voice_notes'] ?? isCreator,
       canSendPolls: json['can_send_polls'] ?? isCreator,
       canSendOtherMessages: json['can_send_other_messages'] ?? isCreator,
       canAddWebPagePreviews: json['can_add_web_page_previews'] ?? isCreator,
       canManageVideoChats: json['can_manage_video_chats'] ?? isCreator,
       canManageChat: json['can_manage_chat'] ?? isCreator,
       isAnonymous: json['is_anonymous'],
+      canManageTopics: json['can_manage_topics'],
     );
   }
 
@@ -172,15 +223,24 @@ class ChatMember {
       'can_change_info': canChangeInfo,
       'can_invite_users': canInviteUsers,
       'can_pin_messages': canPinMessages,
+      'can_post_stories': canPostStories,
+      'can_edit_stories': canEditStories,
+      'can_delete_stories': canDeleteStories,
       'is_member': isMember,
       'can_send_messages': canSendMessages,
-      'can_send_media_messages': canSendMediaMessages,
+      'can_send_audios': canSendAudios,
+      'can_send_documents': canSendDocuments,
+      'can_send_photos': canSendPhotos,
+      'can_send_videos': canSendVideos,
+      'can_send_video_notes': canSendVideoNotes,
+      'can_send_voice_notes': canSendVoiceNotes,
       'can_send_polls': canSendPolls,
       'can_send_other_messages': canSendOtherMessages,
       'can_add_web_page_previews': canAddWebPagePreviews,
       'can_manage_video_chats': canManageVideoChats,
       'can_manage_chat': canManageChat,
       'is_anonymous': isAnonymous,
+      'can_manage_topics': canManageTopics,
     }..removeWhere((_, v) => v == null);
   }
 

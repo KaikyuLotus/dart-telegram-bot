@@ -21,7 +21,7 @@ class InlineQueryResultVideo extends InlineQueryResult {
   String mimeType;
 
   /// URL of the thumbnail (JPEG only) for the video
-  String thumbUrl;
+  String thumbnailUrl;
 
   /// Title for the result
   String title;
@@ -70,7 +70,7 @@ class InlineQueryResultVideo extends InlineQueryResult {
     required this.id,
     required this.videoUrl,
     required this.mimeType,
-    required this.thumbUrl,
+    required this.thumbnailUrl,
     required this.title,
     this.caption,
     this.parseMode,
@@ -90,7 +90,7 @@ class InlineQueryResultVideo extends InlineQueryResult {
       'id': id,
       'video_url': videoUrl,
       'mime_type': mimeType,
-      'thumb_url': thumbUrl,
+      'thumbnail_url': thumbnailUrl,
       'title': title,
       'caption': caption,
       'parse_mode': parseMode,

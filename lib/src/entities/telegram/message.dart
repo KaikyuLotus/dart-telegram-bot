@@ -9,6 +9,11 @@ class Message {
   int messageId;
 
   /// Optional.
+  /// Unique identifier of a message thread to which the message belongs;
+  /// for supergroups only
+  int? messageThreadId;
+
+  /// Optional.
   /// Sender of the message; empty for messages sent to channels.
   /// For backward compatibility, the field contains a fake sender user in
   /// non-channel chats, if the message was sent on behalf of a chat.
@@ -56,6 +61,10 @@ class Message {
   /// Optional.
   /// For forwarded messages, date the original message was sent in Unix time
   int? forwardDate;
+
+  /// Optional.
+  /// True, if the message is sent to a forum topic
+  bool? isTopicMessage;
 
   /// Optional.
   /// True, if the message is a channel post that was automatically forwarded
@@ -121,6 +130,10 @@ class Message {
   Sticker? sticker;
 
   /// Optional.
+  /// Message is a forwarded story
+  Story? story;
+
+  /// Optional.
   /// Message is a video, information about the video
   Video? video;
 
@@ -140,6 +153,10 @@ class Message {
   /// For messages with a caption, special entities like usernames, URLs,
   /// bot commands, etc. that appear in the caption
   List<MessageEntity>? captionEntities;
+
+  /// Optional.
+  /// True, if the message media is covered by a spoiler animation
+  bool? hasMediaSpoiler;
 
   /// Optional.
   /// Message is a shared contact, information about the contact
@@ -246,8 +263,21 @@ class Message {
   SuccessfulPayment? successfulPayment;
 
   /// Optional.
+  /// Service message: a user was shared with the bot
+  UserShared? userShared;
+
+  /// Optional.
+  /// Service message: a chat was shared with the bot
+  ChatShared? chatShared;
+
+  /// Optional.
   /// The domain name of the website on which the user has logged in.
   String? connectedWebsite;
+
+  /// Optional.
+  /// Service message: the user allowed the bot added to the attachment
+  /// menu to write messages
+  WriteAccessAllowed? writeAccessAllowed;
 
   /// Optional.
   /// Telegram Passport data
@@ -257,6 +287,30 @@ class Message {
   /// Service message. A user in the chat triggered another user's proximity
   /// alert while sharing Live Location.
   ProximityAlertTriggered? proximityAlertTriggered;
+
+  /// Optional.
+  /// Service message: forum topic created
+  ForumTopicCreated? forumTopicCreated;
+
+  /// Optional.
+  /// Service message: forum topic edited
+  ForumTopicEdited? forumTopicEdited;
+
+  /// Optional.
+  /// Service message: forum topic closed
+  ForumTopicClosed? forumTopicClosed;
+
+  /// 	Optional.
+  /// Service message: forum topic reopened
+  ForumTopicReopened? forumTopicReopened;
+
+  /// Optional.
+  /// Service message: the 'General' forum topic hidden
+  GeneralForumTopicHidden? generalForumTopicHidden;
+
+  /// Optional.
+  /// Service message: the 'General' forum topic unhidden
+  GeneralForumTopicUnhidden? generalForumTopicUnhidden;
 
   /// Optional.
   /// Service message: video chat scheduled
@@ -286,6 +340,7 @@ class Message {
   /// Basic constructor
   Message({
     required this.messageId,
+    this.messageThreadId,
     this.from,
     this.senderChat,
     required this.date,
@@ -296,6 +351,7 @@ class Message {
     this.forwardSignature,
     this.forwardSenderName,
     this.forwardDate,
+    this.isTopicMessage,
     this.isAutomaticForward,
     this.replyToMessage,
     this.viaBot,
@@ -310,11 +366,13 @@ class Message {
     this.document,
     this.photo,
     this.sticker,
+    this.story,
     this.video,
     this.videoNote,
     this.voice,
     this.caption,
     this.captionEntities,
+    this.hasMediaSpoiler,
     this.contact,
     this.dice,
     this.game,
@@ -335,9 +393,14 @@ class Message {
     this.pinnedMessage,
     this.invoice,
     this.successfulPayment,
+    this.userShared,
+    this.chatShared,
     this.connectedWebsite,
     this.passportData,
     this.proximityAlertTriggered,
+    this.forumTopicCreated,
+    this.forumTopicClosed,
+    this.forumTopicReopened,
     this.videoChatScheduled,
     this.videoChatStarted,
     this.videoChatEnded,
@@ -350,6 +413,7 @@ class Message {
   static Message fromJson(Map<String, dynamic> json) {
     return Message(
       messageId: json['message_id']!,
+      messageThreadId: json['message_thread_id'],
       from: callIfNotNull(User.fromJson, json['from']),
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
       date: json['date']!,
@@ -363,6 +427,7 @@ class Message {
       forwardSignature: json['forward_signature'],
       forwardSenderName: json['forward_sender_name'],
       forwardDate: json['forward_date'],
+      isTopicMessage: json['is_topic_message'],
       isAutomaticForward: json['is_automatic_forward'],
       replyToMessage: callIfNotNull(
         Message.fromJson,
@@ -383,6 +448,7 @@ class Message {
       document: callIfNotNull(Document.fromJson, json['document']),
       photo: callIfNotNull(PhotoSize.listFromJsonArray, json['photo']),
       sticker: callIfNotNull(Sticker.fromJson, json['sticker']),
+      story: callIfNotNull(Story.fromJson, json['story']),
       video: callIfNotNull(Video.fromJson, json['video']),
       videoNote: callIfNotNull(VideoNote.fromJson, json['video_note']),
       voice: callIfNotNull(Voice.fromJson, json['voice']),
@@ -391,6 +457,7 @@ class Message {
         MessageEntity.listFromJsonArray,
         json['caption_entities'],
       ),
+      hasMediaSpoiler: json['has_media_spoiler'],
       contact: callIfNotNull(Contact.fromJson, json['contact']),
       dice: callIfNotNull(Dice.fromJson, json['dice']),
       game: callIfNotNull(Game.fromJson, json['game']),
@@ -429,6 +496,14 @@ class Message {
         SuccessfulPayment.fromJson,
         json['successful_payment'],
       ),
+      userShared: callIfNotNull(
+        UserShared.fromJson,
+        json['user_shared'],
+      ),
+      chatShared: callIfNotNull(
+        ChatShared.fromJson,
+        json['chat_shared'],
+      ),
       connectedWebsite: json['connected_website'],
       passportData: callIfNotNull(
         PassportData.fromJson,
@@ -437,6 +512,18 @@ class Message {
       proximityAlertTriggered: callIfNotNull(
         ProximityAlertTriggered.fromJson,
         json['proximity_alert_triggered'],
+      ),
+      forumTopicCreated: callIfNotNull(
+        ForumTopicCreated.fromJson,
+        json['forum_topic_created'],
+      ),
+      forumTopicClosed: callIfNotNull(
+        ForumTopicClosed.fromJson,
+        json['forum_topic_closed'],
+      ),
+      forumTopicReopened: callIfNotNull(
+        ForumTopicReopened.fromJson,
+        json['forum_topic_reopened'],
       ),
       videoChatScheduled: callIfNotNull(
         VideoChatScheduled.fromJson,
@@ -477,6 +564,7 @@ class Message {
   Map toJson() {
     return {
       'message_id': messageId,
+      'message_thread_id': messageThreadId,
       'from': from,
       'sender_chat': senderChat,
       'date': date,
@@ -487,6 +575,7 @@ class Message {
       'forward_signature': forwardSignature,
       'forward_sender_name': forwardSenderName,
       'forward_date': forwardDate,
+      'is_topic_message': isTopicMessage,
       'is_automatic_forward': isAutomaticForward,
       'reply_to_message': replyToMessage,
       'via_bot': viaBot,
@@ -501,11 +590,13 @@ class Message {
       'document': document,
       'photo': photo,
       'sticker': sticker,
+      'story': story,
       'video': video,
       'video_note': videoNote,
       'voice': voice,
       'caption': caption,
       'captionEntities': captionEntities,
+      'has_media_spoiler': hasMediaSpoiler,
       'contact': contact,
       'dice': dice,
       'game': game,
@@ -526,9 +617,14 @@ class Message {
       'pinned_message': pinnedMessage,
       'invoice': invoice,
       'successful_payment': successfulPayment,
+      'user_shared': userShared,
+      'chat_shared': chatShared,
       'connected_website': connectedWebsite,
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,
+      'forum_topic_created': forumTopicCreated,
+      'forum_topic_closed': forumTopicClosed,
+      'forum_topic_reopened': forumTopicReopened,
       'video_chat_scheduled': videoChatScheduled,
       'video_chat_started': videoChatStarted,
       'video_chat_ended': videoChatEnded,

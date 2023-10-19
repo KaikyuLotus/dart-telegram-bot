@@ -45,6 +45,7 @@ mixin TGAPIMethods {
   Future<Message> sendMessage(
     ChatID chatId,
     String text, {
+    int? messageThreadId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
     bool? disableWebPagePreview,
@@ -57,6 +58,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendMessage', {
       'chat_id': chatId,
       'text': text,
+      'message_thread_id': messageThreadId,
       'parse_mode': parseMode,
       'entities': entities,
       'disable_web_page_preview': disableWebPagePreview,
@@ -76,6 +78,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     ChatID fromChatId,
     int messageId, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
   }) {
@@ -83,6 +86,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'from_chat_id': fromChatId,
       'message_id': messageId,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
     });
@@ -100,6 +104,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     ChatID fromChatId,
     int messageId, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -113,6 +118,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'from_chat_id': fromChatId,
       'message_id': messageId,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -130,9 +136,11 @@ mixin TGAPIMethods {
   Future<Message> sendPhoto(
     ChatID chatId,
     HttpFile photo, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -142,9 +150,11 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendPhoto', {
       'chat_id': chatId,
       'photo': photo,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -167,13 +177,14 @@ mixin TGAPIMethods {
   Future<Message> sendAudio(
     ChatID chatId,
     HttpFile audio, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
     int? duration,
     String? performer,
     String? title,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -183,13 +194,14 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendAudio', {
       'chat_id': chatId,
       'audio': audio,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
       'duration': duration,
       'performer': performer,
       'title': title,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -207,7 +219,8 @@ mixin TGAPIMethods {
   Future<Message> sendDocument(
     ChatID chatId,
     HttpFile document, {
-    HttpFile? thumb,
+    int? messageThreadId,
+    HttpFile? thumbnail,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -221,10 +234,11 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendDocument', {
       'chat_id': chatId,
       'document': document,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -245,13 +259,15 @@ mixin TGAPIMethods {
   Future<Message> sendVideo(
     ChatID chatId,
     HttpFile video, {
+    int? messageThreadId,
     int? duration,
     int? width,
     int? height,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? hasSpoiler,
     bool? supportsStreaming,
     bool? disableNotification,
     bool? protectContent,
@@ -262,13 +278,15 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendVideo', {
       'chat_id': chatId,
       'video': video,
+      'message_thread_id': messageThreadId,
       'duration': duration,
       'width': width,
       'height': height,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'has_spoiler': hasSpoiler,
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -287,13 +305,15 @@ mixin TGAPIMethods {
   Future<Message> sendAnimation(
     ChatID chatId,
     HttpFile animation, {
+    int? messageThreadId,
     int? duration,
     int? width,
     int? height,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -303,13 +323,15 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendAnimation', {
       'chat_id': chatId,
       'animation': animation,
+      'message_thread_id': messageThreadId,
       'duration': duration,
       'width': width,
       'height': height,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -332,6 +354,7 @@ mixin TGAPIMethods {
   Future<Message> sendVoice(
     ChatID chatId,
     HttpFile voice, {
+    int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -345,6 +368,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendVoice', {
       'chat_id': chatId,
       'voice': voice,
+      'message_thread_id': messageThreadId,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -363,9 +387,10 @@ mixin TGAPIMethods {
   Future<Message> sendVideoNote(
     ChatID chatId,
     HttpFile videoNote, {
+    int? messageThreadId,
     int? duration,
     int? length,
-    HttpFile? thumb,
+    HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -375,8 +400,10 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendVideoNote', {
       'chat_id': chatId,
       'video_note': videoNote,
+      'message_thread_id': messageThreadId,
       'duration': duration,
       'length': length,
+      'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -395,6 +422,7 @@ mixin TGAPIMethods {
   Future<List<Message>> sendMediaGroup(
     ChatID chatId,
     List<InputMedia> media, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
     bool? allowSendingWithoutReply,
@@ -403,6 +431,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendMediaGroup', {
       'chat_id': chatId,
       'media': media,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'allow_sending_without_reply': allowSendingWithoutReply,
@@ -417,6 +446,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     double latitude,
     double longitude, {
+    int? messageThreadId,
     double? horizontalAccuracy,
     int? livePeriod,
     int? heading,
@@ -431,6 +461,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'latitude': latitude,
       'longitude': longitude,
+      'message_thread_id': messageThreadId,
       'horizontal_accuracy': horizontalAccuracy,
       'live_period': livePeriod,
       'heading': heading,
@@ -536,6 +567,7 @@ mixin TGAPIMethods {
     double longitude,
     String title,
     String address, {
+    int? messageThreadId,
     String? foursquareId,
     String? foursquareType,
     String? googlePlaceId,
@@ -552,6 +584,7 @@ mixin TGAPIMethods {
       'longitude': longitude,
       'title': title,
       'address': address,
+      'message_thread_id': messageThreadId,
       'foursquare_id': foursquareId,
       'foursquare_type': foursquareType,
       'google_place_id': googlePlaceId,
@@ -571,6 +604,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String phoneNumber,
     String? firstName, {
+    int? messageThreadId,
     String? lastName,
     String? vcard,
     bool? disableNotification,
@@ -584,6 +618,7 @@ mixin TGAPIMethods {
       'phone_number': phoneNumber,
       'first_name': firstName,
       'last_name': lastName,
+      'message_thread_id': messageThreadId,
       'vcard': vcard,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -600,6 +635,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String question,
     List<String> options, {
+    int? messageThreadId,
     bool? isAnonymous,
     String? type,
     bool? allowsMultipleAnswers,
@@ -620,6 +656,7 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'question': question,
       'options': options,
+      'message_thread_id': messageThreadId,
       'is_anonymous': isAnonymous,
       'type': type,
       'allows_multiple_answers': allowsMultipleAnswers,
@@ -644,6 +681,7 @@ mixin TGAPIMethods {
   /// On success, the sent [Message] is returned.
   Future<Message> sendDice(
     ChatID chatId, {
+    int? messageThreadId,
     Emoji? emoji,
     bool? disableNotification,
     bool? protectContent,
@@ -653,6 +691,7 @@ mixin TGAPIMethods {
   }) {
     return _client.apiCall(_token, 'sendDice', {
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -670,11 +709,19 @@ mixin TGAPIMethods {
   /// Telegram clients clear its typing status).
   ///
   /// Returns True on success.
-  Future<bool> sendChatAction(ChatID chatId, ChatAction action) {
+  Future<bool> sendChatAction(
+    ChatID chatId,
+    ChatAction action, {
+    int? messageThreadId,
+  }) {
     return _client.apiCall(
       _token,
       'sendChatAction',
-      {'chat_id': chatId, 'action': action},
+      {
+        'chat_id': chatId,
+        'message_thread_id': messageThreadId,
+        'action': action,
+      },
     );
   }
 
@@ -770,12 +817,14 @@ mixin TGAPIMethods {
     ChatID chatId,
     int userId,
     ChatPermissions permissions, {
+    bool? useIndependentChatPermissions,
     int? untilDate,
   }) {
     return _client.apiCall(_token, 'restrictChatMember', {
       'chat_id': chatId,
       'user_id': userId,
       'permissions': permissions,
+      'use_independent_chat_permissions': useIndependentChatPermissions,
       'until_date': untilDate,
     });
   }
@@ -792,31 +841,39 @@ mixin TGAPIMethods {
     ChatID chatId,
     int userId, {
     bool? isAnonymous,
+    bool? canManageChat,
+    bool? canDeleteMessages,
+    bool? canManageVideoChats,
+    bool? canRestrictMembers,
+    bool? canPromoteMembers,
     bool? canChangeInfo,
+    bool? canInviteUsers,
     bool? canPostMessages,
     bool? canEditMessages,
-    bool? canDeleteMessages,
-    bool? canInviteUsers,
-    bool? canRestrictMembers,
     bool? canPinMessages,
-    bool? canPromoteMembers,
-    bool? canManageVideoChats,
-    bool? canManageChat,
+    bool? canPostStories,
+    bool? canEditStories,
+    bool? canDeleteStories,
+    bool? canManageTopics,
   }) {
     return _client.apiCall(_token, 'promoteChatMember', {
       'chat_id': chatId,
       'user_id': userId,
+      'is_anonymous': isAnonymous,
+      'can_manage_chat': canManageChat,
+      'can_delete_messages': canDeleteMessages,
+      'can_manage_video_chats': canManageVideoChats,
+      'can_restrict_members': canRestrictMembers,
+      'can_promote_members': canPromoteMembers,
       'can_change_info': canChangeInfo,
+      'can_invite_users': canInviteUsers,
       'can_post_messages': canPostMessages,
       'can_edit_messages': canEditMessages,
-      'can_delete_messages': canDeleteMessages,
-      'can_invite_users': canInviteUsers,
-      'can_restrict_members': canRestrictMembers,
       'can_pin_messages': canPinMessages,
-      'can_promote_members': canPromoteMembers,
-      'can_manage_video_chats': canManageVideoChats,
-      'can_manage_chat': canManageChat,
-      'is_anonymous': isAnonymous,
+      'can_post_stories': canPostStories,
+      'can_edit_stories': canEditStories,
+      'can_delete_stories': canDeleteStories,
+      'can_manage_topics': canManageTopics,
     });
   }
 
@@ -880,11 +937,13 @@ mixin TGAPIMethods {
   /// Returns True on success.
   Future<bool> setChatPermissions(
     ChatID chatId,
-    ChatPermissions permissions,
-  ) {
+    ChatPermissions permissions, {
+    bool? useIndependentChatPermissions,
+  }) {
     return _client.apiCall(_token, 'setChatPermissions', {
       'chat_id': chatId,
       'permissions': permissions,
+      'use_independent_chat_permissions': useIndependentChatPermissions,
     });
   }
 
@@ -1190,6 +1249,175 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get custom emoji stickers, which can be used as a
+  /// forum topic icon by any user.
+  /// Requires no parameters.
+  /// Returns an Array of [Sticker] objects.
+  Future<List<Sticker>> getForumTopicIconStickers() {
+    return _client.apiCall(_token, 'getForumTopicIconStickers');
+  }
+
+  /// Use this method to create a topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have the can_manage_topics administrator rights.
+  /// Returns information about the created topic as a [ForumTopic] object.
+  Future<ForumTopic> createForumTopic(
+    ChatID chatId,
+    String name, {
+    int? iconColor,
+    String? iconCustomEmojiId,
+  }) {
+    return _client.apiCall(_token, 'createForumTopic', {
+      'chat_id': chatId,
+      'name': name,
+      'icon_color': iconColor,
+      'icon_custom_emoji_id': iconCustomEmojiId,
+    });
+  }
+
+  /// Use this method to edit name and icon of a topic in a forum supergroup
+  /// chat.
+  /// The bot must be an administrator in the chat for this to work and
+  /// must have can_manage_topics administrator rights,
+  /// unless it is the creator of the topic.
+  /// Returns True on success.
+  Future<bool> editForumTopic(
+    ChatID chatId,
+    int messageThreadId, {
+    String? name,
+    String? iconCustomEmojiId,
+  }) {
+    return _client.apiCall(_token, 'editForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+      'name': name,
+      'icon_custom_emoji_id': iconCustomEmojiId,
+    });
+  }
+
+  /// Use this method to close an open topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights,
+  /// unless it is the creator of the topic.
+  /// Returns True on success.
+  Future<bool> closeForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'closeForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to reopen a closed topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights,
+  /// unless it is the creator of the topic.
+  /// Returns True on success.
+  Future<bool> reopenForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'reopenForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to delete a forum topic along with all its messages in a
+  /// forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_delete_messages administrator rights.
+  /// Returns True on success.
+  Future<bool> deleteForumTopic(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'deleteForumTopic', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to clear the list of pinned messages in a forum topic.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_pin_messages administrator right in the supergroup.
+  /// Returns True on success.
+  Future<bool> unpinAllForumTopicMessages(
+    ChatID chatId,
+    int messageThreadId,
+  ) {
+    return _client.apiCall(_token, 'unpinAllForumTopicMessages', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+    });
+  }
+
+  /// Use this method to edit the name of the 'General' topic in a forum
+  /// supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have can_manage_topics administrator rights.
+  /// Returns True on success.
+  Future<bool> editGeneralForumTopic(
+    ChatID chatId,
+    String name,
+  ) {
+    return _client.apiCall(_token, 'editGeneralForumTopic', {
+      'chat_id': chatId,
+      'name': name,
+    });
+  }
+
+  /// Use this method to close an open 'General' topic in a forum
+  /// supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights.
+  /// Returns True on success.
+  Future<bool> closeGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'closeGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to reopen a closed 'General' topic in a forum
+  /// supergroup chat. The bot must be an administrator in the chat for this
+  /// to work and must have the can_manage_topics administrator rights.
+  /// The topic will be automatically unhidden if it was hidden.
+  /// Returns True on success.
+  Future<bool> reopenGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'reopenGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to hide the 'General' topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must have
+  /// the can_manage_topics administrator rights.
+  /// The topic will be automatically closed if it was open.
+  /// Returns True on success.
+  Future<bool> hideGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'hideGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  /// Use this method to unhide the 'General' topic in a forum supergroup chat.
+  /// The bot must be an administrator in the chat for this to work and must have
+  /// the can_manage_topics administrator rights.
+  /// Returns True on success.
+  Future<bool> unhideGeneralForumTopic(ChatID chatId) {
+    return _client.apiCall(_token, 'unhideGeneralForumTopic', {
+      'chat_id': chatId,
+    });
+  }
+
+  Future<bool> unpinAllGeneralForumTopicMessages(ChatID chatId) {
+    return _client.apiCall(_token, 'unpinAllGeneralForumTopicMessages', {
+      'chat_id': chatId,
+    });
+  }
+
   /// Use this method to send answers to callback queries sent from
   /// inline keyboards.
   ///
@@ -1258,6 +1486,83 @@ mixin TGAPIMethods {
   }) {
     return _client.apiCall(_token, 'getMyCommands', {
       'scope': scope,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to change the bot's name.
+  ///
+  /// Returns True on success.
+  Future<bool> setMyName({
+    String? name,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'setMyName', {
+      'name': name,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to get the current bot name for the given user language.
+  ///
+  /// Returns BotName on success.
+  Future<BotName> getMyName({
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyName', {
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to change the bot's description, which is shown in the
+  /// chat with the bot if the chat is empty.
+  ///
+  /// Returns True on success.
+  Future<bool> setMyDescription({
+    String? description,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'setMyDescription', {
+      'description': description,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to get the current bot description for the given user
+  /// language.
+  ///
+  /// Returns BotDescription on success.
+  Future<BotDescription> getMyDescription({
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyDescription', {
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to change the bot's short description,
+  /// which is shown on the bot's profile page and is sent together with the
+  /// link when users share the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setMyShortDescription({
+    String? shortDescription,
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'setMyShortDescription', {
+      'short_description': shortDescription,
+      'language_code': languageCode,
+    });
+  }
+
+  /// Use this method to get the current bot short description for the given
+  /// user language.
+  ///
+  /// Returns BotShortDescription on success.
+  Future<BotDescription> getMyShortDescription({
+    String? languageCode,
+  }) {
+    return _client.apiCall(_token, 'getMyShortDescription', {
       'language_code': languageCode,
     });
   }
@@ -1522,6 +1827,8 @@ mixin TGAPIMethods {
   Future<Message> sendSticker(
     ChatID chatId,
     HttpFile sticker, {
+    int? messageThreadId,
+    String? emoji,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -1531,6 +1838,8 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendSticker', {
       'chat_id': chatId,
       'sticker': sticker,
+      'message_thread_id': messageThreadId,
+      'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -1560,10 +1869,15 @@ mixin TGAPIMethods {
   /// (can be used multiple times).
   ///
   /// Returns the uploaded [File] on success.
-  Future<File> uploadStickerFile(String userId, HttpFile pngSticker) {
+  Future<File> uploadStickerFile(
+    String userId,
+    InputSticker sticker,
+    String stickerFormat,
+  ) {
     return _client.apiCall(_token, 'uploadStickerFile', {
       'user_id': userId,
-      'png_sticker': pngSticker,
+      'sticker': sticker,
+      'sticker_format': stickerFormat,
     });
   }
 
@@ -1576,69 +1890,20 @@ mixin TGAPIMethods {
     String userId,
     String name,
     String title,
-    HttpFile pngSticker,
-    String emojis, {
+    String emojis,
+    List<InputSticker> stickers,
+    String stickerFormat, {
     String? stickerType,
-    MaskPosition? maskPosition,
+    bool? needsRepainting,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
       'user_id': userId,
       'name': name,
       'title': title,
-      'png_sticker': pngSticker,
+      'stickers': stickers,
+      'sticker_format': stickerFormat,
       'sticker_type': stickerType,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to create a new sticker set owned by a user.
-  ///
-  /// The bot will be able to edit the sticker set thus created.
-  ///
-  /// Returns True on success.
-  Future<bool> createNewStickerSetTgs(
-    String userId,
-    String name,
-    String title,
-    HttpFile tgsSticker,
-    String emojis, {
-    String? stickerType,
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'createNewStickerSet', {
-      'user_id': userId,
-      'name': name,
-      'title': title,
-      'tgs_sticker': tgsSticker,
-      'sticker_type': stickerType,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to create a new sticker set owned by a user.
-  ///
-  /// The bot will be able to edit the sticker set thus created.
-  ///
-  /// Returns True on success.
-  Future<bool> createNewStickerSetWebm(
-    String userId,
-    String name,
-    String title,
-    HttpFile webmSticker,
-    String emojis, {
-    String? stickerType,
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'createNewStickerSet', {
-      'user_id': userId,
-      'name': name,
-      'title': title,
-      'webm_sticker': webmSticker,
-      'sticker_type': stickerType,
-      'emojis': emojis,
-      'mask_position': maskPosition,
+      'needs_repainting': needsRepainting,
     });
   }
 
@@ -1654,66 +1919,12 @@ mixin TGAPIMethods {
   Future<bool> addStickerToSet(
     String userId,
     String name,
-    HttpFile pngSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
+    InputSticker sticker,
+  ) {
     return _client.apiCall(_token, 'addStickerToSet', {
       'user_id': userId,
       'name': name,
-      'png_sticker': pngSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to add a new sticker to a set created by the bot.
-  ///
-  /// Animated stickers can be added to animated sticker sets and only to them.
-  ///
-  /// Animated sticker sets can have up to 50 stickers.
-  ///
-  /// Static sticker sets can have up to 120 stickers.
-  ///
-  /// Returns True on success.
-  Future<bool> addStickerToSetTgs(
-    String userId,
-    String name,
-    HttpFile tgsSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'addStickerToSet', {
-      'user_id': userId,
-      'name': name,
-      'tgs_sticker': tgsSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
-    });
-  }
-
-  /// Use this method to add a new sticker to a set created by the bot.
-  ///
-  /// Animated stickers can be added to animated sticker sets and only to them.
-  ///
-  /// Animated sticker sets can have up to 50 stickers.
-  ///
-  /// Static sticker sets can have up to 120 stickers.
-  ///
-  /// Returns True on success.
-  Future<bool> addStickerToSetWebm(
-    String userId,
-    String name,
-    HttpFile webmSticker,
-    String emojis, {
-    MaskPosition? maskPosition,
-  }) {
-    return _client.apiCall(_token, 'addStickerToSet', {
-      'user_id': userId,
-      'name': name,
-      'webm_sticker': webmSticker,
-      'emojis': emojis,
-      'mask_position': maskPosition,
+      'sticker': sticker,
     });
   }
 
@@ -1737,20 +1948,90 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to change the list of emoji assigned to a regular or
+  /// custom emoji sticker.
+  /// The sticker must belong to a sticker set created by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerEmojiList(String sticker, List<String> emojiList) {
+    return _client.apiCall(_token, 'setStickerEmojiList', {
+      'sticker': sticker,
+      'emoji_list': emojiList,
+    });
+  }
+
+  /// Use this method to change search keywords assigned to a regular or
+  /// custom emoji sticker. The sticker must belong to a sticker set created
+  /// by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerKeywords(String sticker, List<String> keywords) {
+    return _client.apiCall(_token, 'setStickerKeywords', {
+      'sticker': sticker,
+      'keywords': keywords,
+    });
+  }
+
+  /// Use this method to change the mask position of a mask sticker.
+  /// The sticker must belong to a sticker set that was created by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerMaskPosition(
+    String sticker, {
+    MaskPosition? maskPosition,
+  }) {
+    return _client.apiCall(_token, 'setStickerMaskPosition', {
+      'sticker': sticker,
+      'mask_position': maskPosition,
+    });
+  }
+
+  /// Use this method to set the title of a created sticker set.
+  ///
+  /// Returns True on success.
+  Future<bool> setStickerSetTitle(String name, String title) {
+    return _client.apiCall(_token, 'setStickerSetTitle', {
+      'name': name,
+      'title': title,
+    });
+  }
+
   /// Use this method to set the thumbnail of a sticker set.
   /// Animated thumbnails can be set for animated sticker sets only.
   /// Video thumbnails can be set only for video sticker sets only.
   ///
   /// Returns True on success.
-  Future<bool> setStickerSetThumb(
+  Future<bool> setStickerSetThumbnail(
     String name,
     String userId, {
-    HttpFile? thumb,
+    HttpFile? thumbnail,
   }) {
-    return _client.apiCall(_token, 'setStickerSetThumb', {
+    return _client.apiCall(_token, 'setStickerSetThumbnail', {
       'user_id': userId,
       'name': name,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
+    });
+  }
+
+  /// Use this method to set the thumbnail of a custom emoji sticker set.
+  ///
+  /// Returns True on success.
+  Future<bool> setCustomEmojiStickerSetThumbnail(
+    String name, {
+    String? customEmojiId,
+  }) {
+    return _client.apiCall(_token, 'setCustomEmojiStickerSetThumbnail', {
+      'name': name,
+      'custom_emoji_id': customEmojiId,
+    });
+  }
+
+  /// Use this method to delete a sticker set that was created by the bot.
+  ///
+  /// Returns True on success.
+  Future<bool> deleteStickerSet(String name) {
+    return _client.apiCall(_token, 'deleteStickerSet', {
+      'name': name,
     });
   }
 
@@ -1764,8 +2045,7 @@ mixin TGAPIMethods {
     int? cacheTime,
     bool? isPersonal,
     String? nextOffset,
-    String? switchPmText,
-    String? switchPmParameter,
+    InlineQueryResultsButton? button,
   }) {
     return _client.apiCall(_token, 'answerInlineQuery', {
       'inline_query_id': inlineQueryId,
@@ -1773,8 +2053,7 @@ mixin TGAPIMethods {
       'cache_time': cacheTime,
       'is_personal': isPersonal,
       'next_offset': nextOffset,
-      'switch_pm_text': switchPmText,
-      'switch_pm_parameter': switchPmParameter,
+      'button': button,
     });
   }
 
@@ -1805,6 +2084,7 @@ mixin TGAPIMethods {
     String startParameter,
     String currency,
     List<LabeledPrice> prices, {
+    int? messageThreadId,
     String? providerData,
     String? photoUrl,
     int? photoSize,
@@ -1832,6 +2112,7 @@ mixin TGAPIMethods {
       'start_parameter': startParameter,
       'currency': currency,
       'prices': prices,
+      'message_thread_id': messageThreadId,
       'provider_data': providerData,
       'photo_url': photoUrl,
       'photo_size': photoSize,
@@ -1950,6 +2231,7 @@ mixin TGAPIMethods {
   Future<Message> sendGame(
     ChatID chatId,
     String gameShortName, {
+    int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -1959,6 +2241,7 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'sendGame', {
       'chat_id': chatId,
       'game_short_name': gameShortName,
+      'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,

@@ -42,7 +42,7 @@ class Audio {
 
   /// Optional.
   /// Thumbnail of the album cover to which the music file belongs
-  PhotoSize? thumb;
+  PhotoSize? thumbnail;
 
   /// Basic constructor
   Audio({
@@ -54,7 +54,7 @@ class Audio {
     this.fileName,
     this.mimeType,
     this.fileSize,
-    this.thumb,
+    this.thumbnail,
   });
 
   /// Creates a object from a json
@@ -68,7 +68,7 @@ class Audio {
       fileName: json['file_name'],
       mimeType: json['mime_type'],
       fileSize: json['file_size'],
-      thumb: callIfNotNull(PhotoSize.fromJson, json['thumb']),
+      thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
     );
   }
 
@@ -83,7 +83,7 @@ class Audio {
       'file_name': fileName,
       'mime_type': mimeType,
       'file_size': fileSize,
-      'thumb': thumb,
+      'thumbnail': thumbnail,
     }..removeWhere((_, v) => v == null);
   }
 
