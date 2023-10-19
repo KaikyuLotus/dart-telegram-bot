@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Update to support http 1.0.0
+   
 ## 1.0.0-b7
 
 - Updated to bot API 6.9
