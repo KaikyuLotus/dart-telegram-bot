@@ -112,6 +112,24 @@ class TGAPIClient {
     if (query != null) {
       query
         ..removeWhere((k, v) => v == null)
+        ..updateAll((k, v) {
+          if (v is List<InputMedia>) {
+            return List<InputMedia>.generate(v.length, (index) {
+              if (v[index].media is HttpFile) {
+                var httpFile = v[index].media as HttpFile;
+                if (httpFile.token != null) {
+                  v[index].media = httpFile.token;
+                } else {
+                  v[index].media = 'attach://${httpFile.name}';
+                  files[httpFile.name!] = httpFile;
+                }
+              }
+              return v[index];
+            });
+          } else {
+            return v;
+          }
+        })
         ..updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v)
         ..forEach((k, v) {
           if (v is HttpFile) files[k] = v;

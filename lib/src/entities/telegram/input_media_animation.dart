@@ -6,6 +6,7 @@ import '../../../telegram_entities.dart';
 /// to be sent.
 class InputMediaAnimation extends InputMedia {
   /// Type of the result, must be animation
+  @override
   final String type = 'animation';
 
   /// File to send.
@@ -13,7 +14,8 @@ class InputMediaAnimation extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>” to upload a new one using
   /// multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Thumbnail of the file sent; can be ignored if thumbnail generation for the

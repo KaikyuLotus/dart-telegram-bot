@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents a photo to be sent.
 class InputMediaPhoto extends InputMedia {
   /// Type of the result, must be photo
+  @override
   final String type = 'photo';
 
   /// File to send.
@@ -12,7 +13,8 @@ class InputMediaPhoto extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>”
   /// to upload a new one using multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Caption of the photo to be sent, 0-1024 characters after entities parsing
