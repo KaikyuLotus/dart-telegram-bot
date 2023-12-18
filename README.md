@@ -5,7 +5,7 @@ bot [API](https://core.telegram.org/bots/api). \
 It is compatible with Native, Flutter and JS.
 
 [![Bot API Version](https://img.shields.io/badge/Bot%20API-6.9-blue.svg?style=flat-square)](https://core.telegram.org/bots/api)
-[![Dart Version](https://img.shields.io/badge/Dart-2.12.0-blue.svg?style=flat-square)](https://dart.dev)
+[![Dart Version](https://img.shields.io/badge/Dart-2.15.0-blue.svg?style=flat-square)](https://dart.dev)
 
 Using Dart Telegram Bot is straightforward, here's an example echo bot:
 ```dart
