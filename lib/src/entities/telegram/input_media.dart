@@ -5,4 +5,7 @@
 /// InputMediaAudio,
 /// InputMediaPhoto,
 /// InputMediaVideo
-class InputMedia {}
+abstract class InputMedia {
+  abstract final String type;
+  abstract dynamic media;
+}

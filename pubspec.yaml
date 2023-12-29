@@ -4,7 +4,7 @@ version: 1.1.0
 homepage: https://github.com/KaikyuDev/dart-telegram-bot
 
 environment:
-  sdk: '>=2.12.0 <4.0.0'
+  sdk: '>=2.15.0 <4.0.0'
 
 dependencies:
   http: ^1.0.0

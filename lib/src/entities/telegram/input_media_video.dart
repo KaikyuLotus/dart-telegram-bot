@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents a video to be sent.
 class InputMediaVideo extends InputMedia {
   /// Type of the result, must be video
+  @override
   final String type = 'video';
 
   /// File to send.
@@ -12,7 +13,8 @@ class InputMediaVideo extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>” to upload a new one using
   /// multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Thumbnail of the file sent; can be ignored if thumbnail generation for the

@@ -110,17 +110,43 @@ class TGAPIClient {
   ]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
-      query
-        ..removeWhere((k, v) => v == null)
-        ..updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v)
-        ..forEach((k, v) {
-          if (v is HttpFile) files[k] = v;
-        })
-        ..removeWhere((k, v) => v is HttpFile)
-        ..updateAll((k, v) {
-          if (v is List) return json.encode(v);
-          return '$v';
-        });
+      final updatedQuery = <String, dynamic>{};
+
+      for (final param in query.entries) {
+        if (param.value == null) continue;
+
+        switch (param.value.runtimeType) {
+          case List<InputMedia>:
+            updatedQuery[param.key] = param.value.map((InputMedia inputMedia) {
+              if (inputMedia.media is! HttpFile) {
+                return inputMedia;
+              }
+
+              if (inputMedia.media.token != null) {
+                inputMedia.media = inputMedia.media.token;
+              } else {
+                files[inputMedia.media.name] = inputMedia.media;
+                inputMedia.media = 'attach://${inputMedia.media.name}';
+              }
+
+              return inputMedia;
+            }).toList();
+            break;
+          case HttpFile:
+            if (param.value.token != null) {
+              updatedQuery[param.key] = param.value.token;
+            } else {
+              files[param.key] = param.value;
+            }
+            break;
+          default:
+            updatedQuery[param.key] = param.value;
+            break;
+        }
+      }
+
+      updatedQuery.updateAll((k, v) => (v is List) ? json.encode(v) : '$v');
+      query = updatedQuery;
     }
 
     var jsonResp = await _execute(token, method, query, files);
