@@ -48,7 +48,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
-    bool? disableWebPagePreview,
+    LinkPreviewOptions? linkPreviewOptions,
     bool? disableNotification,
     bool? protectContent,
     int? replyToMessageId,
@@ -61,7 +61,7 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_web_page_preview': disableWebPagePreview,
+      'link_preview_options': linkPreviewOptions,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_to_message_id': replyToMessageId,
@@ -1631,7 +1631,7 @@ mixin TGAPIMethods {
     int? messageId, {
     ParseMode? parseMode,
     List<MessageEntity>? entities,
-    bool? disableWebPagePreview,
+    LinkPreviewOptions? linkPreviewOptions,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageText', {
@@ -1640,7 +1640,7 @@ mixin TGAPIMethods {
       'text': text,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_web_page_preview': disableWebPagePreview,
+      'link_preview_options': linkPreviewOptions,
       'reply_markup': replyMarkup,
     });
   }
@@ -1653,7 +1653,7 @@ mixin TGAPIMethods {
     String? inlineMessageId, {
     ParseMode? parseMode,
     List<MessageEntity>? entities,
-    bool? disableWebPagePreview,
+    LinkPreviewOptions? linkPreviewOptions,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageText', {
@@ -1661,7 +1661,7 @@ mixin TGAPIMethods {
       'text': text,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_web_page_preview': disableWebPagePreview,
+      'link_preview_options': linkPreviewOptions,
       'reply_markup': replyMarkup,
     });
   }

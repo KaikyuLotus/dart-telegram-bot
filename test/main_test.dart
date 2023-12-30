@@ -83,7 +83,7 @@ void main() {
         '*Test*',
         replyToMessageId: replyId,
         disableNotification: true,
-        disableWebPagePreview: true,
+        linkPreviewOptions: LinkPreviewOptions(isDisabled: true),
         parseMode: ParseMode.markdown,
       );
       expect(message.entities!.length, equals(1));

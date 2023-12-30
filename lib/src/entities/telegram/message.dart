@@ -108,6 +108,11 @@ class Message {
   List<MessageEntity>? entities;
 
   /// Optional.
+  /// Options used for link preview generation for the message,
+  /// if it is a text message and link preview options were changed
+  LinkPreviewOptions? linkPreviewOptions;
+
+  /// Optional.
   /// Message is an animation, information about the animation.
   /// For backward compatibility, when this field is set, the document fiel
   ///  will also be set
@@ -361,6 +366,7 @@ class Message {
     this.authorSignature,
     this.text,
     this.entities,
+    this.linkPreviewOptions,
     this.animation,
     this.audio,
     this.document,
@@ -442,6 +448,10 @@ class Message {
       entities: callIfNotNull(
         MessageEntity.listFromJsonArray,
         json['entities'],
+      ),
+      linkPreviewOptions: callIfNotNull(
+        LinkPreviewOptions.fromJson,
+        json['link_preview_options'],
       ),
       animation: callIfNotNull(Animation.fromJson, json['animation']),
       audio: callIfNotNull(Audio.fromJson, json['audio']),
@@ -585,6 +595,7 @@ class Message {
       'author_signature': authorSignature,
       'text': text,
       'entities': entities,
+      'link_preview_options': linkPreviewOptions,
       'animation': animation,
       'audio': audio,
       'document': document,

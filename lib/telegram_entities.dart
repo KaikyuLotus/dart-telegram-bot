@@ -76,6 +76,7 @@ export 'src/entities/telegram/invoice.dart';
 export 'src/entities/telegram/keyboard_button.dart';
 export 'src/entities/telegram/keyboard_button_poll_type.dart';
 export 'src/entities/telegram/labeled_price.dart';
+export 'src/entities/telegram/link_preview_options.dart';
 export 'src/entities/telegram/location.dart';
 export 'src/entities/telegram/login_url.dart';
 export 'src/entities/telegram/mask_position.dart';
