@@ -92,6 +92,34 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to forward multiple messages of any kind.
+  ///
+  /// If some of the specified messages can't be found or forwarded,
+  /// they are skipped.
+  ///
+  /// Service messages and messages with protected content can't be forwarded.
+  ///
+  /// Album grouping is kept for forwarded messages.
+  ///
+  /// On success, an array of MessageId of the sent messages is returned.
+  Future<List<MessageId>> forwardMessages(
+    ChatID chatId,
+    ChatID fromChatId,
+    List<int> messageIds, {
+    int? messageThreadId,
+    bool? disableNotification,
+    bool? protectContent,
+  }) {
+    return _client.apiCall(_token, 'forwardMessages', {
+      'chat_id': chatId,
+      'from_chat_id': fromChatId,
+      'message_ids': messageIds,
+      'message_thread_id': messageThreadId,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+    });
+  }
+
   /// Use this method to copy messages of any kind.
   ///
   /// Service messages and invoice messages can't be copied.
@@ -127,6 +155,43 @@ mixin TGAPIMethods {
       'reply_to_message_id': replyToMessageId,
       'allow_sending_without_reply': allowSendingWithoutReply,
       'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to copy messages of any kind.
+  ///
+  /// If some of the specified messages can't be found or copied,
+  /// they are skipped.
+  ///
+  /// Service messages, giveaway messages, giveaway winners messages,
+  /// and invoice messages can't be copied.
+  ///
+  /// A quiz poll can be copied only if the value of the field
+  /// correct_option_id is known to the bot.
+  ///
+  /// The method is analogous to the method forwardMessages,
+  /// but the copied messages don't have a link to the original message.
+  ///
+  /// Album grouping is kept for copied messages.
+  ///
+  /// On success, an array of MessageId of the sent messages is returned.
+  Future<List<MessageId>> copyMessages(
+    ChatID chatId,
+    ChatID fromChatId,
+    List<int> messageIds, {
+    int? messageThreadId,
+    bool? disableNotification,
+    bool? protectContent,
+    bool? removeCaption,
+  }) {
+    return _client.apiCall(_token, 'copyMessages', {
+      'chat_id': chatId,
+      'from_chat_id': fromChatId,
+      'message_ids': messageIds,
+      'message_thread_id': messageThreadId,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'remove_caption': removeCaption,
     });
   }
 
@@ -1817,6 +1882,18 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'deleteMessage', {
       'chat_id': chatId,
       'message_id': messageId,
+    });
+  }
+
+  /// Use this method to delete multiple messages simultaneously.
+  ///
+  /// If some of the specified messages can't be found, they are skipped.
+  ///
+  /// Returns True on success.
+  Future<bool> deleteMessages(ChatID chatId, List<int> messageIds) {
+    return _client.apiCall(_token, 'deleteMessages', {
+      'chat_id': chatId,
+      'message_ids': messageIds,
     });
   }
 
