@@ -318,6 +318,22 @@ class Message {
   GeneralForumTopicUnhidden? generalForumTopicUnhidden;
 
   /// Optional.
+  /// Service message: a scheduled giveway was created
+  GiveawayCreated? giveawayCreated;
+
+  /// Optional.
+  /// The message is a scheduled giveaway message
+  Giveaway? giveaway;
+
+  /// Optional.
+  /// A giveaway with public winners was completed
+  GiveawayWinners? giveawayWinners;
+
+  /// Optional.
+  /// Service message: a giveaway without public winners was completed
+  GiveawayCompleted? giveawayCompleted;
+
+  /// Optional.
   /// Service message: video chat scheduled
   VideoChatScheduled? videoChatScheduled;
 
@@ -407,6 +423,10 @@ class Message {
     this.forumTopicCreated,
     this.forumTopicClosed,
     this.forumTopicReopened,
+    this.giveawayCreated,
+    this.giveaway,
+    this.giveawayWinners,
+    this.giveawayCompleted,
     this.videoChatScheduled,
     this.videoChatStarted,
     this.videoChatEnded,
@@ -535,6 +555,22 @@ class Message {
         ForumTopicReopened.fromJson,
         json['forum_topic_reopened'],
       ),
+      giveawayCreated: callIfNotNull(
+        GiveawayCreated.fromJson,
+        json['giveaway_created'],
+      ),
+      giveaway: callIfNotNull(
+        Giveaway.fromJson,
+        json['giveaway'],
+      ),
+      giveawayWinners: callIfNotNull(
+        GiveawayWinners.fromJson,
+        json['giveaway_winners'],
+      ),
+      giveawayCompleted: callIfNotNull(
+        GiveawayCompleted.fromJson,
+        json['giveaway_ccompleted'],
+      ),
       videoChatScheduled: callIfNotNull(
         VideoChatScheduled.fromJson,
         json['video_chat_scheduled'],
@@ -636,6 +672,10 @@ class Message {
       'forum_topic_created': forumTopicCreated,
       'forum_topic_closed': forumTopicClosed,
       'forum_topic_reopened': forumTopicReopened,
+      'giveaway_created': giveawayCreated,
+      'giveaway': giveaway,
+      'giveaway_winners': giveawayWinners,
+      'giveaway_completed': giveawayCompleted,
       'video_chat_scheduled': videoChatScheduled,
       'video_chat_started': videoChatStarted,
       'video_chat_ended': videoChatEnded,
