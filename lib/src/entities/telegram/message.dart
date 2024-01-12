@@ -423,6 +423,8 @@ class Message {
     this.forumTopicCreated,
     this.forumTopicClosed,
     this.forumTopicReopened,
+    this.generalForumTopicHidden,
+    this.generalForumTopicUnhidden,
     this.giveawayCreated,
     this.giveaway,
     this.giveawayWinners,
@@ -555,6 +557,14 @@ class Message {
         ForumTopicReopened.fromJson,
         json['forum_topic_reopened'],
       ),
+      generalForumTopicHidden: callIfNotNull(
+        GeneralForumTopicHidden.fromJson,
+        json['general_forum_topic_hidden'],
+      ),
+      generalForumTopicUnhidden: callIfNotNull(
+        GeneralForumTopicUnhidden.fromJson,
+        json['general_forum_topic_unhidden'],
+      ),
       giveawayCreated: callIfNotNull(
         GiveawayCreated.fromJson,
         json['giveaway_created'],
@@ -672,6 +682,8 @@ class Message {
       'forum_topic_created': forumTopicCreated,
       'forum_topic_closed': forumTopicClosed,
       'forum_topic_reopened': forumTopicReopened,
+      'general_forum_topic_hidden': generalForumTopicHidden,
+      'general_forum_topic_unhidden': generalForumTopicUnhidden,
       'giveaway_created': giveawayCreated,
       'giveaway': giveaway,
       'giveaway_winners': giveawayWinners,
