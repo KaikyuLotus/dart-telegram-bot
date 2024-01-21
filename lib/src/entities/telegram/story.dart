@@ -7,7 +7,7 @@ class Story {
   Story();
 
   /// Creates a object from a json
-  static Story fromJson(Map<String, dynamic> json) {
+  factory Story.fromJson(Map<String, dynamic> _) {
     return Story();
   }
 

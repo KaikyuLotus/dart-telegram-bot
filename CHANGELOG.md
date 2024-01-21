@@ -1,6 +1,7 @@
 ## 1.2.0
 
 - Updated to bot API 7.0
+- Minor improvements
 
 ## 1.1.0
 

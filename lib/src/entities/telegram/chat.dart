@@ -193,7 +193,7 @@ class Chat {
   });
 
   /// Creates a object from a json
-  static Chat fromJson(Map<String, dynamic> json) {
+  factory Chat.fromJson(Map<String, dynamic> json) {
     return Chat(
       id: json['id']!,
       type: json['type']!,

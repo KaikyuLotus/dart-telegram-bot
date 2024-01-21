@@ -27,7 +27,7 @@ class KeyboardButtonRequestUser {
   });
 
   /// Creates a object from a json
-  static KeyboardButtonRequestUser fromJson(Map<String, dynamic> json) {
+  factory KeyboardButtonRequestUser.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonRequestUser(
       json['request_id'],
       userIsBot: json['user_is_bot'],

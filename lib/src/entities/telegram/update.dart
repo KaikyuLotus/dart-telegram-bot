@@ -105,7 +105,7 @@ class Update {
   });
 
   /// Creates a object from a json
-  static Update fromJson(Map<String, dynamic> json) {
+  factory Update.fromJson(Map<String, dynamic> json) {
     return Update(
       updateId: json['update_id']!,
       message: callIfNotNull(

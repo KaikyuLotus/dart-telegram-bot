@@ -43,7 +43,7 @@ class InlineQuery {
   });
 
   /// Creates a object from a json
-  static InlineQuery fromJson(Map<String, dynamic> json) {
+  factory InlineQuery.fromJson(Map<String, dynamic> json) {
     return InlineQuery(
       id: json['id']!,
       from: User.fromJson(json['from']!),

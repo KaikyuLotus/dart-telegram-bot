@@ -45,7 +45,7 @@ class PreCheckoutQuery {
   });
 
   /// Creates a object from a json
-  static PreCheckoutQuery fromJson(Map<String, dynamic> json) {
+  factory PreCheckoutQuery.fromJson(Map<String, dynamic> json) {
     return PreCheckoutQuery(
       id: json['id']!,
       from: User.fromJson(json['from']!),

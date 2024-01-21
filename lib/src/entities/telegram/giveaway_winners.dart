@@ -63,7 +63,7 @@ class GiveawayWinners {
   });
 
   /// Creates a object from a json
-  static GiveawayWinners fromJson(Map<String, dynamic> json) {
+  factory GiveawayWinners.fromJson(Map<String, dynamic> json) {
     return GiveawayWinners(
       chat: Chat.fromJson(json['chat']),
       giveawayMessageId: json['giveaway_message_id'],

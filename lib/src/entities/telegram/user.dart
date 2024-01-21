@@ -63,7 +63,7 @@ class User {
   });
 
   /// Creates a object from a json
-  static User fromJson(Map<String, dynamic> json) {
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id']!,
       isBot: json['is_bot']!,

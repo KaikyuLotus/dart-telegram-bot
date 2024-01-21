@@ -35,12 +35,12 @@ class InputSticker {
   });
 
   /// Creates a object from a json
-  static InputSticker fromJson(Map<String, dynamic> json) {
+  factory InputSticker.fromJson(Map<String, dynamic> json) {
     return InputSticker(
       sticker: json['sticker']!,
       emojiList: json['emoji_list']!,
-      maskPosition: json['mask_position']!,
-      keywords: json['keywords']!,
+      maskPosition: json['mask_position'],
+      keywords: json['keywords'],
     );
   }
 

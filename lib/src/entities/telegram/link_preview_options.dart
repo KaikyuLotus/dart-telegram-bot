@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 /// Describes the options used for link preview generation.
 class LinkPreviewOptions {
   /// Optional.
@@ -36,7 +38,7 @@ class LinkPreviewOptions {
   });
 
   /// Creates a object from a json
-  static LinkPreviewOptions fromJson(Map<String, dynamic> json) {
+  factory LinkPreviewOptions.fromJson(Map<String, dynamic> json) {
     return LinkPreviewOptions(
       isDisabled: json['is_disabled'],
       url: json['url'],
@@ -55,4 +57,7 @@ class LinkPreviewOptions {
       'show_above_text': showAboveText,
     }..removeWhere((_, v) => v == null);
   }
+
+  @override
+  String toString() => json.encode(this);
 }

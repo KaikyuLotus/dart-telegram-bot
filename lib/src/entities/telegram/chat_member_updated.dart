@@ -41,7 +41,7 @@ class ChatMemberUpdated {
   });
 
   /// Creates a object from a json
-  static ChatMemberUpdated fromJson(Map<String, dynamic> json) {
+  factory ChatMemberUpdated.fromJson(Map<String, dynamic> json) {
     return ChatMemberUpdated(
       chat: Chat.fromJson(json['chat']!),
       from: User.fromJson(json['from']!),

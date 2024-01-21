@@ -21,76 +21,70 @@ void main(List<String> arguments) async {
 
   var token = Platform.environment['BOT_TOKEN']!;
 
-  var bot = Bot(
+  Bot(
     token: token,
     onReady: onReady,
     onStartFailed: onStartFailed,
     allowedUpdates: UpdateType.allBut([UpdateType.editedMessage]),
-  );
-
-  bot.onUpdate(_onUpdate);
-
-  bot.onCommand('buttons', (bot, update) async {
-    var buttons = [
-      [InlineKeyboardButton.callbackData('Button 1', 'btn1')],
-      [InlineKeyboardButton.callbackData('Button 2', 'btn2')]
-    ];
-    await bot.sendMessage(
-      ChatID(update.message!.chat.id),
-      'Tap a button...',
-      replyMarkup: InlineKeyboardMarkup(buttons),
-    );
-  });
-
-  bot.onCommand('chatid', (bot, update) async {
-    await bot.sendMessage(
-      ChatID(update.message!.chat.id),
-      '*Chat ID*: `${update.message!.chat.id}`',
-      parseMode: ParseMode.markdown,
-    );
-  });
-
-  bot.onCommand('msgid', (bot, update) async {
-    await bot.sendMessage(
-      ChatID(update.message!.chat.id),
-      '*Message ID*: `${update.message!.messageId}`',
-      parseMode: ParseMode.markdown,
-    );
-  });
-
-  bot.onCommand('uid', (bot, update) async {
-    await bot.sendMessage(
-      ChatID(update.message!.chat.id),
-      '*ID*: `${update.message!.from!.id}`',
-      parseMode: ParseMode.markdown,
-    );
-  });
-
-  bot.onCommand('quid', (bot, update) async {
-    if (update.message!.replyToMessage == null) return;
-    await bot.sendMessage(
-      ChatID(update.message!.chat.id),
-      '*ID*: `${update.message!.replyToMessage!.from!.id}`',
-      parseMode: ParseMode.markdown,
-    );
-  });
-
-  bot.onCommand('poll', (bot, update) async {
-    await bot.sendPoll(
-      ChatID(update.message!.chat.id),
-      'Nani desu ka?',
-      ['Hai!', 'Ara ara?', '!'],
-      replyToMessageId: update.message!.messageId,
-      allowsMultipleAnswers: true,
-      isAnonymous: true,
-      type: 'quiz',
-      correctOptionId: 1,
-    );
-  });
+  )
+    ..errorHandler = defaultErrorHandler
+    ..onUpdate(_onUpdate)
+    ..onCommand('buttons', (bot, update) async {
+      var buttons = [
+        [InlineKeyboardButton.callbackData('Button 1', 'btn1')],
+        [InlineKeyboardButton.callbackData('Button 2', 'btn2')],
+      ];
+      await bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        'Tap a button...',
+        replyMarkup: InlineKeyboardMarkup(buttons),
+      );
+    })
+    ..onCommand('chatid', (bot, update) async {
+      await bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        '*Chat ID*: `${update.message!.chat.id}`',
+        parseMode: ParseMode.markdown,
+      );
+    })
+    ..onCommand('msgid', (bot, update) async {
+      await bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        '*Message ID*: `${update.message!.messageId}`',
+        parseMode: ParseMode.markdown,
+      );
+    })
+    ..onCommand('uid', (bot, update) async {
+      await bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        '*ID*: `${update.message!.from!.id}`',
+        parseMode: ParseMode.markdown,
+      );
+    })
+    ..onCommand('quid', (bot, update) async {
+      if (update.message!.replyToMessage == null) return;
+      await bot.sendMessage(
+        ChatID(update.message!.chat.id),
+        '*ID*: `${update.message!.replyToMessage!.from!.id}`',
+        parseMode: ParseMode.markdown,
+      );
+    })
+    ..onCommand('poll', (bot, update) async {
+      await bot.sendPoll(
+        ChatID(update.message!.chat.id),
+        'Nani desu ka?',
+        ['Hai!', 'Ara ara?', '!'],
+        replyToMessageId: update.message!.messageId,
+        allowsMultipleAnswers: true,
+        isAnonymous: true,
+        type: 'quiz',
+        correctOptionId: 1,
+      );
+    });
 }
 
-void defaultErrorHandler(Object e, StackTrace s) {
-  print('something failed: $e\n$s');
+Future defaultErrorHandler(_, __, Object e, StackTrace s) async {
+  print('Something failed: $e\n$s');
 }
 
 void onStartFailed(Bot bot, Object err, StackTrace st) {
@@ -132,7 +126,7 @@ Future _onUpdate(Bot bot, Update update) async {
               '/results?search_query=Zekk+-+TOMOYO)',
               parseMode: ParseMode.markdown,
             ),
-          )
+          ),
         ],
         cacheTime: 0,
       );

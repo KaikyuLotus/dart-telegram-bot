@@ -81,7 +81,7 @@ class TGAPIClient {
     );
     var response = await _client
         .send(_getRequest(uri, files))
-        .timeout(Duration(seconds: 120));
+        .timeout(const Duration(seconds: 120));
     var stringResponse = await response.stream.bytesToString();
     return json.decode(stringResponse);
   }
@@ -89,8 +89,9 @@ class TGAPIClient {
   /// Download a file from path
   Future<Uint8List> apiDownload(String? token, String? path) async {
     var uri = Uri.https(baseUrl, '/file/bot$token/$path');
-    var response =
-        await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
+    var response = await _client.send(Request('GET', uri)).timeout(
+          const Duration(seconds: 120),
+        );
     if (response.statusCode != 200) {
       throw APIException(
         'Error while downloading the file with path /$path',
@@ -110,9 +111,9 @@ class TGAPIClient {
   ]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
-      final updatedQuery = <String, dynamic>{};
+      var updatedQuery = <String, dynamic>{};
 
-      for (final param in query.entries) {
+      for (var param in query.entries) {
         if (param.value == null) continue;
 
         switch (param.value.runtimeType) {

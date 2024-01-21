@@ -64,7 +64,7 @@ class KeyboardButtonRequestChat {
   });
 
   /// Creates a object from a json
-  static KeyboardButtonRequestChat fromJson(Map<String, dynamic> json) {
+  factory KeyboardButtonRequestChat.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonRequestChat(
       json['request_id'],
       json['chat_is_channel'],

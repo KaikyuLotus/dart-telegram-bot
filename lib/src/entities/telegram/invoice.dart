@@ -33,7 +33,7 @@ class Invoice {
   });
 
   /// Creates a object from a json
-  static Invoice fromJson(Map<String, dynamic> json) {
+  factory Invoice.fromJson(Map<String, dynamic> json) {
     return Invoice(
       title: json['title']!,
       description: json['description']!,

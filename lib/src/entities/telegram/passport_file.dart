@@ -26,7 +26,7 @@ class PassportFile {
   });
 
   /// Creates a object from a json
-  static PassportFile fromJson(Map<String, dynamic> json) {
+  factory PassportFile.fromJson(Map<String, dynamic> json) {
     return PassportFile(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

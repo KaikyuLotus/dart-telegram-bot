@@ -107,7 +107,7 @@ class InlineKeyboardButton {
   InlineKeyboardButton.pay(this.text, {this.pay});
 
   /// Creates a object from a json
-  static InlineKeyboardButton fromJson(Map<String, dynamic> json) {
+  factory InlineKeyboardButton.fromJson(Map<String, dynamic> json) {
     return InlineKeyboardButton._(
       json['text']!,
       url: json['url'],
@@ -132,7 +132,8 @@ class InlineKeyboardButton {
 
   /// Creates a list of list of object from a json array
   static List<List<InlineKeyboardButton>> listOfListsFromJsonArray(
-      List<dynamic> json) {
+    List<dynamic> json,
+  ) {
     return List.generate(
       json.length,
       (e) => List.generate(

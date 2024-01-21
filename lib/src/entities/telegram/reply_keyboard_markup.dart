@@ -55,7 +55,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   });
 
   /// Creates a object from a json
-  static ReplyKeyboardMarkup fromJson(Map<String, dynamic> json) {
+  factory ReplyKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardMarkup(
       KeyboardButton.listOfListsFromJsonArray(json['keyboard']!),
       isPersistent: json['is_persistent'],

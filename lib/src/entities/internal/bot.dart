@@ -30,7 +30,8 @@ class Bot with TGAPIMethods {
 
   var _log = Logger('Bot');
 
-  /// List of allowed updates to be received<br>
+  /// List of allowed updates to be received
+  ///
   /// Can be changed while the bot is running
   List<UpdateType>? allowedUpdates;
 
@@ -72,7 +73,7 @@ class Bot with TGAPIMethods {
         _timeout = timeout,
         _onStartFailedEvent = onStartFailed {
     this.token = token;
-    _setup();
+    unawaited(_setup());
   }
 
   /// Override this method when extending this class
@@ -104,7 +105,7 @@ class Bot with TGAPIMethods {
     var user = await getMe();
     _id = user.id;
     _name = user.firstName;
-    _username = user.username!;
+    _username = user.username;
     _log = Logger(_name!);
   }
 
@@ -114,13 +115,15 @@ class Bot with TGAPIMethods {
     if (clean) {
       await _cleanUpdates();
     }
+
     await _eventLoop();
     // Clean last read update
     await getUpdates(timeout: 0, offset: _offset);
   }
 
   /// Adds a new update handler
-  /// which is executed on each update<br>
+  /// which is executed on each update
+  ///
   /// If an handler throws an error, [errorHandler] is called
   /// and the next handler/update is elaborated
   void onUpdate(Future Function(Bot, Update) callback) {
@@ -142,8 +145,9 @@ class Bot with TGAPIMethods {
   }
 
   Future _criticalErrorHandler(Object e, StackTrace st) async {
-    _log.severe('An exception occurred during an exception handling');
-    _log.severe(e, st);
+    _log
+      ..severe('An exception occurred during an exception handling')
+      ..severe(e, st);
   }
 
   Future _onConnectionError(Bot bot, Object error, StackTrace st) async {
@@ -170,14 +174,13 @@ class Bot with TGAPIMethods {
       closeClient();
       return;
     }
+
     await _onReady();
   }
 
   void _runProtectedSimple(Function foo) {
     runZonedGuarded(
-      () {
-        foo();
-      },
+      () => foo(),
       _criticalErrorHandler,
     );
   }
@@ -189,7 +192,7 @@ class Bot with TGAPIMethods {
   }) {
     runZonedGuarded(
       foo,
-      (e, s) => (customErrHandler ?? _onError)(this, update, e, s),
+      (e, s) async => (customErrHandler ?? _onError)(this, update, e, s),
     );
   }
 
@@ -198,6 +201,7 @@ class Bot with TGAPIMethods {
   Future<bool> _checkCommands(Update update) async {
     var message = update.message;
     if (message == null || message.text == null) return false;
+
     var cmdParser = BotCommandParser.fromMessage(message);
     if (cmdParser == null) return false;
 
@@ -208,6 +212,7 @@ class Bot with TGAPIMethods {
         username: username,
       );
       if (!isMatching) continue;
+
       anyExecuted = true;
       _runProtected(() => commandEntry.value.call(this, update), update);
     }
@@ -216,6 +221,7 @@ class Bot with TGAPIMethods {
 
   Future _handleUpdate(Update update) async {
     if (await _checkCommands(update)) return;
+
     for (var callback in _updateCallbacks) {
       _runProtected(() => callback(this, update), update);
     }
@@ -237,7 +243,7 @@ class Bot with TGAPIMethods {
       }
     } on ClientException catch (e, s) {
       await _onConnectionError(this, e, s);
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
     } on Exception catch (e, s) {
       _log.severe('Loop body exception', e, s);
     } on Error catch (e, s) {

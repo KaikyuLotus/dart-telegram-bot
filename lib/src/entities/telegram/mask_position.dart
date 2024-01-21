@@ -30,7 +30,7 @@ class MaskPosition {
   });
 
   /// Creates a object from a json
-  static MaskPosition fromJson(Map<String, dynamic> json) {
+  factory MaskPosition.fromJson(Map<String, dynamic> json) {
     return MaskPosition(
       point: json['point']!,
       xShift: json['x_shift']!,

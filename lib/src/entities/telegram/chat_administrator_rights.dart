@@ -83,7 +83,7 @@ class ChatAdministratorRights {
   );
 
   /// Creates a object from a json
-  static ChatAdministratorRights fromJson(Map<String, dynamic> json) {
+  factory ChatAdministratorRights.fromJson(Map<String, dynamic> json) {
     return ChatAdministratorRights(
       json['is_anonymous'],
       json['can_manage_chat'],

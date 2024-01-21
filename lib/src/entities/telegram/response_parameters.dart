@@ -22,7 +22,7 @@ class ResponseParameters {
   });
 
   /// Creates a object from a json
-  static ResponseParameters fromJson(Map<String, dynamic> json) {
+  factory ResponseParameters.fromJson(Map<String, dynamic> json) {
     return ResponseParameters(
       migrateToChatId: json['migrate_to_chat_id'],
       retryAfter: json['retry_after'],

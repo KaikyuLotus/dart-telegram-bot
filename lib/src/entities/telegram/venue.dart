@@ -43,7 +43,7 @@ class Venue {
   });
 
   /// Creates a object from a json
-  static Venue fromJson(Map<String, dynamic> json) {
+  factory Venue.fromJson(Map<String, dynamic> json) {
     return Venue(
       location: Location.fromJson(json['location']!),
       title: json['title']!,

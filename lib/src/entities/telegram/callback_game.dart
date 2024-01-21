@@ -5,7 +5,7 @@ class CallbackGame {
   CallbackGame();
 
   /// Creates a object from a json
-  static CallbackGame fromJson(Map<String, dynamic> json) {
+  factory CallbackGame.fromJson(Map<String, dynamic> _) {
     return CallbackGame();
   }
 

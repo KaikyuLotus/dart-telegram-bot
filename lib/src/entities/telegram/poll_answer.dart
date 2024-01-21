@@ -30,7 +30,7 @@ class PollAnswer {
   });
 
   /// Creates a object from a json
-  static PollAnswer fromJson(Map<String, dynamic> json) {
+  factory PollAnswer.fromJson(Map<String, dynamic> json) {
     return PollAnswer(
       pollId: json['poll_id']!,
       voterChat: callIfNotNull(Chat.fromJson, json['voter_chat']),

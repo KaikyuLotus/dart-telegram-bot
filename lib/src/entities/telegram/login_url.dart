@@ -39,7 +39,7 @@ class LoginUrl {
   });
 
   /// Creates a object from a json
-  static LoginUrl fromJson(Map<String, dynamic> json) {
+  factory LoginUrl.fromJson(Map<String, dynamic> json) {
     return LoginUrl(
       url: json['url']!,
       forwardText: json['forward_text'],

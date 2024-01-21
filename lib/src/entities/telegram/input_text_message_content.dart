@@ -31,7 +31,7 @@ class InputTextMessageContent extends InputMessageContent {
   });
 
   /// Creates a object from a json
-  static InputTextMessageContent fromJson(Map<String, dynamic> json) {
+  factory InputTextMessageContent.fromJson(Map<String, dynamic> json) {
     return InputTextMessageContent(
       json['message_text']!,
       parseMode: callIfNotNull(ParseMode.forValue, json['parse_mode']),

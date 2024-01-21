@@ -8,7 +8,7 @@ class ForumTopicReopened {
   ForumTopicReopened();
 
   /// Creates a object from a json
-  static ForumTopicReopened fromJson(Map<String, dynamic> json) {
+  factory ForumTopicReopened.fromJson(Map<String, dynamic> _) {
     return ForumTopicReopened();
   }
 

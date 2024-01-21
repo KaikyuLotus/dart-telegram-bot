@@ -48,7 +48,7 @@ class InputVenueMessageContent extends InputMessageContent {
   });
 
   /// Creates a object from a json
-  static InputVenueMessageContent fromJson(Map<String, dynamic> json) {
+  factory InputVenueMessageContent.fromJson(Map<String, dynamic> json) {
     return InputVenueMessageContent(
       json['latitude']!,
       json['longitude']!,

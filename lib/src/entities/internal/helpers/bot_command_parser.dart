@@ -33,6 +33,7 @@ class BotCommandParser {
         return false;
       }
     }
+
     return command.toLowerCase() == this.command.toLowerCase();
   }
 
@@ -44,7 +45,6 @@ class BotCommandParser {
     var command = match.group(1)!;
     var username = match.group(2);
     var foundArgs = match.group(3);
-
     if (foundArgs != null) {
       return BotCommandParser(command, username, args: foundArgs.split(' '));
     }

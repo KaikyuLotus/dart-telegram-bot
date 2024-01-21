@@ -1253,8 +1253,8 @@ mixin TGAPIMethods {
 
   /// Use this method to get a list of administrators in a chat.
   ///
-  /// On success, returns an Array of [ChatMember] objects that contains information
-  /// about all chat administrators except other bots.
+  /// On success, returns an Array of [ChatMember] objects that contains
+  /// information about all chat administrators except other bots.
   ///
   /// If the chat is a group or a supergroup and no administrators were
   /// appointed, only the creator will be returned.
@@ -1457,8 +1457,8 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to hide the 'General' topic in a forum supergroup chat.
-  /// The bot must be an administrator in the chat for this to work and must have
-  /// the can_manage_topics administrator rights.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights.
   /// The topic will be automatically closed if it was open.
   /// Returns True on success.
   Future<bool> hideGeneralForumTopic(ChatID chatId) {
@@ -1468,8 +1468,8 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to unhide the 'General' topic in a forum supergroup chat.
-  /// The bot must be an administrator in the chat for this to work and must have
-  /// the can_manage_topics administrator rights.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights.
   /// Returns True on success.
   Future<bool> unhideGeneralForumTopic(ChatID chatId) {
     return _client.apiCall(_token, 'unhideGeneralForumTopic', {

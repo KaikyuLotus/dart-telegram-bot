@@ -42,7 +42,8 @@ class ChatPermissions {
 
   /// Optional.
   /// True, if the user is allowed to change the chat title, photo and other
-  /// settings. Ignored in public supergroups
+  /// settings.
+  /// Ignored in public supergroups
   bool? canChangeInfo;
 
   /// Optional.
@@ -50,7 +51,8 @@ class ChatPermissions {
   bool? canInviteUsers;
 
   /// Optional.
-  /// True, if the user is allowed to pin messages. Ignored in public supergroups
+  /// True, if the user is allowed to pin messages.
+  /// Ignored in public supergroups
   bool? canPinMessages;
 
   /// Optional.
@@ -77,7 +79,7 @@ class ChatPermissions {
   });
 
   /// Creates a object from a json
-  static ChatPermissions fromJson(Map<String, dynamic> json) {
+  factory ChatPermissions.fromJson(Map<String, dynamic> json) {
     return ChatPermissions(
       canSendMessages: json['can_send_messages'],
       canSendAudios: json['can_send_audios'],

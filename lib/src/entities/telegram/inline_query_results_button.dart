@@ -30,7 +30,7 @@ class InlineQueryResultsButton {
   });
 
   /// Creates a object from a json
-  static InlineQueryResultsButton fromJson(Map<String, dynamic> json) {
+  factory InlineQueryResultsButton.fromJson(Map<String, dynamic> json) {
     return InlineQueryResultsButton(
       text: json['text']!,
       webApp: callIfNotNull(WebAppInfo.fromJson, json['web_app']),

@@ -18,7 +18,7 @@ class Dice {
   });
 
   /// Creates a object from a json
-  static Dice fromJson(Map<String, dynamic> json) {
+  factory Dice.fromJson(Map<String, dynamic> json) {
     return Dice(
       emoji: Emoji.forValue(json['emoji']),
       value: json['value'],

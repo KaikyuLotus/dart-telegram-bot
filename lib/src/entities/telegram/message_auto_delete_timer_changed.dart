@@ -10,7 +10,7 @@ class MessageAutoDeleteTimerChanged {
   MessageAutoDeleteTimerChanged(this.messageAutoDeleteTime);
 
   /// Creates a object from a json
-  static MessageAutoDeleteTimerChanged fromJson(Map<String, dynamic> json) {
+  factory MessageAutoDeleteTimerChanged.fromJson(Map<String, dynamic> json) {
     return MessageAutoDeleteTimerChanged(json['message_auto_delete_time']);
   }
 

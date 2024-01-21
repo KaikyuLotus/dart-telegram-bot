@@ -54,7 +54,7 @@ class MessageEntity {
   });
 
   /// Creates a object from a json
-  static MessageEntity fromJson(Map<String, dynamic> json) {
+  factory MessageEntity.fromJson(Map<String, dynamic> json) {
     return MessageEntity(
       type: json['type']!,
       offset: json['offset']!,

@@ -17,7 +17,7 @@ class UserProfilePhotos {
   });
 
   /// Creates a object from a json
-  static UserProfilePhotos fromJson(Map<String, dynamic> json) {
+  factory UserProfilePhotos.fromJson(Map<String, dynamic> json) {
     return UserProfilePhotos(
       totalCount: json['total_count']!,
       photos: PhotoSize.listOfListsFromJsonArray(json['photos']!),

@@ -23,7 +23,7 @@ class GiveawayCompleted {
   });
 
   /// Creates a object from a json
-  static GiveawayCompleted fromJson(Map<String, dynamic> json) {
+  factory GiveawayCompleted.fromJson(Map<String, dynamic> json) {
     return GiveawayCompleted(
       winnerCount: json['winner_count'],
       unclaimedPrizeCount: json['unclaimed_prize_count'],

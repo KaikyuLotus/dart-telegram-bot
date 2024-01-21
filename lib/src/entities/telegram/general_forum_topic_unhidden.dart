@@ -8,7 +8,7 @@ class GeneralForumTopicUnhidden {
   GeneralForumTopicUnhidden();
 
   /// Creates a object from a json
-  static GeneralForumTopicUnhidden fromJson(Map<String, dynamic> json) {
+  factory GeneralForumTopicUnhidden.fromJson(Map<String, dynamic> _) {
     return GeneralForumTopicUnhidden();
   }
 

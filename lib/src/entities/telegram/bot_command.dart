@@ -16,10 +16,10 @@ class BotCommand {
   });
 
   /// Creates a object from a json
-  static BotCommand fromJson(Map<String, dynamic> json) {
+  factory BotCommand.fromJson(Map<String, dynamic> json) {
     return BotCommand(
       command: json['command']!,
-      description: json['description']!,
+      description: json['description'],
     );
   }
 

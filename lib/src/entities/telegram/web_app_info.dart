@@ -8,7 +8,7 @@ class WebAppInfo {
   WebAppInfo(this.url);
 
   /// Creates a object from a json
-  static WebAppInfo fromJson(Map<String, dynamic> json) {
+  factory WebAppInfo.fromJson(Map<String, dynamic> json) {
     return WebAppInfo(json['url']);
   }
 

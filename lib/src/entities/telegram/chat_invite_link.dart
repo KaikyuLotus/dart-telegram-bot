@@ -54,7 +54,7 @@ class ChatInviteLink {
   });
 
   /// Creates a object from a json
-  static ChatInviteLink fromJson(Map<String, dynamic> json) {
+  factory ChatInviteLink.fromJson(Map<String, dynamic> json) {
     return ChatInviteLink(
       inviteLink: json['invite_link']!,
       creator: User.fromJson(json['creator']!),

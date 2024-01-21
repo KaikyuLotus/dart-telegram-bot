@@ -23,7 +23,7 @@ class ForumTopic {
     this.iconCustomEmojiId,
   );
 
-  static ForumTopic fromJson(Map<String, dynamic> json) {
+  factory ForumTopic.fromJson(Map<String, dynamic> json) {
     return ForumTopic(
       json['message_thread_id'],
       json['name'],

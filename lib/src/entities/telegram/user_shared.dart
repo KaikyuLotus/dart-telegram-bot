@@ -23,7 +23,7 @@ class UserShared {
   );
 
   /// Creates a object from a json
-  static UserShared fromJson(Map<String, dynamic> json) {
+  factory UserShared.fromJson(Map<String, dynamic> json) {
     return UserShared(
       json['request_id'],
       json['user_id'],

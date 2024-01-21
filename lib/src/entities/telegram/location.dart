@@ -37,7 +37,7 @@ class Location {
   });
 
   /// Creates a object from a json
-  static Location fromJson(Map<String, dynamic> json) {
+  factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
       longitude: json['longitude']!,
       latitude: json['latitude']!,

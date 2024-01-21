@@ -45,7 +45,7 @@ class SuccessfulPayment {
   });
 
   /// Creates a object from a json
-  static SuccessfulPayment fromJson(Map<String, dynamic> json) {
+  factory SuccessfulPayment.fromJson(Map<String, dynamic> json) {
     return SuccessfulPayment(
       currency: json['currency']!,
       totalAmount: json['total_amount']!,

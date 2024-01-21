@@ -6,10 +6,10 @@ class ChatID {
   /// Telegram ChatUsername
   String? chatUsername;
 
-  ChatID._internal({this.chatUsername});
-
   /// ChatId constructor
   ChatID(this.chatId);
+
+  ChatID._internal({this.chatUsername});
 
   /// Username constructor
   factory ChatID.fromUsername(String username) {
@@ -17,7 +17,5 @@ class ChatID {
   }
 
   @override
-  String toString() {
-    return (chatId ?? chatUsername)!.toString();
-  }
+  String toString() => (chatId ?? chatUsername)!.toString();
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-///This object represents a service message about a video chat ended in the chat.
+/// This object represents a service message about a video chat ended in the
+/// chat.
 class VideoChatEnded {
   /// Video chat duration in seconds
   int duration;
@@ -9,7 +10,7 @@ class VideoChatEnded {
   VideoChatEnded(this.duration);
 
   /// Creates a object from a json
-  static VideoChatEnded fromJson(Map<String, dynamic> json) {
+  factory VideoChatEnded.fromJson(Map<String, dynamic> json) {
     return VideoChatEnded(json['duration']);
   }
 

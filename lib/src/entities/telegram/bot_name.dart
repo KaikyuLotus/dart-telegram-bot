@@ -11,7 +11,7 @@ class BotName {
   });
 
   /// Creates a object from a json
-  static BotName fromJson(Map<String, dynamic> json) {
+  factory BotName.fromJson(Map<String, dynamic> json) {
     return BotName(
       name: json['name'],
     );

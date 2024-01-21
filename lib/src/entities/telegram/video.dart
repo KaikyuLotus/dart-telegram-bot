@@ -54,7 +54,7 @@ class Video {
   });
 
   /// Creates a object from a json
-  static Video fromJson(Map<String, dynamic> json) {
+  factory Video.fromJson(Map<String, dynamic> json) {
     return Video(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

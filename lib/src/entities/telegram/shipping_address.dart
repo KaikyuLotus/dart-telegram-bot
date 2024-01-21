@@ -31,7 +31,7 @@ class ShippingAddress {
   });
 
   /// Creates a object from a json
-  static ShippingAddress fromJson(Map<String, dynamic> json) {
+  factory ShippingAddress.fromJson(Map<String, dynamic> json) {
     return ShippingAddress(
       countryCode: json['country_code']!,
       state: json['state']!,

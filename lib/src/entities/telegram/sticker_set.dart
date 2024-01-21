@@ -40,7 +40,7 @@ class StickerSet {
   });
 
   /// Creates a object from a json
-  static StickerSet fromJson(Map<String, dynamic> json) {
+  factory StickerSet.fromJson(Map<String, dynamic> json) {
     return StickerSet(
       name: json['name']!,
       title: json['title']!,

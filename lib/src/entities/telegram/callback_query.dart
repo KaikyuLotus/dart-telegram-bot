@@ -54,7 +54,7 @@ class CallbackQuery {
   });
 
   /// Creates a object from a json
-  static CallbackQuery fromJson(Map<String, dynamic> json) {
+  factory CallbackQuery.fromJson(Map<String, dynamic> json) {
     return CallbackQuery(
       id: json['id']!,
       from: User.fromJson(json['from']!),

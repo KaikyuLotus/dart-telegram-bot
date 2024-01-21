@@ -43,7 +43,7 @@ class ChatJoinRequest {
   });
 
   /// Creates a object from a json
-  static ChatJoinRequest fromJson(Map<String, dynamic> json) {
+  factory ChatJoinRequest.fromJson(Map<String, dynamic> json) {
     return ChatJoinRequest(
       chat: Chat.fromJson(json['chat']!),
       from: User.fromJson(json['from']!),

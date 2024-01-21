@@ -23,7 +23,7 @@ class ChatShared {
   );
 
   /// Creates a object from a json
-  static ChatShared fromJson(Map<String, dynamic> json) {
+  factory ChatShared.fromJson(Map<String, dynamic> json) {
     return ChatShared(
       json['request_id'],
       json['user_id'],

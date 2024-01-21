@@ -438,7 +438,7 @@ class Message {
   });
 
   /// Creates a object from a json
-  static Message fromJson(Map<String, dynamic> json) {
+  factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       messageId: json['message_id']!,
       messageThreadId: json['message_thread_id'],
@@ -579,7 +579,7 @@ class Message {
       ),
       giveawayCompleted: callIfNotNull(
         GiveawayCompleted.fromJson,
-        json['giveaway_ccompleted'],
+        json['giveaway_completed'],
       ),
       videoChatScheduled: callIfNotNull(
         VideoChatScheduled.fromJson,

@@ -88,7 +88,7 @@ class EncryptedPassportElement {
   });
 
   /// Creates a object from a json
-  static EncryptedPassportElement fromJson(Map<String, dynamic> json) {
+  factory EncryptedPassportElement.fromJson(Map<String, dynamic> json) {
     return EncryptedPassportElement(
       type: json['type']!,
       data: json['data'],

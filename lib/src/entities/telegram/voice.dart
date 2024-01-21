@@ -34,7 +34,7 @@ class Voice {
   });
 
   /// Creates a object from a json
-  static Voice fromJson(Map<String, dynamic> json) {
+  factory Voice.fromJson(Map<String, dynamic> json) {
     return Voice(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,
