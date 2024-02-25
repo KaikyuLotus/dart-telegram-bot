@@ -55,7 +55,7 @@ class Giveaway {
   /// Creates a object from a json
   factory Giveaway.fromJson(Map<String, dynamic> json) {
     return Giveaway(
-      chats: json['chats'],
+      chats: Chat.listFromJsonArray(json['chats']),
       winnersSelectionDate: json['winners_selection_date'],
       winnerCount: json['winner_count'],
       onlyNewMembers: json['only_new_members'],

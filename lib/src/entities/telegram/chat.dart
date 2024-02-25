@@ -231,6 +231,11 @@ class Chat {
     );
   }
 
+  /// Creates a list of object from a json array
+  static List<Chat> listFromJsonArray(List<dynamic> json) {
+    return List.generate(json.length, (i) => Chat.fromJson(json[i]));
+  }
+
   /// Creates a json from the object
   Map toJson() {
     return {
