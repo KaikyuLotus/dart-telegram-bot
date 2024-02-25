@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
+
 import '../../../telegram_entities.dart';
 
 /// This object represents a service message about the completion of a
@@ -27,7 +29,10 @@ class GiveawayCompleted {
     return GiveawayCompleted(
       winnerCount: json['winner_count'],
       unclaimedPrizeCount: json['unclaimed_prize_count'],
-      giveawayMessage: json['giveaway_message'],
+      giveawayMessage: callIfNotNull(
+        Message.fromJson,
+        json['giveaway_message'],
+      ),
     );
   }
 
