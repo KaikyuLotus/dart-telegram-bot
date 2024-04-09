@@ -271,8 +271,8 @@ class Message extends MaybeInaccessibleMessage {
   SuccessfulPayment? successfulPayment;
 
   /// Optional.
-  /// Service message: a user was shared with the bot
-  UserShared? userShared;
+  /// Service message: users were shared with the bot
+  UsersShared? usersShared;
 
   /// Optional.
   /// Service message: a chat was shared with the bot
@@ -418,7 +418,7 @@ class Message extends MaybeInaccessibleMessage {
     this.pinnedMessage,
     this.invoice,
     this.successfulPayment,
-    this.userShared,
+    this.usersShared,
     this.chatShared,
     this.connectedWebsite,
     this.passportData,
@@ -531,9 +531,9 @@ class Message extends MaybeInaccessibleMessage {
         SuccessfulPayment.fromJson,
         json['successful_payment'],
       ),
-      userShared: callIfNotNull(
-        UserShared.fromJson,
-        json['user_shared'],
+      usersShared: callIfNotNull(
+        UsersShared.fromJson,
+        json['users_shared'],
       ),
       chatShared: callIfNotNull(
         ChatShared.fromJson,
@@ -677,7 +677,7 @@ class Message extends MaybeInaccessibleMessage {
       'pinned_message': pinnedMessage,
       'invoice': invoice,
       'successful_payment': successfulPayment,
-      'user_shared': userShared,
+      'users_shared': usersShared,
       'chat_shared': chatShared,
       'connected_website': connectedWebsite,
       'passport_data': passportData,
