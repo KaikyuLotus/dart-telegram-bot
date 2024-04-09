@@ -46,6 +46,32 @@ class Chat {
   List<String>? activeUsernames;
 
   /// Optional.
+  /// Identifier of the accent color for the chat name and backgrounds of
+  /// the chat photo, reply header, and link preview.
+  /// See accent colors for more details.
+  /// Returned only in getChat.
+  /// Always returned in getChat.
+  int? accentColorId;
+
+  /// Optional.
+  /// Custom emoji identifier of emoji chosen by the chat for the reply header
+  /// and link preview background.
+  /// Returned only in getChat.
+  String? backgroundCustomEmojiId;
+
+  /// Optional.
+  /// Identifier of the accent color for the chat's profile background.
+  /// See profile accent colors for more details.
+  /// Returned only in getChat.
+  int? profileAccentColorId;
+
+  /// Optional.
+  /// Custom emoji identifier of the emoji chosen by the chat for
+  /// its profile background.
+  /// Returned only in getChat.
+  String? profileBackgroundCustomEmojiId;
+
+  /// Optional.
   /// Custom emoji identifier of emoji status of the other party in a
   /// private chat.
   /// Returned only in getChat.
@@ -134,6 +160,12 @@ class Chat {
   bool? hasProtectedContent;
 
   /// Optional.
+  /// True, if new chat members will have access to old messages;
+  /// available only to chat administrators.
+  /// Returned only in getChat.
+  bool? hasVisibleHistory;
+
+  /// Optional.
   /// For supergroups, name of group sticker set.
   /// Returned only in getChat.
   String? stickerSetName;
@@ -170,6 +202,10 @@ class Chat {
     this.isForum,
     this.photo,
     this.activeUsernames,
+    this.accentColorId,
+    this.backgroundCustomEmojiId,
+    this.profileAccentColorId,
+    this.profileBackgroundCustomEmojiId,
     this.emojiStatusCustomEmojiId,
     this.emojiStatusExpirationDate,
     this.bio,
@@ -186,6 +222,7 @@ class Chat {
     this.hasAggressiveAntiSpamEnabled,
     this.hasHiddenMembers,
     this.hasProtectedContent,
+    this.hasVisibleHistory,
     this.stickerSetName,
     this.canSetStickerSet,
     this.linkedChatId,
@@ -204,6 +241,11 @@ class Chat {
       isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       activeUsernames: List.from(json['active_usernames'] ?? []),
+      accentColorId: json['accent_color_id'],
+      backgroundCustomEmojiId: json['background_custom_emoji_id'],
+      profileAccentColorId: json['profile_accent_color_id'],
+      profileBackgroundCustomEmojiId:
+          json['profile_background_custom_emoji_id'],
       emojiStatusCustomEmojiId: json['emoji_status_custom_emoji_id'],
       emojiStatusExpirationDate: json['emoji_status_expiration_date'],
       bio: json['bio'],
@@ -221,13 +263,11 @@ class Chat {
       hasAggressiveAntiSpamEnabled: json['has_aggressive_anti_spam_enabled'],
       hasHiddenMembers: json['has_hidden_members'],
       hasProtectedContent: json['has_protected_content'],
+      hasVisibleHistory: json['has_visible_history'],
       stickerSetName: json['sticker_set_name'],
       canSetStickerSet: json['can_set_sticker_set'],
       linkedChatId: json['linked_chat_id'],
-      location: callIfNotNull(
-        ChatLocation.fromJson,
-        json['location'],
-      ),
+      location: callIfNotNull(ChatLocation.fromJson, json['location']),
     );
   }
 
@@ -248,6 +288,10 @@ class Chat {
       'is_forum': isForum,
       'photo': photo,
       'active_usernames': activeUsernames,
+      'accent_color_id': accentColorId,
+      'background_custom_emoji_id': backgroundCustomEmojiId,
+      'profile_accent_color_id': profileAccentColorId,
+      'profile_background_custom_emoji_id': profileBackgroundCustomEmojiId,
       'emoji_status_custom_emoji_id': emojiStatusCustomEmojiId,
       'emoji_status_expiration_date': emojiStatusExpirationDate,
       'bio': bio,
@@ -265,6 +309,7 @@ class Chat {
       'has_aggressive_anti_spam_enabled': hasAggressiveAntiSpamEnabled,
       'has_hidden_members': hasHiddenMembers,
       'has_protected_content': hasProtectedContent,
+      'has_visible_history': hasVisibleHistory,
       'sticker_set_name': stickerSetName,
       'can_set_sticker_set': canSetStickerSet,
       'linked_chat_id': linkedChatId,

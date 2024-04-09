@@ -4,8 +4,9 @@ import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
 /// This object represents a message.
-class Message {
+class Message extends MaybeInaccessibleMessage {
   /// Unique message identifier inside this chat
+  @override
   int messageId;
 
   /// Optional.
@@ -29,9 +30,11 @@ class Message {
   Chat? senderChat;
 
   /// Date the message was sent in Unix time
+  @override
   int date;
 
   /// Conversation the message belongs to
+  @override
   Chat chat;
 
   /// Optional.
@@ -255,8 +258,8 @@ class Message {
   /// Optional.
   /// Specified message was pinned.
   /// Note that the Message object in this field will not contain further
-  /// reply_to_message fields even if it is itself a reply.
-  Message? pinnedMessage;
+  /// reply_to_message fields even if it itself is a reply.
+  MaybeInaccessibleMessage? pinnedMessage;
 
   /// Optional.
   /// Message is an invoice for a payment, information about the invoice.
