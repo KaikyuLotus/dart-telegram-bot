@@ -1506,6 +1506,20 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to get the list of boosts added to a chat by a user.
+  /// Requires administrator rights in the chat.
+  ///
+  /// Returns a UserChatBoosts object.
+  Future<UserChatBoosts> getUserChatBoosts(
+    ChatID chatId,
+    int userId,
+  ) {
+    return _client.apiCall(_token, 'getUserChatBoosts', {
+      'chat_id': chatId,
+      'user_id': userId,
+    });
+  }
+
   /// Use this method to change the list of the bot's commands.
   /// See https://core.telegram.org/bots#commands for more details about
   /// bot commands.

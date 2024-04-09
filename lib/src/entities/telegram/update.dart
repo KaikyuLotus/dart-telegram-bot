@@ -85,6 +85,16 @@ class Update {
   /// receive these updates.
   ChatJoinRequest? chatJoinRequest;
 
+  /// Optional.
+  /// A chat boost was added or changed.
+  /// The bot must be an administrator in the chat to receive these updates.
+  ChatBoost? chatBoost;
+
+  /// Optional.
+  /// A boost was removed from a chat.
+  /// The bot must be an administrator in the chat to receive these updates.
+  ChatBoostRemoved? removedChatBoost;
+
   /// Basic constructor
   Update({
     required this.updateId,
@@ -102,6 +112,8 @@ class Update {
     this.myChatMember,
     this.chatMember,
     this.chatJoinRequest,
+    this.chatBoost,
+    this.removedChatBoost,
   });
 
   /// Creates a object from a json
@@ -164,6 +176,14 @@ class Update {
         ChatJoinRequest.fromJson,
         json['chat_join_request'],
       ),
+      chatBoost: callIfNotNull(
+        ChatBoost.fromJson,
+        json['chat_boost'],
+      ),
+      removedChatBoost: callIfNotNull(
+        ChatBoostRemoved.fromJson,
+        json['removed_chat_boost'],
+      ),
     );
   }
 
@@ -190,6 +210,8 @@ class Update {
       'my_chat_member': myChatMember,
       'chat_member': chatMember,
       'chat_join_request': chatJoinRequest,
+      'chat_boost': chatBoost,
+      'removed_chat_boost': removedChatBoost,
     }..removeWhere((_, v) => v == null);
   }
 

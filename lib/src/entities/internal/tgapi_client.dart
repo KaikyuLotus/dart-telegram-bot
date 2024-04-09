@@ -27,6 +27,7 @@ class TGAPIClient {
   static final _typeFactories = <String, Function(Map<String, dynamic>)>{
     'User': User.fromJson,
     'Message': Message.fromJson,
+    'UserChatBoosts': UserChatBoosts.fromJson,
     'UserProfilePhotos': UserProfilePhotos.fromJson,
     'File': File.fromJson,
     'ChatMember': ChatMember.fromJson,
