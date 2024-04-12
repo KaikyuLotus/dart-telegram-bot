@@ -51,8 +51,7 @@ mixin TGAPIMethods {
     LinkPreviewOptions? linkPreviewOptions,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendMessage', {
@@ -64,8 +63,7 @@ mixin TGAPIMethods {
       'link_preview_options': linkPreviewOptions,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -138,8 +136,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'copyMessage', {
@@ -152,8 +149,7 @@ mixin TGAPIMethods {
       'caption_entities': captionEntities,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -208,8 +204,7 @@ mixin TGAPIMethods {
     bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPhoto', {
@@ -222,8 +217,7 @@ mixin TGAPIMethods {
       'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -252,8 +246,7 @@ mixin TGAPIMethods {
     HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAudio', {
@@ -269,8 +262,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -291,8 +283,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
     bool? disableContentTypeDetection,
   }) {
@@ -306,8 +297,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
       'disable_content_type_detection': disableContentTypeDetection,
     });
@@ -336,8 +326,7 @@ mixin TGAPIMethods {
     bool? supportsStreaming,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideo', {
@@ -355,8 +344,7 @@ mixin TGAPIMethods {
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -381,8 +369,7 @@ mixin TGAPIMethods {
     bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAnimation', {
@@ -399,8 +386,7 @@ mixin TGAPIMethods {
       'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -426,8 +412,7 @@ mixin TGAPIMethods {
     int? duration,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVoice', {
@@ -440,8 +425,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -458,8 +442,7 @@ mixin TGAPIMethods {
     HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideoNote', {
@@ -471,8 +454,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -490,8 +472,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
-    bool? allowSendingWithoutReply,
-    int? replyToMessageId,
+    ReplyParameters? replyParameters,
   }) {
     return _client.apiCall(_token, 'sendMediaGroup', {
       'chat_id': chatId,
@@ -499,8 +480,7 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_to_message_id': replyToMessageId,
+      'reply_parameters': replyParameters,
     });
   }
 
@@ -518,8 +498,7 @@ mixin TGAPIMethods {
     int? proximityAlertRadius,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendLocation', {
@@ -533,8 +512,7 @@ mixin TGAPIMethods {
       'proximity_alert_radius': proximityAlertRadius,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -639,8 +617,7 @@ mixin TGAPIMethods {
     String? googlePlaceType,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVenue', {
@@ -656,8 +633,7 @@ mixin TGAPIMethods {
       'google_place_type': googlePlaceType,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -674,8 +650,7 @@ mixin TGAPIMethods {
     String? vcard,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendContact', {
@@ -687,8 +662,7 @@ mixin TGAPIMethods {
       'vcard': vcard,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -713,8 +687,7 @@ mixin TGAPIMethods {
     bool? isClosed,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPoll', {
@@ -734,8 +707,7 @@ mixin TGAPIMethods {
       'is_closed': isClosed,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -750,8 +722,7 @@ mixin TGAPIMethods {
     Emoji? emoji,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendDice', {
@@ -760,8 +731,7 @@ mixin TGAPIMethods {
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -1922,8 +1892,7 @@ mixin TGAPIMethods {
     String? emoji,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendSticker', {
@@ -1933,8 +1902,7 @@ mixin TGAPIMethods {
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -2190,8 +2158,7 @@ mixin TGAPIMethods {
     bool? isFlexible,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendInvoice', {
@@ -2218,8 +2185,7 @@ mixin TGAPIMethods {
       'is_flexible': isFlexible,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -2282,10 +2248,10 @@ mixin TGAPIMethods {
   /// On success, True is returned.
   Future<bool> answerShippingQuery(
     String shippingQueryId,
-    bool ok,
     List<ShippingOption>? shippingOptions,
-    String errorMessage,
-  ) {
+    String errorMessage, {
+    required bool ok,
+  }) {
     return _client.apiCall(_token, 'answerShippingQuery', {
       'shipping_query_id': shippingQueryId,
       'ok': ok,
@@ -2306,9 +2272,9 @@ mixin TGAPIMethods {
   /// pre-checkout query was sent.
   Future<bool> answerPreCheckoutQuery(
     String preCheckoutQueryId,
-    bool ok,
-    String errorMessage,
-  ) {
+    String errorMessage, {
+    required bool ok,
+  }) {
     return _client.apiCall(_token, 'answerPreCheckoutQuery', {
       'pre_checkout_query_id': preCheckoutQueryId,
       'ok': ok,
@@ -2325,8 +2291,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendGame', {
@@ -2335,8 +2300,7 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }

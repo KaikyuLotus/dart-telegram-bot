@@ -1,6 +1,5 @@
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 /// The boost was obtained by the creation of a Telegram Premium giveaway.
 /// This boosts the chat 4 times for the duration of the corresponding
@@ -20,7 +19,8 @@ class ChatBoostSourceGiveaway extends ChatBoostSource {
   User? user;
 
   /// Optional.
-  /// True, if the giveaway was completed, but there was no user to win the prize
+  /// True, if the giveaway was completed,
+  /// but there was no user to win the prize
   bool? isUnclaimed;
 
   /// Basic constructor

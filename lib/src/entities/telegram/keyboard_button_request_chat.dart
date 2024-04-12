@@ -53,8 +53,8 @@ class KeyboardButtonRequestChat {
 
   /// Basic constructor
   KeyboardButtonRequestChat(
-    this.requestId,
-    this.chatIsChannel, {
+    this.requestId, {
+    required this.chatIsChannel,
     this.chatIsForum,
     this.chatHasUsername,
     this.chatIsCreated,
@@ -67,7 +67,7 @@ class KeyboardButtonRequestChat {
   factory KeyboardButtonRequestChat.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonRequestChat(
       json['request_id'],
-      json['chat_is_channel'],
+      chatIsChannel: json['chat_is_channel'],
       chatIsForum: json['chat_is_forum'],
       chatHasUsername: json['chat_has_username'],
       chatIsCreated: json['chat_is_created'],

@@ -1,4 +1,4 @@
-import 'package:dart_telegram_bot/telegram_entities.dart';
+import '../../../telegram_entities.dart';
 
 /// The boost was obtained by the creation of Telegram Premium gift codes
 /// to boost a chat.

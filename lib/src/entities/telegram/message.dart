@@ -38,32 +38,8 @@ class Message extends MaybeInaccessibleMessage {
   Chat chat;
 
   /// Optional.
-  /// For forwarded messages, sender of the original message
-  User? forwardFrom;
-
-  /// Optional.
-  /// For messages forwarded from channels or from anonymous administrators,
-  /// information about the original sender chat
-  Chat? forwardFromChat;
-
-  /// Optional.
-  /// For messages forwarded from channels, identifier of the original
-  /// message in the channel
-  int? forwardFromMessageId;
-
-  /// Optional.
-  /// For forwarded messages that were originally sent in channels or by an
-  /// anonymous chat administrator, signature of the message sender if present
-  String? forwardSignature;
-
-  /// Optional.
-  /// Sender's name for messages forwarded from users who disallow adding a
-  /// link to their account in forwarded messages
-  String? forwardSenderName;
-
-  /// Optional.
-  /// For forwarded messages, date the original message was sent in Unix time
-  int? forwardDate;
+  /// Information about the original message for forwarded messages
+  MessageOrigin? forwardOrigin;
 
   /// Optional.
   /// True, if the message is sent to a forum topic
@@ -79,6 +55,16 @@ class Message extends MaybeInaccessibleMessage {
   /// Note that the Message object in this field will not contain further
   /// reply_to_message fields even if it itself is a reply.
   Message? replyToMessage;
+
+  /// Optional.
+  /// Information about the message that is being replied to,
+  /// which may come from another chat or forum topic
+  ExternalReplyInfo? externalReply;
+
+  /// Optional.
+  /// For replies that quote part of the original message,
+  /// the quoted part of the message
+  TextQuote? quote;
 
   /// Optional.
   /// Bot through which the message was sent
@@ -369,15 +355,12 @@ class Message extends MaybeInaccessibleMessage {
     this.senderChat,
     required this.date,
     required this.chat,
-    this.forwardFrom,
-    this.forwardFromChat,
-    this.forwardFromMessageId,
-    this.forwardSignature,
-    this.forwardSenderName,
-    this.forwardDate,
+    this.forwardOrigin,
     this.isTopicMessage,
     this.isAutomaticForward,
     this.replyToMessage,
+    this.externalReply,
+    this.quote,
     this.viaBot,
     this.editDate,
     this.hasProtectedContent,
@@ -449,21 +432,21 @@ class Message extends MaybeInaccessibleMessage {
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
       date: json['date']!,
       chat: Chat.fromJson(json['chat']!),
-      forwardFrom: callIfNotNull(User.fromJson, json['forward_from']),
-      forwardFromChat: callIfNotNull(
-        Chat.fromJson,
-        json['forward_from_chat'],
+      forwardOrigin: callIfNotNull(
+        MessageOrigin.fromJson,
+        json['forward_origin'],
       ),
-      forwardFromMessageId: json['forward_from_message_id'],
-      forwardSignature: json['forward_signature'],
-      forwardSenderName: json['forward_sender_name'],
-      forwardDate: json['forward_date'],
       isTopicMessage: json['is_topic_message'],
       isAutomaticForward: json['is_automatic_forward'],
       replyToMessage: callIfNotNull(
         Message.fromJson,
         json['reply_to_message'],
       ),
+      externalReply: callIfNotNull(
+        ExternalReplyInfo.fromJson,
+        json['external_reply'],
+      ),
+      quote: callIfNotNull(TextQuote.fromJson, json['quote']),
       viaBot: callIfNotNull(User.fromJson, json['via_bot']),
       editDate: json['edit_date'],
       hasProtectedContent: json['has_protected_content'],
@@ -628,15 +611,12 @@ class Message extends MaybeInaccessibleMessage {
       'sender_chat': senderChat,
       'date': date,
       'chat': chat,
-      'forward_from': forwardFrom,
-      'forward_from_chat': forwardFromChat,
-      'forward_from_message_id': forwardFromMessageId,
-      'forward_signature': forwardSignature,
-      'forward_sender_name': forwardSenderName,
-      'forward_date': forwardDate,
+      'forward_origin': forwardOrigin,
       'is_topic_message': isTopicMessage,
       'is_automatic_forward': isAutomaticForward,
       'reply_to_message': replyToMessage,
+      'external_reply': externalReply,
+      'quote': quote,
       'via_bot': viaBot,
       'edit_date': editDate,
       'has_protected_content': hasProtectedContent,

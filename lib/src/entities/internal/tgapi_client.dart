@@ -15,7 +15,7 @@ class TGAPIClient {
   static final log = Logger('TGAPIClient');
 
   /// Telegram API BaseUrl
-  static final baseUrl = 'api.telegram.org';
+  static const baseUrl = 'api.telegram.org';
 
   static final _listTypeFactories = <String, Function(List<dynamic>)>{
     'List<Update>': Update.listFromJsonArray,

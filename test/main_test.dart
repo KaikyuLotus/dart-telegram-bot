@@ -84,7 +84,7 @@ void main() {
       var message = await testBot.sendMessage(
         ChatID(chatId),
         '*Test*',
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
         disableNotification: true,
         linkPreviewOptions: LinkPreviewOptions(isDisabled: true),
         parseMode: ParseMode.markdown,
@@ -109,7 +109,7 @@ void main() {
         ),
         caption: '*Test*',
         parseMode: ParseMode.markdown,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
         disableNotification: true,
       );
       expect(message.captionEntities!.length, equals(1));
@@ -150,7 +150,7 @@ void main() {
         title: 'Nya',
         // thumb: HttpFile.fromPath('resources/test.jpg'),
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -190,7 +190,7 @@ void main() {
         caption: '*Test*',
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -227,7 +227,7 @@ void main() {
         caption: '*Test*',
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -267,7 +267,7 @@ void main() {
         caption: '*Test*',
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -307,7 +307,7 @@ void main() {
         duration: 1,
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -506,7 +506,7 @@ void main() {
       await testBot.sendMessage(
         ChatID(chatId),
         'Remove',
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
         replyMarkup: ForceReply(selective: true),
       );
     },

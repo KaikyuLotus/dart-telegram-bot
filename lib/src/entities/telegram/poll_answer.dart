@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 /// This object represents an answer of a user in a non-anonymous poll.
 class PollAnswer {
