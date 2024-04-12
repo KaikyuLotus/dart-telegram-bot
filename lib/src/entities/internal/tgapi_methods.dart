@@ -760,6 +760,32 @@ mixin TGAPIMethods {
     );
   }
 
+  /// Use this method to change the chosen reactions on a message.
+  ///
+  /// Service messages can't be reacted to.
+  ///
+  /// Automatically forwarded messages from a channel to its discussion group
+  /// have the same available reactions as messages in the channel.
+  ///
+  /// Returns True on success.
+  Future<bool> setMessageReaction(
+    ChatID chatId,
+    int messageId, {
+    List<ReactionType>? reaction,
+    bool? isBig,
+  }) {
+    return _client.apiCall(
+      _token,
+      'setMessageReaction',
+      {
+        'chat_id': chatId,
+        'message_id': messageId,
+        'reaction': reaction,
+        'is_big': isBig,
+      },
+    );
+  }
+
   /// Use this method to get a list of profile pictures for a user.
   ///
   /// Returns a [UserProfilePhotos] object.

@@ -34,6 +34,22 @@ class Update {
   Message? editedChannelPost;
 
   /// Optional.
+  /// A reaction to a message was changed by a user.
+  /// The bot must be an administrator in the chat and must explicitly specify
+  /// "message_reaction" in the list of allowed_updates
+  /// to receive these updates.
+  /// The update isn't received for reactions set by bots.
+  MessageReactionUpdated? messageReaction;
+
+  /// Optional.
+  /// Reactions to a message with anonymous reactions were changed.
+  /// The bot must be an administrator in the chat and must explicitly specify
+  /// "message_reaction_count" in the list of allowed_updates to receive these
+  /// updates.
+  /// The updates are grouped and can be sent with delay up to a few minutes.
+  MessageReactionCountUpdated? messageReactionCountUpdated;
+
+  /// Optional.
   /// New incoming inline query
   InlineQuery? inlineQuery;
 
@@ -102,6 +118,8 @@ class Update {
     this.editedMessage,
     this.channelPost,
     this.editedChannelPost,
+    this.messageReaction,
+    this.messageReactionCountUpdated,
     this.inlineQuery,
     this.chosenInlineResult,
     this.callbackQuery,
@@ -135,6 +153,14 @@ class Update {
       editedChannelPost: callIfNotNull(
         Message.fromJson,
         json['edited_channel_post'],
+      ),
+      messageReaction: callIfNotNull(
+        MessageReactionUpdated.fromJson,
+        json['message_reaction'],
+      ),
+      messageReactionCountUpdated: callIfNotNull(
+        MessageReactionCountUpdated.fromJson,
+        json['message_reaction_count'],
       ),
       inlineQuery: callIfNotNull(
         InlineQuery.fromJson,
@@ -200,6 +226,8 @@ class Update {
       'edited_message': editedMessage,
       'channel_post': channelPost,
       'edited_channel_post': editedChannelPost,
+      'message_reaction': messageReaction,
+      'message_reaction_count': messageReactionCountUpdated,
       'inline_query': inlineQuery,
       'chosen_inline_result': chosenInlineResult,
       'callback_query': callbackQuery,

@@ -46,6 +46,12 @@ class Chat {
   List<String>? activeUsernames;
 
   /// Optional.
+  /// List of available reactions allowed in the chat.
+  /// If omitted, then all emoji reactions are allowed.
+  /// Returned only in getChat.
+  List<ReactionType>? availableReactions;
+
+  /// Optional.
   /// Identifier of the accent color for the chat name and backgrounds of
   /// the chat photo, reply header, and link preview.
   /// See accent colors for more details.
@@ -202,6 +208,7 @@ class Chat {
     this.isForum,
     this.photo,
     this.activeUsernames,
+    this.availableReactions,
     this.accentColorId,
     this.backgroundCustomEmojiId,
     this.profileAccentColorId,
@@ -241,6 +248,10 @@ class Chat {
       isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       activeUsernames: List.from(json['active_usernames'] ?? []),
+      availableReactions: callIfNotNull(
+        ReactionType.listFromJsonArray,
+        json['available_reactions'],
+      ),
       accentColorId: json['accent_color_id'],
       backgroundCustomEmojiId: json['background_custom_emoji_id'],
       profileAccentColorId: json['profile_accent_color_id'],
@@ -288,6 +299,7 @@ class Chat {
       'is_forum': isForum,
       'photo': photo,
       'active_usernames': activeUsernames,
+      'available_reactions': availableReactions,
       'accent_color_id': accentColorId,
       'background_custom_emoji_id': backgroundCustomEmojiId,
       'profile_accent_color_id': profileAccentColorId,
