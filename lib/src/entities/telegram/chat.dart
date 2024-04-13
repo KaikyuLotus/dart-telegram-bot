@@ -143,6 +143,12 @@ class Chat {
   int? slowModeDelay;
 
   /// Optional.
+  /// For supergroups, the minimum number of boosts that a non-administrator
+  /// user needs to add in order to ignore slow mode and chat permissions.
+  /// Returned only in getChat.
+  int? unrestrictBoostCount;
+
+  /// Optional.
   /// The time after which all messages sent to the chat will be automatically
   /// deleted; in seconds.
   /// Returned only in getChat.
@@ -180,6 +186,12 @@ class Chat {
   /// True, if the bot can change the group sticker set.
   /// Returned only in getChat.
   bool? canSetStickerSet;
+
+  /// Optional.
+  /// For supergroups, the name of the group's custom emoji sticker set.
+  /// Custom emoji from this set can be used by all users and bots in the group.
+  /// Returned only in getChat.
+  String? customEmojiStickerSetName;
 
   /// Optional.
   /// Unique identifier for the linked chat, i.e. the discussion group
@@ -225,6 +237,7 @@ class Chat {
     this.pinnedMessage,
     this.permissions,
     this.slowModeDelay,
+    this.unrestrictBoostCount,
     this.messageAutoDeleteTime,
     this.hasAggressiveAntiSpamEnabled,
     this.hasHiddenMembers,
@@ -232,6 +245,7 @@ class Chat {
     this.hasVisibleHistory,
     this.stickerSetName,
     this.canSetStickerSet,
+    this.customEmojiStickerSetName,
     this.linkedChatId,
     this.location,
   });
@@ -270,6 +284,7 @@ class Chat {
       pinnedMessage: callIfNotNull(Message.fromJson, json['pinned_message']),
       permissions: callIfNotNull(ChatPermissions.fromJson, json['permissions']),
       slowModeDelay: json['slow_mode_delay'],
+      unrestrictBoostCount: json['unrestrict_boost_count'],
       messageAutoDeleteTime: json['message_auto_delete_time'],
       hasAggressiveAntiSpamEnabled: json['has_aggressive_anti_spam_enabled'],
       hasHiddenMembers: json['has_hidden_members'],
@@ -277,6 +292,7 @@ class Chat {
       hasVisibleHistory: json['has_visible_history'],
       stickerSetName: json['sticker_set_name'],
       canSetStickerSet: json['can_set_sticker_set'],
+      customEmojiStickerSetName: json['custom_emoji_sticker_set_name'],
       linkedChatId: json['linked_chat_id'],
       location: callIfNotNull(ChatLocation.fromJson, json['location']),
     );
@@ -317,6 +333,7 @@ class Chat {
       'pinned_message': pinnedMessage,
       'permissions': permissions,
       'slow_mode_delay': slowModeDelay,
+      'unrestrict_boost_count': unrestrictBoostCount,
       'message_auto_delete_time': messageAutoDeleteTime,
       'has_aggressive_anti_spam_enabled': hasAggressiveAntiSpamEnabled,
       'has_hidden_members': hasHiddenMembers,
@@ -324,6 +341,7 @@ class Chat {
       'has_visible_history': hasVisibleHistory,
       'sticker_set_name': stickerSetName,
       'can_set_sticker_set': canSetStickerSet,
+      'custom_emoji_sticker_set_name': customEmojiStickerSetName,
       'linked_chat_id': linkedChatId,
       'location': location,
     }..removeWhere((_, v) => v == null);

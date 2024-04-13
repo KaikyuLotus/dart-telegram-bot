@@ -99,7 +99,7 @@ class UpdateType extends _Enum<String> {
       ..toList();
   }
 
-  const UpdateType._(String value) : super(value);
+  const UpdateType._(super.value);
 
   /// Get the object from string
   static UpdateType forValue(String value) => UpdateType.values[value]!;
@@ -123,7 +123,7 @@ class ParseMode extends _Enum<String> {
     'html': html,
   };
 
-  const ParseMode._(String value) : super(value);
+  const ParseMode._(super.value);
 
   /// Get the object from string
   static ParseMode forValue(String value) => ParseMode.values[value]!;
@@ -143,7 +143,7 @@ class PollType extends _Enum<String> {
     'quiz': quiz,
   };
 
-  const PollType._(String value) : super(value);
+  const PollType._(super.value);
 
   /// Get the object from string
   static PollType forValue(String value) => PollType.values[value]!;
@@ -199,7 +199,7 @@ class ChatAction extends _Enum<String> {
     'upload_video_note': uploadVideoNote,
   };
 
-  const ChatAction._(String value) : super(value);
+  const ChatAction._(super.value);
 
   /// Get the object from string
   static ChatAction forValue(String value) => ChatAction.values[value]!;
@@ -235,7 +235,7 @@ class Emoji extends _Enum<String> {
     '🎰': casino,
   };
 
-  const Emoji._(String value) : super(value);
+  const Emoji._(super.value);
 
   /// Get the object from string
   static Emoji forValue(String value) => Emoji.values[value]!;

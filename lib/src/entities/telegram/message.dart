@@ -29,6 +29,11 @@ class Message extends MaybeInaccessibleMessage {
   /// non-channel chats, if the message was sent on behalf of a chat.
   Chat? senderChat;
 
+  /// Optional.
+  /// If the sender of the message boosted the chat,
+  /// the number of boosts added by the user
+  int? senderBoostCount;
+
   /// Date the message was sent in Unix time
   @override
   int date;
@@ -65,6 +70,10 @@ class Message extends MaybeInaccessibleMessage {
   /// For replies that quote part of the original message,
   /// the quoted part of the message
   TextQuote? quote;
+
+  /// Optional.
+  /// For replies to a story, the original story
+  Story? replyToStory;
 
   /// Optional.
   /// Bot through which the message was sent
@@ -283,6 +292,10 @@ class Message extends MaybeInaccessibleMessage {
   ProximityAlertTriggered? proximityAlertTriggered;
 
   /// Optional.
+  /// Service message: user boosted the chat
+  ChatBoostAdded? boostAdded;
+
+  /// Optional.
   /// Service message: forum topic created
   ForumTopicCreated? forumTopicCreated;
 
@@ -353,6 +366,7 @@ class Message extends MaybeInaccessibleMessage {
     this.messageThreadId,
     this.from,
     this.senderChat,
+    this.senderBoostCount,
     required this.date,
     required this.chat,
     this.forwardOrigin,
@@ -361,6 +375,7 @@ class Message extends MaybeInaccessibleMessage {
     this.replyToMessage,
     this.externalReply,
     this.quote,
+    this.replyToStory,
     this.viaBot,
     this.editDate,
     this.hasProtectedContent,
@@ -406,6 +421,7 @@ class Message extends MaybeInaccessibleMessage {
     this.connectedWebsite,
     this.passportData,
     this.proximityAlertTriggered,
+    this.boostAdded,
     this.forumTopicCreated,
     this.forumTopicClosed,
     this.forumTopicReopened,
@@ -430,6 +446,7 @@ class Message extends MaybeInaccessibleMessage {
       messageThreadId: json['message_thread_id'],
       from: callIfNotNull(User.fromJson, json['from']),
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
+      senderBoostCount: json['sender_boost_count'],
       date: json['date']!,
       chat: Chat.fromJson(json['chat']!),
       forwardOrigin: callIfNotNull(
@@ -447,6 +464,7 @@ class Message extends MaybeInaccessibleMessage {
         json['external_reply'],
       ),
       quote: callIfNotNull(TextQuote.fromJson, json['quote']),
+      replyToStory: callIfNotNull(Story.fromJson, json['reply_to_story']),
       viaBot: callIfNotNull(User.fromJson, json['via_bot']),
       editDate: json['edit_date'],
       hasProtectedContent: json['has_protected_content'],
@@ -531,6 +549,10 @@ class Message extends MaybeInaccessibleMessage {
         ProximityAlertTriggered.fromJson,
         json['proximity_alert_triggered'],
       ),
+      boostAdded: callIfNotNull(
+        ChatBoostAdded.fromJson,
+        json['boost_added'],
+      ),
       forumTopicCreated: callIfNotNull(
         ForumTopicCreated.fromJson,
         json['forum_topic_created'],
@@ -609,6 +631,7 @@ class Message extends MaybeInaccessibleMessage {
       'message_thread_id': messageThreadId,
       'from': from,
       'sender_chat': senderChat,
+      'sender_boost_count': senderBoostCount,
       'date': date,
       'chat': chat,
       'forward_origin': forwardOrigin,
@@ -617,6 +640,7 @@ class Message extends MaybeInaccessibleMessage {
       'reply_to_message': replyToMessage,
       'external_reply': externalReply,
       'quote': quote,
+      'reply_to_story': replyToStory,
       'via_bot': viaBot,
       'edit_date': editDate,
       'has_protected_content': hasProtectedContent,
@@ -662,6 +686,7 @@ class Message extends MaybeInaccessibleMessage {
       'connected_website': connectedWebsite,
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,
+      'boost_added': boostAdded,
       'forum_topic_created': forumTopicCreated,
       'forum_topic_closed': forumTopicClosed,
       'forum_topic_reopened': forumTopicReopened,

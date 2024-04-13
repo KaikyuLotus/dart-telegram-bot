@@ -20,6 +20,7 @@ export 'src/entities/telegram/callback_query.dart';
 export 'src/entities/telegram/chat.dart';
 export 'src/entities/telegram/chat_administrator_rights.dart';
 export 'src/entities/telegram/chat_boost.dart';
+export 'src/entities/telegram/chat_boost_added.dart';
 export 'src/entities/telegram/chat_boost_removed.dart';
 export 'src/entities/telegram/chat_boost_source.dart';
 export 'src/entities/telegram/chat_boost_source_gift_code.dart';
