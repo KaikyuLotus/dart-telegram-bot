@@ -3,7 +3,7 @@ import '../../../telegram_entities.dart';
 /// Represents a menu button, which launches a Web App.
 class MenuButtonWebApp extends MenuButton {
   /// Type of the button, must be web_app
-  String type = "web_app";
+  String type = 'web_app';
 
   /// Text on the button
   String text;
@@ -20,7 +20,7 @@ class MenuButtonWebApp extends MenuButton {
   );
 
   /// Creates a object from a json
-  static MenuButtonWebApp fromJson(Map<String, dynamic> json) {
+  factory MenuButtonWebApp.fromJson(Map<String, dynamic> json) {
     return MenuButtonWebApp(
       json['text'],
       json['web_app'],

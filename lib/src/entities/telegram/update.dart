@@ -34,6 +34,22 @@ class Update {
   Message? editedChannelPost;
 
   /// Optional.
+  /// A reaction to a message was changed by a user.
+  /// The bot must be an administrator in the chat and must explicitly specify
+  /// "message_reaction" in the list of allowed_updates
+  /// to receive these updates.
+  /// The update isn't received for reactions set by bots.
+  MessageReactionUpdated? messageReaction;
+
+  /// Optional.
+  /// Reactions to a message with anonymous reactions were changed.
+  /// The bot must be an administrator in the chat and must explicitly specify
+  /// "message_reaction_count" in the list of allowed_updates to receive these
+  /// updates.
+  /// The updates are grouped and can be sent with delay up to a few minutes.
+  MessageReactionCountUpdated? messageReactionCountUpdated;
+
+  /// Optional.
   /// New incoming inline query
   InlineQuery? inlineQuery;
 
@@ -85,6 +101,16 @@ class Update {
   /// receive these updates.
   ChatJoinRequest? chatJoinRequest;
 
+  /// Optional.
+  /// A chat boost was added or changed.
+  /// The bot must be an administrator in the chat to receive these updates.
+  ChatBoost? chatBoost;
+
+  /// Optional.
+  /// A boost was removed from a chat.
+  /// The bot must be an administrator in the chat to receive these updates.
+  ChatBoostRemoved? removedChatBoost;
+
   /// Basic constructor
   Update({
     required this.updateId,
@@ -92,6 +118,8 @@ class Update {
     this.editedMessage,
     this.channelPost,
     this.editedChannelPost,
+    this.messageReaction,
+    this.messageReactionCountUpdated,
     this.inlineQuery,
     this.chosenInlineResult,
     this.callbackQuery,
@@ -102,10 +130,12 @@ class Update {
     this.myChatMember,
     this.chatMember,
     this.chatJoinRequest,
+    this.chatBoost,
+    this.removedChatBoost,
   });
 
   /// Creates a object from a json
-  static Update fromJson(Map<String, dynamic> json) {
+  factory Update.fromJson(Map<String, dynamic> json) {
     return Update(
       updateId: json['update_id']!,
       message: callIfNotNull(
@@ -123,6 +153,14 @@ class Update {
       editedChannelPost: callIfNotNull(
         Message.fromJson,
         json['edited_channel_post'],
+      ),
+      messageReaction: callIfNotNull(
+        MessageReactionUpdated.fromJson,
+        json['message_reaction'],
+      ),
+      messageReactionCountUpdated: callIfNotNull(
+        MessageReactionCountUpdated.fromJson,
+        json['message_reaction_count'],
       ),
       inlineQuery: callIfNotNull(
         InlineQuery.fromJson,
@@ -164,6 +202,14 @@ class Update {
         ChatJoinRequest.fromJson,
         json['chat_join_request'],
       ),
+      chatBoost: callIfNotNull(
+        ChatBoost.fromJson,
+        json['chat_boost'],
+      ),
+      removedChatBoost: callIfNotNull(
+        ChatBoostRemoved.fromJson,
+        json['removed_chat_boost'],
+      ),
     );
   }
 
@@ -180,6 +226,8 @@ class Update {
       'edited_message': editedMessage,
       'channel_post': channelPost,
       'edited_channel_post': editedChannelPost,
+      'message_reaction': messageReaction,
+      'message_reaction_count': messageReactionCountUpdated,
       'inline_query': inlineQuery,
       'chosen_inline_result': chosenInlineResult,
       'callback_query': callbackQuery,
@@ -190,6 +238,8 @@ class Update {
       'my_chat_member': myChatMember,
       'chat_member': chatMember,
       'chat_join_request': chatJoinRequest,
+      'chat_boost': chatBoost,
+      'removed_chat_boost': removedChatBoost,
     }..removeWhere((_, v) => v == null);
   }
 

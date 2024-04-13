@@ -64,15 +64,15 @@ class ChatAdministratorRights {
   bool? canManageTopics;
 
   /// Basic constructor
-  ChatAdministratorRights(
-    this.isAnonymous,
-    this.canManageChat,
-    this.canDeleteMessages,
-    this.canManageVideoChats,
-    this.canRestrictMembers,
-    this.canPromoteMembers,
-    this.canChangeInfo,
-    this.canInviteUsers,
+  ChatAdministratorRights({
+    required this.isAnonymous,
+    required this.canManageChat,
+    required this.canDeleteMessages,
+    required this.canManageVideoChats,
+    required this.canRestrictMembers,
+    required this.canPromoteMembers,
+    required this.canChangeInfo,
+    required this.canInviteUsers,
     this.canPostMessages,
     this.canEditMessages,
     this.canPinMessages,
@@ -80,26 +80,26 @@ class ChatAdministratorRights {
     this.canEditStories,
     this.canDeleteStories,
     this.canManageTopics,
-  );
+  });
 
   /// Creates a object from a json
-  static ChatAdministratorRights fromJson(Map<String, dynamic> json) {
+  factory ChatAdministratorRights.fromJson(Map<String, dynamic> json) {
     return ChatAdministratorRights(
-      json['is_anonymous'],
-      json['can_manage_chat'],
-      json['can_delete_messages'],
-      json['can_manage_video_chats'],
-      json['can_restrict_members'],
-      json['can_promote_members'],
-      json['can_change_info'],
-      json['can_invite_users'],
-      json['can_post_messages'],
-      json['can_edit_messages'],
-      json['can_pin_messages'],
-      json['can_post_stories'],
-      json['can_edit_stories'],
-      json['can_delete_stories'],
-      json['can_manage_topics'],
+      isAnonymous: json['is_anonymous'],
+      canManageChat: json['can_manage_chat'],
+      canDeleteMessages: json['can_delete_messages'],
+      canManageVideoChats: json['can_manage_video_chats'],
+      canRestrictMembers: json['can_restrict_members'],
+      canPromoteMembers: json['can_promote_members'],
+      canChangeInfo: json['can_change_info'],
+      canInviteUsers: json['can_invite_users'],
+      canPostMessages: json['can_post_messages'],
+      canEditMessages: json['can_edit_messages'],
+      canPinMessages: json['can_pin_messages'],
+      canPostStories: json['can_post_stories'],
+      canEditStories: json['can_edit_stories'],
+      canDeleteStories: json['can_delete_stories'],
+      canManageTopics: json['can_manage_topics'],
     );
   }
 
@@ -121,6 +121,6 @@ class ChatAdministratorRights {
       'can_edit_stories': canEditStories,
       'can_delete_stories': canDeleteStories,
       'can_manage_topics': canManageTopics,
-    };
+    }..removeWhere((_, v) => v == null);
   }
 }

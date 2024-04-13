@@ -17,10 +17,8 @@ class CallbackQuery {
   User from;
 
   /// Optional.
-  /// Message with the callback button that originated the query.
-  /// Note that message content and message date will not be available if the
-  /// message is too old
-  Message? message;
+  /// Message sent by the bot with the callback button that originated the query
+  MaybeInaccessibleMessage? message;
 
   /// Optional.
   /// Identifier of the message sent via the bot in inline mode,
@@ -54,7 +52,7 @@ class CallbackQuery {
   });
 
   /// Creates a object from a json
-  static CallbackQuery fromJson(Map<String, dynamic> json) {
+  factory CallbackQuery.fromJson(Map<String, dynamic> json) {
     return CallbackQuery(
       id: json['id']!,
       from: User.fromJson(json['from']!),

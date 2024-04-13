@@ -34,7 +34,7 @@ class SwitchInlineQueryChosenChat {
   });
 
   /// Creates a object from a json
-  static SwitchInlineQueryChosenChat fromJson(Map<String, dynamic> json) {
+  factory SwitchInlineQueryChosenChat.fromJson(Map<String, dynamic> json) {
     return SwitchInlineQueryChosenChat(
       query: json['query'],
       allowUserChats: json['allow_user_chats'],

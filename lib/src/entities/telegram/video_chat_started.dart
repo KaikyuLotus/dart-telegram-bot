@@ -7,7 +7,7 @@ class VideoChatStarted {
   VideoChatStarted();
 
   /// Creates a object from a json
-  static VideoChatStarted fromJson(Map<String, dynamic> json) {
+  factory VideoChatStarted.fromJson(Map<String, dynamic> _) {
     return VideoChatStarted();
   }
 

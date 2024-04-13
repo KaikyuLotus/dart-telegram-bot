@@ -30,7 +30,7 @@ class PhotoSize {
   });
 
   /// Creates a object from a json
-  static PhotoSize fromJson(Map<String, dynamic> json) {
+  factory PhotoSize.fromJson(Map<String, dynamic> json) {
     return PhotoSize(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

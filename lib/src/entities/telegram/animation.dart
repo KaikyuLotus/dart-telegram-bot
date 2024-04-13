@@ -56,7 +56,7 @@ class Animation {
   });
 
   /// Creates a object from a json
-  static Animation fromJson(Map<String, dynamic> json) {
+  factory Animation.fromJson(Map<String, dynamic> json) {
     return Animation(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

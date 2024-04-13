@@ -25,7 +25,7 @@ class ShippingQuery {
   });
 
   /// Creates a object from a json
-  static ShippingQuery fromJson(Map<String, dynamic> json) {
+  factory ShippingQuery.fromJson(Map<String, dynamic> json) {
     return ShippingQuery(
       id: json['id']!,
       from: User.fromJson(json['from']!),

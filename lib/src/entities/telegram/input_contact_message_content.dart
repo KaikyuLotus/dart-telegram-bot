@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents the content of a contact message to be sent as the result of an inline query.
+/// Represents the content of a contact message to be sent as the result of an
+/// inline query.
 class InputContactMessageContent extends InputMessageContent {
   /// Contact's phone number
   String phoneNumber;
@@ -27,7 +28,7 @@ class InputContactMessageContent extends InputMessageContent {
   });
 
   /// Creates a object from a json
-  static InputContactMessageContent fromJson(Map<String, dynamic> json) {
+  factory InputContactMessageContent.fromJson(Map<String, dynamic> json) {
     return InputContactMessageContent(
       json['phone_number']!,
       json['first_name']!,

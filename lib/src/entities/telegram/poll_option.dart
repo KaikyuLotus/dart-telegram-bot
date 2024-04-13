@@ -15,7 +15,7 @@ class PollOption {
   });
 
   /// Creates a object from a json
-  static PollOption fromJson(Map<String, dynamic> json) {
+  factory PollOption.fromJson(Map<String, dynamic> json) {
     return PollOption(
       text: json['text']!,
       voterCount: json['voter_count']!,

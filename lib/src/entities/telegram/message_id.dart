@@ -9,7 +9,7 @@ class MessageId {
   MessageId({required this.messageId});
 
   /// Creates a object from a json
-  static MessageId fromJson(Map<String, dynamic> json) {
+  factory MessageId.fromJson(Map<String, dynamic> json) {
     return MessageId(messageId: json['message_id']);
   }
 

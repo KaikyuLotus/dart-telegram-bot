@@ -71,7 +71,7 @@ class Poll {
   });
 
   /// Creates a object from a json
-  static Poll fromJson(Map<String, dynamic> json) {
+  factory Poll.fromJson(Map<String, dynamic> json) {
     return Poll(
       id: json['id']!,
       question: json['question']!,

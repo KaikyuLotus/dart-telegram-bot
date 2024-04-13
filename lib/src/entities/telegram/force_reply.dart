@@ -32,7 +32,7 @@ class ForceReply extends ReplyMarkup {
   });
 
   /// Creates a object from a json
-  static ForceReply fromJson(Map<String, dynamic> json) {
+  factory ForceReply.fromJson(Map<String, dynamic> json) {
     return ForceReply(
       forceReply: json['force_reply'],
       inputFieldPlaceholder: json['input_field_placeholder'],

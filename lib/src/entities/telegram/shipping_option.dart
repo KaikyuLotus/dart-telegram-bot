@@ -21,7 +21,7 @@ class ShippingOption {
   });
 
   /// Creates a object from a json
-  static ShippingOption fromJson(Map<String, dynamic> json) {
+  factory ShippingOption.fromJson(Map<String, dynamic> json) {
     return ShippingOption(
       id: json['id']!,
       title: json['title']!,

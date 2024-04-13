@@ -25,7 +25,7 @@ class EncryptedCredentials {
   });
 
   /// Creates a object from a json
-  static EncryptedCredentials fromJson(Map<String, dynamic> json) {
+  factory EncryptedCredentials.fromJson(Map<String, dynamic> json) {
     return EncryptedCredentials(
       data: json['data']!,
       hash: json['hash']!,

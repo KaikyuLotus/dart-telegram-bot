@@ -39,7 +39,7 @@ class VideoNote {
   });
 
   /// Creates a object from a json
-  static VideoNote fromJson(Map<String, dynamic> json) {
+  factory VideoNote.fromJson(Map<String, dynamic> json) {
     return VideoNote(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

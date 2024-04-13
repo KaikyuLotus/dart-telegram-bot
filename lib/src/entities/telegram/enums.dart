@@ -11,6 +11,7 @@ class _Enum<T> {
   String toJson() => '$this';
 }
 
+//TODO: Update enum
 /// UpdateType for GetUpdates
 class UpdateType extends _Enum<String> {
   /// Message

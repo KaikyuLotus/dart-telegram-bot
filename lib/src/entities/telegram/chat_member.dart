@@ -160,7 +160,7 @@ class ChatMember {
   });
 
   /// Creates a object from a json
-  static ChatMember fromJson(Map<String, dynamic> json) {
+  factory ChatMember.fromJson(Map<String, dynamic> json) {
     var isAdmin = json['status'] == 'administrator';
     var isCreator = json['status'] == 'creator';
     var isMember = json['status'] == 'member';

@@ -84,7 +84,7 @@ class Sticker {
   });
 
   /// Creates a object from a json
-  static Sticker fromJson(Map<String, dynamic> json) {
+  factory Sticker.fromJson(Map<String, dynamic> json) {
     return Sticker(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

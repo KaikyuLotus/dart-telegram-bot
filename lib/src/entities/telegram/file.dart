@@ -35,7 +35,7 @@ class File {
   });
 
   /// Creates a object from a json
-  static File fromJson(Map<String, dynamic> json) {
+  factory File.fromJson(Map<String, dynamic> json) {
     return File(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

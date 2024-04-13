@@ -44,7 +44,7 @@ class Document {
   });
 
   /// Creates a object from a json
-  static Document fromJson(Map<String, dynamic> json) {
+  factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,

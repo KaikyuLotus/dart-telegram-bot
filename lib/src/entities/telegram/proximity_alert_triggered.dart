@@ -22,7 +22,7 @@ class ProximityAlertTriggered {
   });
 
   /// Creates a object from a json
-  static ProximityAlertTriggered fromJson(Map<String, dynamic> json) {
+  factory ProximityAlertTriggered.fromJson(Map<String, dynamic> json) {
     return ProximityAlertTriggered(
       traveler: User.fromJson(json['traveler']),
       watcher: User.fromJson(json['watcher']),

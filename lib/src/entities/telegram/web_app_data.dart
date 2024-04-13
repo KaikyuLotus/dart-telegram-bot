@@ -15,7 +15,7 @@ class WebAppData {
   );
 
   /// Creates a object from a json
-  static WebAppData fromJson(Map<String, dynamic> json) {
+  factory WebAppData.fromJson(Map<String, dynamic> json) {
     return WebAppData(
       json['data'],
       json['button_text'],

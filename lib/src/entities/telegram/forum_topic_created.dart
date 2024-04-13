@@ -21,7 +21,7 @@ class ForumTopicCreated {
   });
 
   /// Creates a object from a json
-  static ForumTopicCreated fromJson(Map<String, dynamic> json) {
+  factory ForumTopicCreated.fromJson(Map<String, dynamic> json) {
     return ForumTopicCreated(
       name: json['name'],
       iconColor: json['icon_color'],

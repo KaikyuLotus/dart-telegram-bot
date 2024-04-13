@@ -34,7 +34,7 @@ class Contact {
   });
 
   /// Creates a object from a json
-  static Contact fromJson(Map<String, dynamic> json) {
+  factory Contact.fromJson(Map<String, dynamic> json) {
     return Contact(
       phoneNumber: json['phone_number']!,
       firstName: json['first_name']!,

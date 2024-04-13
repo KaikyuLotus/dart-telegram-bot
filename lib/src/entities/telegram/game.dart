@@ -44,7 +44,7 @@ class Game {
   });
 
   /// Creates a object from a json
-  static Game fromJson(Map<String, dynamic> json) {
+  factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
       title: json['title']!,
       description: json['description']!,

@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:dart_telegram_bot/src/entities/internal/helpers/util.dart';
-
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 /// This object represents an answer of a user in a non-anonymous poll.
 class PollAnswer {
@@ -30,7 +29,7 @@ class PollAnswer {
   });
 
   /// Creates a object from a json
-  static PollAnswer fromJson(Map<String, dynamic> json) {
+  factory PollAnswer.fromJson(Map<String, dynamic> json) {
     return PollAnswer(
       pollId: json['poll_id']!,
       voterChat: callIfNotNull(Chat.fromJson, json['voter_chat']),

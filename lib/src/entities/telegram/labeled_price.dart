@@ -20,7 +20,7 @@ class LabeledPrice {
   });
 
   /// Creates a object from a json
-  static LabeledPrice fromJson(Map<String, dynamic> json) {
+  factory LabeledPrice.fromJson(Map<String, dynamic> json) {
     return LabeledPrice(
       label: json['label']!,
       amount: json['amount']!,

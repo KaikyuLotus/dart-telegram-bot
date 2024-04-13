@@ -11,7 +11,7 @@ class SentWebAppMessage {
   );
 
   /// Creates a object from a json
-  static SentWebAppMessage fromJson(Map<String, dynamic> json) {
+  factory SentWebAppMessage.fromJson(Map<String, dynamic> json) {
     return SentWebAppMessage(
       json['inline_message_id'],
     );

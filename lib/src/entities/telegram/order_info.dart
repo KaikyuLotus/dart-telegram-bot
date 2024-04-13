@@ -30,7 +30,7 @@ class OrderInfo {
   });
 
   /// Creates a object from a json
-  static OrderInfo fromJson(Map<String, dynamic> json) {
+  factory OrderInfo.fromJson(Map<String, dynamic> json) {
     return OrderInfo(
       name: json['name'],
       phoneNumber: json['phone_number'],

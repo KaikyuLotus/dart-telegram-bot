@@ -18,7 +18,7 @@ class ForumTopicEdited {
   });
 
   /// Creates a object from a json
-  static ForumTopicEdited fromJson(Map<String, dynamic> json) {
+  factory ForumTopicEdited.fromJson(Map<String, dynamic> json) {
     return ForumTopicEdited(
       name: json['name'],
       iconCustomEmojiId: json['icon_custom_emoji_id'],

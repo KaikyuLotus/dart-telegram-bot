@@ -9,8 +9,9 @@ import '../internal/helpers/util.dart';
 /// Optional fields web_app, request_contact, request_location, and request_poll
 /// are mutually exclusive.
 class KeyboardButton {
-  /// Text of the button. If none of the optional fields are used,
-  /// it will be sent as a message when the button is pressed
+  /// Text of the button.
+  /// If none of the optional fields are used, it will be sent as a message
+  /// when the button is pressed
   String text;
 
   /// Optional.
@@ -18,27 +19,31 @@ class KeyboardButton {
   /// Tapping on any user will send their identifier to the bot in a
   /// “user_shared” service message.
   /// Available in private chats only.
-  KeyboardButtonRequestUser? requestUser;
+  KeyboardButtonRequestUsers? requestUsers;
 
   /// Optional.
   /// If specified, pressing the button will open a list of suitable chats.
   /// Tapping on a chat will send its identifier to the bot in a “chat_shared”
-  /// service message. Available in private chats only.
+  /// service message.
+  /// Available in private chats only.
   KeyboardButtonRequestChat? requestChat;
 
   /// Optional.
   /// If True, the user's phone number will be sent as a contact when the button
-  /// is pressed. Available in private chats only.
+  /// is pressed.
+  /// Available in private chats only.
   bool? requestContact;
 
   /// Optional.
   /// If True, the user's current location will be sent when the button is
-  /// pressed. Available in private chats only.
+  /// pressed.
+  /// Available in private chats only.
   bool? requestLocation;
 
   /// Optional.
   /// If specified, the user will be asked to create a poll and send it to the
-  /// bot when the button is pressed. Available in private chats only.
+  /// bot when the button is pressed.
+  /// Available in private chats only.
   KeyboardButtonPollType? requestPoll;
 
   /// Optional.
@@ -48,9 +53,10 @@ class KeyboardButton {
   /// Available in private chats only.
   WebAppInfo? webApp;
 
+  /// Basic constructor
   KeyboardButton._({
     required this.text,
-    this.requestUser,
+    this.requestUsers,
     this.requestChat,
     this.requestContact,
     this.requestLocation,
@@ -62,7 +68,7 @@ class KeyboardButton {
   KeyboardButton.text(this.text);
 
   /// RequestUser constructor
-  KeyboardButton.requestUser(this.text, {this.requestUser});
+  KeyboardButton.requestUsers(this.text, {this.requestUsers});
 
   /// RequestChat constructor
   KeyboardButton.requestChat(this.text, {this.requestChat});
@@ -80,12 +86,12 @@ class KeyboardButton {
   KeyboardButton.requestWebApp(this.text, this.webApp);
 
   /// Creates a object from a json
-  static KeyboardButton fromJson(Map<String, dynamic> json) {
+  factory KeyboardButton.fromJson(Map<String, dynamic> json) {
     return KeyboardButton._(
       text: json['text']!,
-      requestUser: callIfNotNull(
-        KeyboardButtonRequestUser.fromJson,
-        json['request_user'],
+      requestUsers: callIfNotNull(
+        KeyboardButtonRequestUsers.fromJson,
+        json['request_users'],
       ),
       requestChat: callIfNotNull(
         KeyboardButtonRequestChat.fromJson,
@@ -114,7 +120,8 @@ class KeyboardButton {
 
   /// Creates a list of list of object from a json array
   static List<List<KeyboardButton>> listOfListsFromJsonArray(
-      List<List<dynamic>> json) {
+    List<List<dynamic>> json,
+  ) {
     return List.generate(
       json.length,
       (e) => List.generate(
@@ -128,7 +135,7 @@ class KeyboardButton {
   Map toJson() {
     return {
       'text': text,
-      'request_user': requestUser,
+      'request_users': requestUsers,
       'request_chat': requestChat,
       'request_contact': requestContact,
       'request_location': requestLocation,

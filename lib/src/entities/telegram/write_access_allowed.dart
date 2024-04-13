@@ -26,7 +26,7 @@ class WriteAccessAllowed {
   });
 
   /// Creates a object from a json
-  static WriteAccessAllowed fromJson(Map<String, dynamic> json) {
+  factory WriteAccessAllowed.fromJson(Map<String, dynamic> json) {
     return WriteAccessAllowed(
       fromRequest: json['from_request'],
       webAppName: json['web_app_name'],

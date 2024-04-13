@@ -8,8 +8,8 @@ class ChatPhoto {
   String smallFileId;
 
   /// Unique file identifier of small (160x160) chat photo, which is supposed
-  /// to be the same over time and for different bots. Can't be used to download
-  /// or reuse the file.
+  /// to be the same over time and for different bots.
+  /// Can't be used to download or reuse the file.
   String smallFileUniqueId;
 
   /// File identifier of big (640x640) chat photo.
@@ -31,7 +31,7 @@ class ChatPhoto {
   });
 
   /// Creates a object from a json
-  static ChatPhoto fromJson(Map<String, dynamic> json) {
+  factory ChatPhoto.fromJson(Map<String, dynamic> json) {
     return ChatPhoto(
       smallFileId: json['small_file_id']!,
       smallFileUniqueId: json['small_file_unique_id']!,

@@ -11,7 +11,7 @@ class BotDescription {
   });
 
   /// Creates a object from a json
-  static BotDescription fromJson(Map<String, dynamic> json) {
+  factory BotDescription.fromJson(Map<String, dynamic> json) {
     return BotDescription(
       description: json['description'],
     );

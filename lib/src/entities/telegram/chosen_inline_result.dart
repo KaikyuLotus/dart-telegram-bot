@@ -36,7 +36,7 @@ class ChosenInlineResult {
   });
 
   /// Creates a object from a json
-  static ChosenInlineResult fromJson(Map<String, dynamic> json) {
+  factory ChosenInlineResult.fromJson(Map<String, dynamic> json) {
     return ChosenInlineResult(
       resultId: json['result_id']!,
       from: User.fromJson(json['from']!),

@@ -48,11 +48,10 @@ mixin TGAPIMethods {
     int? messageThreadId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
-    bool? disableWebPagePreview,
+    LinkPreviewOptions? linkPreviewOptions,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendMessage', {
@@ -61,11 +60,10 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_web_page_preview': disableWebPagePreview,
+      'link_preview_options': linkPreviewOptions,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -92,6 +90,34 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to forward multiple messages of any kind.
+  ///
+  /// If some of the specified messages can't be found or forwarded,
+  /// they are skipped.
+  ///
+  /// Service messages and messages with protected content can't be forwarded.
+  ///
+  /// Album grouping is kept for forwarded messages.
+  ///
+  /// On success, an array of MessageId of the sent messages is returned.
+  Future<List<MessageId>> forwardMessages(
+    ChatID chatId,
+    ChatID fromChatId,
+    List<int> messageIds, {
+    int? messageThreadId,
+    bool? disableNotification,
+    bool? protectContent,
+  }) {
+    return _client.apiCall(_token, 'forwardMessages', {
+      'chat_id': chatId,
+      'from_chat_id': fromChatId,
+      'message_ids': messageIds,
+      'message_thread_id': messageThreadId,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+    });
+  }
+
   /// Use this method to copy messages of any kind.
   ///
   /// Service messages and invoice messages can't be copied.
@@ -110,8 +136,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'copyMessage', {
@@ -124,9 +149,45 @@ mixin TGAPIMethods {
       'caption_entities': captionEntities,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to copy messages of any kind.
+  ///
+  /// If some of the specified messages can't be found or copied,
+  /// they are skipped.
+  ///
+  /// Service messages, giveaway messages, giveaway winners messages,
+  /// and invoice messages can't be copied.
+  ///
+  /// A quiz poll can be copied only if the value of the field
+  /// correct_option_id is known to the bot.
+  ///
+  /// The method is analogous to the method forwardMessages,
+  /// but the copied messages don't have a link to the original message.
+  ///
+  /// Album grouping is kept for copied messages.
+  ///
+  /// On success, an array of MessageId of the sent messages is returned.
+  Future<List<MessageId>> copyMessages(
+    ChatID chatId,
+    ChatID fromChatId,
+    List<int> messageIds, {
+    int? messageThreadId,
+    bool? disableNotification,
+    bool? protectContent,
+    bool? removeCaption,
+  }) {
+    return _client.apiCall(_token, 'copyMessages', {
+      'chat_id': chatId,
+      'from_chat_id': fromChatId,
+      'message_ids': messageIds,
+      'message_thread_id': messageThreadId,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'remove_caption': removeCaption,
     });
   }
 
@@ -143,8 +204,7 @@ mixin TGAPIMethods {
     bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPhoto', {
@@ -157,8 +217,7 @@ mixin TGAPIMethods {
       'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -187,8 +246,7 @@ mixin TGAPIMethods {
     HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAudio', {
@@ -204,8 +262,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -226,8 +283,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
     bool? disableContentTypeDetection,
   }) {
@@ -241,8 +297,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
       'disable_content_type_detection': disableContentTypeDetection,
     });
@@ -271,8 +326,7 @@ mixin TGAPIMethods {
     bool? supportsStreaming,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideo', {
@@ -290,8 +344,7 @@ mixin TGAPIMethods {
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -316,8 +369,7 @@ mixin TGAPIMethods {
     bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAnimation', {
@@ -334,8 +386,7 @@ mixin TGAPIMethods {
       'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -361,8 +412,7 @@ mixin TGAPIMethods {
     int? duration,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVoice', {
@@ -375,8 +425,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -393,8 +442,7 @@ mixin TGAPIMethods {
     HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideoNote', {
@@ -406,8 +454,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -425,8 +472,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
-    bool? allowSendingWithoutReply,
-    int? replyToMessageId,
+    ReplyParameters? replyParameters,
   }) {
     return _client.apiCall(_token, 'sendMediaGroup', {
       'chat_id': chatId,
@@ -434,8 +480,7 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'allow_sending_without_reply': allowSendingWithoutReply,
-      'reply_to_message_id': replyToMessageId,
+      'reply_parameters': replyParameters,
     });
   }
 
@@ -453,8 +498,7 @@ mixin TGAPIMethods {
     int? proximityAlertRadius,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendLocation', {
@@ -468,8 +512,7 @@ mixin TGAPIMethods {
       'proximity_alert_radius': proximityAlertRadius,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -574,8 +617,7 @@ mixin TGAPIMethods {
     String? googlePlaceType,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVenue', {
@@ -591,8 +633,7 @@ mixin TGAPIMethods {
       'google_place_type': googlePlaceType,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -609,8 +650,7 @@ mixin TGAPIMethods {
     String? vcard,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendContact', {
@@ -622,8 +662,7 @@ mixin TGAPIMethods {
       'vcard': vcard,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -648,8 +687,7 @@ mixin TGAPIMethods {
     bool? isClosed,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPoll', {
@@ -669,8 +707,7 @@ mixin TGAPIMethods {
       'is_closed': isClosed,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -685,8 +722,7 @@ mixin TGAPIMethods {
     Emoji? emoji,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendDice', {
@@ -695,8 +731,7 @@ mixin TGAPIMethods {
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -721,6 +756,32 @@ mixin TGAPIMethods {
         'chat_id': chatId,
         'message_thread_id': messageThreadId,
         'action': action,
+      },
+    );
+  }
+
+  /// Use this method to change the chosen reactions on a message.
+  ///
+  /// Service messages can't be reacted to.
+  ///
+  /// Automatically forwarded messages from a channel to its discussion group
+  /// have the same available reactions as messages in the channel.
+  ///
+  /// Returns True on success.
+  Future<bool> setMessageReaction(
+    ChatID chatId,
+    int messageId, {
+    List<ReactionType>? reaction,
+    bool? isBig,
+  }) {
+    return _client.apiCall(
+      _token,
+      'setMessageReaction',
+      {
+        'chat_id': chatId,
+        'message_id': messageId,
+        'reaction': reaction,
+        'is_big': isBig,
       },
     );
   }
@@ -1188,8 +1249,8 @@ mixin TGAPIMethods {
 
   /// Use this method to get a list of administrators in a chat.
   ///
-  /// On success, returns an Array of [ChatMember] objects that contains information
-  /// about all chat administrators except other bots.
+  /// On success, returns an Array of [ChatMember] objects that contains
+  /// information about all chat administrators except other bots.
   ///
   /// If the chat is a group or a supergroup and no administrators were
   /// appointed, only the creator will be returned.
@@ -1392,8 +1453,8 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to hide the 'General' topic in a forum supergroup chat.
-  /// The bot must be an administrator in the chat for this to work and must have
-  /// the can_manage_topics administrator rights.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights.
   /// The topic will be automatically closed if it was open.
   /// Returns True on success.
   Future<bool> hideGeneralForumTopic(ChatID chatId) {
@@ -1403,8 +1464,8 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to unhide the 'General' topic in a forum supergroup chat.
-  /// The bot must be an administrator in the chat for this to work and must have
-  /// the can_manage_topics administrator rights.
+  /// The bot must be an administrator in the chat for this to work and must
+  /// have the can_manage_topics administrator rights.
   /// Returns True on success.
   Future<bool> unhideGeneralForumTopic(ChatID chatId) {
     return _client.apiCall(_token, 'unhideGeneralForumTopic', {
@@ -1438,6 +1499,20 @@ mixin TGAPIMethods {
       'show_alert': showAlert,
       'url': url,
       'cache_time': cacheTime,
+    });
+  }
+
+  /// Use this method to get the list of boosts added to a chat by a user.
+  /// Requires administrator rights in the chat.
+  ///
+  /// Returns a UserChatBoosts object.
+  Future<UserChatBoosts> getUserChatBoosts(
+    ChatID chatId,
+    int userId,
+  ) {
+    return _client.apiCall(_token, 'getUserChatBoosts', {
+      'chat_id': chatId,
+      'user_id': userId,
     });
   }
 
@@ -1631,7 +1706,7 @@ mixin TGAPIMethods {
     int? messageId, {
     ParseMode? parseMode,
     List<MessageEntity>? entities,
-    bool? disableWebPagePreview,
+    LinkPreviewOptions? linkPreviewOptions,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageText', {
@@ -1640,7 +1715,7 @@ mixin TGAPIMethods {
       'text': text,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_web_page_preview': disableWebPagePreview,
+      'link_preview_options': linkPreviewOptions,
       'reply_markup': replyMarkup,
     });
   }
@@ -1653,7 +1728,7 @@ mixin TGAPIMethods {
     String? inlineMessageId, {
     ParseMode? parseMode,
     List<MessageEntity>? entities,
-    bool? disableWebPagePreview,
+    LinkPreviewOptions? linkPreviewOptions,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageText', {
@@ -1661,7 +1736,7 @@ mixin TGAPIMethods {
       'text': text,
       'parse_mode': parseMode,
       'entities': entities,
-      'disable_web_page_preview': disableWebPagePreview,
+      'link_preview_options': linkPreviewOptions,
       'reply_markup': replyMarkup,
     });
   }
@@ -1820,6 +1895,18 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to delete multiple messages simultaneously.
+  ///
+  /// If some of the specified messages can't be found, they are skipped.
+  ///
+  /// Returns True on success.
+  Future<bool> deleteMessages(ChatID chatId, List<int> messageIds) {
+    return _client.apiCall(_token, 'deleteMessages', {
+      'chat_id': chatId,
+      'message_ids': messageIds,
+    });
+  }
+
   /// Use this method to send static .WEBP, animated .TGS,
   /// or video .WEBM stickers.
   ///
@@ -1831,8 +1918,7 @@ mixin TGAPIMethods {
     String? emoji,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendSticker', {
@@ -1842,8 +1928,7 @@ mixin TGAPIMethods {
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -2099,8 +2184,7 @@ mixin TGAPIMethods {
     bool? isFlexible,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendInvoice', {
@@ -2127,8 +2211,7 @@ mixin TGAPIMethods {
       'is_flexible': isFlexible,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }
@@ -2191,10 +2274,10 @@ mixin TGAPIMethods {
   /// On success, True is returned.
   Future<bool> answerShippingQuery(
     String shippingQueryId,
-    bool ok,
     List<ShippingOption>? shippingOptions,
-    String errorMessage,
-  ) {
+    String errorMessage, {
+    required bool ok,
+  }) {
     return _client.apiCall(_token, 'answerShippingQuery', {
       'shipping_query_id': shippingQueryId,
       'ok': ok,
@@ -2215,9 +2298,9 @@ mixin TGAPIMethods {
   /// pre-checkout query was sent.
   Future<bool> answerPreCheckoutQuery(
     String preCheckoutQueryId,
-    bool ok,
-    String errorMessage,
-  ) {
+    String errorMessage, {
+    required bool ok,
+  }) {
     return _client.apiCall(_token, 'answerPreCheckoutQuery', {
       'pre_checkout_query_id': preCheckoutQueryId,
       'ok': ok,
@@ -2234,8 +2317,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
-    int? replyToMessageId,
-    bool? allowSendingWithoutReply,
+    ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendGame', {
@@ -2244,8 +2326,7 @@ mixin TGAPIMethods {
       'message_thread_id': messageThreadId,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
-      'reply_to_message_id': replyToMessageId,
-      'allow_sending_without_reply': allowSendingWithoutReply,
+      'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
   }

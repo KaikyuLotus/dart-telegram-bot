@@ -10,10 +10,10 @@ class VideoChatParticipantsInvited {
   List<User>? users;
 
   /// Basic constructor
-  VideoChatParticipantsInvited(users);
+  VideoChatParticipantsInvited(this.users);
 
   /// Creates a object from a json
-  static VideoChatParticipantsInvited fromJson(Map<String, dynamic> json) {
+  factory VideoChatParticipantsInvited.fromJson(Map<String, dynamic> json) {
     return VideoChatParticipantsInvited(
       callIfNotNull(
         User.listFromJsonArray,
