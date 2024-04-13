@@ -11,7 +11,6 @@ class _Enum<T> {
   String toJson() => '$this';
 }
 
-//TODO: Update enum
 /// UpdateType for GetUpdates
 class UpdateType extends _Enum<String> {
   /// Message
@@ -25,6 +24,12 @@ class UpdateType extends _Enum<String> {
 
   /// EditedChannelPost
   static const editedChannelPost = UpdateType._('edited_channel_post');
+
+  /// MessageReaction
+  static const messageReaction = UpdateType._('message_reaction');
+
+  /// MessageReactionCount
+  static const messageReactionCount = UpdateType._('message_reaction_count');
 
   /// InlineQuery
   static const inlineQuery = UpdateType._('inline_query');
@@ -56,12 +61,20 @@ class UpdateType extends _Enum<String> {
   /// ChatJoinRequest
   static const chatJoinRequest = UpdateType._('chat_join_request');
 
+  /// ChatBoost
+  static const chatBoost = UpdateType._('chat_boost');
+
+  /// RemovedChatBoost
+  static const removedChatBoost = UpdateType._('removed_chat_boost');
+
   /// Values
   static const values = {
     'message': message,
     'edited_message': editedMessage,
     'channel_post': channelPost,
     'edited_channel_post': editedChannelPost,
+    'message_reaction': messageReaction,
+    'message_reaction_count': messageReactionCount,
     'inline_query': inlineQuery,
     'chosen_inline_result': chosenInlineResult,
     'callback_query': callbackQuery,
@@ -72,6 +85,8 @@ class UpdateType extends _Enum<String> {
     'my_chat_member': myChatMember,
     'chat_member': chatMember,
     'chat_join_request': chatJoinRequest,
+    'chat_boost': chatBoost,
+    'removed_chat_boost': removedChatBoost,
   };
 
   /// Get a list with all UpdateType

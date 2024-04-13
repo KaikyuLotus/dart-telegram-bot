@@ -104,7 +104,7 @@ class Update {
   /// Optional.
   /// A chat boost was added or changed.
   /// The bot must be an administrator in the chat to receive these updates.
-  ChatBoost? chatBoost;
+  ChatBoostUpdated? chatBoost;
 
   /// Optional.
   /// A boost was removed from a chat.
@@ -203,7 +203,7 @@ class Update {
         json['chat_join_request'],
       ),
       chatBoost: callIfNotNull(
-        ChatBoost.fromJson,
+        ChatBoostUpdated.fromJson,
         json['chat_boost'],
       ),
       removedChatBoost: callIfNotNull(

@@ -6,7 +6,7 @@ import '../../../telegram_entities.dart';
 class MessageOriginHiddenUser extends MessageOrigin {
   /// Type of the message origin, always “hidden_user”
   @override
-  String type = 'user';
+  String type = 'hidden_user';
 
   /// Date the message was sent originally in Unix time
   int date;

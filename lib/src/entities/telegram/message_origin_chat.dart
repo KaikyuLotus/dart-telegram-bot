@@ -6,7 +6,7 @@ import '../../../telegram_entities.dart';
 class MessageOriginChat extends MessageOrigin {
   /// Type of the message origin, always “chat”
   @override
-  String type = 'user';
+  String type = 'chat';
 
   /// Date the message was sent originally in Unix time
   int date;

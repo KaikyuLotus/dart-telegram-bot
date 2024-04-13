@@ -8,7 +8,7 @@ class GiveawayCreated {
   GiveawayCreated();
 
   /// Creates a object from json
-  factory GiveawayCreated.fromJson(Map<String, dynamic> json) {
+  factory GiveawayCreated.fromJson(Map<String, dynamic> _) {
     return GiveawayCreated();
   }
 

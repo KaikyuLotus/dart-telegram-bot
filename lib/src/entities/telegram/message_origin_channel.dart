@@ -6,7 +6,7 @@ import '../../../telegram_entities.dart';
 class MessageOriginChannel extends MessageOrigin {
   /// Type of the message origin, always “channel”
   @override
-  String type = 'user';
+  String type = 'channel';
 
   /// Date the message was sent originally in Unix time
   int date;

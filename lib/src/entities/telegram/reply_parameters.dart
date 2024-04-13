@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
-import '../internal/helpers/util.dart';
 
 /// Describes reply parameters for the message that is being sent.
 class ReplyParameters {
@@ -36,7 +35,7 @@ class ReplyParameters {
   /// Optional.
   /// Mode for parsing entities in the quote.
   /// See formatting options for more details.
-  String? quoteParseMode;
+  ParseMode? quoteParseMode;
 
   /// Optional.
   /// A JSON-serialized list of special entities that appear in the quote.
@@ -57,22 +56,6 @@ class ReplyParameters {
     this.quoteEntities,
     this.quotePosition,
   });
-
-  /// Creates a object from a json
-  factory ReplyParameters.fromJson(Map<String, dynamic> json) {
-    return ReplyParameters(
-      json['message_id'],
-      chatId: callIfNotNull(ChatID.fromJson, json['chat_id']),
-      allowSendingWithoutReply: json['allow_sending_without_reply'],
-      quote: json['quote'],
-      quoteParseMode: json['quote_parse_mode'],
-      quoteEntities: callIfNotNull(
-        MessageEntity.listFromJsonArray,
-        json['quote_entities'],
-      ),
-      quotePosition: json['quote_position'],
-    );
-  }
 
   /// Creates a json from the object
   Map toJson() {
