@@ -1,19 +1,35 @@
 import 'dart:convert';
 
-/// This object represents a message about a forwarded story in the chat
-/// Currently holds no information.
+import '../../../telegram_entities.dart';
+
+/// This object represents a story.
 class Story {
+  /// Chat that posted the story
+  Chat chat;
+
+  /// Unique identifier for the story in the chat
+  int id;
+
   /// Basic constructor
-  Story();
+  Story(
+    this.chat,
+    this.id,
+  );
 
   /// Creates a object from a json
-  factory Story.fromJson(Map<String, dynamic> _) {
-    return Story();
+  factory Story.fromJson(Map<String, dynamic> json) {
+    return Story(
+      Chat.fromJson(json['chat']),
+      json['id'],
+    );
   }
 
   /// Creates a json from the object
   Map toJson() {
-    return {};
+    return {
+      'chat': chat,
+      'id': id,
+    };
   }
 
   @override
