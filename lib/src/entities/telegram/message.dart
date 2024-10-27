@@ -88,6 +88,11 @@ class Message extends MaybeInaccessibleMessage {
   bool? hasProtectedContent;
 
   /// Optional.
+  /// True, if the message was sent by an implicit action, for example,
+  /// as an away or a greeting business message, or as a scheduled message
+  bool? isFromOffline;
+
+  /// Optional.
   /// The unique identifier of a media message group this message belongs to
   String? mediaGroupId;
 
@@ -379,6 +384,7 @@ class Message extends MaybeInaccessibleMessage {
     this.viaBot,
     this.editDate,
     this.hasProtectedContent,
+    this.isFromOffline,
     this.mediaGroupId,
     this.authorSignature,
     this.text,
@@ -468,6 +474,7 @@ class Message extends MaybeInaccessibleMessage {
       viaBot: callIfNotNull(User.fromJson, json['via_bot']),
       editDate: json['edit_date'],
       hasProtectedContent: json['has_protected_content'],
+      isFromOffline: json['is_from_offline'],
       mediaGroupId: json['media_group_id'],
       authorSignature: json['author_signature'],
       text: json['text'],
@@ -644,6 +651,7 @@ class Message extends MaybeInaccessibleMessage {
       'via_bot': viaBot,
       'edit_date': editDate,
       'has_protected_content': hasProtectedContent,
+      'is_from_offline': isFromOffline,
       'media_group_id': mediaGroupId,
       'author_signature': authorSignature,
       'text': text,

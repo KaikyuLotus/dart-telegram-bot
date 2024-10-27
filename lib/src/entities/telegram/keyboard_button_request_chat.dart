@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 /// This object defines the criteria used to request a suitable chat.
 /// The identifier of the selected chat will be shared with the bot when
@@ -51,6 +52,18 @@ class KeyboardButtonRequestChat {
   /// Otherwise, no additional restrictions are applied.
   bool? botIsMember;
 
+  /// Optional.
+  /// Pass True to request the chat's title
+  bool? requestTitle;
+
+  /// Optional.
+  /// Pass True to request the chat's username
+  bool? requestUsername;
+
+  /// Optional.
+  /// Pass True to request the chat's photo
+  bool? requestPhoto;
+
   /// Basic constructor
   KeyboardButtonRequestChat(
     this.requestId, {
@@ -61,6 +74,9 @@ class KeyboardButtonRequestChat {
     this.userAdministratorRights,
     this.botAdministratorRights,
     this.botIsMember,
+    this.requestTitle,
+    this.requestUsername,
+    this.requestPhoto,
   });
 
   /// Creates a object from a json
@@ -71,9 +87,18 @@ class KeyboardButtonRequestChat {
       chatIsForum: json['chat_is_forum'],
       chatHasUsername: json['chat_has_username'],
       chatIsCreated: json['chat_is_created'],
-      userAdministratorRights: json['user_administrator_rights'],
-      botAdministratorRights: json['bot_administrator_rights'],
+      userAdministratorRights: callIfNotNull(
+        ChatAdministratorRights.fromJson,
+        json['user_administrator_rights'],
+      ),
+      botAdministratorRights: callIfNotNull(
+        ChatAdministratorRights.fromJson,
+        json['bot_administrator_rights'],
+      ),
       botIsMember: json['bot_is_member'],
+      requestTitle: json['request_title'],
+      requestUsername: json['request_username'],
+      requestPhoto: json['request_photo'],
     );
   }
 
@@ -88,6 +113,9 @@ class KeyboardButtonRequestChat {
       'user_administrator_rights': userAdministratorRights,
       'bot_administrator_rights': botAdministratorRights,
       'bot_is_member': botIsMember,
+      'request_title': requestTitle,
+      'request_username': requestUsername,
+      'request_photo': requestPhoto,
     }..removeWhere((_, v) => v == null);
   }
 

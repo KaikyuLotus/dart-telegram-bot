@@ -1976,8 +1976,7 @@ mixin TGAPIMethods {
     String name,
     String title,
     String emojis,
-    List<InputSticker> stickers,
-    String stickerFormat, {
+    List<InputSticker> stickers, {
     String? stickerType,
     bool? needsRepainting,
   }) {
@@ -1986,7 +1985,6 @@ mixin TGAPIMethods {
       'name': name,
       'title': title,
       'stickers': stickers,
-      'sticker_format': stickerFormat,
       'sticker_type': stickerType,
       'needs_repainting': needsRepainting,
     });
@@ -2029,6 +2027,27 @@ mixin TGAPIMethods {
   /// Returns True on success.
   Future<bool> deleteStickerFromSet(String sticker) {
     return _client.apiCall(_token, 'deleteStickerFromSet', {
+      'sticker': sticker,
+    });
+  }
+
+  /// Use this method to replace an existing sticker in a sticker set with a
+  /// new one.
+  ///
+  /// The method is equivalent to calling deleteStickerFromSet,
+  /// then addStickerToSet, then setStickerPositionInSet.
+  ///
+  /// Returns True on success.
+  Future<bool> replaceStickerInSet(
+    int userId,
+    String name,
+    String oldSticker,
+    HttpFile sticker,
+  ) {
+    return _client.apiCall(_token, 'replaceStickerInSet', {
+      'user_id': userId,
+      'name': name,
+      'old_sticker': oldSticker,
       'sticker': sticker,
     });
   }
@@ -2088,13 +2107,15 @@ mixin TGAPIMethods {
   /// Returns True on success.
   Future<bool> setStickerSetThumbnail(
     String name,
-    String userId, {
+    String userId,
+    String format, {
     HttpFile? thumbnail,
   }) {
     return _client.apiCall(_token, 'setStickerSetThumbnail', {
-      'user_id': userId,
       'name': name,
+      'user_id': userId,
       'thumbnail': thumbnail,
+      'format': format,
     });
   }
 

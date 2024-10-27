@@ -3,6 +3,7 @@ export 'src/entities/internal/entities/http_file.dart';
 export 'src/entities/internal/helpers/bot_command_parser.dart';
 export 'src/entities/telegram/animation.dart';
 export 'src/entities/telegram/audio.dart';
+export 'src/entities/telegram/birthdate.dart';
 export 'src/entities/telegram/bot_command.dart';
 export 'src/entities/telegram/bot_command_scope.dart';
 export 'src/entities/telegram/bot_command_scope_all_chat_administrators.dart';

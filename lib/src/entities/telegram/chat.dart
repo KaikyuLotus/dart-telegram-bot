@@ -46,6 +46,14 @@ class Chat {
   List<String>? activeUsernames;
 
   /// Optional.
+  /// For private chats, the date of birth of the user
+  Birthdate? birthdate;
+
+  /// Optional.
+  /// For private chats, the personal channel of the user
+  Chat? personalChat;
+
+  /// Optional.
   /// List of available reactions allowed in the chat.
   /// If omitted, then all emoji reactions are allowed.
   /// Returned only in getChat.
@@ -220,6 +228,8 @@ class Chat {
     this.isForum,
     this.photo,
     this.activeUsernames,
+    this.birthdate,
+    this.personalChat,
     this.availableReactions,
     this.accentColorId,
     this.backgroundCustomEmojiId,
@@ -262,6 +272,8 @@ class Chat {
       isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       activeUsernames: List.from(json['active_usernames'] ?? []),
+      birthdate: callIfNotNull(Birthdate.fromJson, json['birthdate']),
+      personalChat: callIfNotNull(Chat.fromJson, json['personal_chat']),
       availableReactions: callIfNotNull(
         ReactionType.listFromJsonArray,
         json['available_reactions'],
@@ -315,6 +327,8 @@ class Chat {
       'is_forum': isForum,
       'photo': photo,
       'active_usernames': activeUsernames,
+      'birthdate': birthdate,
+      'personal_chat': personalChat,
       'available_reactions': availableReactions,
       'accent_color_id': accentColorId,
       'background_custom_emoji_id': backgroundCustomEmojiId,
