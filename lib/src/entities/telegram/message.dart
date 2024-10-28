@@ -34,9 +34,23 @@ class Message extends MaybeInaccessibleMessage {
   /// the number of boosts added by the user
   int? senderBoostCount;
 
+  /// Optional.
+  /// The bot that actually sent the message on behalf of the business account.
+  /// Available only for outgoing messages sent on behalf of the connected
+  /// business account.
+  User? senderBusinessBot;
+
   /// Date the message was sent in Unix time
   @override
   int date;
+
+  /// Optional.
+  /// Unique identifier of the business connection from which the message
+  /// was received.
+  /// If non-empty, the message belongs to a chat of the corresponding business
+  /// account that is independent from any potential bot chat which might
+  /// share the same identifier.
+  String? businessConnectionId;
 
   /// Conversation the message belongs to
   @override
@@ -372,7 +386,9 @@ class Message extends MaybeInaccessibleMessage {
     this.from,
     this.senderChat,
     this.senderBoostCount,
+    this.senderBusinessBot,
     required this.date,
+    this.businessConnectionId,
     required this.chat,
     this.forwardOrigin,
     this.isTopicMessage,
@@ -453,7 +469,12 @@ class Message extends MaybeInaccessibleMessage {
       from: callIfNotNull(User.fromJson, json['from']),
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
       senderBoostCount: json['sender_boost_count'],
+      senderBusinessBot: callIfNotNull(
+        User.fromJson,
+        json['sender_business_bot'],
+      ),
       date: json['date']!,
+      businessConnectionId: json['business_connection_id'],
       chat: Chat.fromJson(json['chat']!),
       forwardOrigin: callIfNotNull(
         MessageOrigin.fromJson,
@@ -639,7 +660,9 @@ class Message extends MaybeInaccessibleMessage {
       'from': from,
       'sender_chat': senderChat,
       'sender_boost_count': senderBoostCount,
+      'sender_business_bot': senderBusinessBot,
       'date': date,
+      'business_connection_id': businessConnectionId,
       'chat': chat,
       'forward_origin': forwardOrigin,
       'is_topic_message': isTopicMessage,

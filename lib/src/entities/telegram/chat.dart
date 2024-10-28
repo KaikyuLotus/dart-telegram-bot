@@ -50,6 +50,19 @@ class Chat {
   Birthdate? birthdate;
 
   /// Optional.
+  /// For private chats with business accounts, the intro of the business
+  BusinessIntro? businessIntro;
+
+  /// Optional.
+  /// For private chats with business accounts, the location of the business
+  BusinessLocation? businessLocation;
+
+  /// Optional.
+  /// For private chats with business accounts,
+  /// the opening hours of the business
+  BusinessOpeningHours? businessOpeningHours;
+
+  /// Optional.
   /// For private chats, the personal channel of the user
   Chat? personalChat;
 
@@ -229,6 +242,9 @@ class Chat {
     this.photo,
     this.activeUsernames,
     this.birthdate,
+    this.businessIntro,
+    this.businessLocation,
+    this.businessOpeningHours,
     this.personalChat,
     this.availableReactions,
     this.accentColorId,
@@ -273,6 +289,18 @@ class Chat {
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       activeUsernames: List.from(json['active_usernames'] ?? []),
       birthdate: callIfNotNull(Birthdate.fromJson, json['birthdate']),
+      businessIntro: callIfNotNull(
+        BusinessIntro.fromJson,
+        json['business_intro'],
+      ),
+      businessLocation: callIfNotNull(
+        BusinessLocation.fromJson,
+        json['business_location'],
+      ),
+      businessOpeningHours: callIfNotNull(
+        BusinessOpeningHours.fromJson,
+        json['business_opening_hours'],
+      ),
       personalChat: callIfNotNull(Chat.fromJson, json['personal_chat']),
       availableReactions: callIfNotNull(
         ReactionType.listFromJsonArray,
@@ -328,6 +356,9 @@ class Chat {
       'photo': photo,
       'active_usernames': activeUsernames,
       'birthdate': birthdate,
+      'business_intro': businessIntro,
+      'business_location': businessLocation,
+      'business_opening_hours': businessOpeningHours,
       'personal_chat': personalChat,
       'available_reactions': availableReactions,
       'accent_color_id': accentColorId,
