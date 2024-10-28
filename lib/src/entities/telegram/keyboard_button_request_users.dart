@@ -25,12 +25,27 @@ class KeyboardButtonRequestUsers {
   /// Defaults to 1.
   int? maxQuantity;
 
+  /// Optional.
+  /// Pass True to request the users' first and last names
+  bool? requestName;
+
+  /// Optional.
+  /// Pass True to request the users' usernames
+  bool? requestUsername;
+
+  /// Optional.
+  /// Pass True to request the users' photos
+  bool? requestPhoto;
+
   /// Basic constructor
   KeyboardButtonRequestUsers(
     this.requestId, {
     this.userIsBot,
     this.userIsPremium,
     this.maxQuantity,
+    this.requestName,
+    this.requestUsername,
+    this.requestPhoto,
   });
 
   /// Creates a object from a json
@@ -40,6 +55,9 @@ class KeyboardButtonRequestUsers {
       userIsBot: json['user_is_bot'],
       userIsPremium: json['user_is_premium'],
       maxQuantity: json['max_quantity'],
+      requestName: json['request_name'],
+      requestUsername: json['request_username'],
+      requestPhoto: json['request_photo'],
     );
   }
 
@@ -50,6 +68,9 @@ class KeyboardButtonRequestUsers {
       'user_is_bot': userIsBot,
       'user_is_premium': userIsPremium,
       'max_quantity': maxQuantity,
+      'request_name': requestName,
+      'request_username': requestUsername,
+      'request_photo': requestPhoto,
     }..removeWhere((_, v) => v == null);
   }
 

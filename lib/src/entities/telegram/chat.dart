@@ -46,6 +46,27 @@ class Chat {
   List<String>? activeUsernames;
 
   /// Optional.
+  /// For private chats, the date of birth of the user
+  Birthdate? birthdate;
+
+  /// Optional.
+  /// For private chats with business accounts, the intro of the business
+  BusinessIntro? businessIntro;
+
+  /// Optional.
+  /// For private chats with business accounts, the location of the business
+  BusinessLocation? businessLocation;
+
+  /// Optional.
+  /// For private chats with business accounts,
+  /// the opening hours of the business
+  BusinessOpeningHours? businessOpeningHours;
+
+  /// Optional.
+  /// For private chats, the personal channel of the user
+  Chat? personalChat;
+
+  /// Optional.
   /// List of available reactions allowed in the chat.
   /// If omitted, then all emoji reactions are allowed.
   /// Returned only in getChat.
@@ -220,6 +241,11 @@ class Chat {
     this.isForum,
     this.photo,
     this.activeUsernames,
+    this.birthdate,
+    this.businessIntro,
+    this.businessLocation,
+    this.businessOpeningHours,
+    this.personalChat,
     this.availableReactions,
     this.accentColorId,
     this.backgroundCustomEmojiId,
@@ -262,6 +288,20 @@ class Chat {
       isForum: json['is_forum'],
       photo: callIfNotNull(ChatPhoto.fromJson, json['photo']),
       activeUsernames: List.from(json['active_usernames'] ?? []),
+      birthdate: callIfNotNull(Birthdate.fromJson, json['birthdate']),
+      businessIntro: callIfNotNull(
+        BusinessIntro.fromJson,
+        json['business_intro'],
+      ),
+      businessLocation: callIfNotNull(
+        BusinessLocation.fromJson,
+        json['business_location'],
+      ),
+      businessOpeningHours: callIfNotNull(
+        BusinessOpeningHours.fromJson,
+        json['business_opening_hours'],
+      ),
+      personalChat: callIfNotNull(Chat.fromJson, json['personal_chat']),
       availableReactions: callIfNotNull(
         ReactionType.listFromJsonArray,
         json['available_reactions'],
@@ -315,6 +355,11 @@ class Chat {
       'is_forum': isForum,
       'photo': photo,
       'active_usernames': activeUsernames,
+      'birthdate': birthdate,
+      'business_intro': businessIntro,
+      'business_location': businessLocation,
+      'business_opening_hours': businessOpeningHours,
+      'personal_chat': personalChat,
       'available_reactions': availableReactions,
       'accent_color_id': accentColorId,
       'background_custom_emoji_id': backgroundCustomEmojiId,

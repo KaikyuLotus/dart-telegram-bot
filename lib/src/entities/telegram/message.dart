@@ -34,9 +34,23 @@ class Message extends MaybeInaccessibleMessage {
   /// the number of boosts added by the user
   int? senderBoostCount;
 
+  /// Optional.
+  /// The bot that actually sent the message on behalf of the business account.
+  /// Available only for outgoing messages sent on behalf of the connected
+  /// business account.
+  User? senderBusinessBot;
+
   /// Date the message was sent in Unix time
   @override
   int date;
+
+  /// Optional.
+  /// Unique identifier of the business connection from which the message
+  /// was received.
+  /// If non-empty, the message belongs to a chat of the corresponding business
+  /// account that is independent from any potential bot chat which might
+  /// share the same identifier.
+  String? businessConnectionId;
 
   /// Conversation the message belongs to
   @override
@@ -86,6 +100,11 @@ class Message extends MaybeInaccessibleMessage {
   /// Optional.
   /// True, if the message can't be forwarded
   bool? hasProtectedContent;
+
+  /// Optional.
+  /// True, if the message was sent by an implicit action, for example,
+  /// as an away or a greeting business message, or as a scheduled message
+  bool? isFromOffline;
 
   /// Optional.
   /// The unique identifier of a media message group this message belongs to
@@ -367,7 +386,9 @@ class Message extends MaybeInaccessibleMessage {
     this.from,
     this.senderChat,
     this.senderBoostCount,
+    this.senderBusinessBot,
     required this.date,
+    this.businessConnectionId,
     required this.chat,
     this.forwardOrigin,
     this.isTopicMessage,
@@ -379,6 +400,7 @@ class Message extends MaybeInaccessibleMessage {
     this.viaBot,
     this.editDate,
     this.hasProtectedContent,
+    this.isFromOffline,
     this.mediaGroupId,
     this.authorSignature,
     this.text,
@@ -447,7 +469,12 @@ class Message extends MaybeInaccessibleMessage {
       from: callIfNotNull(User.fromJson, json['from']),
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
       senderBoostCount: json['sender_boost_count'],
+      senderBusinessBot: callIfNotNull(
+        User.fromJson,
+        json['sender_business_bot'],
+      ),
       date: json['date']!,
+      businessConnectionId: json['business_connection_id'],
       chat: Chat.fromJson(json['chat']!),
       forwardOrigin: callIfNotNull(
         MessageOrigin.fromJson,
@@ -468,6 +495,7 @@ class Message extends MaybeInaccessibleMessage {
       viaBot: callIfNotNull(User.fromJson, json['via_bot']),
       editDate: json['edit_date'],
       hasProtectedContent: json['has_protected_content'],
+      isFromOffline: json['is_from_offline'],
       mediaGroupId: json['media_group_id'],
       authorSignature: json['author_signature'],
       text: json['text'],
@@ -632,7 +660,9 @@ class Message extends MaybeInaccessibleMessage {
       'from': from,
       'sender_chat': senderChat,
       'sender_boost_count': senderBoostCount,
+      'sender_business_bot': senderBusinessBot,
       'date': date,
+      'business_connection_id': businessConnectionId,
       'chat': chat,
       'forward_origin': forwardOrigin,
       'is_topic_message': isTopicMessage,
@@ -644,6 +674,7 @@ class Message extends MaybeInaccessibleMessage {
       'via_bot': viaBot,
       'edit_date': editDate,
       'has_protected_content': hasProtectedContent,
+      'is_from_offline': isFromOffline,
       'media_group_id': mediaGroupId,
       'author_signature': authorSignature,
       'text': text,

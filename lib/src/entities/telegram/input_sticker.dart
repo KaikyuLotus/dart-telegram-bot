@@ -14,6 +14,13 @@ class InputSticker {
   /// Animated and video stickers can't be uploaded via HTTP URL.
   HttpFile sticker;
 
+  //TODO create StickerFormat enum
+  /// Format of the added sticker, must be one of
+  /// “static” for a .WEBP or .PNG image,
+  /// “animated” for a .TGS animation,
+  /// “video” for a WEBM video
+  String format;
+
   /// List of 1-20 emoji associated with the sticker
   List<String> emojiList;
 
@@ -29,33 +36,17 @@ class InputSticker {
   /// Basic constructor
   InputSticker({
     required this.sticker,
+    required this.format,
     required this.emojiList,
     this.maskPosition,
     this.keywords,
   });
 
-  /// Creates a object from a json
-  factory InputSticker.fromJson(Map<String, dynamic> json) {
-    return InputSticker(
-      sticker: json['sticker']!,
-      emojiList: json['emoji_list']!,
-      maskPosition: json['mask_position'],
-      keywords: json['keywords'],
-    );
-  }
-
-  /// Creates a list of object from a json array
-  static List<InputSticker> listFromJsonArray(List<dynamic> array) {
-    return List.generate(
-      array.length,
-      (i) => InputSticker.fromJson(array[i]),
-    );
-  }
-
   /// Creates a json from the object
   Map toJson() {
     return {
       'sticker': sticker,
+      'format': format,
       'emoji_list': emojiList,
       'mask_position': maskPosition,
       'keywords': keywords,

@@ -15,12 +15,6 @@ class StickerSet {
   /// “custom_emoji”
   String stickerType;
 
-  /// True, if the sticker set contains animated stickers
-  bool isAnimated;
-
-  /// True, if the sticker set contains video stickers
-  bool isVideo;
-
   /// List of all set stickers
   List<Sticker> stickers;
 
@@ -33,8 +27,6 @@ class StickerSet {
     required this.name,
     required this.title,
     required this.stickerType,
-    required this.isAnimated,
-    required this.isVideo,
     required this.stickers,
     this.thumbnail,
   });
@@ -45,8 +37,6 @@ class StickerSet {
       name: json['name']!,
       title: json['title']!,
       stickerType: json['sticker_type'],
-      isAnimated: json['is_animated']!,
-      isVideo: json['is_video']!,
       stickers: Sticker.listFromJsonArray(json['stickers']!),
       thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
     );
@@ -58,8 +48,6 @@ class StickerSet {
       'name': name,
       'title': title,
       'sticker_type': stickerType,
-      'is_animated': isAnimated,
-      'is_video': isVideo,
       'stickers': stickers,
       'photo_size': thumbnail,
     }..removeWhere((_, v) => v == null);

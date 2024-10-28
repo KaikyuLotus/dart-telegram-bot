@@ -34,6 +34,23 @@ class Update {
   Message? editedChannelPost;
 
   /// Optional.
+  /// The bot was connected to or disconnected from a business account,
+  /// or a user edited an existing connection with the bot
+  BusinessConnection? businessConnection;
+
+  /// Optional.
+  /// New message from a connected business account
+  Message? businessMessage;
+
+  /// Optional.
+  /// New version of a message from a connected business account
+  Message? editedBusinessMessage;
+
+  /// Optional.
+  /// Messages were deleted from a connected business account
+  BusinessMessagesDeleted? deletedBusinessMessages;
+
+  /// Optional.
   /// A reaction to a message was changed by a user.
   /// The bot must be an administrator in the chat and must explicitly specify
   /// "message_reaction" in the list of allowed_updates
@@ -118,6 +135,10 @@ class Update {
     this.editedMessage,
     this.channelPost,
     this.editedChannelPost,
+    this.businessConnection,
+    this.businessMessage,
+    this.editedBusinessMessage,
+    this.deletedBusinessMessages,
     this.messageReaction,
     this.messageReactionCountUpdated,
     this.inlineQuery,
@@ -153,6 +174,22 @@ class Update {
       editedChannelPost: callIfNotNull(
         Message.fromJson,
         json['edited_channel_post'],
+      ),
+      businessConnection: callIfNotNull(
+        BusinessConnection.fromJson,
+        json['business_connection'],
+      ),
+      businessMessage: callIfNotNull(
+        Message.fromJson,
+        json['business_message'],
+      ),
+      editedBusinessMessage: callIfNotNull(
+        Message.fromJson,
+        json['edited_business_message'],
+      ),
+      deletedBusinessMessages: callIfNotNull(
+        BusinessMessagesDeleted.fromJson,
+        json['deleted_business_messages'],
       ),
       messageReaction: callIfNotNull(
         MessageReactionUpdated.fromJson,
@@ -226,6 +263,10 @@ class Update {
       'edited_message': editedMessage,
       'channel_post': channelPost,
       'edited_channel_post': editedChannelPost,
+      'business_connection': businessConnection,
+      'business_message': businessMessage,
+      'edited_business_message': editedBusinessMessage,
+      'deleted_business_messages': deletedBusinessMessages,
       'message_reaction': messageReaction,
       'message_reaction_count': messageReactionCountUpdated,
       'inline_query': inlineQuery,

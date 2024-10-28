@@ -45,6 +45,7 @@ mixin TGAPIMethods {
   Future<Message> sendMessage(
     ChatID chatId,
     String text, {
+    String? businessConnectionId,
     int? messageThreadId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
@@ -55,9 +56,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendMessage', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'text': text,
       'message_thread_id': messageThreadId,
+      'text': text,
       'parse_mode': parseMode,
       'entities': entities,
       'link_preview_options': linkPreviewOptions,
@@ -197,6 +199,7 @@ mixin TGAPIMethods {
   Future<Message> sendPhoto(
     ChatID chatId,
     HttpFile photo, {
+    String? businessConnectionId,
     int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
@@ -208,9 +211,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPhoto', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'photo': photo,
       'message_thread_id': messageThreadId,
+      'photo': photo,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -236,6 +240,7 @@ mixin TGAPIMethods {
   Future<Message> sendAudio(
     ChatID chatId,
     HttpFile audio, {
+    String? businessConnectionId,
     int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
@@ -250,9 +255,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAudio', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'audio': audio,
       'message_thread_id': messageThreadId,
+      'audio': audio,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -276,6 +282,7 @@ mixin TGAPIMethods {
   Future<Message> sendDocument(
     ChatID chatId,
     HttpFile document, {
+    String? businessConnectionId,
     int? messageThreadId,
     HttpFile? thumbnail,
     String? caption,
@@ -288,9 +295,10 @@ mixin TGAPIMethods {
     bool? disableContentTypeDetection,
   }) {
     return _client.apiCall(_token, 'sendDocument', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'document': document,
       'message_thread_id': messageThreadId,
+      'document': document,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -314,6 +322,7 @@ mixin TGAPIMethods {
   Future<Message> sendVideo(
     ChatID chatId,
     HttpFile video, {
+    String? businessConnectionId,
     int? messageThreadId,
     int? duration,
     int? width,
@@ -330,9 +339,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideo', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'video': video,
       'message_thread_id': messageThreadId,
+      'video': video,
       'duration': duration,
       'width': width,
       'height': height,
@@ -358,6 +368,7 @@ mixin TGAPIMethods {
   Future<Message> sendAnimation(
     ChatID chatId,
     HttpFile animation, {
+    String? businessConnectionId,
     int? messageThreadId,
     int? duration,
     int? width,
@@ -373,9 +384,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendAnimation', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'animation': animation,
       'message_thread_id': messageThreadId,
+      'animation': animation,
       'duration': duration,
       'width': width,
       'height': height,
@@ -405,6 +417,7 @@ mixin TGAPIMethods {
   Future<Message> sendVoice(
     ChatID chatId,
     HttpFile voice, {
+    String? businessConnectionId,
     int? messageThreadId,
     String? caption,
     ParseMode? parseMode,
@@ -416,9 +429,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVoice', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'voice': voice,
       'message_thread_id': messageThreadId,
+      'voice': voice,
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
@@ -436,6 +450,7 @@ mixin TGAPIMethods {
   Future<Message> sendVideoNote(
     ChatID chatId,
     HttpFile videoNote, {
+    String? businessConnectionId,
     int? messageThreadId,
     int? duration,
     int? length,
@@ -446,9 +461,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVideoNote', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'video_note': videoNote,
       'message_thread_id': messageThreadId,
+      'video_note': videoNote,
       'duration': duration,
       'length': length,
       'thumbnail': thumbnail,
@@ -469,15 +485,17 @@ mixin TGAPIMethods {
   Future<List<Message>> sendMediaGroup(
     ChatID chatId,
     List<InputMedia> media, {
+    String? businessConnectionId,
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
     ReplyParameters? replyParameters,
   }) {
     return _client.apiCall(_token, 'sendMediaGroup', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'media': media,
       'message_thread_id': messageThreadId,
+      'media': media,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_parameters': replyParameters,
@@ -491,6 +509,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     double latitude,
     double longitude, {
+    String? businessConnectionId,
     int? messageThreadId,
     double? horizontalAccuracy,
     int? livePeriod,
@@ -502,10 +521,11 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendLocation', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'latitude': latitude,
       'longitude': longitude,
-      'message_thread_id': messageThreadId,
       'horizontal_accuracy': horizontalAccuracy,
       'live_period': livePeriod,
       'heading': heading,
@@ -610,6 +630,7 @@ mixin TGAPIMethods {
     double longitude,
     String title,
     String address, {
+    String? businessConnectionId,
     int? messageThreadId,
     String? foursquareId,
     String? foursquareType,
@@ -621,12 +642,13 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendVenue', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'latitude': latitude,
       'longitude': longitude,
       'title': title,
       'address': address,
-      'message_thread_id': messageThreadId,
       'foursquare_id': foursquareId,
       'foursquare_type': foursquareType,
       'google_place_id': googlePlaceId,
@@ -645,6 +667,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String phoneNumber,
     String? firstName, {
+    String? businessConnectionId,
     int? messageThreadId,
     String? lastName,
     String? vcard,
@@ -654,11 +677,12 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendContact', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'phone_number': phoneNumber,
       'first_name': firstName,
       'last_name': lastName,
-      'message_thread_id': messageThreadId,
       'vcard': vcard,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -674,6 +698,7 @@ mixin TGAPIMethods {
     ChatID chatId,
     String question,
     List<String> options, {
+    String? businessConnectionId,
     int? messageThreadId,
     bool? isAnonymous,
     String? type,
@@ -691,10 +716,11 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendPoll', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'question': question,
       'options': options,
-      'message_thread_id': messageThreadId,
       'is_anonymous': isAnonymous,
       'type': type,
       'allows_multiple_answers': allowsMultipleAnswers,
@@ -718,6 +744,7 @@ mixin TGAPIMethods {
   /// On success, the sent [Message] is returned.
   Future<Message> sendDice(
     ChatID chatId, {
+    String? businessConnectionId,
     int? messageThreadId,
     Emoji? emoji,
     bool? disableNotification,
@@ -726,6 +753,7 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendDice', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_thread_id': messageThreadId,
       'emoji': emoji,
@@ -747,12 +775,14 @@ mixin TGAPIMethods {
   Future<bool> sendChatAction(
     ChatID chatId,
     ChatAction action, {
+    String? businessConnectionId,
     int? messageThreadId,
   }) {
     return _client.apiCall(
       _token,
       'sendChatAction',
       {
+        'business_connection_id': businessConnectionId,
         'chat_id': chatId,
         'message_thread_id': messageThreadId,
         'action': action,
@@ -1505,7 +1535,7 @@ mixin TGAPIMethods {
   /// Use this method to get the list of boosts added to a chat by a user.
   /// Requires administrator rights in the chat.
   ///
-  /// Returns a UserChatBoosts object.
+  /// Returns a [UserChatBoosts] object.
   Future<UserChatBoosts> getUserChatBoosts(
     ChatID chatId,
     int userId,
@@ -1513,6 +1543,16 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'getUserChatBoosts', {
       'chat_id': chatId,
       'user_id': userId,
+    });
+  }
+
+  /// Use this method to get information about the connection of the bot with a
+  /// business account.
+  ///
+  /// Returns a [BusinessConnection] object.
+  Future<UserChatBoosts> getBusinessConnection(String businessConnectionId) {
+    return _client.apiCall(_token, 'getBusinessConnection', {
+      'business_connection_id': businessConnectionId,
     });
   }
 
@@ -1914,6 +1954,7 @@ mixin TGAPIMethods {
   Future<Message> sendSticker(
     ChatID chatId,
     HttpFile sticker, {
+    String? businessConnectionId,
     int? messageThreadId,
     String? emoji,
     bool? disableNotification,
@@ -1922,9 +1963,10 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendSticker', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'sticker': sticker,
       'message_thread_id': messageThreadId,
+      'sticker': sticker,
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
@@ -1976,8 +2018,7 @@ mixin TGAPIMethods {
     String name,
     String title,
     String emojis,
-    List<InputSticker> stickers,
-    String stickerFormat, {
+    List<InputSticker> stickers, {
     String? stickerType,
     bool? needsRepainting,
   }) {
@@ -1986,7 +2027,6 @@ mixin TGAPIMethods {
       'name': name,
       'title': title,
       'stickers': stickers,
-      'sticker_format': stickerFormat,
       'sticker_type': stickerType,
       'needs_repainting': needsRepainting,
     });
@@ -2029,6 +2069,27 @@ mixin TGAPIMethods {
   /// Returns True on success.
   Future<bool> deleteStickerFromSet(String sticker) {
     return _client.apiCall(_token, 'deleteStickerFromSet', {
+      'sticker': sticker,
+    });
+  }
+
+  /// Use this method to replace an existing sticker in a sticker set with a
+  /// new one.
+  ///
+  /// The method is equivalent to calling deleteStickerFromSet,
+  /// then addStickerToSet, then setStickerPositionInSet.
+  ///
+  /// Returns True on success.
+  Future<bool> replaceStickerInSet(
+    int userId,
+    String name,
+    String oldSticker,
+    HttpFile sticker,
+  ) {
+    return _client.apiCall(_token, 'replaceStickerInSet', {
+      'user_id': userId,
+      'name': name,
+      'old_sticker': oldSticker,
       'sticker': sticker,
     });
   }
@@ -2088,13 +2149,15 @@ mixin TGAPIMethods {
   /// Returns True on success.
   Future<bool> setStickerSetThumbnail(
     String name,
-    String userId, {
+    String userId,
+    String format, {
     HttpFile? thumbnail,
   }) {
     return _client.apiCall(_token, 'setStickerSetThumbnail', {
-      'user_id': userId,
       'name': name,
+      'user_id': userId,
       'thumbnail': thumbnail,
+      'format': format,
     });
   }
 
@@ -2314,6 +2377,7 @@ mixin TGAPIMethods {
   Future<Message> sendGame(
     ChatID chatId,
     String gameShortName, {
+    String? businessConnectionId,
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
@@ -2321,9 +2385,10 @@ mixin TGAPIMethods {
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendGame', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
-      'game_short_name': gameShortName,
       'message_thread_id': messageThreadId,
+      'game_short_name': gameShortName,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_parameters': replyParameters,
