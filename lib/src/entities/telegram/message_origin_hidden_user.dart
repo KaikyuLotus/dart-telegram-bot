@@ -9,6 +9,7 @@ class MessageOriginHiddenUser extends MessageOrigin {
   String type = 'hidden_user';
 
   /// Date the message was sent originally in Unix time
+  @override
   int date;
 
   /// Name of the user that sent the message originally

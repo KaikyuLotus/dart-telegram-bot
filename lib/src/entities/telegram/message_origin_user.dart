@@ -9,6 +9,7 @@ class MessageOriginUser extends MessageOrigin {
   String type = 'user';
 
   /// Date the message was sent originally in Unix time
+  @override
   int date;
 
   /// User that sent the message originally
