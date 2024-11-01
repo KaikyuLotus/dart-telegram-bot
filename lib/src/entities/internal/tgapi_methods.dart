@@ -403,11 +403,11 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to send audio files,
-  /// if you want Telegram clients to display
-  /// the file as a playable voice message.
+  /// Use this method to send audio files, if you want Telegram clients to
+  /// display the file as a playable voice message.
   ///
-  /// For this to work, your audio must be in an .OGG file encoded with OPUS
+  /// For this to work, your audio must be in an .OGG file encoded with OPUS,
+  /// or in .MP3 format, or in .M4A format
   /// (other formats may be sent as [Audio] or [Document]).
   ///
   /// On success, the sent [Message] is returned.
@@ -542,12 +542,15 @@ mixin TGAPIMethods {
   /// A location can be edited until its live_period expires or editing is
   /// explicitly disabled by a call to [stopMessageLiveLocation].
   ///
-  /// On success, the edited [Message] is returned.
-  Future<Message> editMessageLiveLocation(
+  /// On success, if the edited message is not an inline message,
+  /// the edited [Message] is returned, otherwise True is returned.
+  Future<dynamic> editMessageLiveLocation(
     double latitude,
     double longitude, {
     ChatID? chatId,
     int? messageId,
+    int? inlineMessageId,
+    int? livePeriod,
     double? horizontalAccuracy,
     int? heading,
     int? proximityAlertRadius,
@@ -556,8 +559,10 @@ mixin TGAPIMethods {
     return _client.apiCall(_token, 'editMessageLiveLocation', {
       'chat_id': chatId,
       'message_id': messageId,
+      'inline_message_id': inlineMessageId,
       'latitude': latitude,
       'longitude': longitude,
+      'live_period': livePeriod,
       'horizontal_accuracy': horizontalAccuracy,
       'heading': heading,
       'proximity_alert_radius': proximityAlertRadius,
@@ -697,9 +702,11 @@ mixin TGAPIMethods {
   Future<Message> sendPoll(
     ChatID chatId,
     String question,
-    List<String> options, {
+    List<InputPollOption> options, {
     String? businessConnectionId,
     int? messageThreadId,
+    ParseMode? questionParseMode,
+    List<MessageEntity>? questionEntities,
     bool? isAnonymous,
     String? type,
     bool? allowsMultipleAnswers,
@@ -720,6 +727,8 @@ mixin TGAPIMethods {
       'chat_id': chatId,
       'message_thread_id': messageThreadId,
       'question': question,
+      'question_parse_mode': questionParseMode,
+      'question_entities': questionEntities,
       'options': options,
       'is_anonymous': isAnonymous,
       'type': type,
@@ -1266,12 +1275,10 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to get up to date information about the chat
-  /// (current name of the user for one-on-one conversations, current username
-  /// of a user, group or channel, etc.).
+  /// Use this method to get up-to-date information about the chat.
   ///
-  /// Returns a [Chat] object on success.
-  Future<Chat> getChat(ChatID chatId) {
+  /// Returns a [ChatFullInfo] object on success.
+  Future<ChatFullInfo> getChat(ChatID chatId) {
     return _client.apiCall(_token, 'getChat', {
       'chat_id': chatId,
     });

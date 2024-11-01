@@ -26,6 +26,11 @@ class ChatMemberUpdated {
   ChatInviteLink? inviteLink;
 
   /// Optional.
+  /// True, if the user joined the chat after sending a direct join request
+  /// without using an invite link and being approved by an administrator
+  bool? viaJoinRequest;
+
+  /// Optional.
   /// True, if the user joined the chat via a chat folder invite link
   bool? viaChatFolderInviteLink;
 
@@ -37,18 +42,20 @@ class ChatMemberUpdated {
     required this.oldChatMember,
     required this.newChatMember,
     this.inviteLink,
+    this.viaJoinRequest,
     this.viaChatFolderInviteLink,
   });
 
   /// Creates a object from a json
   factory ChatMemberUpdated.fromJson(Map<String, dynamic> json) {
     return ChatMemberUpdated(
-      chat: Chat.fromJson(json['chat']!),
-      from: User.fromJson(json['from']!),
-      date: json['date']!,
-      oldChatMember: ChatMember.fromJson(json['old_chat_member']!),
-      newChatMember: ChatMember.fromJson(json['new_chat_member']!),
+      chat: Chat.fromJson(json['chat']),
+      from: User.fromJson(json['from']),
+      date: json['date'],
+      oldChatMember: ChatMember.fromJson(json['old_chat_member']),
+      newChatMember: ChatMember.fromJson(json['new_chat_member']),
       inviteLink: callIfNotNull(ChatInviteLink.fromJson, json['invite_link']),
+      viaJoinRequest: json['via_join_request'],
       viaChatFolderInviteLink: json['via_chat_folder_invite_link'],
     );
   }
@@ -62,6 +69,7 @@ class ChatMemberUpdated {
       'old_chat_member': oldChatMember,
       'new_chat_member': newChatMember,
       'invite_link': inviteLink,
+      'via_join_request': viaJoinRequest,
       'via_chat_folder_invite_link': viaChatFolderInviteLink,
     }..removeWhere((_, v) => v == null);
   }

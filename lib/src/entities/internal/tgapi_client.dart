@@ -18,24 +18,25 @@ class TGAPIClient {
   static const baseUrl = 'api.telegram.org';
 
   static final _listTypeFactories = <String, Function(List<dynamic>)>{
-    'List<Update>': Update.listFromJsonArray,
-    'List<Message>': Message.listFromJsonArray,
-    'List<ChatMember>': ChatMember.listFromJsonArray,
     'List<BotCommand>': BotCommand.listFromJsonArray,
+    'List<ChatMember>': ChatMember.listFromJsonArray,
+    'List<Message>': Message.listFromJsonArray,
+    'List<Update>': Update.listFromJsonArray,
   };
 
   static final _typeFactories = <String, Function(Map<String, dynamic>)>{
-    'User': User.fromJson,
-    'Message': Message.fromJson,
-    'UserChatBoosts': UserChatBoosts.fromJson,
-    'UserProfilePhotos': UserProfilePhotos.fromJson,
-    'File': File.fromJson,
+    'Chat': Chat.fromJson,
+    'ChatFullInfo': ChatFullInfo.fromJson,
+    'ChatInviteLink': ChatInviteLink.fromJson,
     'ChatMember': ChatMember.fromJson,
+    'File': File.fromJson,
+    'Message': Message.fromJson,
+    'MessageId': MessageId.fromJson,
     'Poll': Poll.fromJson,
     'StickerSet': StickerSet.fromJson,
-    'Chat': Chat.fromJson,
-    'ChatInviteLink': ChatInviteLink.fromJson,
-    'MessageId': MessageId.fromJson,
+    'User': User.fromJson,
+    'UserChatBoosts': UserChatBoosts.fromJson,
+    'UserProfilePhotos': UserProfilePhotos.fromJson,
   };
 
   Client? _coreClient;
