@@ -29,12 +29,22 @@ class InputMediaPhoto extends InputMedia {
   /// which can be specified instead of parse_mode
   List<MessageEntity>? captionEntities;
 
+  /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
+  /// Pass True if the photo needs to be covered with a spoiler animation
+  bool? hasSpoiler;
+
   /// Basic constructor
   InputMediaPhoto({
     required this.media,
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
+    this.hasSpoiler,
   });
 
   /// Creates a json from the object
@@ -44,6 +54,9 @@ class InputMediaPhoto extends InputMedia {
       'media': media,
       'caption': caption,
       'parse_mode': parseMode,
+      'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
+      'has_spoiler': hasSpoiler,
     }..removeWhere((_, v) => v == null);
   }
 

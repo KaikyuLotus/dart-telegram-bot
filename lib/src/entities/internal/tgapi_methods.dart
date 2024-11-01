@@ -52,6 +52,7 @@ mixin TGAPIMethods {
     LinkPreviewOptions? linkPreviewOptions,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -65,6 +66,7 @@ mixin TGAPIMethods {
       'link_preview_options': linkPreviewOptions,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -136,6 +138,7 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
     bool? disableNotification,
     bool? protectContent,
     ReplyParameters? replyParameters,
@@ -149,6 +152,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'reply_parameters': replyParameters,
@@ -204,9 +208,11 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
     bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -218,9 +224,11 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -251,6 +259,7 @@ mixin TGAPIMethods {
     HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -268,6 +277,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -290,6 +300,7 @@ mixin TGAPIMethods {
     List<MessageEntity>? captionEntities,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
     bool? disableContentTypeDetection,
@@ -305,6 +316,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
       'disable_content_type_detection': disableContentTypeDetection,
@@ -331,10 +343,12 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
     bool? hasSpoiler,
     bool? supportsStreaming,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -350,10 +364,12 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'has_spoiler': hasSpoiler,
       'supports_streaming': supportsStreaming,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -377,9 +393,11 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
     bool? hasSpoiler,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -395,9 +413,11 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'has_spoiler': hasSpoiler,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -425,6 +445,7 @@ mixin TGAPIMethods {
     int? duration,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -439,6 +460,7 @@ mixin TGAPIMethods {
       'duration': duration,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -457,6 +479,7 @@ mixin TGAPIMethods {
     HttpFile? thumbnail,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -470,6 +493,7 @@ mixin TGAPIMethods {
       'thumbnail': thumbnail,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -489,6 +513,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
   }) {
     return _client.apiCall(_token, 'sendMediaGroup', {
@@ -498,6 +523,7 @@ mixin TGAPIMethods {
       'media': media,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
     });
   }
@@ -517,6 +543,7 @@ mixin TGAPIMethods {
     int? proximityAlertRadius,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -532,6 +559,7 @@ mixin TGAPIMethods {
       'proximity_alert_radius': proximityAlertRadius,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -643,6 +671,7 @@ mixin TGAPIMethods {
     String? googlePlaceType,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -660,6 +689,7 @@ mixin TGAPIMethods {
       'google_place_type': googlePlaceType,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -678,6 +708,7 @@ mixin TGAPIMethods {
     String? vcard,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -691,6 +722,7 @@ mixin TGAPIMethods {
       'vcard': vcard,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -719,6 +751,7 @@ mixin TGAPIMethods {
     bool? isClosed,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -742,6 +775,7 @@ mixin TGAPIMethods {
       'is_closed': isClosed,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -758,6 +792,7 @@ mixin TGAPIMethods {
     Emoji? emoji,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -768,6 +803,7 @@ mixin TGAPIMethods {
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -1797,6 +1833,7 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageCaption', {
@@ -1805,6 +1842,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'reply_markup': replyMarkup,
     });
   }
@@ -1817,6 +1855,7 @@ mixin TGAPIMethods {
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageCaption', {
@@ -1824,6 +1863,7 @@ mixin TGAPIMethods {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'reply_markup': replyMarkup,
     });
   }
@@ -1966,6 +2006,7 @@ mixin TGAPIMethods {
     String? emoji,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     ReplyMarkup? replyMarkup,
   }) {
@@ -1977,6 +2018,7 @@ mixin TGAPIMethods {
       'emoji': emoji,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -2254,6 +2296,7 @@ mixin TGAPIMethods {
     bool? isFlexible,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
@@ -2281,6 +2324,7 @@ mixin TGAPIMethods {
       'is_flexible': isFlexible,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -2388,6 +2432,7 @@ mixin TGAPIMethods {
     int? messageThreadId,
     bool? disableNotification,
     bool? protectContent,
+    String? messageEffectId,
     ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
@@ -2398,6 +2443,7 @@ mixin TGAPIMethods {
       'game_short_name': gameShortName,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });

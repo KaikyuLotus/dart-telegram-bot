@@ -40,6 +40,10 @@ class InlineQueryResultVideo extends InlineQueryResult {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
   /// Video width
   int? videoWidth;
 
@@ -75,6 +79,7 @@ class InlineQueryResultVideo extends InlineQueryResult {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.videoWidth,
     this.videoHeight,
     this.videoDuration,
@@ -95,6 +100,7 @@ class InlineQueryResultVideo extends InlineQueryResult {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'video_width': videoWidth,
       'video_height': videoHeight,
       'video_duration': videoDuration,
