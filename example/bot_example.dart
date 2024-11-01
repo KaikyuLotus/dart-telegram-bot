@@ -73,7 +73,7 @@ void main(List<String> arguments) async {
       await bot.sendPoll(
         ChatID(update.message!.chat.id),
         'Nani desu ka?',
-        ['Hai!', 'Ara ara?', '!'],
+        ['Hai!', 'Ara ara?', '!'].map((t) => InputPollOption(text: t)).toList(),
         replyParameters: ReplyParameters(update.message!.messageId),
         allowsMultipleAnswers: true,
         isAnonymous: true,

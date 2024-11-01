@@ -315,6 +315,10 @@ class Message extends MaybeInaccessibleMessage {
   ChatBoostAdded? boostAdded;
 
   /// Optional.
+  /// Service message: chat background set
+  ChatBackground? chatBackgroundSet;
+
+  /// Optional.
   /// Service message: forum topic created
   ForumTopicCreated? forumTopicCreated;
 
@@ -444,6 +448,7 @@ class Message extends MaybeInaccessibleMessage {
     this.passportData,
     this.proximityAlertTriggered,
     this.boostAdded,
+    this.chatBackgroundSet,
     this.forumTopicCreated,
     this.forumTopicClosed,
     this.forumTopicReopened,
@@ -580,6 +585,10 @@ class Message extends MaybeInaccessibleMessage {
       boostAdded: callIfNotNull(
         ChatBoostAdded.fromJson,
         json['boost_added'],
+      ),
+      chatBackgroundSet: callIfNotNull(
+        ChatBackground.fromJson,
+        json['chat_background_set'],
       ),
       forumTopicCreated: callIfNotNull(
         ForumTopicCreated.fromJson,
@@ -718,6 +727,7 @@ class Message extends MaybeInaccessibleMessage {
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,
       'boost_added': boostAdded,
+      'chat_background_set': chatBackgroundSet,
       'forum_topic_created': forumTopicCreated,
       'forum_topic_closed': forumTopicClosed,
       'forum_topic_reopened': forumTopicReopened,

@@ -25,6 +25,19 @@ class UpdateType extends _Enum<String> {
   /// EditedChannelPost
   static const editedChannelPost = UpdateType._('edited_channel_post');
 
+  /// BusinessConnection
+  static const businessConnection = UpdateType._('business_connection');
+
+  /// BusinessMessage
+  static const businessMessage = UpdateType._('business_message');
+
+  /// EditedBusinessMessage
+  static const editedBusinessMessage = UpdateType._('edited_business_message');
+
+  /// DeletedBusinessMessages
+  static const deletedBusinessMessages =
+      UpdateType._('deleted_business_messages');
+
   /// MessageReaction
   static const messageReaction = UpdateType._('message_reaction');
 
@@ -73,6 +86,10 @@ class UpdateType extends _Enum<String> {
     'edited_message': editedMessage,
     'channel_post': channelPost,
     'edited_channel_post': editedChannelPost,
+    'business_connection': businessConnection,
+    'business_message': businessMessage,
+    'edited_business_message': editedBusinessMessage,
+    'deleted_business_messages': deletedBusinessMessages,
     'message_reaction': messageReaction,
     'message_reaction_count': messageReactionCount,
     'inline_query': inlineQuery,

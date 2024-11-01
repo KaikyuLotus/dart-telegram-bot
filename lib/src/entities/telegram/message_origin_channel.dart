@@ -9,6 +9,7 @@ class MessageOriginChannel extends MessageOrigin {
   String type = 'channel';
 
   /// Date the message was sent originally in Unix time
+  @override
   int date;
 
   /// Channel chat to which the message was originally sent
