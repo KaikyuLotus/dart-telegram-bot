@@ -2500,6 +2500,16 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Returns the bot's Telegram Star transactions in chronological order.
+  ///
+  /// On success, returns a [StarTransactions] object.
+  Future<StarTransactions> getStarTransactions(int offset, int limit) {
+    return _client.apiCall(_token, 'getStarTransactions', {
+      'offset': offset,
+      'limit': limit,
+    });
+  }
+
   /// Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90).
   ///
   /// Returns `true` on success.
