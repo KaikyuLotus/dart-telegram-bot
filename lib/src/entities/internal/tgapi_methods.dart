@@ -565,95 +565,6 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to edit live location messages.
-  ///
-  /// A location can be edited until its live_period expires or editing is
-  /// explicitly disabled by a call to [stopMessageLiveLocation].
-  ///
-  /// On success, if the edited message is not an inline message,
-  /// the edited [Message] is returned, otherwise True is returned.
-  Future<dynamic> editMessageLiveLocation(
-    double latitude,
-    double longitude, {
-    ChatID? chatId,
-    int? messageId,
-    int? inlineMessageId,
-    int? livePeriod,
-    double? horizontalAccuracy,
-    int? heading,
-    int? proximityAlertRadius,
-    ReplyMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'editMessageLiveLocation', {
-      'chat_id': chatId,
-      'message_id': messageId,
-      'inline_message_id': inlineMessageId,
-      'latitude': latitude,
-      'longitude': longitude,
-      'live_period': livePeriod,
-      'horizontal_accuracy': horizontalAccuracy,
-      'heading': heading,
-      'proximity_alert_radius': proximityAlertRadius,
-      'reply_markup': replyMarkup,
-    });
-  }
-
-  /// Use this method to edit live location messages.
-  ///
-  /// A location can be edited until its live_period expires or editing is
-  /// explicitly disabled by a call to [stopMessageLiveLocation].
-  ///
-  /// On success, True is returned.
-  Future<bool> editMessageLiveLocationInline(
-    double latitude,
-    double longitude, {
-    String? inlineMessageId,
-    double? horizontalAccuracy,
-    int? heading,
-    int? proximityAlertRadius,
-    ReplyMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'editMessageLiveLocation', {
-      'inline_message_id': inlineMessageId,
-      'latitude': latitude,
-      'longitude': longitude,
-      'horizontal_accuracy': horizontalAccuracy,
-      'heading': heading,
-      'proximity_alert_radius': proximityAlertRadius,
-      'reply_markup': replyMarkup,
-    });
-  }
-
-  /// Use this method to stop updating a live
-  /// location message before live_period expires.
-  ///
-  /// On success, the edited [Message] is returned.
-  Future<Message> stopMessageLiveLocation({
-    ChatID? chatId,
-    int? messageId,
-    ReplyMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'stopMessageLiveLocation', {
-      'chat_id': chatId,
-      'message_id': messageId,
-      'reply_markup': replyMarkup,
-    });
-  }
-
-  /// Use this method to stop updating a live
-  /// location message before live_period expires.
-  ///
-  /// On success, True is returned.
-  Future<bool> stopMessageLiveLocationInline({
-    String? inlineMessageId,
-    ReplyMarkup? replyMarkup,
-  }) {
-    return _client.apiCall(_token, 'stopMessageLiveLocation', {
-      'inline_message_id': inlineMessageId,
-      'reply_markup': replyMarkup,
-    });
-  }
-
   /// Use this method to send information about a venue.
   ///
   /// On success, the sent [Message] is returned.
@@ -1780,19 +1691,26 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to edit text and game messages.
+  /// Use this method to edit text and [game](https://core.telegram.org/bots/api#games)
+  /// messages.
   ///
   /// On success, the edited [Message] is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<Message> editMessageText(
-    String text,
-    ChatID? chatId,
-    int? messageId, {
+    ChatID chatId,
+    int messageId,
+    String text, {
+    String? businessConnectionId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
     LinkPreviewOptions? linkPreviewOptions,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageText', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
       'text': text,
@@ -1805,16 +1723,22 @@ mixin TGAPIMethods {
 
   /// Use this method to edit text and game messages.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<bool> editMessageTextInline(
     String text,
-    String? inlineMessageId, {
+    String inlineMessageId, {
+    String? businessConnectionId,
     ParseMode? parseMode,
     List<MessageEntity>? entities,
     LinkPreviewOptions? linkPreviewOptions,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageText', {
+      'business_connection_id': businessConnectionId,
       'inline_message_id': inlineMessageId,
       'text': text,
       'parse_mode': parseMode,
@@ -1827,9 +1751,14 @@ mixin TGAPIMethods {
   /// Use this method to edit captions of messages.
   ///
   /// On success, the edited [Message] is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<Message> editMessageCaption(
-    ChatID? chatId,
-    int? messageId, {
+    ChatID chatId,
+    int messageId, {
+    String? businessConnectionId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -1837,6 +1766,7 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageCaption', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
       'caption': caption,
@@ -1849,9 +1779,14 @@ mixin TGAPIMethods {
 
   /// Use this method to edit captions of messages.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<bool> editMessageCaptionInline(
-    String? inlineMessageId, {
+    String inlineMessageId, {
+    String? businessConnectionId,
     String? caption,
     ParseMode? parseMode,
     List<MessageEntity>? captionEntities,
@@ -1859,6 +1794,7 @@ mixin TGAPIMethods {
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageCaption', {
+      'business_connection_id': businessConnectionId,
       'inline_message_id': inlineMessageId,
       'caption': caption,
       'parse_mode': parseMode,
@@ -1875,17 +1811,20 @@ mixin TGAPIMethods {
   /// an audio for audio albums, only to a document for document albums and to
   /// a photo or a video otherwise.
   ///
-  /// When an inline message is edited, a new file can't be uploaded;
-  /// use a previously uploaded file via its file_id or specify a URL.
-  ///
   /// On success, the edited [Message] is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<Message> editMessageMedia(
-    ChatID? chatId,
-    int? messageId,
+    ChatID chatId,
+    int messageId,
     InputMedia media, {
+    String? businessConnectionId,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageMedia', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
       'media': media,
@@ -1901,17 +1840,117 @@ mixin TGAPIMethods {
   /// a photo or a video otherwise.
   ///
   /// When an inline message is edited, a new file can't be uploaded;
-  /// use a previously uploaded file via its file_id or specify a URL.
+  /// use a previously uploaded file via its `file_id` or specify a URL.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<bool> editMessageMediaInline(
-    String? inlineMessageId,
+    String inlineMessageId,
     InputMedia media, {
+    String? businessConnectionId,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageMedia', {
+      'business_connection_id': businessConnectionId,
       'inline_message_id': inlineMessageId,
       'media': media,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to edit live location messages.
+  ///
+  /// A location can be edited until its `live_period` expires or editing is
+  /// explicitly disabled by a call to [stopMessageLiveLocation].
+  ///
+  /// On success, [Message] is returned.
+  Future<dynamic> editMessageLiveLocation(
+    ChatID chatId,
+    int messageId,
+    double latitude,
+    double longitude, {
+    String? businessConnectionId,
+    int? livePeriod,
+    double? horizontalAccuracy,
+    int? heading,
+    int? proximityAlertRadius,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageLiveLocation', {
+      'business_connection_id': businessConnectionId,
+      'chat_id': chatId,
+      'message_id': messageId,
+      'latitude': latitude,
+      'longitude': longitude,
+      'live_period': livePeriod,
+      'horizontal_accuracy': horizontalAccuracy,
+      'heading': heading,
+      'proximity_alert_radius': proximityAlertRadius,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to edit live location messages.
+  ///
+  /// A location can be edited until its `live_period` expires or editing is
+  /// explicitly disabled by a call to [stopMessageLiveLocation].
+  ///
+  /// On success, `true` is returned.
+  Future<bool> editMessageLiveLocationInline(
+    String inlineMessageId,
+    double latitude,
+    double longitude, {
+    String? businessConnectionId,
+    double? horizontalAccuracy,
+    int? heading,
+    int? proximityAlertRadius,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'editMessageLiveLocation', {
+      'business_connection_id': businessConnectionId,
+      'inline_message_id': inlineMessageId,
+      'latitude': latitude,
+      'longitude': longitude,
+      'horizontal_accuracy': horizontalAccuracy,
+      'heading': heading,
+      'proximity_alert_radius': proximityAlertRadius,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to stop updating a live
+  /// location message before `live_period` expires.
+  ///
+  /// On success, the edited [Message] is returned.
+  Future<Message> stopMessageLiveLocation(
+    ChatID chatId,
+    int messageId, {
+    String? businessConnectionId,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'stopMessageLiveLocation', {
+      'business_connection_id': businessConnectionId,
+      'chat_id': chatId,
+      'message_id': messageId,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to stop updating a live
+  /// location message before `live_period` expires.
+  ///
+  /// On success, `true` is returned.
+  Future<bool> stopMessageLiveLocationInline(
+    String inlineMessageId, {
+    String? businessConnectionId,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'stopMessageLiveLocation', {
+      'business_connection_id': businessConnectionId,
+      'inline_message_id': inlineMessageId,
       'reply_markup': replyMarkup,
     });
   }
@@ -1919,12 +1958,18 @@ mixin TGAPIMethods {
   /// Use this method to edit only the reply markup of messages.
   ///
   /// On success, the edited [Message] is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<Message> editMessageReplyMarkup(
-    ChatID? chatId,
-    int? messageId, {
+    ChatID chatId,
+    int messageId, {
+    String? businessConnectionId,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageReplyMarkup', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
       'reply_markup': replyMarkup,
@@ -1934,11 +1979,17 @@ mixin TGAPIMethods {
   /// Use this method to edit only the reply markup of messages.
   ///
   /// On success, True is returned.
+  ///
+  /// Note that business messages that were not sent by the bot and do no
+  /// contain an inline keyboard can only be edited within **48 hours** from the
+  /// time they were sent.
   Future<bool> editMessageReplyMarkupInline(
-    String? inlineMessageId, {
+    String inlineMessageId, {
+    String? businessConnectionId,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'editMessageReplyMarkup', {
+      'business_connection_id': businessConnectionId,
       'inline_message_id': inlineMessageId,
       'reply_markup': replyMarkup,
     });
@@ -1950,9 +2001,11 @@ mixin TGAPIMethods {
   Future<Poll> stopPoll(
     ChatID chatId,
     int messageId, {
+    String? businessConnectionId,
     ReplyMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'stopPoll', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
       'reply_markup': replyMarkup,
