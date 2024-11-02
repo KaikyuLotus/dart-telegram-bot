@@ -43,6 +43,10 @@ class InputMediaAnimation extends InputMedia {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
   /// Animation width
   int? width;
 
@@ -54,6 +58,10 @@ class InputMediaAnimation extends InputMedia {
   /// Animation duration in seconds
   int? duration;
 
+  /// Optional.
+  /// Pass True if the photo needs to be covered with a spoiler animation
+  bool? hasSpoiler;
+
   /// Basic constructor
   InputMediaAnimation({
     required this.media,
@@ -61,9 +69,11 @@ class InputMediaAnimation extends InputMedia {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.width,
     this.height,
     this.duration,
+    this.hasSpoiler,
   });
 
   /// Creates a json from the object
@@ -75,9 +85,11 @@ class InputMediaAnimation extends InputMedia {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'width': width,
       'height': height,
       'duration': duration,
+      'has_spoiler': hasSpoiler,
     }..removeWhere((_, v) => v == null);
   }
 

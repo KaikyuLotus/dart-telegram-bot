@@ -5,18 +5,22 @@ import '../internal/helpers/util.dart';
 
 /// This object contains basic information about a successful payment.
 class SuccessfulPayment {
-  /// Three-letter ISO 4217 currency code
+  /// Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies)
+  /// code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90)
   String currency;
 
   /// Total price in the smallest units of the currency
   /// (integer, not float/double).
-  /// For example, for a price of US$ 1.45 pass amount = 145.
-  /// See the exp parameter in currencies.json, it shows the number of digits
-  /// past the decimal point for each currency
+  ///
+  /// For example, for a price of `US$ 1.45` pass `amount = 145`.
+  ///
+  /// See the exp parameter in
+  /// [currencies.json](https://core.telegram.org/bots/payments/currencies.json),
+  /// it shows the number of digits past the decimal point for each currency
   /// (2 for the majority of currencies).
   int totalAmount;
 
-  /// Bot specified invoice payload
+  /// Bot-specified invoice payload
   String invoicePayload;
 
   /// Optional.
@@ -47,13 +51,13 @@ class SuccessfulPayment {
   /// Creates a object from a json
   factory SuccessfulPayment.fromJson(Map<String, dynamic> json) {
     return SuccessfulPayment(
-      currency: json['currency']!,
-      totalAmount: json['total_amount']!,
-      invoicePayload: json['invoice_payload']!,
+      currency: json['currency'],
+      totalAmount: json['total_amount'],
+      invoicePayload: json['invoice_payload'],
       shippingOptionId: json['shipping_option_id'],
       orderInfo: callIfNotNull(OrderInfo.fromJson, json['order_info']),
-      telegramPaymentChargeId: json['telegram_payment_charge_id']!,
-      providerPaymentChargeId: json['provider_payment_charge_id']!,
+      telegramPaymentChargeId: json['telegram_payment_charge_id'],
+      providerPaymentChargeId: json['provider_payment_charge_id'],
     );
   }
 

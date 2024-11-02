@@ -69,6 +69,10 @@ class InlineKeyboardButton {
 
   /// Optional.
   /// Specify True, to send a Pay button.
+  /// Substrings “⭐” and “XTR” in the buttons's text will be replaced with a
+  /// Telegram Star icon.
+  /// This type of button must always be the first button in the first row and
+  /// can only be used in invoice messages.
   bool? pay;
 
   InlineKeyboardButton._(

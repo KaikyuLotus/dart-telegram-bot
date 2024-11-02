@@ -41,6 +41,10 @@ class InputMediaVideo extends InputMedia {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
   /// Video width
   int? width;
 
@@ -56,6 +60,10 @@ class InputMediaVideo extends InputMedia {
   /// Pass True if the uploaded video is suitable for streaming
   bool? supportsStreaming;
 
+  /// Optional.
+  /// Pass True if the video needs to be covered with a spoiler animation
+  bool? hasSpoiler;
+
   /// Basic constructor
   InputMediaVideo({
     required this.media,
@@ -63,10 +71,12 @@ class InputMediaVideo extends InputMedia {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.width,
     this.height,
     this.duration,
     this.supportsStreaming,
+    this.hasSpoiler,
   });
 
   /// Creates a json from the object
@@ -78,10 +88,12 @@ class InputMediaVideo extends InputMedia {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'width': width,
       'height': height,
       'duration': duration,
       'supports_streaming': supportsStreaming,
+      'has_spoiler': hasSpoiler,
     }..removeWhere((_, v) => v == null);
   }
 

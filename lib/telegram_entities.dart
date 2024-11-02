@@ -103,6 +103,7 @@ export 'src/entities/telegram/inline_query_result_video.dart';
 export 'src/entities/telegram/inline_query_result_voice.dart';
 export 'src/entities/telegram/inline_query_results_button.dart';
 export 'src/entities/telegram/input_contact_message_content.dart';
+export 'src/entities/telegram/input_invoice_message_content.dart';
 export 'src/entities/telegram/input_location_message_content.dart';
 export 'src/entities/telegram/input_media.dart';
 export 'src/entities/telegram/input_media_animation.dart';

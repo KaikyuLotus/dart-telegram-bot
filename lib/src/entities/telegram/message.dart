@@ -130,6 +130,10 @@ class Message extends MaybeInaccessibleMessage {
   LinkPreviewOptions? linkPreviewOptions;
 
   /// Optional.
+  /// Unique identifier of the message effect added to the message
+  String? effectId;
+
+  /// Optional.
   /// Message is an animation, information about the animation.
   /// For backward compatibility, when this field is set, the document fiel
   ///  will also be set
@@ -175,6 +179,10 @@ class Message extends MaybeInaccessibleMessage {
   /// For messages with a caption, special entities like usernames, URLs,
   /// bot commands, etc. that appear in the caption
   List<MessageEntity>? captionEntities;
+
+  /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
 
   /// Optional.
   /// True, if the message media is covered by a spoiler animation
@@ -410,6 +418,7 @@ class Message extends MaybeInaccessibleMessage {
     this.text,
     this.entities,
     this.linkPreviewOptions,
+    this.effectId,
     this.animation,
     this.audio,
     this.document,
@@ -421,6 +430,7 @@ class Message extends MaybeInaccessibleMessage {
     this.voice,
     this.caption,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.hasMediaSpoiler,
     this.contact,
     this.dice,
@@ -512,6 +522,7 @@ class Message extends MaybeInaccessibleMessage {
         LinkPreviewOptions.fromJson,
         json['link_preview_options'],
       ),
+      effectId: json['effect_id'],
       animation: callIfNotNull(Animation.fromJson, json['animation']),
       audio: callIfNotNull(Audio.fromJson, json['audio']),
       document: callIfNotNull(Document.fromJson, json['document']),
@@ -526,6 +537,7 @@ class Message extends MaybeInaccessibleMessage {
         MessageEntity.listFromJsonArray,
         json['caption_entities'],
       ),
+      showCaptionAboveMedia: json['show_caption_above_media'],
       hasMediaSpoiler: json['has_media_spoiler'],
       contact: callIfNotNull(Contact.fromJson, json['contact']),
       dice: callIfNotNull(Dice.fromJson, json['dice']),
@@ -689,6 +701,7 @@ class Message extends MaybeInaccessibleMessage {
       'text': text,
       'entities': entities,
       'link_preview_options': linkPreviewOptions,
+      'effect_id': effectId,
       'animation': animation,
       'audio': audio,
       'document': document,
@@ -700,6 +713,7 @@ class Message extends MaybeInaccessibleMessage {
       'voice': voice,
       'caption': caption,
       'captionEntities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'has_media_spoiler': hasMediaSpoiler,
       'contact': contact,
       'dice': dice,

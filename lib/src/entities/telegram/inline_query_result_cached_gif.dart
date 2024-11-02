@@ -36,6 +36,10 @@ class InlineQueryResultCachedGif extends InlineQueryResult {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
   /// Inline keyboard attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
@@ -51,6 +55,7 @@ class InlineQueryResultCachedGif extends InlineQueryResult {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.replyMarkup,
     this.inputMessageContent,
   });
@@ -65,6 +70,7 @@ class InlineQueryResultCachedGif extends InlineQueryResult {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'reply_markup': replyMarkup,
       'input_message_content': inputMessageContent,
     }..removeWhere((_, v) => v == null);
