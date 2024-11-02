@@ -2278,10 +2278,12 @@ mixin TGAPIMethods {
     String description,
     String payload,
     String providerToken,
-    String startParameter,
     String currency,
     List<LabeledPrice> prices, {
     int? messageThreadId,
+    int? maxTipAmount,
+    List<int>? suggestedTipAmounts,
+    String? startParameter,
     String? providerData,
     String? photoUrl,
     int? photoSize,
@@ -2302,14 +2304,16 @@ mixin TGAPIMethods {
   }) {
     return _client.apiCall(_token, 'sendInvoice', {
       'chat_id': chatId,
+      'message_thread_id': messageThreadId,
       'title': title,
       'description': description,
       'payload': payload,
       'provider_token': providerToken,
-      'start_parameter': startParameter,
       'currency': currency,
       'prices': prices,
-      'message_thread_id': messageThreadId,
+      'max_tip_amount': maxTipAmount,
+      'suggested_tip_amounts': suggestedTipAmounts,
+      'start_parameter': startParameter,
       'provider_data': providerData,
       'photo_url': photoUrl,
       'photo_size': photoSize,
@@ -2322,6 +2326,51 @@ mixin TGAPIMethods {
       'send_phone_number_to_provider': sendPhoneNumberToProvider,
       'send_email_to_provider': sendEmailToProvider,
       'is_flexible': isFlexible,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'message_effect_id': messageEffectId,
+      'reply_parameters': replyParameters,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to send invoices for payments in
+  /// [Telegram Stars](https://t.me/BotNews/90).
+  ///
+  /// On success, the sent [Message] is returned.
+  Future<Message> sendInvoiceStars(
+    ChatID chatId,
+    String title,
+    String description,
+    String payload,
+    LabeledPrice price, {
+    int? messageThreadId,
+    String? startParameter,
+    String? providerData,
+    String? photoUrl,
+    int? photoSize,
+    int? photoWidth,
+    int? photoHeight,
+    bool? disableNotification,
+    bool? protectContent,
+    String? messageEffectId,
+    ReplyParameters? replyParameters,
+    InlineKeyboardMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'sendInvoice', {
+      'chat_id': chatId,
+      'message_thread_id': messageThreadId,
+      'title': title,
+      'description': description,
+      'payload': payload,
+      'currency': 'XTR',
+      'prices': [price],
+      'start_parameter': startParameter,
+      'provider_data': providerData,
+      'photo_url': photoUrl,
+      'photo_size': photoSize,
+      'photo_width': photoWidth,
+      'photo_height': photoHeight,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'message_effect_id': messageEffectId,
@@ -2379,6 +2428,35 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to create a link for an invoice for payments in
+  /// [Telegram Stars](https://t.me/BotNews/90).
+  ///
+  /// Returns the created invoice link as String on success.
+  Future<String> createInvoiceLinkStars(
+    String title,
+    String description,
+    String payload,
+    LabeledPrice price, {
+    String? providerData,
+    String? photoUrl,
+    int? photoSize,
+    int? photoWidth,
+    int? photoHeight,
+  }) {
+    return _client.apiCall(_token, 'createInvoiceLink', {
+      'title': title,
+      'description': description,
+      'payload': payload,
+      'currency': 'XTR',
+      'prices': [price],
+      'provider_data': providerData,
+      'photo_url': photoUrl,
+      'photo_size': photoSize,
+      'photo_width': photoWidth,
+      'photo_height': photoHeight,
+    });
+  }
+
   /// If you sent an invoice requesting a shipping address and the parameter
   /// is_flexible was specified, the Bot API will send an [Update] with a
   /// shipping_query field to the bot.
@@ -2419,6 +2497,16 @@ mixin TGAPIMethods {
       'pre_checkout_query_id': preCheckoutQueryId,
       'ok': ok,
       'error_message': errorMessage,
+    });
+  }
+
+  /// Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90).
+  ///
+  /// Returns `true` on success.
+  Future<bool> refundStarPayment(int userId, String telegramPaymentChargeId) {
+    return _client.apiCall(_token, 'refundStarPayment', {
+      'user_id': userId,
+      'telegram_payment_charge_id': telegramPaymentChargeId,
     });
   }
 
