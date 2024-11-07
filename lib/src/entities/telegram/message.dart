@@ -148,6 +148,10 @@ class Message extends MaybeInaccessibleMessage {
   Document? document;
 
   /// Optional.
+  /// Message contains paid media; information about the paid media
+  PaidMediaInfo? paidMedia;
+
+  /// Optional.
   /// Message is a photo, available sizes of the photo
   List<PhotoSize>? photo;
 
@@ -422,6 +426,7 @@ class Message extends MaybeInaccessibleMessage {
     this.animation,
     this.audio,
     this.document,
+    this.paidMedia,
     this.photo,
     this.sticker,
     this.story,
@@ -526,6 +531,7 @@ class Message extends MaybeInaccessibleMessage {
       animation: callIfNotNull(Animation.fromJson, json['animation']),
       audio: callIfNotNull(Audio.fromJson, json['audio']),
       document: callIfNotNull(Document.fromJson, json['document']),
+      paidMedia: callIfNotNull(PaidMediaInfo.fromJson, json['paid_media']),
       photo: callIfNotNull(PhotoSize.listFromJsonArray, json['photo']),
       sticker: callIfNotNull(Sticker.fromJson, json['sticker']),
       story: callIfNotNull(Story.fromJson, json['story']),
@@ -705,6 +711,7 @@ class Message extends MaybeInaccessibleMessage {
       'animation': animation,
       'audio': audio,
       'document': document,
+      'paid_media': paidMedia,
       'photo': photo,
       'sticker': sticker,
       'story': story,
