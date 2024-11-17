@@ -40,6 +40,16 @@ class ChatInviteLink {
   /// Number of pending join requests created using this link
   int? pendingJoinRequestCount;
 
+  /// Optional.
+  /// The number of seconds the subscription will be active for before the next
+  /// payment
+  int? subscriptionPeriod;
+
+  /// Optional.
+  /// The amount of Telegram Stars a user must pay initially and after each
+  /// subsequent subscription period to be a member of the chat using the link
+  int? subscriptionPrice;
+
   /// Basic constructor
   ChatInviteLink({
     required this.inviteLink,
@@ -51,20 +61,24 @@ class ChatInviteLink {
     this.expireDate,
     this.memberLimit,
     this.pendingJoinRequestCount,
+    this.subscriptionPeriod,
+    this.subscriptionPrice,
   });
 
   /// Creates a object from a json
   factory ChatInviteLink.fromJson(Map<String, dynamic> json) {
     return ChatInviteLink(
-      inviteLink: json['invite_link']!,
-      creator: User.fromJson(json['creator']!),
-      createsJoinRequest: json['creates_join_request']!,
-      isPrimary: json['is_primary']!,
-      isRevoked: json['is_revoked']!,
+      inviteLink: json['invite_link'],
+      creator: User.fromJson(json['creator']),
+      createsJoinRequest: json['creates_join_request'],
+      isPrimary: json['is_primary'],
+      isRevoked: json['is_revoked'],
       name: json['name'],
       expireDate: json['expire_date'],
       memberLimit: json['member_limit'],
       pendingJoinRequestCount: json['pending_join_request_count'],
+      subscriptionPeriod: json['subscription_period'],
+      subscriptionPrice: json['subscription_price'],
     );
   }
 
@@ -80,6 +94,8 @@ class ChatInviteLink {
       'expire_date': expireDate,
       'member_limit': memberLimit,
       'pending_join_request_count': pendingJoinRequestCount,
+      'subscription_period': subscriptionPeriod,
+      'subscription_price': subscriptionPrice,
     }..removeWhere((_, v) => v == null);
   }
 

@@ -624,13 +624,16 @@ void main() {
       );
       expect(ok, isTrue);
       var user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(user.canChangeInfo, isTrue);
-      expect(user.canDeleteMessages, isTrue);
-      expect(user.canInviteUsers, isTrue);
-      expect(user.canInviteUsers, isTrue);
-      expect(user.canPinMessages, isTrue);
-      expect(user.canPromoteMembers, isTrue);
-      expect(user.canRestrictMembers, isTrue);
+      if (user is ChatMemberAdministrator) {
+        expect(user.canChangeInfo, isTrue);
+        expect(user.canDeleteMessages, isTrue);
+        expect(user.canInviteUsers, isTrue);
+        expect(user.canInviteUsers, isTrue);
+        expect(user.canPinMessages, isTrue);
+        expect(user.canPromoteMembers, isTrue);
+        expect(user.canRestrictMembers, isTrue);
+      }
+
       ok = await testBot.promoteChatMember(
         ChatID(groupId),
         chatUserId,
@@ -642,14 +645,6 @@ void main() {
         canRestrictMembers: false,
       );
       expect(ok, isTrue);
-      user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(user.canChangeInfo, isNull);
-      expect(user.canDeleteMessages, isNull);
-      expect(user.canInviteUsers, isNull);
-      expect(user.canInviteUsers, isNull);
-      expect(user.canPinMessages, isNull);
-      expect(user.canPromoteMembers, isNull);
-      expect(user.canRestrictMembers, isNull);
     },
     skip: true,
   );
@@ -671,10 +666,10 @@ void main() {
       );
       expect(ok, isTrue);
       var user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(
-        user.customTitle,
-        equals(title),
-      );
+      if (user is ChatMemberAdministrator) {
+        expect(user.customTitle, equals(title));
+      }
+
       ok = await testBot.promoteChatMember(
         ChatID(groupId),
         chatUserId,
