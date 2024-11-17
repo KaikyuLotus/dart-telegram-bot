@@ -1,3 +1,7 @@
+## 1.9.0
+
+- Updated to bot API 7.7
+
 ## 1.8.0
 
 - Updated to bot API 7.6
