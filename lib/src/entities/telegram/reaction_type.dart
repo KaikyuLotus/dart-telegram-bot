@@ -1,10 +1,11 @@
 import '../../../telegram_entities.dart';
 
 /// This object describes the type of a reaction.
+///
 /// Currently, it can be one of:
-/// It can be one of:
-/// ReactionTypeEmoji,
-/// ReactionTypeCustomEmoji
+/// [ReactionTypeEmoji],
+/// [ReactionTypeCustomEmoji],
+/// [ReactionTypePaid]
 abstract class ReactionType {
   abstract final String type;
 
@@ -15,6 +16,8 @@ abstract class ReactionType {
         return ReactionTypeEmoji.fromJson(json);
       case 'custom_emoji':
         return ReactionTypeCustomEmoji.fromJson(json);
+      case 'paid':
+        return ReactionTypePaid.fromJson(json);
       default:
         throw Exception('ReactionType type not recognized');
     }

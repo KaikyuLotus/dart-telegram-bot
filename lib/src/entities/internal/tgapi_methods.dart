@@ -1096,6 +1096,45 @@ mixin TGAPIMethods {
     });
   }
 
+  /// Use this method to create a subscription invite link for a channel chat.
+  ///
+  /// The bot must have the can_invite_users administrator rights.
+  ///
+  /// The link can be edited using the method editChatSubscriptionInviteLink or
+  /// revoked using the method revokeChatInviteLink.
+  ///
+  /// Returns the new invite link as a [ChatInviteLink] object.
+  Future<ChatInviteLink> createChatSubscriptionInviteLink(
+    ChatID chatId, {
+    String? name,
+    int? subscriptionPeriod,
+    int? subscriptionPrice,
+  }) {
+    return _client.apiCall(_token, 'createChatSubscriptionInviteLink', {
+      'chat_id': chatId,
+      'name': name,
+      'subscription_period': subscriptionPeriod,
+      'subscription_price': subscriptionPrice,
+    });
+  }
+
+  /// Use this method to edit a subscription invite link created by the bot.
+  ///
+  /// The bot must have the can_invite_users administrator rights.
+  ///
+  /// Returns the edited invite link as a [ChatInviteLink] object.
+  Future<ChatInviteLink> editChatSubscriptionInviteLink(
+    ChatID chatId,
+    String inviteLink, {
+    String? name,
+  }) {
+    return _client.apiCall(_token, 'editChatSubscriptionInviteLink', {
+      'chat_id': chatId,
+      'invite_link': inviteLink,
+      'name': name,
+    });
+  }
+
   /// Use this method to revoke an invite link created by the bot.
   ///
   /// If the primary link is revoked, a new link is automatically generated.
