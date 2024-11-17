@@ -6,6 +6,7 @@ import '../../../telegram_entities.dart';
 /// Currently, it can be one of
 /// [TransactionPartnerUser],
 /// [TransactionPartnerFragment],
+/// [TransactionPartnerTelegramAds],
 /// [TransactionPartnerOther]
 abstract class TransactionPartner {
   abstract final String type;
@@ -16,6 +17,8 @@ abstract class TransactionPartner {
         return TransactionPartnerUser.fromJson(json);
       case 'fragment':
         return TransactionPartnerFragment.fromJson(json);
+      case 'telegram_ads':
+        return TransactionPartnerTelegramAds.fromJson(json);
       case 'other':
         return TransactionPartnerOther.fromJson(json);
       default:

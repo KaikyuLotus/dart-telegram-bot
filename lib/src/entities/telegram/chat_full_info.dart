@@ -143,6 +143,11 @@ class ChatFullInfo {
   ChatPermissions? permissions;
 
   /// Optional.
+  /// True, if paid media messages can be sent or forwarded to the channel chat.
+  /// The field is available only for channel chats.
+  bool? canSendPaidMedia;
+
+  /// Optional.
   /// For supergroups, the minimum allowed delay between consecutive messages
   /// sent by each unpriviledged user; in seconds
   int? slowModeDelay;
@@ -236,6 +241,7 @@ class ChatFullInfo {
     this.inviteLink,
     this.pinnedMessage,
     this.permissions,
+    this.canSendPaidMedia,
     this.slowModeDelay,
     this.unrestrictBoostCount,
     this.messageAutoDeleteTime,
@@ -298,6 +304,7 @@ class ChatFullInfo {
       inviteLink: json['invite_link'],
       pinnedMessage: callIfNotNull(Message.fromJson, json['pinned_message']),
       permissions: callIfNotNull(ChatPermissions.fromJson, json['permissions']),
+      canSendPaidMedia: json['can_send_paid_media'],
       slowModeDelay: json['slow_mode_delay'],
       unrestrictBoostCount: json['unrestrict_boost_count'],
       messageAutoDeleteTime: json['message_auto_delete_time'],
@@ -348,6 +355,7 @@ class ChatFullInfo {
       'invite_link': inviteLink,
       'pinned_message': pinnedMessage,
       'permissions': permissions,
+      'can_send_paid_media': canSendPaidMedia,
       'slow_mode_delay': slowModeDelay,
       'unrestrict_boost_count': unrestrictBoostCount,
       'message_auto_delete_time': messageAutoDeleteTime,

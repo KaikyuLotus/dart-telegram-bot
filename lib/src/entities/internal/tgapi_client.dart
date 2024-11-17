@@ -119,7 +119,7 @@ class TGAPIClient {
         if (param.value == null) continue;
 
         switch (param.value.runtimeType) {
-          case List<InputMedia>:
+          case List<InputMedia> _:
             updatedQuery[param.key] = param.value.map((InputMedia inputMedia) {
               if (inputMedia.media is! HttpFile) {
                 return inputMedia;
@@ -134,14 +134,12 @@ class TGAPIClient {
 
               return inputMedia;
             }).toList();
-            break;
-          case HttpFile:
+          case HttpFile _:
             if (param.value.token != null) {
               updatedQuery[param.key] = param.value.token;
             } else {
               files[param.key] = param.value;
             }
-            break;
           default:
             updatedQuery[param.key] = param.value;
             break;

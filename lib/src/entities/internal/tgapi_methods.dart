@@ -124,7 +124,11 @@ mixin TGAPIMethods {
 
   /// Use this method to copy messages of any kind.
   ///
-  /// Service messages and invoice messages can't be copied.
+  /// Service messages, paid media messages, giveaway messages,
+  /// giveaway winners messages, and invoice messages can't be copied.
+  ///
+  /// A quiz poll can be copied only if the value of the
+  /// field correct_option_id is known to the bot.
   ///
   /// The method is analogous to the method [forwardMessage],
   /// but the copied message doesn't have a link to the original message.
@@ -165,8 +169,8 @@ mixin TGAPIMethods {
   /// If some of the specified messages can't be found or copied,
   /// they are skipped.
   ///
-  /// Service messages, giveaway messages, giveaway winners messages,
-  /// and invoice messages can't be copied.
+  /// Service messages, paid media messages, giveaway messages,
+  /// giveaway winners messages and invoice messages can't be copied.
   ///
   /// A quiz poll can be copied only if the value of the field
   /// correct_option_id is known to the bot.
@@ -494,6 +498,43 @@ mixin TGAPIMethods {
       'disable_notification': disableNotification,
       'protect_content': protectContent,
       'message_effect_id': messageEffectId,
+      'reply_parameters': replyParameters,
+      'reply_markup': replyMarkup,
+    });
+  }
+
+  /// Use this method to send paid media.
+  ///
+  /// On success, the sent [Message] is returned.
+  Future<Message> sendPaidMedia(
+    ChatID chatId,
+    int starCount,
+    List<InputPaidMedia> media, {
+    String? businessConnectionId,
+    String? payload,
+    String? caption,
+    ParseMode? parseMode,
+    List<MessageEntity>? captionEntities,
+    bool? showCaptionAboveMedia,
+    bool? disableNotification,
+    bool? protectContent,
+    bool? allowPaidBroadcast,
+    ReplyParameters? replyParameters,
+    ReplyMarkup? replyMarkup,
+  }) {
+    return _client.apiCall(_token, 'sendPaidMedia', {
+      'business_connection_id': businessConnectionId,
+      'chat_id': chatId,
+      'star_count': starCount,
+      'media': media,
+      'payload': payload,
+      'caption': caption,
+      'parse_mode': parseMode,
+      'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
+      'disable_notification': disableNotification,
+      'protect_content': protectContent,
+      'allow_paid_broadcast': allowPaidBroadcast,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
