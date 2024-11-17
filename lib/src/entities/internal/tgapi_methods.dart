@@ -1215,9 +1215,11 @@ mixin TGAPIMethods {
   Future<bool> pinChatMessage(
     ChatID chatId,
     int messageId, {
+    String? businessConnectionId,
     bool? disableNotification,
   }) {
     return _client.apiCall(_token, 'pinChatMessage', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
       'disable_notification': disableNotification,
@@ -1233,8 +1235,13 @@ mixin TGAPIMethods {
   /// 'can_edit_messages' admin right in a channel.
   ///
   /// Returns True on success.
-  Future<bool> unpinChatMessage(ChatID chatId, {int? messageId}) {
+  Future<bool> unpinChatMessage(
+    ChatID chatId, {
+    String? businessConnectionId,
+    int? messageId,
+  }) {
     return _client.apiCall(_token, 'unpinChatMessage', {
+      'business_connection_id': businessConnectionId,
       'chat_id': chatId,
       'message_id': messageId,
     });

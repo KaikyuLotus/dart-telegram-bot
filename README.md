@@ -4,7 +4,7 @@ Dart Telegram Bot is a [Dart](https://dart.dev) wrapper for [Telegram](https://t
 bot [API](https://core.telegram.org/bots/api). \
 It is compatible with Native, Flutter and JS.
 
-[![Bot API Version](https://img.shields.io/badge/Bot%20API-7.7-blue.svg?style=flat-square)](https://core.telegram.org/bots/api)
+[![Bot API Version](https://img.shields.io/badge/Bot%20API-7.8-blue.svg?style=flat-square)](https://core.telegram.org/bots/api)
 [![Dart Version](https://img.shields.io/badge/Dart-3.2.0-blue.svg?style=flat-square)](https://dart.dev)
 
 Using Dart Telegram Bot is straightforward, here's an example echo bot:

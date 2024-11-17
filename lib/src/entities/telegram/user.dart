@@ -53,6 +53,11 @@ class User {
   /// Returned only in getMe.
   bool? canConnectToBusiness;
 
+  /// Optional.
+  /// True, if the bot has a main Web App.
+  /// Returned only in getMe.
+  bool? hasMainWebApp;
+
   /// Basic constructor
   User({
     required this.id,
@@ -67,6 +72,7 @@ class User {
     this.canReadAllGroupMessages,
     this.supportsInlineQueries,
     this.canConnectToBusiness,
+    this.hasMainWebApp,
   });
 
   /// Creates a object from a json
@@ -84,6 +90,7 @@ class User {
       canReadAllGroupMessages: json['can_read_all_group_messages'],
       supportsInlineQueries: json['supports_inline_queries'],
       canConnectToBusiness: json['can_connect_to_business'],
+      hasMainWebApp: json['has_main_web_app'],
     );
   }
 
@@ -107,6 +114,7 @@ class User {
       'can_read_all_group_messages': canReadAllGroupMessages,
       'supports_inline_queries': supportsInlineQueries,
       'can_connect_to_business': canConnectToBusiness,
+      'has_main_web_app': hasMainWebApp,
     }..removeWhere((_, v) => v == null);
   }
 
