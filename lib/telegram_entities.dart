@@ -188,6 +188,7 @@ export 'src/entities/telegram/text_quote.dart';
 export 'src/entities/telegram/transaction_partner.dart';
 export 'src/entities/telegram/transaction_partner_fragment.dart';
 export 'src/entities/telegram/transaction_partner_other.dart';
+export 'src/entities/telegram/transaction_partner_telegram_ads.dart';
 export 'src/entities/telegram/transaction_partner_user.dart';
 export 'src/entities/telegram/update.dart';
 export 'src/entities/telegram/user.dart';

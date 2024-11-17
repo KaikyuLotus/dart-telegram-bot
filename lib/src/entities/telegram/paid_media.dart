@@ -1,6 +1,7 @@
 import '../../../telegram_entities.dart';
 
 /// This object describes paid media.
+///
 /// Currently, it can be one of:
 /// [PaidMediaPreview],
 /// [PaidMediaPhoto],

@@ -4,7 +4,7 @@ import '../../../telegram_entities.dart';
 
 /// The paid media is a video.
 class PaidMediaVideo extends PaidMedia {
-  /// The paid media is a video.
+  /// Type of the paid media, always “video”
   @override
   String type = 'video';
 

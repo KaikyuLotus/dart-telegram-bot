@@ -504,6 +504,7 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to send paid media.
+  ///
   /// On success, the sent [Message] is returned.
   Future<Message> sendPaidMedia(
     ChatID chatId,

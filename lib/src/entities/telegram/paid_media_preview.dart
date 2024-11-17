@@ -8,15 +8,12 @@ class PaidMediaPreview extends PaidMedia {
   @override
   String type = 'preview';
 
-  /// Optional.
   /// Media width as defined by the sender
   int? width;
 
-  /// Optional.
   /// Media height as defined by the sender
   int? height;
 
-  /// Optional.
   /// Duration of the media in seconds as defined by the sender
   int? duration;
 

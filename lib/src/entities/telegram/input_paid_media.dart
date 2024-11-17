@@ -1,6 +1,8 @@
 import '../../../telegram_entities.dart';
 
-/// This object describes the paid media to be sent. Currently, it can be one of
+/// This object describes the paid media to be sent.
+///
+/// Currently, it can be one of
 /// [InputPaidMediaPhoto],
 /// [InputPaidMediaVideo]
 abstract class InputPaidMedia {
