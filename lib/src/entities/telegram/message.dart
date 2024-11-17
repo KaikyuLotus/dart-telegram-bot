@@ -294,7 +294,16 @@ class Message extends MaybeInaccessibleMessage {
   /// Optional.
   /// Message is a service message about a successful payment, information
   /// about the payment.
+  ///
+  /// [More about payments](https://core.telegram.org/bots/api#payments)
   SuccessfulPayment? successfulPayment;
+
+  /// Optional.
+  /// Message is a service message about a refunded payment,
+  /// information about the payment.
+  ///
+  /// [More about payments](https://core.telegram.org/bots/api#payments)
+  RefundedPayment? refundedPayment;
 
   /// Optional.
   /// Service message: users were shared with the bot
@@ -457,6 +466,7 @@ class Message extends MaybeInaccessibleMessage {
     this.pinnedMessage,
     this.invoice,
     this.successfulPayment,
+    this.refundedPayment,
     this.usersShared,
     this.chatShared,
     this.connectedWebsite,
@@ -582,6 +592,10 @@ class Message extends MaybeInaccessibleMessage {
       successfulPayment: callIfNotNull(
         SuccessfulPayment.fromJson,
         json['successful_payment'],
+      ),
+      refundedPayment: callIfNotNull(
+        RefundedPayment.fromJson,
+        json['refunded_payment'],
       ),
       usersShared: callIfNotNull(
         UsersShared.fromJson,
@@ -742,6 +756,7 @@ class Message extends MaybeInaccessibleMessage {
       'pinned_message': pinnedMessage,
       'invoice': invoice,
       'successful_payment': successfulPayment,
+      'refunded_payment': refundedPayment,
       'users_shared': usersShared,
       'chat_shared': chatShared,
       'connected_website': connectedWebsite,

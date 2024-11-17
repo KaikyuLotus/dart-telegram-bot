@@ -163,6 +163,7 @@ export 'src/entities/telegram/reaction_count.dart';
 export 'src/entities/telegram/reaction_type.dart';
 export 'src/entities/telegram/reaction_type_custom_emoji.dart';
 export 'src/entities/telegram/reaction_type_emoji.dart';
+export 'src/entities/telegram/refunded_payment.dart';
 export 'src/entities/telegram/reply_keyboard_markup.dart';
 export 'src/entities/telegram/reply_keyboard_remove.dart';
 export 'src/entities/telegram/reply_markup.dart';
