@@ -118,7 +118,7 @@ class TGAPIClient {
       for (var param in query.entries) {
         if (param.value == null) continue;
 
-        switch (param.value.runtimeType) {
+        switch (param.value) {
           case List<InputMedia> _:
             updatedQuery[param.key] = param.value.map((InputMedia inputMedia) {
               if (inputMedia.media is! HttpFile) {
