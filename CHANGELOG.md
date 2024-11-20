@@ -1,3 +1,8 @@
+## 1.11.1
+
+- Added StickerFormat and StickerType enums
+- Fixed switch condition in apiCall client method 
+
 ## 1.11.0
 
 - Updated to bot API 7.9
