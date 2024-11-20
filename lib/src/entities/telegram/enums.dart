@@ -257,3 +257,51 @@ class Emoji extends _Enum<String> {
   /// Get the object from string
   static Emoji forValue(String value) => Emoji.values[value]!;
 }
+
+/// StickerFormat
+class StickerFormat extends _Enum<String> {
+  /// Static
+  static const static = StickerFormat._('static');
+
+  /// Animated
+  static const animated = StickerFormat._('animated');
+
+  /// Video
+  static const video = StickerFormat._('video');
+
+  /// Values
+  static const values = {
+    'static': static,
+    'animated': animated,
+    'video': video,
+  };
+
+  const StickerFormat._(super.value);
+
+  /// Get the object from string
+  static StickerFormat forValue(String value) => StickerFormat.values[value]!;
+}
+
+/// StickerType
+class StickerType extends _Enum<String> {
+  /// Regular
+  static const regular = StickerType._('regular');
+
+  /// Mask
+  static const mask = StickerType._('mask');
+
+  /// Custom Emoji
+  static const customEmoji = StickerType._('custom_emoji');
+
+  /// Values
+  static const values = {
+    'regular': regular,
+    'mask': mask,
+    'custom_emoji': customEmoji,
+  };
+
+  const StickerType._(super.value);
+
+  /// Get the object from string
+  static StickerType forValue(String value) => StickerType.values[value]!;
+}

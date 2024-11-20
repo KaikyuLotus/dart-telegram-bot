@@ -16,7 +16,7 @@ class Sticker {
   /// Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”.
   /// The type of the sticker is independent from its format, which is
   /// determined by the fields is_animated and is_video.
-  String type;
+  StickerType type;
 
   /// Sticker width
   int width;
@@ -88,7 +88,7 @@ class Sticker {
     return Sticker(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,
-      type: json['type'],
+      type: StickerType.forValue(json['type']),
       width: json['width']!,
       height: json['height']!,
       isAnimated: json['is_animated']!,

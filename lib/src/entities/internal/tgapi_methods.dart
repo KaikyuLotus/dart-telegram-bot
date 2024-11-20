@@ -2188,7 +2188,7 @@ mixin TGAPIMethods {
   Future<File> uploadStickerFile(
     String userId,
     InputSticker sticker,
-    String stickerFormat,
+    StickerFormat stickerFormat,
   ) {
     return _client.apiCall(_token, 'uploadStickerFile', {
       'user_id': userId,
@@ -2208,7 +2208,7 @@ mixin TGAPIMethods {
     String title,
     String emojis,
     List<InputSticker> stickers, {
-    String? stickerType,
+    StickerType? stickerType,
     bool? needsRepainting,
   }) {
     return _client.apiCall(_token, 'createNewStickerSet', {
@@ -2339,7 +2339,7 @@ mixin TGAPIMethods {
   Future<bool> setStickerSetThumbnail(
     String name,
     String userId,
-    String format, {
+    StickerFormat format, {
     HttpFile? thumbnail,
   }) {
     return _client.apiCall(_token, 'setStickerSetThumbnail', {

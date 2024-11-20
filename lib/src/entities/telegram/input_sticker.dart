@@ -14,12 +14,11 @@ class InputSticker {
   /// Animated and video stickers can't be uploaded via HTTP URL.
   HttpFile sticker;
 
-  //TODO create StickerFormat enum
   /// Format of the added sticker, must be one of
   /// “static” for a .WEBP or .PNG image,
   /// “animated” for a .TGS animation,
   /// “video” for a WEBM video
-  String format;
+  StickerFormat format;
 
   /// List of 1-20 emoji associated with the sticker
   List<String> emojiList;
