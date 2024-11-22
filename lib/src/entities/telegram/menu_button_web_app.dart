@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents a menu button, which launches a [Web App](https://core.telegram.org/bots/webapps).
 class MenuButtonWebApp extends MenuButton {
   /// Type of the button, must be web_app
+  @override
   String type = 'web_app';
 
   /// Text on the button
@@ -22,16 +23,16 @@ class MenuButtonWebApp extends MenuButton {
   WebAppInfo webApp;
 
   /// Basic constructor
-  MenuButtonWebApp(
-    this.text,
-    this.webApp,
-  );
+  MenuButtonWebApp({
+    required this.text,
+    required this.webApp,
+  });
 
   /// Creates a object from a json
   factory MenuButtonWebApp.fromJson(Map<String, dynamic> json) {
     return MenuButtonWebApp(
-      json['text'],
-      json['web_app'],
+      text: json['text'],
+      webApp: WebAppInfo.fromJson(json['web_app']),
     );
   }
 
