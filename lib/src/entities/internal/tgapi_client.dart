@@ -150,11 +150,13 @@ class TGAPIClient {
             }
 
             if (param.value.media.token != null) {
-              updatedQuery[param.key] = param.value.media.token;
+              param.value.media = param.value.media.token;
             } else {
               files[param.value.media.name] = param.value.media;
-              updatedQuery[param.key] = 'attach://${param.value.media.name}';
+              param.value.media = 'attach://${param.value.media.name}';
             }
+
+            updatedQuery[param.key] = param.value;
           case HttpFile _:
             if (param.value.token != null) {
               updatedQuery[param.key] = param.value.token;

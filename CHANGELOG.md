@@ -1,3 +1,8 @@
+## 1.11.2
+
+- Added missing type factories
+- Minor improvements and fixes
+
 ## 1.11.1
 
 - Added StickerFormat and StickerType enums
