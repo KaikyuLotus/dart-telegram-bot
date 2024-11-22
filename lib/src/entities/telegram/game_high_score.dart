@@ -29,6 +29,14 @@ class GameHighScore {
     );
   }
 
+  /// Creates a list of object from a json array
+  static List<MessageId> listFromJsonArray(List<dynamic> array) {
+    return List.generate(
+      array.length,
+      (i) => MessageId.fromJson(array[i]),
+    );
+  }
+
   /// Creates a json from the object
   Map toJson() {
     return {

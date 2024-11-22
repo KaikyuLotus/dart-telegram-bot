@@ -20,19 +20,28 @@ class TGAPIClient {
   static final _listTypeFactories = <String, Function(List<dynamic>)>{
     'List<BotCommand>': BotCommand.listFromJsonArray,
     'List<ChatMember>': ChatMember.listFromJsonArray,
+    'List<GameHighScore>': GameHighScore.listFromJsonArray,
     'List<Message>': Message.listFromJsonArray,
+    'List<MessageId>': MessageId.listFromJsonArray,
+    'List<Sticker>': Sticker.listFromJsonArray,
     'List<Update>': Update.listFromJsonArray,
   };
 
   static final _typeFactories = <String, Function(Map<String, dynamic>)>{
+    'BotName': BotName.fromJson,
+    'BotDescription': BotDescription.fromJson,
     'Chat': Chat.fromJson,
+    'ChatAdministratorRights': ChatAdministratorRights.fromJson,
     'ChatFullInfo': ChatFullInfo.fromJson,
     'ChatInviteLink': ChatInviteLink.fromJson,
     'ChatMember': ChatMember.fromJson,
     'File': File.fromJson,
+    'ForumTopic': ForumTopic.fromJson,
+    'MenuButton': MenuButton.fromJson,
     'Message': Message.fromJson,
     'MessageId': MessageId.fromJson,
     'Poll': Poll.fromJson,
+    'StarTransactions': StarTransactions.fromJson,
     'StickerSet': StickerSet.fromJson,
     'User': User.fromJson,
     'UserChatBoosts': UserChatBoosts.fromJson,
