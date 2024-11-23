@@ -13,7 +13,7 @@ class ChatMemberMember extends ChatMember {
   User user;
 
   /// Date when the user's subscription will expire; Unix time
-  int untilDate;
+  int? untilDate;
 
   /// Basic constructor
   ChatMemberMember({
@@ -35,7 +35,7 @@ class ChatMemberMember extends ChatMember {
       'status': status,
       'user': user,
       'until_date': untilDate,
-    };
+    }..removeWhere((_, v) => v == null);
   }
 
   @override
