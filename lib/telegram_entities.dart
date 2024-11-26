@@ -156,6 +156,7 @@ export 'src/entities/telegram/paid_media.dart';
 export 'src/entities/telegram/paid_media_info.dart';
 export 'src/entities/telegram/paid_media_photo.dart';
 export 'src/entities/telegram/paid_media_preview.dart';
+export 'src/entities/telegram/paid_media_purchased.dart';
 export 'src/entities/telegram/paid_media_video.dart';
 export 'src/entities/telegram/passport_data.dart';
 export 'src/entities/telegram/passport_file.dart';

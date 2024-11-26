@@ -59,6 +59,9 @@ class UpdateType extends _Enum<String> {
   /// PreCheckoutQuery
   static const preCheckoutQuery = UpdateType._('pre_checkout_query');
 
+  /// PurchasedPaidMedia
+  static const purchasedPaidMedia = UpdateType._('purchased_paid_media');
+
   /// Poll
   static const poll = UpdateType._('poll');
 
@@ -97,6 +100,7 @@ class UpdateType extends _Enum<String> {
     'callback_query': callbackQuery,
     'shipping_query': shippingQuery,
     'pre_checkout_query': preCheckoutQuery,
+    'purchased_paid_media': purchasedPaidMedia,
     'poll': poll,
     'poll_answer': pollAnswer,
     'my_chat_member': myChatMember,

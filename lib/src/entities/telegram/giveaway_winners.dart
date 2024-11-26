@@ -20,30 +20,28 @@ class GiveawayWinners {
   /// List of up to 100 winners of the giveaway
   List<User> winners;
 
-  /// Optional.
   /// The number of other chats the user had to join in order to be eligible
   /// for the giveaway
   int? additionalChatCount;
 
-  /// Optional.
+  /// The number of Telegram Stars that were split between giveaway winners;
+  /// for Telegram Star giveaways only
+  int? prizeStarCount;
+
   /// The number of months the Telegram Premium subscription won from the
-  /// giveaway will be active for
+  /// giveaway will be active for; for Telegram Premium giveaways only
   int? premiumSubscriptionMonthCount;
 
-  /// Optional.
   /// Number of undistributed prizes
   int? unclaimedPrizeCount;
 
-  /// Optional.
   /// True, if only users who had joined the chats after the giveaway started
   /// were eligible to win
   bool? onlyNewMembers;
 
-  /// Optional.
   /// True, if the giveaway was canceled because the payment for it was refunded
   bool? wasRefunded;
 
-  /// Optional.
   /// Description of additional giveaway prize
   String? prizeDescription;
 
@@ -55,6 +53,7 @@ class GiveawayWinners {
     required this.winnerCount,
     required this.winners,
     this.additionalChatCount,
+    this.prizeStarCount,
     this.premiumSubscriptionMonthCount,
     this.unclaimedPrizeCount,
     this.onlyNewMembers,
@@ -71,6 +70,7 @@ class GiveawayWinners {
       winnerCount: json['winner_count'],
       winners: User.listFromJsonArray(json['winners']),
       additionalChatCount: json['additional_chat_count'],
+      prizeStarCount: json['prize_star_count'],
       premiumSubscriptionMonthCount: json['premium_subscription_month_count'],
       unclaimedPrizeCount: json['unclaimed_prize_count'],
       onlyNewMembers: json['only_new_members'],
@@ -88,6 +88,7 @@ class GiveawayWinners {
       'winner_count': winnerCount,
       'winners': winners,
       'additional_chat_count': additionalChatCount,
+      'prize_star_count': prizeStarCount,
       'premium_subscription_month_count': premiumSubscriptionMonthCount,
       'unclaimed_prize_count': unclaimedPrizeCount,
       'only_new_members': onlyNewMembers,
