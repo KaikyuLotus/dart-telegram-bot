@@ -1,6 +1,7 @@
 import '../../../telegram_entities.dart';
 
 /// This object describes the type of a background.
+///
 /// Currently, it can be one of
 /// [BackgroundTypeFill],
 /// [BackgroundTypeWallpaper],
@@ -20,7 +21,7 @@ abstract class BackgroundType {
       case 'chat_theme':
         return BackgroundTypeChatTheme.fromJson(json);
       default:
-        throw Exception('BackgroundFill type not recognized');
+        throw Exception('BackgroundType type not recognized');
     }
   }
 }

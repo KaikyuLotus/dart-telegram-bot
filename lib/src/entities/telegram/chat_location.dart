@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents a location to which a chat is connected.
 class ChatLocation {
   /// The location to which the supergroup is connected.
+  ///
   /// Can't be a live location.
   Location location;
 
@@ -20,8 +21,8 @@ class ChatLocation {
   /// Creates a object from a json
   factory ChatLocation.fromJson(Map<String, dynamic> json) {
     return ChatLocation(
-      location: Location.fromJson(json['location']!),
-      address: json['address']!,
+      location: Location.fromJson(json['location']),
+      address: json['address'],
     );
   }
 

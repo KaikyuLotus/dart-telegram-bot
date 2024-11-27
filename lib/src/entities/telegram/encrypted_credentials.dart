@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import '../../../telegram_entities.dart';
+
 /// Describes data required for decrypting and authenticating
-/// EncryptedPassportElement.
-/// See the Telegram Passport Documentation for a complete description of the
-/// data decryption and authentication processes.
+/// [EncryptedPassportElement].
+///
+/// See the[ Telegram Passport Documentation](https://core.telegram.org/passport#receiving-information)
+/// for a complete description of the data decryption and authentication
+/// processes.
 class EncryptedCredentials {
   /// Base64-encoded encrypted JSON-serialized data with unique user's payload,
-  /// data hashes and secrets required for EncryptedPassportElement decryption
+  /// data hashes and secrets required for [EncryptedPassportElement] decryption
   /// and authentication
   String data;
 
@@ -27,9 +31,9 @@ class EncryptedCredentials {
   /// Creates a object from a json
   factory EncryptedCredentials.fromJson(Map<String, dynamic> json) {
     return EncryptedCredentials(
-      data: json['data']!,
-      hash: json['hash']!,
-      secret: json['secret']!,
+      data: json['data'],
+      hash: json['hash'],
+      secret: json['secret'],
     );
   }
 
@@ -39,7 +43,7 @@ class EncryptedCredentials {
       'data': data,
       'hash': hash,
       'secret': secret,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override

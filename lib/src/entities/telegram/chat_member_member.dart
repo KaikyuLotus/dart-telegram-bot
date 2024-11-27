@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that has no additional privileges or restrictions.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that has no additional privileges or restrictions.
 class ChatMemberMember extends ChatMember {
   /// The member's status in the chat, always “member”
   @override

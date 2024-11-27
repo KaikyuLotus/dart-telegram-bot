@@ -4,31 +4,31 @@ import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
 /// This object contains information about the chat whose identifier was shared
-/// with the bot using a KeyboardButtonRequestChat button.
+/// with the bot using a [KeyboardButtonRequestChat] button.
 class ChatShared {
   /// Identifier of the request
   int requestId;
 
   /// Identifier of the shared chat.
+  ///
   /// This number may have more than 32 significant bits and some programming
   /// languages may have difficulty/silent defects in interpreting it.
+  ///
   /// But it has at most 52 significant bits, so a 64-bit integer or
   /// double-precision float type are safe for storing this identifier.
+  ///
   /// The bot may not have access to the user and could be unable to use this
   /// identifier, unless the user is already known to the bot by some
   /// other means.
   int chatId;
 
-  /// Optional.
   /// Title of the chat, if the title was requested by the bot.
   String? title;
 
-  /// Optional.
   /// Username of the chat, if the username was requested by the bot and
   /// available.
   String? username;
 
-  /// Optional.
   /// Available sizes of the chat photo, if the photo was requested by the bot
   List<PhotoSize>? photo;
 

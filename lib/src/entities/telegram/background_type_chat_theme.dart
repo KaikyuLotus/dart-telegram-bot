@@ -9,17 +9,17 @@ class BackgroundTypeChatTheme extends BackgroundType {
   String type = 'chat_theme';
 
   /// Name of the chat theme, which is usually an emoji
-  String chatTheme;
+  String themeName;
 
   /// Basic constructor
   BackgroundTypeChatTheme({
-    required this.chatTheme,
+    required this.themeName,
   });
 
   /// Creates a object from a json
   factory BackgroundTypeChatTheme.fromJson(Map<String, dynamic> json) {
     return BackgroundTypeChatTheme(
-      chatTheme: json['chat_theme'],
+      themeName: json['theme_name'],
     );
   }
 
@@ -27,7 +27,7 @@ class BackgroundTypeChatTheme extends BackgroundType {
   Map toJson() {
     return {
       'type': type,
-      'chat_theme': chatTheme,
+      'theme_name': themeName,
     };
   }
 

@@ -11,7 +11,6 @@ class ForumTopic {
   /// Color of the topic icon in RGB format
   String iconColor;
 
-  /// Optional.
   /// Unique identifier of the custom emoji shown as the topic icon
   String? iconCustomEmojiId;
 
@@ -39,7 +38,7 @@ class ForumTopic {
       'name': name,
       'icon_color': iconColor,
       'icon_custom_emoji_id': iconCustomEmojiId,
-    };
+    }..removeWhere((_, v) => v == null);
   }
 
   @override

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that isn't currently a member of the chat, but may
-/// join it themselves.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that isn't currently a member of the chat, but may join it themselves.
 class ChatMemberLeft extends ChatMember {
   /// The member's status in the chat, always “left”
   @override

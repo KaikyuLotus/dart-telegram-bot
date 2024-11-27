@@ -9,7 +9,6 @@ class ForumTopicCreated {
   /// Color of the topic icon in RGB format
   int iconColor;
 
-  /// Optional.
   /// Unique identifier of the custom emoji shown as the topic icon
   String? iconCustomEmojiId;
 

@@ -6,15 +6,12 @@ import '../internal/helpers/util.dart';
 /// Contains information about the start page settings of a
 /// Telegram Business account.
 class BusinessIntro {
-  /// Optional.
   /// Title text of the business intro
   String? title;
 
-  /// Optional.
   /// Message text of the business intro
   String? message;
 
-  /// Optional.
   /// Sticker of the business intro
   Sticker? sticker;
 

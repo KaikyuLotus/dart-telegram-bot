@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../../telegram_entities.dart';
 
 /// The boost was obtained by subscribing to Telegram Premium or by gifting a
@@ -17,7 +19,9 @@ class ChatBoostSourcePremium extends ChatBoostSource {
 
   /// Creates a object from a json
   factory ChatBoostSourcePremium.fromJson(Map<String, dynamic> json) {
-    return ChatBoostSourcePremium(user: User.fromJson(json['user']));
+    return ChatBoostSourcePremium(
+      user: User.fromJson(json['user']),
+    );
   }
 
   /// Creates a json from the object
@@ -29,5 +33,5 @@ class ChatBoostSourcePremium extends ChatBoostSource {
   }
 
   @override
-  String toString() => toJson().toString();
+  String toString() => json.encode(this);
 }

@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that is under certain restrictions in the chat.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that is under certain restrictions in the chat.
 ///
 /// Supergroups only.
 class ChatMemberRestricted extends ChatMember {

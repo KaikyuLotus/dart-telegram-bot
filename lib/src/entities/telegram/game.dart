@@ -4,6 +4,7 @@ import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
 /// This object represents a game.
+///
 /// Use BotFather to create and edit games, their short names will act as
 /// unique identifiers.
 class Game {
@@ -16,20 +17,20 @@ class Game {
   /// Photo that will be displayed in the game message in chats.
   List<PhotoSize> photo;
 
-  /// Optional.
   /// Brief description of the game or high scores included in the game message.
+  ///
   /// Can be automatically edited to include current high scores for the game
   /// when the bot calls setGameScore, or manually edited using editMessageText.
+  ///
   /// 0-4096 characters.
   String? text;
 
-  /// Optional.
   /// Special entities that appear in text, such as usernames, URLs, bot
   /// commands, etc.
   List<MessageEntity>? textEntities;
 
-  /// Optional.
   /// Animation that will be displayed in the game message in chats.
+  ///
   /// Upload via BotFather
   Animation? animation;
 
@@ -46,9 +47,9 @@ class Game {
   /// Creates a object from a json
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
-      title: json['title']!,
-      description: json['description']!,
-      photo: PhotoSize.listFromJsonArray(json['photo']!),
+      title: json['title'],
+      description: json['description'],
+      photo: PhotoSize.listFromJsonArray(json['photo']),
       text: json['text'],
       textEntities: callIfNotNull(
         MessageEntity.listFromJsonArray,

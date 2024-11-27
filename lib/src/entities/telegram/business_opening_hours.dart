@@ -31,7 +31,7 @@ class BusinessOpeningHours {
     return {
       'time_zone_name': timeZoneName,
       'opening_hours': openingHours,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override

@@ -3,9 +3,8 @@ import 'dart:convert';
 /// Describes actions that a non-administrator user is allowed to take in a
 /// chat.
 class ChatPermissions {
-  /// Optional.
-  /// True, if the user is allowed to send text messages, contacts, locations
-  /// and venues
+  /// True, if the user is allowed to send text messages, contacts, giveaways,
+  /// giveaway winners, invoices, locations and venues
   bool? canSendMessages;
 
   /// True, if the user is allowed to send audios
@@ -26,37 +25,31 @@ class ChatPermissions {
   /// True, if the user is allowed to send voice notes
   bool? canSendVoiceNotes;
 
-  /// Optional.
-  /// True, if the user is allowed to send polls, implies can_send_messages
+  /// True, if the user is allowed to send polls
   bool? canSendPolls;
 
-  /// Optional.
   /// True, if the user is allowed to send animations, games, stickers and use
-  /// inline bots, implies can_send_media_messages
+  /// inline bots
   bool? canSendOtherMessages;
 
-  /// Optional.
-  /// True, if the user is allowed to add web page previews to their messages,
-  /// implies can_send_media_messages
+  /// True, if the user is allowed to add web page previews to their messages
   bool? canAddWebPagePreviews;
 
-  /// Optional.
   /// True, if the user is allowed to change the chat title, photo and other
   /// settings.
+  ///
   /// Ignored in public supergroups
   bool? canChangeInfo;
 
-  /// Optional.
   /// True, if the user is allowed to invite new users to the chat
   bool? canInviteUsers;
 
-  /// Optional.
   /// True, if the user is allowed to pin messages.
   /// Ignored in public supergroups
   bool? canPinMessages;
 
-  /// Optional.
   /// True, if the user is allowed to create forum topics.
+  ///
   /// If omitted defaults to the value of can_pin_messages
   bool? canManageTopics;
 

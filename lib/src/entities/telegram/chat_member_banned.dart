@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that was banned in the chat and can't return to the
-/// chat or view chat messages.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that was banned in the chat and can't return to the chat or view chat
+/// messages.
 class ChatMemberBanned extends ChatMember {
   /// The member's status in the chat, always “banned”
   @override

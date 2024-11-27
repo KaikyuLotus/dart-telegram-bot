@@ -37,7 +37,10 @@ class ChatBoost {
 
   /// Creates a list of object from a json array
   static List<ChatBoost> listFromJsonArray(List<dynamic> array) {
-    return List.generate(array.length, (i) => ChatBoost.fromJson(array[i]));
+    return List.generate(
+      array.length,
+      (i) => ChatBoost.fromJson(array[i]),
+    );
   }
 
   /// Creates a json from the object

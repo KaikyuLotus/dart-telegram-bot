@@ -9,6 +9,7 @@ class BusinessMessagesDeleted {
   String businessConnectionId;
 
   /// Information about a chat in the business account.
+  ///
   /// The bot may not have access to the chat or the corresponding user.
   Chat chat;
 

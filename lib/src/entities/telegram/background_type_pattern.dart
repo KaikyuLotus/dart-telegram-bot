@@ -20,12 +20,10 @@ class BackgroundTypePattern extends BackgroundType {
   /// 0-100
   int intensity;
 
-  /// Optional.
   /// True, if the background fill must be applied only to the pattern itself.
   /// All other pixels are black in this case. For dark themes only
   bool? isInverted;
 
-  /// Optional.
   /// True, if the background moves slightly when the device is tilted
   bool? isMoving;
 

@@ -23,9 +23,9 @@ class GameHighScore {
   /// Creates a object from a json
   factory GameHighScore.fromJson(Map<String, dynamic> json) {
     return GameHighScore(
-      position: json['position']!,
-      user: User.fromJson(json['user']!),
-      score: json['score']!,
+      position: json['position'],
+      user: User.fromJson(json['user']),
+      score: json['score'],
     );
   }
 

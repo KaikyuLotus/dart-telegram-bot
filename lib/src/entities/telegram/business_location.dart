@@ -8,7 +8,6 @@ class BusinessLocation {
   /// Address of the business
   String address;
 
-  /// Optional.
   /// Location of the business
   Location? location;
 

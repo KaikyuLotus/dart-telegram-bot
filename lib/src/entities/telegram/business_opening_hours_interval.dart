@@ -41,7 +41,7 @@ class BusinessOpeningHoursInterval {
     return {
       'opening_minute': openingMinute,
       'closing_minute': closingMinute,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override
