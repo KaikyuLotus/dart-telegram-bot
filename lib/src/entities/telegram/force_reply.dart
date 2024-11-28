@@ -44,7 +44,7 @@ class ForceReply extends ReplyMarkup {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'force_reply': forceReply,
       'input_field_placeholder': inputFieldPlaceholder,

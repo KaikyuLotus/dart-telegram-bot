@@ -53,7 +53,7 @@ class ChatShared {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'request_id': requestId,
       'chat_id': chatId,

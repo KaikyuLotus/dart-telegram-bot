@@ -15,7 +15,7 @@ class MessageAutoDeleteTimerChanged {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_auto_delete_time': messageAutoDeleteTime,
     }..removeWhere((_, v) => v == null);

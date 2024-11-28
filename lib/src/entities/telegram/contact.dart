@@ -44,7 +44,7 @@ class Contact {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'phone_number': phoneNumber,
       'first_name': firstName,

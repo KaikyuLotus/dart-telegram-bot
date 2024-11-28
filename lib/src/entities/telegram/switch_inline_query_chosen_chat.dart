@@ -45,7 +45,7 @@ class SwitchInlineQueryChosenChat {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'query': query,
       'allow_user_chats': allowUserChats,

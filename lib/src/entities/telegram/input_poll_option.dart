@@ -49,7 +49,7 @@ class InputPollOption {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'text': text,
       'text_parse_mode': textParseMode,

@@ -36,7 +36,7 @@ class LabeledPrice {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'label': label,
       'amount': amount,

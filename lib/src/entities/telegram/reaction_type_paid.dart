@@ -17,7 +17,7 @@ class ReactionTypePaid extends ReactionType {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
     };

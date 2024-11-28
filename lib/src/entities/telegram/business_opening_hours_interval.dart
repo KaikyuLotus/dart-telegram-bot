@@ -37,7 +37,7 @@ class BusinessOpeningHoursInterval {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'opening_minute': openingMinute,
       'closing_minute': closingMinute,

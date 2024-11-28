@@ -20,7 +20,7 @@ class GiveawayCreated {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'prize_star_count': prizeStarCount,
     }..removeWhere((_, v) => v == null);

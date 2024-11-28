@@ -103,7 +103,7 @@ class Poll {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'question': question,

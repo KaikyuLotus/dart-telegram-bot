@@ -92,7 +92,7 @@ class ChatPermissions {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'can_send_messages': canSendMessages,
       'can_send_audios': canSendAudios,

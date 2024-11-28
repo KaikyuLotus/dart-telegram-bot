@@ -33,7 +33,7 @@ class InlineQueryResultCachedSticker extends InlineQueryResult {
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'id': id,

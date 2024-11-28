@@ -22,7 +22,7 @@ class BotCommandScopeChatMember extends BotCommandScope {
   );
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'chat_id': chatId,

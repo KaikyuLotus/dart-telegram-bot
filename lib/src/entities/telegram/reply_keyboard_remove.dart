@@ -39,7 +39,7 @@ class ReplyKeyboardRemove extends ReplyMarkup {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'remove_keyboard': removeKeyboard,
       'selective': selective,

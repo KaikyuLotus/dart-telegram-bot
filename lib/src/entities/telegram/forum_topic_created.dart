@@ -29,7 +29,7 @@ class ForumTopicCreated {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'icon_color': iconColor,

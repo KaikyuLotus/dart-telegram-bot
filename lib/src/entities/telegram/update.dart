@@ -271,7 +271,7 @@ class Update {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'update_id': updateId,
       'message': message,

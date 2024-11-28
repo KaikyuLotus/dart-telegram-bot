@@ -51,7 +51,7 @@ class ChatBoostSourceGiveaway extends ChatBoostSource {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'source': source,
       'giveaway_message_id': giveawayMessageId,

@@ -59,7 +59,7 @@ class PhotoSize {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,

@@ -25,7 +25,7 @@ class PaidMediaInfo {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'star_count': starCount,
       'paid_media': paidMedia,

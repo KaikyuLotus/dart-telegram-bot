@@ -71,7 +71,7 @@ class Giveaway {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chats': chats,
       'winners_selection_date': winnersSelectionDate,

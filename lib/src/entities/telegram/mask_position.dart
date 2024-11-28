@@ -48,7 +48,7 @@ class MaskPosition {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'point': point,
       'x_shift': xShift,

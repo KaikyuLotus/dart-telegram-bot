@@ -27,7 +27,7 @@ class BusinessOpeningHours {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'time_zone_name': timeZoneName,
       'opening_hours': openingHours,

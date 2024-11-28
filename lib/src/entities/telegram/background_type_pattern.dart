@@ -48,7 +48,7 @@ class BackgroundTypePattern extends BackgroundType {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'document': document,

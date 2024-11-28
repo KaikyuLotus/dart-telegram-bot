@@ -18,7 +18,7 @@ class SentWebAppMessage {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'inline_message_id': inlineMessageId,
     };

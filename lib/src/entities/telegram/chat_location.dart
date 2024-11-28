@@ -27,7 +27,7 @@ class ChatLocation {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'location': location,
       'address': address,

@@ -23,7 +23,7 @@ class VideoChatParticipantsInvited {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'users': users,
     }..removeWhere((_, v) => v == null);

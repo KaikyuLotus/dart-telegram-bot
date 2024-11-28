@@ -24,7 +24,7 @@ class ForumTopicEdited {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'icon_custom_emoji_id': iconCustomEmojiId,

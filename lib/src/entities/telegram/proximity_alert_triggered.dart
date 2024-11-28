@@ -31,7 +31,7 @@ class ProximityAlertTriggered {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'traveler': traveler,
       'watcher': watcher,

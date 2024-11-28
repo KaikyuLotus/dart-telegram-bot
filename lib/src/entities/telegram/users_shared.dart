@@ -26,7 +26,7 @@ class UsersShared {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'request_id': requestId,
       'users': users,

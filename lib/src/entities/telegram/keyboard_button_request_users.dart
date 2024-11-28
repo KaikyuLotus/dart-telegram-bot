@@ -62,7 +62,7 @@ class KeyboardButtonRequestUsers {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'request_id': requestId,
       'user_is_bot': userIsBot,

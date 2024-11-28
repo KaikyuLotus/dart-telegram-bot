@@ -98,7 +98,7 @@ class ChatAdministratorRights {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'is_anonymous': isAnonymous,
       'can_manage_chat': canManageChat,

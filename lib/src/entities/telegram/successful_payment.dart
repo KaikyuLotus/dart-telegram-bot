@@ -62,7 +62,7 @@ class SuccessfulPayment {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'currency': currency,
       'total_amount': totalAmount,

@@ -694,7 +694,7 @@ class Message extends MaybeInaccessibleMessage {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_id': messageId,
       'message_thread_id': messageThreadId,

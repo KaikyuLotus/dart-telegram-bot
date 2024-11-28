@@ -48,7 +48,7 @@ class LinkPreviewOptions {
     );
   }
 
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'is_disabled': isDisabled,
       'url': url,

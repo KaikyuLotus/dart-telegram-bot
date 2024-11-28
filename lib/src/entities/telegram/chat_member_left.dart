@@ -26,7 +26,7 @@ class ChatMemberLeft extends ChatMember {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'user': user,

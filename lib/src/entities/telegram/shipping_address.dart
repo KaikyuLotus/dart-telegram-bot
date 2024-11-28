@@ -43,7 +43,7 @@ class ShippingAddress {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'country_code': countryCode,
       'state': state,

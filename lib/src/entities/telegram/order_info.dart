@@ -43,7 +43,7 @@ class OrderInfo {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'phone_number': phoneNumber,

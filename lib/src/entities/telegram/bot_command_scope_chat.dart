@@ -16,7 +16,7 @@ class BotCommandScopeChat extends BotCommandScope {
   BotCommandScopeChat(this.chatId);
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'chat_id': chatId,

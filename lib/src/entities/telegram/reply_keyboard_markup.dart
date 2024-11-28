@@ -67,7 +67,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'keyboard': keyboard,
       'is_persistent': isPersistent,

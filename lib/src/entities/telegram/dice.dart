@@ -26,7 +26,7 @@ class Dice {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'emoji': emoji,
       'value': value,

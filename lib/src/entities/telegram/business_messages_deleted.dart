@@ -34,7 +34,7 @@ class BusinessMessagesDeleted {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'business_connection_id': businessConnectionId,
       'chat': chat,

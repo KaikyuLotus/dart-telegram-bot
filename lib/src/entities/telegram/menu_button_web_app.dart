@@ -37,7 +37,7 @@ class MenuButtonWebApp extends MenuButton {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'text': text,

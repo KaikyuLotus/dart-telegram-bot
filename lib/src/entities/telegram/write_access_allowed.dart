@@ -35,7 +35,7 @@ class WriteAccessAllowed {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'from_request': fromRequest,
       'web_app_name': webAppName,

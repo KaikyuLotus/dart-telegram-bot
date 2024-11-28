@@ -47,7 +47,7 @@ class InputTextMessageContent extends InputMessageContent {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_text': messageText,
       'parse_mode': parseMode,

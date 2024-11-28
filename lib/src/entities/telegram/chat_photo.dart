@@ -45,7 +45,7 @@ class ChatPhoto {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'small_file_id': smallFileId,
       'small_file_unique_id': smallFileUniqueId,

@@ -47,7 +47,7 @@ class ChosenInlineResult {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'result_id': resultId,
       'from': from,

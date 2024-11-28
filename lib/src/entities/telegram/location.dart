@@ -49,7 +49,7 @@ class Location {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'longitude': longitude,
       'latitude': latitude,

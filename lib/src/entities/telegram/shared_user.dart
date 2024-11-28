@@ -58,7 +58,7 @@ class SharedUser {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'user_id': userId,
       'first_name': firstName,

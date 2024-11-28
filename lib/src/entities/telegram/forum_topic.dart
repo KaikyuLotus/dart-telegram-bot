@@ -32,7 +32,7 @@ class ForumTopic {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_thread_id': messageThreadId,
       'name': name,

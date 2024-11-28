@@ -25,7 +25,7 @@ class UserProfilePhotos {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'total_count': totalCount,
       'photos': photos,

@@ -20,7 +20,7 @@ class VideoChatScheduled {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'start_date': startDate,
     };

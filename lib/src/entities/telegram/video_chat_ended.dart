@@ -15,7 +15,7 @@ class VideoChatEnded {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'duration': duration,
     }..removeWhere((_, v) => v == null);

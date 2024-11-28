@@ -38,7 +38,7 @@ class GameHighScore {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'position': position,
       'user': user,

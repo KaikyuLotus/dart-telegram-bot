@@ -39,7 +39,7 @@ class InlineQueryResultsButton {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'text': text,
       'web_app': webApp,

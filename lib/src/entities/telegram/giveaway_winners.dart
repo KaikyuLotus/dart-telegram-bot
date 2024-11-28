@@ -80,7 +80,7 @@ class GiveawayWinners {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'giveaway_message_id': giveawayMessageId,

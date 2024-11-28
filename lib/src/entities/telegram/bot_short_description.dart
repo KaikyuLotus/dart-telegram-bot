@@ -18,7 +18,7 @@ class BotShortDescription {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'short_description': shortDescription,
     };

@@ -20,7 +20,7 @@ class InlineKeyboardMarkup extends ReplyMarkup {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'inline_keyboard': inlineKeyboard,
     };

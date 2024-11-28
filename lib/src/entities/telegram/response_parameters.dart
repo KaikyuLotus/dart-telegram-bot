@@ -30,7 +30,7 @@ class ResponseParameters {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'migrate_to_chat_id': migrateToChatId,
       'retry_after': retryAfter,

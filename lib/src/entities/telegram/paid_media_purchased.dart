@@ -25,7 +25,7 @@ class PaidMediaPurchased {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'from': from,
       'paid_media_payload': paidMediaPayload,

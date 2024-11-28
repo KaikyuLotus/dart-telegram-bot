@@ -16,7 +16,7 @@ class ChatBoostAdded {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'boost_count': boostCount,
     };

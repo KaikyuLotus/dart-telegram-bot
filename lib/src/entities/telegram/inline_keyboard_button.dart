@@ -159,7 +159,7 @@ class InlineKeyboardButton {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'text': text,
       'url': url,
