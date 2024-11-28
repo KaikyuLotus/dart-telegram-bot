@@ -5,39 +5,82 @@ import 'tgapi_client.dart';
 
 /// Telegram Methods
 mixin TGAPIMethods {
-  final _client = TGAPIClient();
-
   late String _token;
-
-  /// Close the http client
-  void closeClient() => _client.close();
 
   /// Setup token to be used for API calls
   set token(String token) => _token = token;
 
-  /// A simple method for testing your bot's auth token.
+  final _client = TGAPIClient();
+
+  /// Close the http client
+  void closeClient() => _client.close();
+
+  /// Download a file from path
+  Future<Uint8List> download(String path) {
+    return _client.apiDownload(_token, path);
+  }
+
+  /// Use this method to receive incoming updates using long polling.
+  ///
+  /// Returns an Array of [Update] objects.
+  Future<List<Update>> getUpdates({
+    int? offset,
+    int? limit,
+    int? timeout,
+    List<UpdateType>? allowedUpdates,
+  }) {
+    return _client.apiCall(_token, 'getUpdates', {
+      'offset': offset,
+      'limit': limit,
+      'timeout': timeout,
+      'allowed_updates': allowedUpdates,
+    });
+  }
+
+  /// Use this method to remove webhook integration if you decide to switch
+  /// back to [getUpdates].
+  ///
+  /// Returns True on success.
+  Future<bool> deleteWebhook({bool? dropPendingUpdates}) {
+    return _client.apiCall(_token, 'deleteWebhook', {
+      'drop_pending_updates': dropPendingUpdates,
+    });
+  }
+
+  /// A simple method for testing your bot's authentication token.
   ///
   /// Requires no parameters.
   ///
   /// Returns basic information about the bot in form of a [User] object.
   Future<User> getMe() => _client.apiCall(_token, 'getMe');
 
-  /// Use this method to receive incoming updates using long polling.
+  /// Use this method to log out from the cloud Bot API server before launching
+  /// the bot locally.
   ///
-  /// An array of [Update] objects is returned.
-  Future<List<Update>> getUpdates({
-    int? timeout,
-    int? offset,
-    int? limit,
-    List<UpdateType>? allowedUpdates,
-  }) {
-    return _client.apiCall(_token, 'getUpdates', {
-      'timeout': timeout,
-      'offset': offset,
-      'limit': limit,
-      'allowed_updates': allowedUpdates,
-    });
-  }
+  /// You **must** log out the bot before running it locally, otherwise there is
+  /// no guarantee that the bot will receive updates.
+  ///
+  /// After a successful call, you can immediately log in on a local server, but
+  /// will not be able to log in back to the cloud Bot API server for 10 minutes
+  ///
+  /// Returns True on success.
+  ///
+  /// Requires no parameters.
+  Future<bool> logOut() => _client.apiCall(_token, 'logOut');
+
+  /// Use this method to close the bot instance before moving it from one
+  /// local server to another.
+  ///
+  /// You need to delete the webhook before calling this method to ensure that
+  /// the bot isn't launched again after server restart.
+  ///
+  /// The method will return error 429 in the first 10 minutes after the bot
+  /// is launched.
+  ///
+  /// Returns True on success.
+  ///
+  /// Requires no parameters.
+  Future<bool> close() => _client.apiCall(_token, 'close');
 
   /// Use this method to send text messages.
   ///
@@ -2766,45 +2809,5 @@ mixin TGAPIMethods {
       'user_id': userId,
       'inline_message_id': inlineMessageId,
     });
-  }
-
-  /// Use this method to log out from the cloud Bot API server before launching
-  /// the bot locally.
-  /// You must log out the bot before running it locally, otherwise there
-  /// is no guarantee that the bot will receive updates.
-  ///
-  /// After a successful call, you can immediately log in on a local server, but
-  /// will not be able to log in back to the cloud Bot API server for 10 minutes
-  ///
-  /// Returns True on success.
-  ///
-  /// Requires no parameters.
-  Future<bool> logOut() => _client.apiCall(_token, 'logOut');
-
-  /// Use this method to close the bot instance before moving it from one
-  /// local server to another.
-  /// You need to delete the webhook before calling this method to ensure that
-  /// the bot isn't launched again after server restart.
-  ///
-  /// The method will return error 429 in the first 10 minutes after the bot
-  /// is launched.
-  ///
-  /// Returns True on success.
-  ///
-  /// Requires no parameters.
-  Future<bool> close() => _client.apiCall(_token, 'close');
-
-  /// Use this method to remove webhook integration if you decide to switch
-  /// back to getUpdates.
-  /// Returns True on success.
-  Future<bool> deleteWebhook({bool? dropPendingUpdates}) {
-    return _client.apiCall(_token, 'deleteWebhook', {
-      'drop_pending_updates': dropPendingUpdates,
-    });
-  }
-
-  /// Download a file from path
-  Future<Uint8List> download(String path) {
-    return _client.apiDownload(_token, path);
   }
 }
