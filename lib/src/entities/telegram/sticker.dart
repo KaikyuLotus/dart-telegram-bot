@@ -9,13 +9,13 @@ class Sticker {
   String fileId;
 
   /// Unique identifier for this file, which is supposed to be the same over
-  /// time and for different bots.
-  /// Can't be used to download or reuse the file.
+  /// time and for different bots. Can't be used to download or reuse the file.
   String fileUniqueId;
 
   /// Type of the sticker, currently one of “regular”, “mask”, “custom_emoji”.
+  ///
   /// The type of the sticker is independent from its format, which is
-  /// determined by the fields is_animated and is_video.
+  /// determined by the fields *is_animated* and *is_video*.
   StickerType type;
 
   /// Sticker width
@@ -24,43 +24,35 @@ class Sticker {
   /// Sticker height
   int height;
 
-  /// True, if the sticker is animated
+  /// True, if the sticker is [animated](https://telegram.org/blog/animated-stickers)
   bool isAnimated;
 
-  /// True, if the sticker is a video sticker
+  /// True, if the sticker is a [video sticker](https://telegram.org/blog/video-stickers-better-reactions)
   bool isVideo;
 
-  /// Optional.
   /// Sticker thumbnail in the .WEBP or .JPG format
   PhotoSize? thumbnail;
 
-  /// Optional.
   /// Emoji associated with the sticker
   String? emoji;
 
-  /// Optional.
   /// Name of the sticker set to which the sticker belongs
   String? setName;
 
-  /// Optional.
   /// For premium regular stickers, premium animation for the sticker
   File? premiumAnimation;
 
-  /// Optional.
   /// For mask stickers, the position where the mask should be placed
   MaskPosition? maskPosition;
 
-  /// Optional.
   /// For custom emoji stickers, unique identifier of the custom emoji
   String? customEmojiId;
 
-  /// Optional.
   /// True, if the sticker must be repainted to a text color in messages,
   /// the color of the Telegram Premium badge in emoji status, white color on
   /// chat photos, or another appropriate color in other places
-  bool? needRepainting;
+  bool? needsRepainting;
 
-  /// Optional.
   /// File size in bytes
   int? fileSize;
 
@@ -79,34 +71,37 @@ class Sticker {
     this.premiumAnimation,
     this.maskPosition,
     this.customEmojiId,
-    this.needRepainting,
+    this.needsRepainting,
     this.fileSize,
   });
 
   /// Creates an object from a json
   factory Sticker.fromJson(Map<String, dynamic> json) {
     return Sticker(
-      fileId: json['file_id']!,
-      fileUniqueId: json['file_unique_id']!,
+      fileId: json['file_id'],
+      fileUniqueId: json['file_unique_id'],
       type: StickerType.forValue(json['type']),
-      width: json['width']!,
-      height: json['height']!,
-      isAnimated: json['is_animated']!,
-      isVideo: json['is_video']!,
+      width: json['width'],
+      height: json['height'],
+      isAnimated: json['is_animated'],
+      isVideo: json['is_video'],
       thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       emoji: json['emoji'],
       setName: json['set_name'],
       premiumAnimation: callIfNotNull(File.fromJson, json['premium_animation']),
       maskPosition: callIfNotNull(MaskPosition.fromJson, json['mask_position']),
       customEmojiId: json['custom_emoji_id'],
-      needRepainting: json['need_repainting'],
+      needsRepainting: json['needs_repainting'],
       fileSize: json['file_size'],
     );
   }
 
   /// Creates a list of objects from a json array
   static List<Sticker> listFromJsonArray(List<dynamic> json) {
-    return List.generate(json.length, (i) => Sticker.fromJson(json[i]));
+    return List.generate(
+      json.length,
+      (i) => Sticker.fromJson(json[i]),
+    );
   }
 
   /// Creates a json from the object
@@ -125,7 +120,7 @@ class Sticker {
       'premium_animation': premiumAnimation,
       'mask_position': maskPosition,
       'custom_emoji_id': customEmojiId,
-      'need_repainting': needRepainting,
+      'needs_repainting': needsRepainting,
       'file_size': fileSize,
     }..removeWhere((_, v) => v == null);
   }

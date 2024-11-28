@@ -2134,8 +2134,9 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to send static .WEBP, animated .TGS,
-  /// or video .WEBM stickers.
+  /// Use this method to send static .WEBP, [animated](https://telegram.org/blog/animated-stickers)
+  /// .TGS, or [video](https://telegram.org/blog/video-stickers-better-reactions)
+  /// .WEBM stickers.
   ///
   /// On success, the sent [Message] is returned.
   Future<Message> sendSticker(
@@ -2173,21 +2174,22 @@ mixin TGAPIMethods {
 
   /// Use this method to get information about
   /// custom emoji stickers by their identifiers.
-  /// Returns an Array of [Sticker] objects
+  ///
+  /// Returns an Array of [Sticker] objects.
   Future<List<Sticker>> getCustomEmojiStickers(List<String> customEmojiIds) {
     return _client.apiCall(_token, 'getCustomEmojiStickers', {
       'custom_emoji_ids': getCustomEmojiStickers,
     });
   }
 
-  /// Use this method to upload a .PNG file with a sticker for later use in
-  /// [createNewStickerSet] and [addStickerToSet] methods
-  /// (can be used multiple times).
+  /// Use this method to upload a file with a sticker for later use in the
+  /// [createNewStickerSet] and [addStickerToSet], or [replaceStickerInSet]
+  /// methods (the file can be used multiple times).
   ///
   /// Returns the uploaded [File] on success.
   Future<File> uploadStickerFile(
     String userId,
-    InputSticker sticker,
+    HttpFile sticker,
     StickerFormat stickerFormat,
   ) {
     return _client.apiCall(_token, 'uploadStickerFile', {
@@ -2206,7 +2208,6 @@ mixin TGAPIMethods {
     String userId,
     String name,
     String title,
-    String emojis,
     List<InputSticker> stickers, {
     StickerType? stickerType,
     bool? needsRepainting,
@@ -2223,11 +2224,9 @@ mixin TGAPIMethods {
 
   /// Use this method to add a new sticker to a set created by the bot.
   ///
-  /// Animated stickers can be added to animated sticker sets and only to them.
+  /// Emoji sticker sets can have up to 200 stickers.
   ///
-  /// Animated sticker sets can have up to 50 stickers.
-  ///
-  /// Static sticker sets can have up to 120 stickers.
+  /// Other sticker sets can have up to 120 stickers.
   ///
   /// Returns True on success.
   Future<bool> addStickerToSet(
@@ -2265,15 +2264,15 @@ mixin TGAPIMethods {
   /// Use this method to replace an existing sticker in a sticker set with a
   /// new one.
   ///
-  /// The method is equivalent to calling deleteStickerFromSet,
-  /// then addStickerToSet, then setStickerPositionInSet.
+  /// The method is equivalent to calling [deleteStickerFromSet], then
+  /// [addStickerToSet], then [setStickerPositionInSet].
   ///
   /// Returns True on success.
   Future<bool> replaceStickerInSet(
     int userId,
     String name,
     String oldSticker,
-    HttpFile sticker,
+    InputSticker sticker,
   ) {
     return _client.apiCall(_token, 'replaceStickerInSet', {
       'user_id': userId,
@@ -2285,6 +2284,7 @@ mixin TGAPIMethods {
 
   /// Use this method to change the list of emoji assigned to a regular or
   /// custom emoji sticker.
+  ///
   /// The sticker must belong to a sticker set created by the bot.
   ///
   /// Returns True on success.
@@ -2296,11 +2296,12 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to change search keywords assigned to a regular or
-  /// custom emoji sticker. The sticker must belong to a sticker set created
-  /// by the bot.
+  /// custom emoji sticker.
+  ///
+  /// The sticker must belong to a sticker set created by the bot.
   ///
   /// Returns True on success.
-  Future<bool> setStickerKeywords(String sticker, List<String> keywords) {
+  Future<bool> setStickerKeywords(String sticker, {List<String>? keywords}) {
     return _client.apiCall(_token, 'setStickerKeywords', {
       'sticker': sticker,
       'keywords': keywords,
@@ -2308,6 +2309,7 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to change the mask position of a mask sticker.
+  ///
   /// The sticker must belong to a sticker set that was created by the bot.
   ///
   /// Returns True on success.
@@ -2332,8 +2334,9 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to set the thumbnail of a sticker set.
-  /// Animated thumbnails can be set for animated sticker sets only.
-  /// Video thumbnails can be set only for video sticker sets only.
+  ///
+  /// The format of the thumbnail file must match the format of the stickers in
+  /// the set.
   ///
   /// Returns True on success.
   Future<bool> setStickerSetThumbnail(
@@ -2367,9 +2370,7 @@ mixin TGAPIMethods {
   ///
   /// Returns True on success.
   Future<bool> deleteStickerSet(String name) {
-    return _client.apiCall(_token, 'deleteStickerSet', {
-      'name': name,
-    });
+    return _client.apiCall(_token, 'deleteStickerSet', {'name': name});
   }
 
   /// Use this method to send answers to an inline query.
