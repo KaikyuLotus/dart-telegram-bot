@@ -30,10 +30,10 @@ class GameHighScore {
   }
 
   /// Creates a list of objects from a json array
-  static List<MessageId> listFromJsonArray(List<dynamic> array) {
+  static List<GameHighScore> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,
-      (i) => MessageId.fromJson(array[i]),
+      (i) => GameHighScore.fromJson(array[i]),
     );
   }
 
@@ -43,7 +43,7 @@ class GameHighScore {
       'position': position,
       'user': user,
       'score': score,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override

@@ -31,7 +31,7 @@ class Game {
 
   /// Animation that will be displayed in the game message in chats.
   ///
-  /// Upload via BotFather
+  /// Upload via [BotFather](https://t.me/botfather).
   Animation? animation;
 
   /// Basic constructor
@@ -55,10 +55,7 @@ class Game {
         MessageEntity.listFromJsonArray,
         json['text_entities'],
       ),
-      animation: callIfNotNull(
-        Animation.fromJson,
-        json['animation'],
-      ),
+      animation: callIfNotNull(Animation.fromJson, json['animation']),
     );
   }
 

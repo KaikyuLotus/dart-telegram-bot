@@ -2696,11 +2696,11 @@ mixin TGAPIMethods {
   /// score in the chat and [force] is False.
   Future<Message> setGameScore(
     int userId,
-    int score, {
+    int score,
+    ChatID chatId,
+    int messageId, {
     bool? force,
     bool? disableEditMessage,
-    ChatID? chatId,
-    int? messageId,
   }) {
     return _client.apiCall(_token, 'setGameScore', {
       'user_id': userId,
@@ -2720,10 +2720,10 @@ mixin TGAPIMethods {
   /// score in the chat and [force] is False.
   Future<bool> setGameScoreInline(
     int userId,
-    int score, {
+    int score,
+    String inlineMessageId, {
     bool? force,
     bool? disableEditMessage,
-    String? inlineMessageId,
   }) {
     return _client.apiCall(_token, 'setGameScore', {
       'user_id': userId,
@@ -2735,15 +2735,16 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to get data for high score tables.
+  ///
   /// Will return the score of the specified user and several of their neighbors
   /// in a game.
   ///
-  /// On success, returns an Array of [GameHighScore] objects
+  /// Returns an Array of [GameHighScore] objects.
   Future<List<GameHighScore>> getGameHighScores(
-    int userId, {
-    ChatID? chatId,
-    int? messageId,
-  }) {
+    int userId,
+    ChatID chatId,
+    int messageId,
+  ) {
     return _client.apiCall(_token, 'getGameHighScores', {
       'user_id': userId,
       'chat_id': chatId,
@@ -2752,13 +2753,15 @@ mixin TGAPIMethods {
   }
 
   /// Use this method to get data for high score tables.
+  ///
   /// Will return the score of the specified user and several of their neighbors
   /// in a game.
+  ///
   /// Returns an Array of [GameHighScore] objects.
   Future<List<GameHighScore>> getGameHighScoresInline(
-    int userId, {
-    String? inlineMessageId,
-  }) {
+    int userId,
+    String inlineMessageId,
+  ) {
     return _client.apiCall(_token, 'getGameHighScores', {
       'user_id': userId,
       'inline_message_id': inlineMessageId,
