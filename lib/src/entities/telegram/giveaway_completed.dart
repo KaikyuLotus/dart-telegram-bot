@@ -28,7 +28,7 @@ class GiveawayCompleted {
     this.isStarGiveaway,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory GiveawayCompleted.fromJson(Map<String, dynamic> json) {
     return GiveawayCompleted(
       winnerCount: json['winner_count'],
@@ -42,7 +42,7 @@ class GiveawayCompleted {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'winner_count': winnerCount,
       'unclaimed_prize_count': unclaimedPrizeCount,

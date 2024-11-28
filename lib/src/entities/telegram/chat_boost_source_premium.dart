@@ -17,7 +17,7 @@ class ChatBoostSourcePremium extends ChatBoostSource {
     required this.user,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoostSourcePremium.fromJson(Map<String, dynamic> json) {
     return ChatBoostSourcePremium(
       user: User.fromJson(json['user']),

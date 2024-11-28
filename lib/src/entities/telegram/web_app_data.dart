@@ -14,7 +14,7 @@ class WebAppData {
     this.buttonText,
   );
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory WebAppData.fromJson(Map<String, dynamic> json) {
     return WebAppData(
       json['data'],

@@ -43,7 +43,7 @@ class ChatJoinRequest {
     this.inviteLink,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatJoinRequest.fromJson(Map<String, dynamic> json) {
     return ChatJoinRequest(
       chat: Chat.fromJson(json['chat']),

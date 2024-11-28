@@ -29,7 +29,7 @@ class MaskPosition {
     required this.scale,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MaskPosition.fromJson(Map<String, dynamic> json) {
     return MaskPosition(
       point: json['point']!,
@@ -39,7 +39,7 @@ class MaskPosition {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<MaskPosition> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

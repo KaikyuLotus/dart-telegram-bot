@@ -36,7 +36,7 @@ class BackgroundTypePattern extends BackgroundType {
     this.isMoving,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundTypePattern.fromJson(Map<String, dynamic> json) {
     return BackgroundTypePattern(
       document: Document.fromJson(json['document']),

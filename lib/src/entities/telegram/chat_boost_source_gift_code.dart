@@ -20,7 +20,7 @@ class ChatBoostSourceGiftCode extends ChatBoostSource {
     required this.user,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoostSourceGiftCode.fromJson(Map<String, dynamic> json) {
     return ChatBoostSourceGiftCode(
       user: User.fromJson(json['user']),

@@ -5,7 +5,7 @@ class CallbackGame {
   /// Basic constructor
   CallbackGame();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory CallbackGame.fromJson(Map<String, dynamic> _) {
     return CallbackGame();
   }

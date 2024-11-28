@@ -8,7 +8,7 @@ class ChatBoostAdded {
   /// Basic constructor
   ChatBoostAdded(this.boostCount);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoostAdded.fromJson(Map<String, dynamic> json) {
     return ChatBoostAdded(
       json['boost_count'],

@@ -47,7 +47,7 @@ class InputVenueMessageContent extends InputMessageContent {
     this.googlePlaceType,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputVenueMessageContent.fromJson(Map<String, dynamic> json) {
     return InputVenueMessageContent(
       json['latitude']!,

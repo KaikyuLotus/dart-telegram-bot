@@ -12,7 +12,7 @@ class VideoChatScheduled {
     required this.startDate,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory VideoChatScheduled.fromJson(Map<String, dynamic> json) {
     return VideoChatScheduled(
       startDate: json['start_date'],

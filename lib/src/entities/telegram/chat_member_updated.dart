@@ -43,7 +43,7 @@ class ChatMemberUpdated {
     this.viaChatFolderInviteLink,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberUpdated.fromJson(Map<String, dynamic> json) {
     return ChatMemberUpdated(
       chat: Chat.fromJson(json['chat']),

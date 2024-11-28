@@ -34,7 +34,7 @@ class ChatPhoto {
     required this.bigFileUniqueId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatPhoto.fromJson(Map<String, dynamic> json) {
     return ChatPhoto(
       smallFileId: json['small_file_id'],

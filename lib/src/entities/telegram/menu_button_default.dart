@@ -11,7 +11,7 @@ class MenuButtonDefault extends MenuButton {
   /// Basic constructor
   MenuButtonDefault();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MenuButtonDefault.fromJson(Map<String, dynamic> _) {
     return MenuButtonDefault();
   }

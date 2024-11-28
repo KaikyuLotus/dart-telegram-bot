@@ -24,7 +24,7 @@ class BusinessMessagesDeleted {
     required this.messageIds,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessMessagesDeleted.fromJson(Map<String, dynamic> json) {
     return BusinessMessagesDeleted(
       businessConnectionId: json['business_connection_id'],

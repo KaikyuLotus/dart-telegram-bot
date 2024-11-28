@@ -19,7 +19,7 @@ class LabeledPrice {
     required this.amount,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory LabeledPrice.fromJson(Map<String, dynamic> json) {
     return LabeledPrice(
       label: json['label']!,
@@ -27,7 +27,7 @@ class LabeledPrice {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<LabeledPrice> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

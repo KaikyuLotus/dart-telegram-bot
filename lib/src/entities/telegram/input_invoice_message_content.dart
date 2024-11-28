@@ -152,7 +152,7 @@ class InputInvoiceMessageContent extends InputMessageContent {
   })  : currency = 'XTR',
         prices = [price];
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputInvoiceMessageContent.fromJson(Map<String, dynamic> json) {
     return InputInvoiceMessageContent(
       title: json['title'],

@@ -21,7 +21,7 @@ class ResponseParameters {
     this.retryAfter,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ResponseParameters.fromJson(Map<String, dynamic> json) {
     return ResponseParameters(
       migrateToChatId: json['migrate_to_chat_id'],

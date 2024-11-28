@@ -35,7 +35,7 @@ class ChosenInlineResult {
     this.inlineMessageId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChosenInlineResult.fromJson(Map<String, dynamic> json) {
     return ChosenInlineResult(
       resultId: json['result_id'],

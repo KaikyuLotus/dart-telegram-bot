@@ -40,7 +40,7 @@ class ChatBoostSourceGiveaway extends ChatBoostSource {
     this.isUnclaimed,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoostSourceGiveaway.fromJson(Map<String, dynamic> json) {
     return ChatBoostSourceGiveaway(
       giveawayMessageId: json['giveaway_message_id'],

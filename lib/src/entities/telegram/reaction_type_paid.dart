@@ -11,7 +11,7 @@ class ReactionTypePaid extends ReactionType {
   /// Basic constructor
   ReactionTypePaid();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ReactionTypePaid.fromJson(Map<String, dynamic> _) {
     return ReactionTypePaid();
   }

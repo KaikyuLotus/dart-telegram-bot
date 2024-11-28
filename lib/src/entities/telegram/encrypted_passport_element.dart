@@ -87,7 +87,7 @@ class EncryptedPassportElement {
     this.translation,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory EncryptedPassportElement.fromJson(Map<String, dynamic> json) {
     return EncryptedPassportElement(
       type: json['type'],
@@ -106,7 +106,7 @@ class EncryptedPassportElement {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<EncryptedPassportElement> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

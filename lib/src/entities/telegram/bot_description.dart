@@ -10,7 +10,7 @@ class BotDescription {
     required this.description,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BotDescription.fromJson(Map<String, dynamic> json) {
     return BotDescription(
       description: json['description'],

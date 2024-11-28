@@ -18,7 +18,7 @@ class Birthdate {
     this.year,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Birthdate.fromJson(Map<String, dynamic> json) {
     return Birthdate(
       day: json['day'],

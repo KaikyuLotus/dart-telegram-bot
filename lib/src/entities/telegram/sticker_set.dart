@@ -31,7 +31,7 @@ class StickerSet {
     this.thumbnail,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory StickerSet.fromJson(Map<String, dynamic> json) {
     return StickerSet(
       name: json['name']!,

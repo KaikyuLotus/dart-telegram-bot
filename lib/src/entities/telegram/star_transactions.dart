@@ -12,7 +12,7 @@ class StarTransactions {
     required this.transactions,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory StarTransactions.fromJson(Map<String, dynamic> json) {
     return StarTransactions(
       transactions: StarTransaction.listFromJsonArray(json['transactions']),

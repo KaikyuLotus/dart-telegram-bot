@@ -14,7 +14,7 @@ abstract class ChatMember {
 
   abstract final User user;
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   static ChatMember fromJson(Map<String, dynamic> json) {
     switch (json['status']) {
       case 'owner':
@@ -34,7 +34,7 @@ abstract class ChatMember {
     }
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<ChatMember> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,

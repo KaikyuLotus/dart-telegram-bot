@@ -17,7 +17,7 @@ class Dice {
     required this.value,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Dice.fromJson(Map<String, dynamic> json) {
     return Dice(
       emoji: Emoji.forValue(json['emoji']),

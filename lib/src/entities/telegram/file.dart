@@ -38,7 +38,7 @@ class File {
     this.filePath,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory File.fromJson(Map<String, dynamic> json) {
     return File(
       fileId: json['file_id'],

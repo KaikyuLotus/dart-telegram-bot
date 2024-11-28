@@ -37,7 +37,7 @@ class TransactionPartnerUser extends TransactionPartner {
     this.gift,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory TransactionPartnerUser.fromJson(Map<String, dynamic> json) {
     return TransactionPartnerUser(
       user: User.fromJson(json['user']),

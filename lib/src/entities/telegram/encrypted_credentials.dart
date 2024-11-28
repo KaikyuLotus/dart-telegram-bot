@@ -28,7 +28,7 @@ class EncryptedCredentials {
     required this.secret,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory EncryptedCredentials.fromJson(Map<String, dynamic> json) {
     return EncryptedCredentials(
       data: json['data'],

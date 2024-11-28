@@ -15,7 +15,7 @@ class KeyboardButtonPollType {
   /// Basic constructor
   KeyboardButtonPollType({this.type});
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory KeyboardButtonPollType.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonPollType(
       type: callIfNotNull(PollType.forValue, json['type']),

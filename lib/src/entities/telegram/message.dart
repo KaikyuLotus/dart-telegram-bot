@@ -491,7 +491,7 @@ class Message extends MaybeInaccessibleMessage {
     this.replyMarkup,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       messageId: json['message_id']!,
@@ -685,7 +685,7 @@ class Message extends MaybeInaccessibleMessage {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<Message> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,

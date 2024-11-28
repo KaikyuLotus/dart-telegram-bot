@@ -16,7 +16,7 @@ class PaidMediaPhoto extends PaidMedia {
     required this.photo,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PaidMediaPhoto.fromJson(Map<String, dynamic> json) {
     return PaidMediaPhoto(
       photo: PhotoSize.listFromJsonArray(json['photo']),

@@ -163,7 +163,7 @@ class Update {
     this.removedChatBoost,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Update.fromJson(Map<String, dynamic> json) {
     return Update(
       updateId: json['update_id']!,
@@ -262,7 +262,7 @@ class Update {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<Update> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,

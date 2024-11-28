@@ -15,7 +15,7 @@ class ForumTopicEdited {
     this.iconCustomEmojiId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ForumTopicEdited.fromJson(Map<String, dynamic> json) {
     return ForumTopicEdited(
       name: json['name'],

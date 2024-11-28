@@ -16,7 +16,7 @@ class BotCommand {
     required this.description,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BotCommand.fromJson(Map<String, dynamic> json) {
     return BotCommand(
       command: json['command'],
@@ -24,7 +24,7 @@ class BotCommand {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<BotCommand> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,

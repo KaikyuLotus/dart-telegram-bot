@@ -17,7 +17,7 @@ class UsersShared {
     required this.users,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory UsersShared.fromJson(Map<String, dynamic> json) {
     return UsersShared(
       requestId: json['request_id'],

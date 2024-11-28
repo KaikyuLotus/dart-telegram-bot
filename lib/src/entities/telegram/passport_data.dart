@@ -17,7 +17,7 @@ class PassportData {
     required this.credentials,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PassportData.fromJson(Map<String, dynamic> json) {
     return PassportData(
       data: EncryptedPassportElement.listFromJsonArray(json['data']!),

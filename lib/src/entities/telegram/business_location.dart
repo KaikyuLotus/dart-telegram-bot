@@ -17,7 +17,7 @@ class BusinessLocation {
     this.location,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessLocation.fromJson(Map<String, dynamic> json) {
     return BusinessLocation(
       address: json['address'],

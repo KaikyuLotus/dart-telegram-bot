@@ -27,7 +27,7 @@ class MessageOriginChat extends MessageOrigin {
     this.authorSignature,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageOriginChat.fromJson(Map<String, dynamic> json) {
     return MessageOriginChat(
       date: json['date'],

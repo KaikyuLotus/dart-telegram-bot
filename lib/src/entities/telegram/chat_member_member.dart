@@ -22,7 +22,7 @@ class ChatMemberMember extends ChatMember {
     required this.untilDate,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberMember.fromJson(Map<String, dynamic> json) {
     return ChatMemberMember(
       user: User.fromJson(json['user']),

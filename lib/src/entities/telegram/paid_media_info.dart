@@ -16,7 +16,7 @@ class PaidMediaInfo {
     required this.paidMedia,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PaidMediaInfo.fromJson(Map<String, dynamic> json) {
     return PaidMediaInfo(
       starCount: json['star_count'],

@@ -20,7 +20,7 @@ class GameHighScore {
     required this.score,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory GameHighScore.fromJson(Map<String, dynamic> json) {
     return GameHighScore(
       position: json['position'],
@@ -29,7 +29,7 @@ class GameHighScore {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<MessageId> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,

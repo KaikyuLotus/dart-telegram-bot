@@ -85,7 +85,7 @@ class KeyboardButton {
   /// WebApp constructor
   KeyboardButton.requestWebApp(this.text, this.webApp);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory KeyboardButton.fromJson(Map<String, dynamic> json) {
     return KeyboardButton._(
       text: json['text']!,
@@ -110,7 +110,7 @@ class KeyboardButton {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<KeyboardButton> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

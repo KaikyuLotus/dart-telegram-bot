@@ -35,7 +35,7 @@ class ForceReply extends ReplyMarkup {
     this.selective,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ForceReply.fromJson(Map<String, dynamic> json) {
     return ForceReply(
       inputFieldPlaceholder: json['input_field_placeholder'],

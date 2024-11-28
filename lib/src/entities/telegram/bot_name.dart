@@ -10,7 +10,7 @@ class BotName {
     required this.name,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BotName.fromJson(Map<String, dynamic> json) {
     return BotName(
       name: json['name'],

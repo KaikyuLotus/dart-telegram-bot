@@ -12,7 +12,7 @@ class VideoChatParticipantsInvited {
   /// Basic constructor
   VideoChatParticipantsInvited(this.users);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory VideoChatParticipantsInvited.fromJson(Map<String, dynamic> json) {
     return VideoChatParticipantsInvited(
       callIfNotNull(

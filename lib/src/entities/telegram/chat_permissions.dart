@@ -71,7 +71,7 @@ class ChatPermissions {
     this.canManageTopics,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatPermissions.fromJson(Map<String, dynamic> json) {
     return ChatPermissions(
       canSendMessages: json['can_send_messages'],

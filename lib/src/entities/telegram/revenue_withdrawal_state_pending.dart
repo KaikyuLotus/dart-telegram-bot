@@ -11,7 +11,7 @@ class RevenueWithdrawalStatePending extends RevenueWithdrawalState {
   /// Basic constructor
   RevenueWithdrawalStatePending();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory RevenueWithdrawalStatePending.fromJson(Map<String, dynamic> _) {
     return RevenueWithdrawalStatePending();
   }

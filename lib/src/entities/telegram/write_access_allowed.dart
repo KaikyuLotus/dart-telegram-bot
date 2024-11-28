@@ -25,7 +25,7 @@ class WriteAccessAllowed {
     this.fromAttachmentMenu,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory WriteAccessAllowed.fromJson(Map<String, dynamic> json) {
     return WriteAccessAllowed(
       fromRequest: json['from_request'],

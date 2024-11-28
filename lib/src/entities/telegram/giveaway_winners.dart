@@ -61,7 +61,7 @@ class GiveawayWinners {
     this.prizeDescription,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory GiveawayWinners.fromJson(Map<String, dynamic> json) {
     return GiveawayWinners(
       chat: Chat.fromJson(json['chat']),

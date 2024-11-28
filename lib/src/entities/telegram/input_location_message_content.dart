@@ -41,7 +41,7 @@ class InputLocationMessageContent extends InputMessageContent {
     this.proximityAlertRadius,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputLocationMessageContent.fromJson(Map<String, dynamic> json) {
     return InputLocationMessageContent(
       json['latitude']!,

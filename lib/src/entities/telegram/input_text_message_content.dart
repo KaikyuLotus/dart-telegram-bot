@@ -30,7 +30,7 @@ class InputTextMessageContent extends InputMessageContent {
     this.linkPreviewOptions,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputTextMessageContent.fromJson(Map<String, dynamic> json) {
     return InputTextMessageContent(
       json['message_text']!,

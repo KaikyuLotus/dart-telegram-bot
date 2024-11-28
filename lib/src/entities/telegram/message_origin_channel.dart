@@ -30,7 +30,7 @@ class MessageOriginChannel extends MessageOrigin {
     this.authorSignature,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageOriginChannel.fromJson(Map<String, dynamic> json) {
     return MessageOriginChannel(
       date: json['date'],

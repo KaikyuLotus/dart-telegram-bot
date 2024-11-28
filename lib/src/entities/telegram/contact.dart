@@ -32,7 +32,7 @@ class Contact {
     this.vcard,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Contact.fromJson(Map<String, dynamic> json) {
     return Contact(
       phoneNumber: json['phone_number'],

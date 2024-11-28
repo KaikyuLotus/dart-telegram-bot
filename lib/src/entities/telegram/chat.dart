@@ -42,7 +42,7 @@ class Chat {
     this.isForum,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Chat.fromJson(Map<String, dynamic> json) {
     return Chat(
       id: json['id'],
@@ -55,7 +55,7 @@ class Chat {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<Chat> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

@@ -26,7 +26,7 @@ class ChatMemberOwner extends ChatMember {
     this.customTitle,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberOwner.fromJson(Map<String, dynamic> json) {
     return ChatMemberOwner(
       user: User.fromJson(json['user']),

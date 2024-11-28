@@ -16,7 +16,7 @@ class BusinessOpeningHours {
     required this.openingHours,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessOpeningHours.fromJson(Map<String, dynamic> json) {
     return BusinessOpeningHours(
       timeZoneName: json['time_zone_name'],

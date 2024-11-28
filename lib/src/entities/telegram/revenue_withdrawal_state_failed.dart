@@ -11,7 +11,7 @@ class RevenueWithdrawalStateFailed extends RevenueWithdrawalState {
   /// Basic constructor
   RevenueWithdrawalStateFailed();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory RevenueWithdrawalStateFailed.fromJson(Map<String, dynamic> _) {
     return RevenueWithdrawalStateFailed();
   }

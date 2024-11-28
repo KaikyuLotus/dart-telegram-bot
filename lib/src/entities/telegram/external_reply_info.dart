@@ -114,7 +114,7 @@ class ExternalReplyInfo {
     this.venue,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ExternalReplyInfo.fromJson(Map<String, dynamic> json) {
     return ExternalReplyInfo(
       MessageOrigin.fromJson(json['origin']),

@@ -48,7 +48,7 @@ class KeyboardButtonRequestUsers {
     this.requestPhoto,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory KeyboardButtonRequestUsers.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonRequestUsers(
       json['request_id'],

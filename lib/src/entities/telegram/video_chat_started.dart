@@ -6,7 +6,7 @@ class VideoChatStarted {
   /// Basic constructor
   VideoChatStarted();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory VideoChatStarted.fromJson(Map<String, dynamic> _) {
     return VideoChatStarted();
   }

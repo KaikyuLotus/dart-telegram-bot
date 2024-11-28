@@ -9,7 +9,7 @@ class VideoChatEnded {
   /// Basic constructor
   VideoChatEnded(this.duration);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory VideoChatEnded.fromJson(Map<String, dynamic> json) {
     return VideoChatEnded(json['duration']);
   }

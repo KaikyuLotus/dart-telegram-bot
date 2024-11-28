@@ -56,7 +56,7 @@ class Audio {
     this.thumbnail,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Audio.fromJson(Map<String, dynamic> json) {
     return Audio(
       fileId: json['file_id'],

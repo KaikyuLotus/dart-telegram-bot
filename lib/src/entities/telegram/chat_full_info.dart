@@ -231,7 +231,7 @@ class ChatFullInfo {
     this.location,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatFullInfo.fromJson(Map<String, dynamic> json) {
     return ChatFullInfo(
       id: json['id'],

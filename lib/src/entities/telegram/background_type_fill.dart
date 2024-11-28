@@ -20,7 +20,7 @@ class BackgroundTypeFill extends BackgroundType {
     required this.darkThemeDimming,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundTypeFill.fromJson(Map<String, dynamic> json) {
     return BackgroundTypeFill(
       fill: BackgroundFill.fromJson(json['fill']),

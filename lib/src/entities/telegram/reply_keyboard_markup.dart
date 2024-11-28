@@ -54,7 +54,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
     this.selective,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ReplyKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardMarkup(
       KeyboardButton.listOfListsFromJsonArray(json['keyboard']!),

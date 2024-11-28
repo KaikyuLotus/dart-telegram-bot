@@ -18,7 +18,7 @@ class ChatMemberLeft extends ChatMember {
     required this.user,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberLeft.fromJson(Map<String, dynamic> json) {
     return ChatMemberLeft(
       user: User.fromJson(json['user']),

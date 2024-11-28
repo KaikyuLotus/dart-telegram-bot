@@ -16,7 +16,7 @@ class PaidMediaPurchased {
     required this.paidMediaPayload,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PaidMediaPurchased.fromJson(Map<String, dynamic> json) {
     return PaidMediaPurchased(
       from: User.fromJson(json['from']),

@@ -11,7 +11,7 @@ class MenuButtonCommands extends MenuButton {
   /// Basic constructor
   MenuButtonCommands();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MenuButtonCommands.fromJson(Map<String, dynamic> _) {
     return MenuButtonCommands();
   }

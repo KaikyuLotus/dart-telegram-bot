@@ -98,7 +98,7 @@ class ChatMemberAdministrator extends ChatMember {
     this.customTitle,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberAdministrator.fromJson(Map<String, dynamic> json) {
     return ChatMemberAdministrator(
       user: User.fromJson(json['user']),

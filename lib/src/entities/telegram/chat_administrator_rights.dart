@@ -76,7 +76,7 @@ class ChatAdministratorRights {
     this.canManageTopics,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatAdministratorRights.fromJson(Map<String, dynamic> json) {
     return ChatAdministratorRights(
       isAnonymous: json['is_anonymous'],

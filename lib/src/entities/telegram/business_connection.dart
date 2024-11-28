@@ -40,7 +40,7 @@ class BusinessConnection {
     required this.isEnabled,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessConnection.fromJson(Map<String, dynamic> json) {
     return BusinessConnection(
       id: json['id'],

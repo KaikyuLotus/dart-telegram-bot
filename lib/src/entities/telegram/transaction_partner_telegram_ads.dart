@@ -11,7 +11,7 @@ class TransactionPartnerTelegramAds extends TransactionPartner {
   /// Basic constructor
   TransactionPartnerTelegramAds();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory TransactionPartnerTelegramAds.fromJson(Map<String, dynamic> _) {
     return TransactionPartnerTelegramAds();
   }

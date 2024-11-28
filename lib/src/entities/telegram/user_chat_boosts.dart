@@ -12,7 +12,7 @@ class UserChatBoosts {
     required this.boosts,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory UserChatBoosts.fromJson(Map<String, dynamic> json) {
     return UserChatBoosts(
       boosts: ChatBoost.listFromJsonArray(json['boosts']),

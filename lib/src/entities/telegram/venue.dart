@@ -42,7 +42,7 @@ class Venue {
     this.googlePlaceType,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Venue.fromJson(Map<String, dynamic> json) {
     return Venue(
       location: Location.fromJson(json['location']!),

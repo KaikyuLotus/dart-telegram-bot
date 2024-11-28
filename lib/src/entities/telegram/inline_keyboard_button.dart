@@ -121,7 +121,7 @@ class InlineKeyboardButton {
   /// Pay constructor
   InlineKeyboardButton.pay(this.text, {this.pay});
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InlineKeyboardButton.fromJson(Map<String, dynamic> json) {
     return InlineKeyboardButton._(
       json['text']!,
@@ -137,7 +137,7 @@ class InlineKeyboardButton {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<InlineKeyboardButton> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

@@ -83,7 +83,7 @@ class Sticker {
     this.fileSize,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Sticker.fromJson(Map<String, dynamic> json) {
     return Sticker(
       fileId: json['file_id']!,
@@ -104,7 +104,7 @@ class Sticker {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<Sticker> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => Sticker.fromJson(json[i]));
   }

@@ -8,7 +8,7 @@ class ForumTopicClosed {
   /// Basic constructor
   ForumTopicClosed();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ForumTopicClosed.fromJson(Map<String, dynamic> _) {
     return ForumTopicClosed();
   }

@@ -22,7 +22,7 @@ class BusinessIntro {
     this.sticker,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessIntro.fromJson(Map<String, dynamic> json) {
     return BusinessIntro(
       title: json['title'],

@@ -18,7 +18,7 @@ class ChatLocation {
     required this.address,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatLocation.fromJson(Map<String, dynamic> json) {
     return ChatLocation(
       location: Location.fromJson(json['location']),

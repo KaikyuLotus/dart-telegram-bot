@@ -23,7 +23,7 @@ class PollOption {
     required this.voterCount,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PollOption.fromJson(Map<String, dynamic> json) {
     return PollOption(
       text: json['text'],
@@ -35,7 +35,7 @@ class PollOption {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<PollOption> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => PollOption.fromJson(json[i]));
   }

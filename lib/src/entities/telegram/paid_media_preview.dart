@@ -24,7 +24,7 @@ class PaidMediaPreview extends PaidMedia {
     this.duration,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PaidMediaPreview.fromJson(Map<String, dynamic> json) {
     return PaidMediaPreview(
       width: json['width'],

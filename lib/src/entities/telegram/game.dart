@@ -44,7 +44,7 @@ class Game {
     this.animation,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Game.fromJson(Map<String, dynamic> json) {
     return Game(
       title: json['title'],

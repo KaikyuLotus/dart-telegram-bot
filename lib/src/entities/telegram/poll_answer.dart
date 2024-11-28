@@ -28,7 +28,7 @@ class PollAnswer {
     required this.optionIds,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PollAnswer.fromJson(Map<String, dynamic> json) {
     return PollAnswer(
       pollId: json['poll_id']!,

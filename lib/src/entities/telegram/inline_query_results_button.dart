@@ -29,7 +29,7 @@ class InlineQueryResultsButton {
     this.startParameter,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InlineQueryResultsButton.fromJson(Map<String, dynamic> json) {
     return InlineQueryResultsButton(
       text: json['text']!,

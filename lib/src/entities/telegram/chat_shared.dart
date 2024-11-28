@@ -41,7 +41,7 @@ class ChatShared {
     this.photo,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatShared.fromJson(Map<String, dynamic> json) {
     return ChatShared(
       requestId: json['request_id'],

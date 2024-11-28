@@ -48,7 +48,7 @@ class SuccessfulPayment {
     required this.providerPaymentChargeId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory SuccessfulPayment.fromJson(Map<String, dynamic> json) {
     return SuccessfulPayment(
       currency: json['currency'],

@@ -55,7 +55,7 @@ class Animation {
     this.fileSize,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Animation.fromJson(Map<String, dynamic> json) {
     return Animation(
       fileId: json['file_id'],

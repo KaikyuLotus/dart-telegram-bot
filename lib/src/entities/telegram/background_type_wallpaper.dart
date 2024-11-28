@@ -29,7 +29,7 @@ class BackgroundTypeWallpaper extends BackgroundType {
     this.isMoving,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundTypeWallpaper.fromJson(Map<String, dynamic> json) {
     return BackgroundTypeWallpaper(
       document: Document.fromJson(json['document']),

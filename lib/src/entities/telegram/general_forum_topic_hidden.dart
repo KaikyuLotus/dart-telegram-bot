@@ -8,7 +8,7 @@ class GeneralForumTopicHidden {
   /// Basic constructor
   GeneralForumTopicHidden();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory GeneralForumTopicHidden.fromJson(Map<String, dynamic> _) {
     return GeneralForumTopicHidden();
   }

@@ -16,7 +16,7 @@ class BackgroundTypeChatTheme extends BackgroundType {
     required this.themeName,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundTypeChatTheme.fromJson(Map<String, dynamic> json) {
     return BackgroundTypeChatTheme(
       themeName: json['theme_name'],

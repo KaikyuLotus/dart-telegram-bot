@@ -22,7 +22,7 @@ abstract class PaidMedia {
     }
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<PaidMedia> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => PaidMedia.fromJson(json[i]));
   }

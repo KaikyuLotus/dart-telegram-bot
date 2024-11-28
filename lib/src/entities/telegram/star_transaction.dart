@@ -41,7 +41,7 @@ class StarTransaction {
     this.receiver,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory StarTransaction.fromJson(Map<String, dynamic> json) {
     return StarTransaction(
       id: json['id'],
@@ -52,7 +52,7 @@ class StarTransaction {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<StarTransaction> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => StarTransaction.fromJson(json[i]));
   }

@@ -17,7 +17,7 @@ class ReactionTypeCustomEmoji extends ReactionType {
     this.customEmojiId,
   );
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ReactionTypeCustomEmoji.fromJson(Map<String, dynamic> json) {
     return ReactionTypeCustomEmoji(
       json['custom_emoji_id'],

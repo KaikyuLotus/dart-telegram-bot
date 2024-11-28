@@ -60,7 +60,7 @@ class ChatInviteLink {
     this.subscriptionPrice,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatInviteLink.fromJson(Map<String, dynamic> json) {
     return ChatInviteLink(
       inviteLink: json['invite_link'],

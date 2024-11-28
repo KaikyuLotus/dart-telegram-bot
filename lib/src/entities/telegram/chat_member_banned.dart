@@ -25,7 +25,7 @@ class ChatMemberBanned extends ChatMember {
     required this.untilDate,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberBanned.fromJson(Map<String, dynamic> json) {
     return ChatMemberBanned(
       user: User.fromJson(json['user']),

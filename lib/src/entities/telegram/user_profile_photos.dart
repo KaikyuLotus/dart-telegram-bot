@@ -16,7 +16,7 @@ class UserProfilePhotos {
     required this.photos,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory UserProfilePhotos.fromJson(Map<String, dynamic> json) {
     return UserProfilePhotos(
       totalCount: json['total_count']!,

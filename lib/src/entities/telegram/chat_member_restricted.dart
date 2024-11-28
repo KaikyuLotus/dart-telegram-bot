@@ -89,7 +89,7 @@ class ChatMemberRestricted extends ChatMember {
     this.canManageTopics,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberRestricted.fromJson(Map<String, dynamic> json) {
     return ChatMemberRestricted(
       user: User.fromJson(json['user']),

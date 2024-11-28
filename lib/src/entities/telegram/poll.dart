@@ -76,7 +76,7 @@ class Poll {
     this.closeDate,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Poll.fromJson(Map<String, dynamic> json) {
     return Poll(
       id: json['id']!,

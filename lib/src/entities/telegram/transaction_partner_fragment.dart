@@ -17,7 +17,7 @@ class TransactionPartnerFragment extends TransactionPartner {
     this.withdrawalState,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory TransactionPartnerFragment.fromJson(Map<String, dynamic> json) {
     return TransactionPartnerFragment(
       withdrawalState: callIfNotNull(

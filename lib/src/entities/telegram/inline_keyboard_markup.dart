@@ -12,7 +12,7 @@ class InlineKeyboardMarkup extends ReplyMarkup {
   /// Basic constructor
   InlineKeyboardMarkup(this.inlineKeyboard);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InlineKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     return InlineKeyboardMarkup(
       InlineKeyboardButton.listOfListsFromJsonArray(json['inline_keyboard']),

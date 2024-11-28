@@ -11,7 +11,7 @@ class TransactionPartnerOther extends TransactionPartner {
   /// Basic constructor
   TransactionPartnerOther();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory TransactionPartnerOther.fromJson(Map<String, dynamic> _) {
     return TransactionPartnerOther();
   }

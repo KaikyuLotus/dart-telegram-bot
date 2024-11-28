@@ -27,7 +27,7 @@ class InputContactMessageContent extends InputMessageContent {
     this.vcard,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputContactMessageContent.fromJson(Map<String, dynamic> json) {
     return InputContactMessageContent(
       json['phone_number']!,

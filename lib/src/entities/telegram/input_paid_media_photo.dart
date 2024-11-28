@@ -24,7 +24,7 @@ class InputPaidMediaPhoto extends InputPaidMedia {
     required this.media,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputPaidMediaPhoto.fromJson(Map<String, dynamic> json) {
     return InputPaidMediaPhoto(
       media: json['media'],

@@ -43,7 +43,7 @@ class Document {
     this.fileSize,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
       fileId: json['file_id'],

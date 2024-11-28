@@ -55,7 +55,7 @@ class CallbackQuery {
     this.gameShortName,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory CallbackQuery.fromJson(Map<String, dynamic> json) {
     return CallbackQuery(
       id: json['id'],

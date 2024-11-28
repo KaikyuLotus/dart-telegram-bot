@@ -30,7 +30,7 @@ class ReplyKeyboardRemove extends ReplyMarkup {
     this.selective,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ReplyKeyboardRemove.fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardRemove(
       removeKeyboard: json['remove_keyboard']!,

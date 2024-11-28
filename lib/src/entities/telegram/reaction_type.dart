@@ -9,7 +9,7 @@ import '../../../telegram_entities.dart';
 abstract class ReactionType {
   abstract final String type;
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   static ReactionType fromJson(Map<String, dynamic> json) {
     switch (json['type']) {
       case 'emoji':
@@ -23,7 +23,7 @@ abstract class ReactionType {
     }
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<ReactionType> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,

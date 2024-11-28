@@ -29,7 +29,7 @@ class OrderInfo {
     this.shippingAddress,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory OrderInfo.fromJson(Map<String, dynamic> json) {
     return OrderInfo(
       name: json['name'],

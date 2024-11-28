@@ -33,7 +33,7 @@ class Voice {
     this.fileSize,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Voice.fromJson(Map<String, dynamic> json) {
     return Voice(
       fileId: json['file_id']!,

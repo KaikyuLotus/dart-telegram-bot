@@ -55,7 +55,7 @@ class Giveaway {
     this.premiumSubscriptionMonthCount,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Giveaway.fromJson(Map<String, dynamic> json) {
     return Giveaway(
       chats: Chat.listFromJsonArray(json['chats']),
