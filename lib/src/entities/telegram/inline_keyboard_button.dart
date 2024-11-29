@@ -131,7 +131,10 @@ class InlineKeyboardButton {
       loginUrl: callIfNotNull(LoginUrl.fromJson, json['login_url']),
       switchInlineQuery: json['switch_inline_query'],
       switchInlineQueryCurrentChat: json['switch_inline_query_current_chat'],
-      switchInlineQueryChosenChat: json['switch_inline_query_chosen_chat'],
+      switchInlineQueryChosenChat: callIfNotNull(
+        SwitchInlineQueryChosenChat.fromJson,
+        json['switch_inline_query_chosen_chat'],
+      ),
       callbackGame: callIfNotNull(CallbackGame.fromJson, json['callback_game']),
       pay: json['pay'],
     );

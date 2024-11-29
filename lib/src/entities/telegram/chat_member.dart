@@ -17,7 +17,7 @@ abstract class ChatMember {
   /// Creates an object from a json
   static ChatMember fromJson(Map<String, dynamic> json) {
     switch (json['status']) {
-      case 'owner':
+      case 'creator':
         return ChatMemberOwner.fromJson(json);
       case 'administrator':
         return ChatMemberAdministrator.fromJson(json);
@@ -27,7 +27,7 @@ abstract class ChatMember {
         return ChatMemberRestricted.fromJson(json);
       case 'left':
         return ChatMemberLeft.fromJson(json);
-      case 'banned':
+      case 'kicked':
         return ChatMemberBanned.fromJson(json);
       default:
         throw Exception('ChatMember type not recognized');

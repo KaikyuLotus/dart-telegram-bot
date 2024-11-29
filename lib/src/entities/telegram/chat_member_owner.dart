@@ -5,9 +5,9 @@ import '../../../telegram_entities.dart';
 /// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
 /// that owns the chat and has all administrator privileges.
 class ChatMemberOwner extends ChatMember {
-  /// The member's status in the chat, always “owner”
+  /// The member's status in the chat, always “creator”
   @override
-  String status = 'owner';
+  String status = 'creator';
 
   /// Information about the user
   @override
