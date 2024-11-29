@@ -3,14 +3,18 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 
 /// Represents a venue.
+///
 /// By default, the venue will be sent by the user.
-/// Alternatively, you can use input_message_content to send a message with the
+///
+/// Alternatively, you can use [inputMessageContent] to send a message with the
 /// specified content instead of the venue.
 class InlineQueryResultVenue extends InlineQueryResult {
-  /// Type of the result, must be venue
+  /// Type of the result, must be *venue*
+  @override
   String type = 'venue';
 
   /// Unique identifier for this result, 1-64 Bytes
+  @override
   String id;
 
   /// Latitude of the venue location in degrees
@@ -25,41 +29,36 @@ class InlineQueryResultVenue extends InlineQueryResult {
   /// Address of the venue
   String address;
 
-  /// Optional.
   /// Foursquare identifier of the venue if known
   String? foursquareId;
 
-  /// Optional.
   /// Foursquare type of the venue, if known.
+  ///
   /// (For example, “arts_entertainment/default”, “arts_entertainment/aquarium”
   /// or “food/icecream”.)
   String? foursquareType;
 
-  /// Optional.
   /// Google Places identifier of the venue
   String? googlePlaceId;
 
-  /// Optional.
   /// Google Places type of the venue.
+  ///
+  /// See [supported types](https://developers.google.com/places/web-service/supported_types).
   String? googlePlaceType;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
-  /// Optional.
   /// Content of the message to be sent instead of the venue
   InputMessageContent? inputMessageContent;
 
-  /// Optional.
   /// Url of the thumbnail for the result
   String? thumbnailUrl;
 
-  /// Optional.
   /// Thumbnail width
   int? thumbnailWidth;
 
-  /// Optional.
   /// Thumbnail height
   int? thumbnailHeight;
 

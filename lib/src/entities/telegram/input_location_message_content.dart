@@ -11,24 +11,23 @@ class InputLocationMessageContent extends InputMessageContent {
   /// Longitude of the location in degrees
   double longitude;
 
-  /// Optional.
   /// The radius of uncertainty for the location, measured in meters; 0-1500
   double? horizontalAccuracy;
 
-  /// Optional.
-  /// Period in seconds for which the location can be updated,
-  /// should be between 60 and 86400.
+  /// Period in seconds during which the location can be updated, should be
+  /// between 60 and 86400, or 0x7FFFFFFF for live locations that can be edited
+  /// indefinitely.
   int? livePeriod;
 
-  /// Optional.
   /// For live locations, a direction in which the user is moving, in degrees.
+  ///
   /// Must be between 1 and 360 if specified.
   int? heading;
 
-  /// Optional.
   /// For live locations, a maximum distance for proximity alerts about
-  /// approaching another chat member, in meters. Must be between 1 and 100000
-  /// if specified.
+  /// approaching another chat member, in meters.
+  ///
+  /// Must be between 1 and 100000 if specified.
   int? proximityAlertRadius;
 
   /// Basic constructor
@@ -44,8 +43,8 @@ class InputLocationMessageContent extends InputMessageContent {
   /// Creates an object from a json
   factory InputLocationMessageContent.fromJson(Map<String, dynamic> json) {
     return InputLocationMessageContent(
-      json['latitude']!,
-      json['longitude']!,
+      json['latitude'],
+      json['longitude'],
       horizontalAccuracy: json['horizontal_accuracy'],
       livePeriod: json['live_period'],
       heading: json['heading'],

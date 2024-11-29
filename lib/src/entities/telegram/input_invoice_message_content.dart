@@ -18,8 +18,7 @@ class InputInvoiceMessageContent extends InputMessageContent {
 
   /// Payment provider token, obtained via [@BotFather](https://t.me/botfather).
   ///
-  /// Pass an empty string for payments in
-  /// [Telegram Stars](https://t.me/BotNews/90).
+  /// Pass an empty string for payments in [Telegram Stars](https://t.me/BotNews/90).
   String? providerToken;
 
   /// Three-letter ISO 4217 currency code,
@@ -31,34 +30,34 @@ class InputInvoiceMessageContent extends InputMessageContent {
   /// Price breakdown, a JSON-serialized list of components (e.g. product price,
   /// tax, discount, delivery cost, delivery tax, bonus, etc.).
   ///
-  /// Must contain exactly one item for payments in
-  /// [Telegram Stars](https://t.me/BotNews/90).
+  /// Must contain exactly one item for payments in [Telegram Stars](https://t.me/BotNews/90).
   List<LabeledPrice> prices;
 
-  /// The maximum accepted amount for tips in the smallest units of the currency
-  /// (integer, not float/double).
+  /// The maximum accepted amount for tips in the *smallest units* of the
+  /// currency (integer, **not** float/double).
   ///
   /// For example, for a maximum tip of `US$ 1.45` pass `max_tip_amount = 145`.
   ///
-  /// See the exp parameter in
-  /// [currencies.json](https://core.telegram.org/bots/payments/currencies.json),
+  /// See the *exp* parameter in [currencies.json](https://core.telegram.org/bots/payments/currencies.json),
   /// it shows the number of digits past the decimal point for each currency
   /// (2 for the majority of currencies).
   ///
-  /// Defaults to 0. Not supported for payments in Telegram Stars.
+  /// Defaults to 0.
+  ///
+  /// Not supported for payments in [Telegram Stars](https://t.me/BotNews/90).
   int? maxTipAmount;
 
-  /// A JSON-serialized array of suggested amounts of tip in the smallest units
-  /// of the currency (integer, not float/double).
+  /// A JSON-serialized array of suggested amounts of tip in the
+  /// *smallest units* of the currency (integer, **not** float/double).
   ///
   /// At most 4 suggested tip amounts can be specified.
   ///
   /// The suggested tip amounts must be positive, passed in a strictly increased
-  /// order and must not exceed max_tip_amount.
+  /// order and must not exceed [maxTipAmount].
   List<int>? suggestedTipAmounts;
 
-  /// A JSON-serialized object for data about the invoice,
-  /// which will be shared with the payment provider.
+  /// A JSON-serialized object for data about the invoice, which will be shared
+  /// with the payment provider.
   ///
   /// A detailed description of the required fields should be provided by the
   /// payment provider.

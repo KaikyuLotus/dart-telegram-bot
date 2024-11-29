@@ -1,19 +1,20 @@
-/// Describes an inline message sent by a Web App on behalf of a user.
+/// Describes an inline message sent by a [Web App](https://core.telegram.org/bots/webapps)
+/// on behalf of a user.
 class SentWebAppMessage {
-  /// Optional.
   /// Identifier of the sent inline message.
+  ///
   /// Available only if there is an inline keyboard attached to the message.
   String? inlineMessageId;
 
   /// Basic constructor
-  SentWebAppMessage(
+  SentWebAppMessage({
     this.inlineMessageId,
-  );
+  });
 
   /// Creates an object from a json
   factory SentWebAppMessage.fromJson(Map<String, dynamic> json) {
     return SentWebAppMessage(
-      json['inline_message_id'],
+      inlineMessageId: json['inline_message_id'],
     );
   }
 
@@ -21,6 +22,6 @@ class SentWebAppMessage {
   Map<String, dynamic> toJson() {
     return {
       'inline_message_id': inlineMessageId,
-    };
+    }..removeWhere((_, v) => v == null);
   }
 }

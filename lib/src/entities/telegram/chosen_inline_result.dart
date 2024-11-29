@@ -40,9 +40,9 @@ class ChosenInlineResult {
     return ChosenInlineResult(
       resultId: json['result_id'],
       from: User.fromJson(json['from']),
-      query: json['query'],
       location: callIfNotNull(Location.fromJson, json['location']),
       inlineMessageId: json['inline_message_id'],
+      query: json['query'],
     );
   }
 
@@ -51,9 +51,9 @@ class ChosenInlineResult {
     return {
       'result_id': resultId,
       'from': from,
-      'query': query,
       'location': location,
       'inline_message_id': inlineMessageId,
+      'query': query,
     }..removeWhere((_, v) => v == null);
   }
 

@@ -3,49 +3,49 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 
 /// Represents a link to a photo stored on the Telegram servers.
+///
 /// By default, this photo will be sent by the user with an optional caption.
-/// Alternatively, you can use input_message_content to send a message with the
+///
+/// Alternatively, you can use [inputMessageContent] to send a message with the
 /// specified content instead of the photo.
 class InlineQueryResultCachedPhoto extends InlineQueryResult {
-  /// Type of the result, must be photo
+  /// Type of the result, must be *photo*
+  @override
   String type = 'photo';
 
   /// Unique identifier for this result, 1-64 bytes
+  @override
   String id;
 
   /// A valid file identifier of the photo
   String photoFileId;
 
-  /// Optional.
   /// Title for the result
   String? title;
 
-  /// Optional.
   /// Short description of the result
   String? description;
 
-  /// Optional.
   /// Caption of the photo to be sent, 0-1024 characters after entities parsing
   String? caption;
 
-  /// Optional.
   /// Mode for parsing entities in the photo caption.
+  ///
+  /// See [formatting options](https://core.telegram.org/bots/api#formatting-options)
+  /// for more details.
   ParseMode? parseMode;
 
-  /// Optional.
   /// List of special entities that appear in the caption,
-  /// which can be specified instead of parse_mode
+  /// which can be specified instead of [parseMode]
   List<MessageEntity>? captionEntities;
 
-  /// Optional.
-  /// True, if the caption must be shown above the message media
+  /// `true`, if the caption must be shown above the message media
   bool? showCaptionAboveMedia;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
-  /// Optional.
   /// Content of the message to be sent instead of the photo
   InputMessageContent? inputMessageContent;
 

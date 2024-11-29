@@ -17,22 +17,21 @@ class InputVenueMessageContent extends InputMessageContent {
   /// Address of the venue
   String address;
 
-  /// Optional.
   /// Foursquare identifier of the venue, if known
   String? foursquareId;
 
-  /// Optional.
   /// Foursquare type of the venue, if known.
+  ///
   /// (For example, “arts_entertainment/default”, “arts_entertainment/aquarium”
   /// or “food/icecream”.)
   String? foursquareType;
 
-  /// Optional.
   /// Google Places identifier of the venue
   String? googlePlaceId;
 
-  /// Optional.
   /// Google Places type of the venue.
+  ///
+  /// See [supported types](https://developers.google.com/places/web-service/supported_types).
   String? googlePlaceType;
 
   /// Basic constructor
@@ -50,10 +49,10 @@ class InputVenueMessageContent extends InputMessageContent {
   /// Creates an object from a json
   factory InputVenueMessageContent.fromJson(Map<String, dynamic> json) {
     return InputVenueMessageContent(
-      json['latitude']!,
-      json['longitude']!,
-      json['title']!,
-      json['address']!,
+      json['latitude'],
+      json['longitude'],
+      json['title'],
+      json['address'],
       foursquareId: json['foursquare_id'],
       foursquareType: json['foursquare_type'],
       googlePlaceId: json['google_place_id'],

@@ -5,14 +5,15 @@ import '../internal/helpers/util.dart';
 
 /// This object represents an incoming update.
 ///
-/// At most one of the optional parameters can be present in any given update.
+/// At most **one** of the optional parameters can be present in any given
+/// update.
 class Update {
   /// The update's unique identifier.
   ///
   /// Update identifiers start from a certain positive number and increase
   /// sequentially.
   ///
-  /// This identifier becomes especially handy if you're using [webhooks](https://core.telegram.org/bots/api#setwebhook),
+  /// This identifier becomes especially handy if you're using webhooks,
   /// since it allows you to ignore repeated updates or to restore the correct
   /// update sequence, should they get out of order.
   ///
@@ -166,19 +167,10 @@ class Update {
   /// Creates an object from a json
   factory Update.fromJson(Map<String, dynamic> json) {
     return Update(
-      updateId: json['update_id']!,
-      message: callIfNotNull(
-        Message.fromJson,
-        json['message'],
-      ),
-      editedMessage: callIfNotNull(
-        Message.fromJson,
-        json['edited_message'],
-      ),
-      channelPost: callIfNotNull(
-        Message.fromJson,
-        json['channel_post'],
-      ),
+      updateId: json['update_id'],
+      message: callIfNotNull(Message.fromJson, json['message']),
+      editedMessage: callIfNotNull(Message.fromJson, json['edited_message']),
+      channelPost: callIfNotNull(Message.fromJson, json['channel_post']),
       editedChannelPost: callIfNotNull(
         Message.fromJson,
         json['edited_channel_post'],
@@ -207,10 +199,7 @@ class Update {
         MessageReactionCountUpdated.fromJson,
         json['message_reaction_count'],
       ),
-      inlineQuery: callIfNotNull(
-        InlineQuery.fromJson,
-        json['inline_query'],
-      ),
+      inlineQuery: callIfNotNull(InlineQuery.fromJson, json['inline_query']),
       chosenInlineResult: callIfNotNull(
         ChosenInlineResult.fromJson,
         json['chosen_inline_result'],
@@ -231,14 +220,8 @@ class Update {
         PaidMediaPurchased.fromJson,
         json['purchased_paid_media'],
       ),
-      poll: callIfNotNull(
-        Poll.fromJson,
-        json['poll'],
-      ),
-      pollAnswer: callIfNotNull(
-        PollAnswer.fromJson,
-        json['poll_answer'],
-      ),
+      poll: callIfNotNull(Poll.fromJson, json['poll']),
+      pollAnswer: callIfNotNull(PollAnswer.fromJson, json['poll_answer']),
       myChatMember: callIfNotNull(
         ChatMemberUpdated.fromJson,
         json['my_chat_member'],
@@ -251,10 +234,7 @@ class Update {
         ChatJoinRequest.fromJson,
         json['chat_join_request'],
       ),
-      chatBoost: callIfNotNull(
-        ChatBoostUpdated.fromJson,
-        json['chat_boost'],
-      ),
+      chatBoost: callIfNotNull(ChatBoostUpdated.fromJson, json['chat_boost']),
       removedChatBoost: callIfNotNull(
         ChatBoostRemoved.fromJson,
         json['removed_chat_boost'],

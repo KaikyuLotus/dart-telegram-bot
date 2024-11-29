@@ -3,47 +3,48 @@ import 'dart:convert';
 import '../../../telegram_entities.dart';
 
 /// Represents a link to an animated GIF file stored on the Telegram servers.
+///
 /// By default, this animated GIF file will be sent by the user with an optional
 /// caption.
-/// Alternatively, you can use input_message_content to send a message with
+///
+/// Alternatively, you can use [inputMessageContent] to send a message with
 ///specified content instead of the animation.
 class InlineQueryResultCachedGif extends InlineQueryResult {
-  /// Type of the result, must be gif
+  /// Type of the result, must be *gif*
+  @override
   String type = 'gif';
 
   /// Unique identifier for this result, 1-64 bytes
+  @override
   String id;
 
   /// A valid file identifier for the GIF file
   String gifFileId;
 
-  /// Optional.
   /// Title for the result
   String? title;
 
-  /// Optional.
   /// Caption of the GIF file to be sent, 0-1024 characters after entities
   /// parsing
   String? caption;
 
-  /// Optional.
   /// Mode for parsing entities in the caption.
+  ///
+  /// See [formatting options](https://core.telegram.org/bots/api#formatting-options)
+  /// for more details.
   ParseMode? parseMode;
 
-  /// Optional.
   /// List of special entities that appear in the caption,
-  /// which can be specified instead of parse_mode
+  /// which can be specified instead of [parseMode]
   List<MessageEntity>? captionEntities;
 
-  /// Optional.
-  /// True, if the caption must be shown above the message media
+  /// `true`, if the caption must be shown above the message media
   bool? showCaptionAboveMedia;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
-  /// Optional.
   /// Content of the message to be sent instead of the GIF animation
   InputMessageContent? inputMessageContent;
 

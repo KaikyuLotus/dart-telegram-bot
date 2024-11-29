@@ -2,19 +2,21 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a Game.
+/// Represents a [Game](https://core.telegram.org/bots/api#games).
 class InlineQueryResultGame extends InlineQueryResult {
-  /// Type of the result, must be game
+  /// Type of the result, must be *game*
+  @override
   String type = 'game';
 
   /// Unique identifier for this result, 1-64 bytes
+  @override
   String id;
 
   /// Short name of the game
   String gameShortName;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
   /// Basic constructor

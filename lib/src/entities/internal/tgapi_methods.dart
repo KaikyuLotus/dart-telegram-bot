@@ -40,7 +40,7 @@ mixin TGAPIMethods {
   /// Use this method to remove webhook integration if you decide to switch
   /// back to [getUpdates].
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> deleteWebhook({bool? dropPendingUpdates}) {
     return _client.apiCall(_token, 'deleteWebhook', {
       'drop_pending_updates': dropPendingUpdates,
@@ -63,7 +63,7 @@ mixin TGAPIMethods {
   /// After a successful call, you can immediately log in on a local server, but
   /// will not be able to log in back to the cloud Bot API server for 10 minutes
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   ///
   /// Requires no parameters.
   Future<bool> logOut() => _client.apiCall(_token, 'logOut');
@@ -77,7 +77,7 @@ mixin TGAPIMethods {
   /// The method will return error 429 in the first 10 minutes after the bot
   /// is launched.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   ///
   /// Requires no parameters.
   Future<bool> close() => _client.apiCall(_token, 'close');
@@ -811,7 +811,7 @@ mixin TGAPIMethods {
   /// (when a message arrives from your bot,
   /// Telegram clients clear its typing status).
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> sendChatAction(
     ChatID chatId,
     ChatAction action, {
@@ -837,7 +837,7 @@ mixin TGAPIMethods {
   /// Automatically forwarded messages from a channel to its discussion group
   /// have the same available reactions as messages in the channel.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setMessageReaction(
     ChatID chatId,
     int messageId, {
@@ -896,7 +896,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> banChatMember(
     ChatID chatId,
     int userId, {
@@ -924,7 +924,7 @@ mixin TGAPIMethods {
   /// they will also be removed from the chat.
   /// If you don't want this, use the parameter [onlyIfBanned].
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> unbanChatMember(
     ChatID chatId,
     int userId, {
@@ -941,9 +941,9 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the supergroup for this to work and
   /// must have the appropriate admin rights.
   ///
-  /// Pass True for all permissions to lift restrictions from a user.
+  /// Pass `true` for all permissions to lift restrictions from a user.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> restrictChatMember(
     ChatID chatId,
     int userId,
@@ -967,7 +967,7 @@ mixin TGAPIMethods {
   ///
   /// Pass False for all boolean parameters to demote a user.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> promoteChatMember(
     ChatID chatId,
     int userId, {
@@ -1011,7 +1011,7 @@ mixin TGAPIMethods {
   /// Use this method to set a custom title for an administrator in a supergroup
   /// promoted by the bot.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatAdministratorCustomTitle(
     ChatID chatId,
     int userId,
@@ -1032,7 +1032,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the supergroup or channel
   /// for this to work and must have the appropriate administrator rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> banChatSenderChat(
     ChatID chatId,
     int senderChatId,
@@ -1049,7 +1049,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator for this to work and
   /// must have the appropriate administrator rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> unbanChatSenderChat(
     ChatID chatId,
     int senderChatId,
@@ -1065,7 +1065,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the group or a supergroup for this
   /// to work and must have the can_restrict_members admin rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatPermissions(
     ChatID chatId,
     ChatPermissions permissions, {
@@ -1201,7 +1201,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and
   /// must have the can_invite_users administrator right.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> approveChatJoinRequest(
     ChatID chatId,
     int userId,
@@ -1217,7 +1217,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and
   /// must have the can_invite_users administrator right.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> declineChatJoinRequest(
     ChatID chatId,
     int userId,
@@ -1235,7 +1235,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatPhoto(ChatID chatId, HttpFile photo) {
     return _client.apiCall(_token, 'setChatPhoto', {
       'chat_id': chatId,
@@ -1250,7 +1250,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> deleteChatPhoto(ChatID chatId) {
     return _client.apiCall(_token, 'deleteChatPhoto', {
       'chat_id': chatId,
@@ -1264,7 +1264,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatTitle(ChatID chatId, String title) {
     return _client.apiCall(_token, 'setChatTitle', {
       'chat_id': chatId,
@@ -1278,7 +1278,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the appropriate admin rights.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatDescription(ChatID chatId, String description) {
     return _client.apiCall(_token, 'setChatDescription', {
       'chat_id': chatId,
@@ -1293,7 +1293,7 @@ mixin TGAPIMethods {
   /// admin right in a supergroup or
   /// 'can_edit_messages' admin right in a channel.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> pinChatMessage(
     ChatID chatId,
     int messageId, {
@@ -1316,7 +1316,7 @@ mixin TGAPIMethods {
   /// admin right in a supergroup or
   /// 'can_edit_messages' admin right in a channel.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> unpinChatMessage(
     ChatID chatId, {
     String? businessConnectionId,
@@ -1336,7 +1336,7 @@ mixin TGAPIMethods {
   /// administrator right in a supergroup or 'can_edit_messages' administrator
   /// right in a channel.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> unpinAllChatMessages(ChatID chatId) {
     return _client.apiCall(_token, 'unpinAllChatMessages', {
       'chat_id': chatId,
@@ -1345,7 +1345,7 @@ mixin TGAPIMethods {
 
   /// Use this method for your bot to leave a group, supergroup or channel.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> leaveChat(ChatID chatId) {
     return _client.apiCall(_token, 'leaveChat', {
       'chat_id': chatId,
@@ -1401,7 +1401,7 @@ mixin TGAPIMethods {
   /// Use the field can_set_sticker_set optionally returned in [getChat]
   /// requests to check if the bot can use this method.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatStickerSet(ChatID chatId, String stickerSetName) {
     return _client.apiCall(_token, 'setChatStickerSet', {
       'chat_id': chatId,
@@ -1417,7 +1417,7 @@ mixin TGAPIMethods {
   /// Use the field can_set_sticker_set optionally returned in [getChat]
   /// requests to check if the bot can use this method.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> deleteChatStickerSet(ChatID chatId) {
     return _client.apiCall(_token, 'deleteChatStickerSet', {
       'chat_id': chatId,
@@ -1455,7 +1455,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and
   /// must have can_manage_topics administrator rights,
   /// unless it is the creator of the topic.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> editForumTopic(
     ChatID chatId,
     int messageThreadId, {
@@ -1474,7 +1474,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_manage_topics administrator rights,
   /// unless it is the creator of the topic.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> closeForumTopic(
     ChatID chatId,
     int messageThreadId,
@@ -1489,7 +1489,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_manage_topics administrator rights,
   /// unless it is the creator of the topic.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> reopenForumTopic(
     ChatID chatId,
     int messageThreadId,
@@ -1504,7 +1504,7 @@ mixin TGAPIMethods {
   /// forum supergroup chat.
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_delete_messages administrator rights.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> deleteForumTopic(
     ChatID chatId,
     int messageThreadId,
@@ -1518,7 +1518,7 @@ mixin TGAPIMethods {
   /// Use this method to clear the list of pinned messages in a forum topic.
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_pin_messages administrator right in the supergroup.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> unpinAllForumTopicMessages(
     ChatID chatId,
     int messageThreadId,
@@ -1533,7 +1533,7 @@ mixin TGAPIMethods {
   /// supergroup chat.
   /// The bot must be an administrator in the chat for this to work and must
   /// have can_manage_topics administrator rights.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> editGeneralForumTopic(
     ChatID chatId,
     String name,
@@ -1548,7 +1548,7 @@ mixin TGAPIMethods {
   /// supergroup chat.
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_manage_topics administrator rights.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> closeGeneralForumTopic(ChatID chatId) {
     return _client.apiCall(_token, 'closeGeneralForumTopic', {
       'chat_id': chatId,
@@ -1559,7 +1559,7 @@ mixin TGAPIMethods {
   /// supergroup chat. The bot must be an administrator in the chat for this
   /// to work and must have the can_manage_topics administrator rights.
   /// The topic will be automatically unhidden if it was hidden.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> reopenGeneralForumTopic(ChatID chatId) {
     return _client.apiCall(_token, 'reopenGeneralForumTopic', {
       'chat_id': chatId,
@@ -1570,7 +1570,7 @@ mixin TGAPIMethods {
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_manage_topics administrator rights.
   /// The topic will be automatically closed if it was open.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> hideGeneralForumTopic(ChatID chatId) {
     return _client.apiCall(_token, 'hideGeneralForumTopic', {
       'chat_id': chatId,
@@ -1580,7 +1580,7 @@ mixin TGAPIMethods {
   /// Use this method to unhide the 'General' topic in a forum supergroup chat.
   /// The bot must be an administrator in the chat for this to work and must
   /// have the can_manage_topics administrator rights.
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> unhideGeneralForumTopic(ChatID chatId) {
     return _client.apiCall(_token, 'unhideGeneralForumTopic', {
       'chat_id': chatId,
@@ -1599,7 +1599,7 @@ mixin TGAPIMethods {
   /// The answer will be displayed to the user as a notification at the top of
   /// the chat screen or as an alert.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
   Future<bool> answerCallbackQuery(
     String callbackQueryId, {
     String? text,
@@ -1644,7 +1644,7 @@ mixin TGAPIMethods {
   /// See https://core.telegram.org/bots#commands for more details about
   /// bot commands.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setMyCommands(
     List<BotCommand> botCommands, {
     BotCommandScope? scope,
@@ -1662,7 +1662,7 @@ mixin TGAPIMethods {
   ///
   /// After deletion, higher level commands will be shown to affected users.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> deleteMyCommands({
     BotCommandScope? scope,
     String? languageCode,
@@ -1691,7 +1691,7 @@ mixin TGAPIMethods {
 
   /// Use this method to change the bot's name.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setMyName({
     String? name,
     String? languageCode,
@@ -1716,7 +1716,7 @@ mixin TGAPIMethods {
   /// Use this method to change the bot's description, which is shown in the
   /// chat with the bot if the chat is empty.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setMyDescription({
     String? description,
     String? languageCode,
@@ -1743,7 +1743,7 @@ mixin TGAPIMethods {
   /// which is shown on the bot's profile page and is sent together with the
   /// link when users share the bot.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setMyShortDescription({
     String? shortDescription,
     String? languageCode,
@@ -1769,7 +1769,7 @@ mixin TGAPIMethods {
   /// Use this method to change the bot's menu button in a private chat,
   /// or the default menu button.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setChatMenuButton({
     ChatID? chatId,
     MenuButton? menuButton,
@@ -1798,7 +1798,7 @@ mixin TGAPIMethods {
   /// These rights will be suggested to users, but they are are free to modify
   /// the list before adding the bot.
   ///
-  /// Returns True on success.
+  /// Returns `true` on success.
   Future<bool> setMyDefaultAdministratorRights({
     ChatAdministratorRights? rights,
     bool? forChannels,
@@ -2418,8 +2418,9 @@ mixin TGAPIMethods {
 
   /// Use this method to send answers to an inline query.
   ///
-  /// On success, True is returned.
-  /// No more than 50 results per query are allowed.
+  /// On success, `true` is returned.
+  ///
+  /// No more than **50** results per query are allowed.
   Future<bool> answerInlineQuery(
     String inlineQueryId,
     List<InlineQueryResult> results, {
@@ -2438,14 +2439,14 @@ mixin TGAPIMethods {
     });
   }
 
-  /// Use this method to set the result of an interaction with a Web App and
-  /// send a corresponding message on behalf of the user to the chat from which
-  /// the query originated.
+  /// Use this method to set the result of an interaction with a
+  /// [Web App](https://core.telegram.org/bots/webapps) and send a corresponding
+  /// message on behalf of the user to the chat from which the query originated.
   ///
   /// On success, a [SentWebAppMessage] object is returned.
   Future<SentWebAppMessage> answerWebAppQuery(
     String webAppQueryId,
-    InlineQueryResult? result,
+    InlineQueryResult result,
   ) {
     return _client.apiCall(_token, 'answerWebAppQuery', {
       'web_app_query_id': webAppQueryId,
@@ -2647,7 +2648,7 @@ mixin TGAPIMethods {
   ///
   /// Use this method to reply to shipping queries.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
   Future<bool> answerShippingQuery(
     String shippingQueryId,
     List<ShippingOption>? shippingOptions,
@@ -2668,7 +2669,7 @@ mixin TGAPIMethods {
   ///
   /// Use this method to respond to such pre-checkout queries.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
   ///
   /// Note: The Bot API must receive an answer within 10 seconds after the
   /// pre-checkout query was sent.
@@ -2696,7 +2697,7 @@ mixin TGAPIMethods {
 
   /// Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90).
   ///
-  /// Returns `true` on success.
+  /// Returns ``true`` on success.
   Future<bool> refundStarPayment(int userId, String telegramPaymentChargeId) {
     return _client.apiCall(_token, 'refundStarPayment', {
       'user_id': userId,
@@ -2757,7 +2758,7 @@ mixin TGAPIMethods {
 
   /// Use this method to set the score of the specified user in a game message.
   ///
-  /// On success, True is returned.
+  /// On success, `true` is returned.
   ///
   /// Returns an error, if the new score is not greater than the user's current
   /// score in the chat and [force] is False.

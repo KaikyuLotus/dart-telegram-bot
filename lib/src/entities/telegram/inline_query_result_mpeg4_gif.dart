@@ -2,31 +2,33 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a link to a video animation
-/// (H.264/MPEG-4 AVC video without sound).
+/// Represents a link to a video animation (H.264/MPEG-4 AVC video without sound).
+///
 /// By default, this animated MPEG-4 file will be sent by the user with optional
 /// caption.
-/// Alternatively, you can use input_message_content to send a message with the
+///
+/// Alternatively, you can use [inputMessageContent] to send a message with the
 /// specified content instead of the animation.
 class InlineQueryResultMpeg4Gif extends InlineQueryResult {
-  /// Type of the result, must be mpeg4_gif
+  /// Type of the result, must be *mpeg4_gif*
+  @override
   String type = 'mpeg4_gif';
 
   /// Unique identifier for this result, 1-64 bytes
+  @override
   String id;
 
-  /// A valid URL for the MPEG4 file. File size must not exceed 1MB
+  /// A valid URL for the MPEG4 file.
+  ///
+  /// File size must not exceed 1MB
   String mpeg4Url;
 
-  /// Optional.
   /// Video width
   int? mpeg4Width;
 
-  /// Optional.
   /// Video height
   int? mpeg4Height;
 
-  /// Optional.
   /// Video duration in seconds
   int? mpeg4Duration;
 
@@ -34,38 +36,34 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult {
   /// result
   String thumbnailUrl;
 
-  /// Optional.
   /// MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”,
   /// or “video/mp4”. Defaults to “image/jpeg”
   String? thumbnailMimeType;
 
-  /// Optional.
   /// Title for the result
   String? title;
 
-  /// Optional.
   /// Caption of the MPEG-4 file to be sent, 0-1024 characters after entities
   /// parsing
   String? caption;
 
-  /// Optional.
   /// Mode for parsing entities in the caption.
+  ///
+  /// See [formatting options](https://core.telegram.org/bots/api#formatting-options)
+  /// for more details.
   ParseMode? parseMode;
 
-  /// Optional.
   /// List of special entities that appear in the caption,
-  /// which can be specified instead of parse_mode
+  /// which can be specified instead of [parseMode]
   List<MessageEntity>? captionEntities;
 
-  /// Optional.
-  /// True, if the caption must be shown above the message media
+  /// `true`, if the caption must be shown above the message media
   bool? showCaptionAboveMedia;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
-  /// Optional.
   /// Content of the message to be sent instead of the video animation
   InputMessageContent? inputMessageContent;
 
@@ -88,7 +86,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult {
   });
 
   /// Creates a json from the object
-  Map<String, dynamic> toJson() {
+  Map toJson() {
     return {
       'type': type,
       'id': id,

@@ -11,12 +11,11 @@ class InputContactMessageContent extends InputMessageContent {
   /// Contact's first name
   String firstName;
 
-  /// Optional.
   /// Contact's last name
   String? lastName;
 
-  /// Optional.
-  /// Additional data about the contact in the form of a vCard, 0-2048 bytes
+  /// Additional data about the contact in the form of a [vCard](https://en.wikipedia.org/wiki/VCard),
+  /// 0-2048 bytes
   String? vcard;
 
   /// Basic constructor
@@ -30,8 +29,8 @@ class InputContactMessageContent extends InputMessageContent {
   /// Creates an object from a json
   factory InputContactMessageContent.fromJson(Map<String, dynamic> json) {
     return InputContactMessageContent(
-      json['phone_number']!,
-      json['first_name']!,
+      json['phone_number'],
+      json['first_name'],
       lastName: json['last_name'],
       vcard: json['vcard'],
     );
