@@ -33,8 +33,8 @@ class SwitchInlineQueryChosenChat {
     this.allowChannelChats,
   });
 
-  /// Creates a object from a json
-  static SwitchInlineQueryChosenChat fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory SwitchInlineQueryChosenChat.fromJson(Map<String, dynamic> json) {
     return SwitchInlineQueryChosenChat(
       query: json['query'],
       allowUserChats: json['allow_user_chats'],
@@ -45,7 +45,7 @@ class SwitchInlineQueryChosenChat {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'query': query,
       'allow_user_chats': allowUserChats,

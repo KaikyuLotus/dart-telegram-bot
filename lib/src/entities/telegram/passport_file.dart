@@ -25,8 +25,8 @@ class PassportFile {
     required this.fileDate,
   });
 
-  /// Creates a object from a json
-  static PassportFile fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory PassportFile.fromJson(Map<String, dynamic> json) {
     return PassportFile(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,
@@ -35,7 +35,7 @@ class PassportFile {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<PassportFile> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,
@@ -44,7 +44,7 @@ class PassportFile {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,

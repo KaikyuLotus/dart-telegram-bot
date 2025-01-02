@@ -4,8 +4,9 @@ import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
 /// This object represents a message.
-class Message {
+class Message extends MaybeInaccessibleMessage {
   /// Unique message identifier inside this chat
+  @override
   int messageId;
 
   /// Optional.
@@ -28,39 +29,36 @@ class Message {
   /// non-channel chats, if the message was sent on behalf of a chat.
   Chat? senderChat;
 
+  /// Optional.
+  /// If the sender of the message boosted the chat,
+  /// the number of boosts added by the user
+  int? senderBoostCount;
+
+  /// Optional.
+  /// The bot that actually sent the message on behalf of the business account.
+  /// Available only for outgoing messages sent on behalf of the connected
+  /// business account.
+  User? senderBusinessBot;
+
   /// Date the message was sent in Unix time
+  @override
   int date;
 
+  /// Optional.
+  /// Unique identifier of the business connection from which the message
+  /// was received.
+  /// If non-empty, the message belongs to a chat of the corresponding business
+  /// account that is independent from any potential bot chat which might
+  /// share the same identifier.
+  String? businessConnectionId;
+
   /// Conversation the message belongs to
+  @override
   Chat chat;
 
   /// Optional.
-  /// For forwarded messages, sender of the original message
-  User? forwardFrom;
-
-  /// Optional.
-  /// For messages forwarded from channels or from anonymous administrators,
-  /// information about the original sender chat
-  Chat? forwardFromChat;
-
-  /// Optional.
-  /// For messages forwarded from channels, identifier of the original
-  /// message in the channel
-  int? forwardFromMessageId;
-
-  /// Optional.
-  /// For forwarded messages that were originally sent in channels or by an
-  /// anonymous chat administrator, signature of the message sender if present
-  String? forwardSignature;
-
-  /// Optional.
-  /// Sender's name for messages forwarded from users who disallow adding a
-  /// link to their account in forwarded messages
-  String? forwardSenderName;
-
-  /// Optional.
-  /// For forwarded messages, date the original message was sent in Unix time
-  int? forwardDate;
+  /// Information about the original message for forwarded messages
+  MessageOrigin? forwardOrigin;
 
   /// Optional.
   /// True, if the message is sent to a forum topic
@@ -78,6 +76,20 @@ class Message {
   Message? replyToMessage;
 
   /// Optional.
+  /// Information about the message that is being replied to,
+  /// which may come from another chat or forum topic
+  ExternalReplyInfo? externalReply;
+
+  /// Optional.
+  /// For replies that quote part of the original message,
+  /// the quoted part of the message
+  TextQuote? quote;
+
+  /// Optional.
+  /// For replies to a story, the original story
+  Story? replyToStory;
+
+  /// Optional.
   /// Bot through which the message was sent
   User? viaBot;
 
@@ -88,6 +100,11 @@ class Message {
   /// Optional.
   /// True, if the message can't be forwarded
   bool? hasProtectedContent;
+
+  /// Optional.
+  /// True, if the message was sent by an implicit action, for example,
+  /// as an away or a greeting business message, or as a scheduled message
+  bool? isFromOffline;
 
   /// Optional.
   /// The unique identifier of a media message group this message belongs to
@@ -108,6 +125,15 @@ class Message {
   List<MessageEntity>? entities;
 
   /// Optional.
+  /// Options used for link preview generation for the message,
+  /// if it is a text message and link preview options were changed
+  LinkPreviewOptions? linkPreviewOptions;
+
+  /// Optional.
+  /// Unique identifier of the message effect added to the message
+  String? effectId;
+
+  /// Optional.
   /// Message is an animation, information about the animation.
   /// For backward compatibility, when this field is set, the document fiel
   ///  will also be set
@@ -120,6 +146,10 @@ class Message {
   /// Optional.
   /// Message is a general file, information about the file
   Document? document;
+
+  /// Optional.
+  /// Message contains paid media; information about the paid media
+  PaidMediaInfo? paidMedia;
 
   /// Optional.
   /// Message is a photo, available sizes of the photo
@@ -153,6 +183,10 @@ class Message {
   /// For messages with a caption, special entities like usernames, URLs,
   /// bot commands, etc. that appear in the caption
   List<MessageEntity>? captionEntities;
+
+  /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
 
   /// Optional.
   /// True, if the message media is covered by a spoiler animation
@@ -250,8 +284,8 @@ class Message {
   /// Optional.
   /// Specified message was pinned.
   /// Note that the Message object in this field will not contain further
-  /// reply_to_message fields even if it is itself a reply.
-  Message? pinnedMessage;
+  /// reply_to_message fields even if it itself is a reply.
+  MaybeInaccessibleMessage? pinnedMessage;
 
   /// Optional.
   /// Message is an invoice for a payment, information about the invoice.
@@ -260,11 +294,20 @@ class Message {
   /// Optional.
   /// Message is a service message about a successful payment, information
   /// about the payment.
+  ///
+  /// [More about payments](https://core.telegram.org/bots/api#payments)
   SuccessfulPayment? successfulPayment;
 
   /// Optional.
-  /// Service message: a user was shared with the bot
-  UserShared? userShared;
+  /// Message is a service message about a refunded payment,
+  /// information about the payment.
+  ///
+  /// [More about payments](https://core.telegram.org/bots/api#payments)
+  RefundedPayment? refundedPayment;
+
+  /// Optional.
+  /// Service message: users were shared with the bot
+  UsersShared? usersShared;
 
   /// Optional.
   /// Service message: a chat was shared with the bot
@@ -289,6 +332,14 @@ class Message {
   ProximityAlertTriggered? proximityAlertTriggered;
 
   /// Optional.
+  /// Service message: user boosted the chat
+  ChatBoostAdded? boostAdded;
+
+  /// Optional.
+  /// Service message: chat background set
+  ChatBackground? chatBackgroundSet;
+
+  /// Optional.
   /// Service message: forum topic created
   ForumTopicCreated? forumTopicCreated;
 
@@ -311,6 +362,22 @@ class Message {
   /// Optional.
   /// Service message: the 'General' forum topic unhidden
   GeneralForumTopicUnhidden? generalForumTopicUnhidden;
+
+  /// Optional.
+  /// Service message: a scheduled giveway was created
+  GiveawayCreated? giveawayCreated;
+
+  /// Optional.
+  /// The message is a scheduled giveaway message
+  Giveaway? giveaway;
+
+  /// Optional.
+  /// A giveaway with public winners was completed
+  GiveawayWinners? giveawayWinners;
+
+  /// Optional.
+  /// Service message: a giveaway without public winners was completed
+  GiveawayCompleted? giveawayCompleted;
 
   /// Optional.
   /// Service message: video chat scheduled
@@ -343,27 +410,32 @@ class Message {
     this.messageThreadId,
     this.from,
     this.senderChat,
+    this.senderBoostCount,
+    this.senderBusinessBot,
     required this.date,
+    this.businessConnectionId,
     required this.chat,
-    this.forwardFrom,
-    this.forwardFromChat,
-    this.forwardFromMessageId,
-    this.forwardSignature,
-    this.forwardSenderName,
-    this.forwardDate,
+    this.forwardOrigin,
     this.isTopicMessage,
     this.isAutomaticForward,
     this.replyToMessage,
+    this.externalReply,
+    this.quote,
+    this.replyToStory,
     this.viaBot,
     this.editDate,
     this.hasProtectedContent,
+    this.isFromOffline,
     this.mediaGroupId,
     this.authorSignature,
     this.text,
     this.entities,
+    this.linkPreviewOptions,
+    this.effectId,
     this.animation,
     this.audio,
     this.document,
+    this.paidMedia,
     this.photo,
     this.sticker,
     this.story,
@@ -372,6 +444,7 @@ class Message {
     this.voice,
     this.caption,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.hasMediaSpoiler,
     this.contact,
     this.dice,
@@ -393,14 +466,23 @@ class Message {
     this.pinnedMessage,
     this.invoice,
     this.successfulPayment,
-    this.userShared,
+    this.refundedPayment,
+    this.usersShared,
     this.chatShared,
     this.connectedWebsite,
     this.passportData,
     this.proximityAlertTriggered,
+    this.boostAdded,
+    this.chatBackgroundSet,
     this.forumTopicCreated,
     this.forumTopicClosed,
     this.forumTopicReopened,
+    this.generalForumTopicHidden,
+    this.generalForumTopicUnhidden,
+    this.giveawayCreated,
+    this.giveaway,
+    this.giveawayWinners,
+    this.giveawayCompleted,
     this.videoChatScheduled,
     this.videoChatStarted,
     this.videoChatEnded,
@@ -409,33 +491,41 @@ class Message {
     this.replyMarkup,
   });
 
-  /// Creates a object from a json
-  static Message fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory Message.fromJson(Map<String, dynamic> json) {
     return Message(
       messageId: json['message_id']!,
       messageThreadId: json['message_thread_id'],
       from: callIfNotNull(User.fromJson, json['from']),
       senderChat: callIfNotNull(Chat.fromJson, json['sender_chat']),
-      date: json['date']!,
-      chat: Chat.fromJson(json['chat']!),
-      forwardFrom: callIfNotNull(User.fromJson, json['forward_from']),
-      forwardFromChat: callIfNotNull(
-        Chat.fromJson,
-        json['forward_from_chat'],
+      senderBoostCount: json['sender_boost_count'],
+      senderBusinessBot: callIfNotNull(
+        User.fromJson,
+        json['sender_business_bot'],
       ),
-      forwardFromMessageId: json['forward_from_message_id'],
-      forwardSignature: json['forward_signature'],
-      forwardSenderName: json['forward_sender_name'],
-      forwardDate: json['forward_date'],
+      date: json['date']!,
+      businessConnectionId: json['business_connection_id'],
+      chat: Chat.fromJson(json['chat']!),
+      forwardOrigin: callIfNotNull(
+        MessageOrigin.fromJson,
+        json['forward_origin'],
+      ),
       isTopicMessage: json['is_topic_message'],
       isAutomaticForward: json['is_automatic_forward'],
       replyToMessage: callIfNotNull(
         Message.fromJson,
         json['reply_to_message'],
       ),
+      externalReply: callIfNotNull(
+        ExternalReplyInfo.fromJson,
+        json['external_reply'],
+      ),
+      quote: callIfNotNull(TextQuote.fromJson, json['quote']),
+      replyToStory: callIfNotNull(Story.fromJson, json['reply_to_story']),
       viaBot: callIfNotNull(User.fromJson, json['via_bot']),
       editDate: json['edit_date'],
       hasProtectedContent: json['has_protected_content'],
+      isFromOffline: json['is_from_offline'],
       mediaGroupId: json['media_group_id'],
       authorSignature: json['author_signature'],
       text: json['text'],
@@ -443,9 +533,15 @@ class Message {
         MessageEntity.listFromJsonArray,
         json['entities'],
       ),
+      linkPreviewOptions: callIfNotNull(
+        LinkPreviewOptions.fromJson,
+        json['link_preview_options'],
+      ),
+      effectId: json['effect_id'],
       animation: callIfNotNull(Animation.fromJson, json['animation']),
       audio: callIfNotNull(Audio.fromJson, json['audio']),
       document: callIfNotNull(Document.fromJson, json['document']),
+      paidMedia: callIfNotNull(PaidMediaInfo.fromJson, json['paid_media']),
       photo: callIfNotNull(PhotoSize.listFromJsonArray, json['photo']),
       sticker: callIfNotNull(Sticker.fromJson, json['sticker']),
       story: callIfNotNull(Story.fromJson, json['story']),
@@ -457,6 +553,7 @@ class Message {
         MessageEntity.listFromJsonArray,
         json['caption_entities'],
       ),
+      showCaptionAboveMedia: json['show_caption_above_media'],
       hasMediaSpoiler: json['has_media_spoiler'],
       contact: callIfNotNull(Contact.fromJson, json['contact']),
       dice: callIfNotNull(Dice.fromJson, json['dice']),
@@ -496,9 +593,13 @@ class Message {
         SuccessfulPayment.fromJson,
         json['successful_payment'],
       ),
-      userShared: callIfNotNull(
-        UserShared.fromJson,
-        json['user_shared'],
+      refundedPayment: callIfNotNull(
+        RefundedPayment.fromJson,
+        json['refunded_payment'],
+      ),
+      usersShared: callIfNotNull(
+        UsersShared.fromJson,
+        json['users_shared'],
       ),
       chatShared: callIfNotNull(
         ChatShared.fromJson,
@@ -513,6 +614,14 @@ class Message {
         ProximityAlertTriggered.fromJson,
         json['proximity_alert_triggered'],
       ),
+      boostAdded: callIfNotNull(
+        ChatBoostAdded.fromJson,
+        json['boost_added'],
+      ),
+      chatBackgroundSet: callIfNotNull(
+        ChatBackground.fromJson,
+        json['chat_background_set'],
+      ),
       forumTopicCreated: callIfNotNull(
         ForumTopicCreated.fromJson,
         json['forum_topic_created'],
@@ -524,6 +633,30 @@ class Message {
       forumTopicReopened: callIfNotNull(
         ForumTopicReopened.fromJson,
         json['forum_topic_reopened'],
+      ),
+      generalForumTopicHidden: callIfNotNull(
+        GeneralForumTopicHidden.fromJson,
+        json['general_forum_topic_hidden'],
+      ),
+      generalForumTopicUnhidden: callIfNotNull(
+        GeneralForumTopicUnhidden.fromJson,
+        json['general_forum_topic_unhidden'],
+      ),
+      giveawayCreated: callIfNotNull(
+        GiveawayCreated.fromJson,
+        json['giveaway_created'],
+      ),
+      giveaway: callIfNotNull(
+        Giveaway.fromJson,
+        json['giveaway'],
+      ),
+      giveawayWinners: callIfNotNull(
+        GiveawayWinners.fromJson,
+        json['giveaway_winners'],
+      ),
+      giveawayCompleted: callIfNotNull(
+        GiveawayCompleted.fromJson,
+        json['giveaway_completed'],
       ),
       videoChatScheduled: callIfNotNull(
         VideoChatScheduled.fromJson,
@@ -552,7 +685,7 @@ class Message {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<Message> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,
@@ -561,33 +694,38 @@ class Message {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_id': messageId,
       'message_thread_id': messageThreadId,
       'from': from,
       'sender_chat': senderChat,
+      'sender_boost_count': senderBoostCount,
+      'sender_business_bot': senderBusinessBot,
       'date': date,
+      'business_connection_id': businessConnectionId,
       'chat': chat,
-      'forward_from': forwardFrom,
-      'forward_from_chat': forwardFromChat,
-      'forward_from_message_id': forwardFromMessageId,
-      'forward_signature': forwardSignature,
-      'forward_sender_name': forwardSenderName,
-      'forward_date': forwardDate,
+      'forward_origin': forwardOrigin,
       'is_topic_message': isTopicMessage,
       'is_automatic_forward': isAutomaticForward,
       'reply_to_message': replyToMessage,
+      'external_reply': externalReply,
+      'quote': quote,
+      'reply_to_story': replyToStory,
       'via_bot': viaBot,
       'edit_date': editDate,
       'has_protected_content': hasProtectedContent,
+      'is_from_offline': isFromOffline,
       'media_group_id': mediaGroupId,
       'author_signature': authorSignature,
       'text': text,
       'entities': entities,
+      'link_preview_options': linkPreviewOptions,
+      'effect_id': effectId,
       'animation': animation,
       'audio': audio,
       'document': document,
+      'paid_media': paidMedia,
       'photo': photo,
       'sticker': sticker,
       'story': story,
@@ -596,6 +734,7 @@ class Message {
       'voice': voice,
       'caption': caption,
       'captionEntities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'has_media_spoiler': hasMediaSpoiler,
       'contact': contact,
       'dice': dice,
@@ -617,14 +756,23 @@ class Message {
       'pinned_message': pinnedMessage,
       'invoice': invoice,
       'successful_payment': successfulPayment,
-      'user_shared': userShared,
+      'refunded_payment': refundedPayment,
+      'users_shared': usersShared,
       'chat_shared': chatShared,
       'connected_website': connectedWebsite,
       'passport_data': passportData,
       'proximity_alert_triggered': proximityAlertTriggered,
+      'boost_added': boostAdded,
+      'chat_background_set': chatBackgroundSet,
       'forum_topic_created': forumTopicCreated,
       'forum_topic_closed': forumTopicClosed,
       'forum_topic_reopened': forumTopicReopened,
+      'general_forum_topic_hidden': generalForumTopicHidden,
+      'general_forum_topic_unhidden': generalForumTopicUnhidden,
+      'giveaway_created': giveawayCreated,
+      'giveaway': giveaway,
+      'giveaway_winners': giveawayWinners,
+      'giveaway_completed': giveawayCompleted,
       'video_chat_scheduled': videoChatScheduled,
       'video_chat_started': videoChatStarted,
       'video_chat_ended': videoChatEnded,

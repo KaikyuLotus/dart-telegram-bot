@@ -12,15 +12,15 @@ class VideoChatScheduled {
     required this.startDate,
   });
 
-  /// Creates a object from a json
-  static VideoChatScheduled fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory VideoChatScheduled.fromJson(Map<String, dynamic> json) {
     return VideoChatScheduled(
       startDate: json['start_date'],
     );
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'start_date': startDate,
     };

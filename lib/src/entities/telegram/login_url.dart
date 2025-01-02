@@ -38,8 +38,8 @@ class LoginUrl {
     this.requestWriteAccess,
   });
 
-  /// Creates a object from a json
-  static LoginUrl fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory LoginUrl.fromJson(Map<String, dynamic> json) {
     return LoginUrl(
       url: json['url']!,
       forwardText: json['forward_text'],
@@ -49,7 +49,7 @@ class LoginUrl {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'url': url,
       'forward_text': forwardText,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../../telegram_entities.dart';
+import '../internal/helpers/util.dart';
 
 /// This object defines the criteria used to request a suitable chat.
 /// The identifier of the selected chat will be shared with the bot when
@@ -51,34 +52,58 @@ class KeyboardButtonRequestChat {
   /// Otherwise, no additional restrictions are applied.
   bool? botIsMember;
 
+  /// Optional.
+  /// Pass True to request the chat's title
+  bool? requestTitle;
+
+  /// Optional.
+  /// Pass True to request the chat's username
+  bool? requestUsername;
+
+  /// Optional.
+  /// Pass True to request the chat's photo
+  bool? requestPhoto;
+
   /// Basic constructor
   KeyboardButtonRequestChat(
-    this.requestId,
-    this.chatIsChannel, {
+    this.requestId, {
+    required this.chatIsChannel,
     this.chatIsForum,
     this.chatHasUsername,
     this.chatIsCreated,
     this.userAdministratorRights,
     this.botAdministratorRights,
     this.botIsMember,
+    this.requestTitle,
+    this.requestUsername,
+    this.requestPhoto,
   });
 
-  /// Creates a object from a json
-  static KeyboardButtonRequestChat fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory KeyboardButtonRequestChat.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonRequestChat(
       json['request_id'],
-      json['chat_is_channel'],
+      chatIsChannel: json['chat_is_channel'],
       chatIsForum: json['chat_is_forum'],
       chatHasUsername: json['chat_has_username'],
       chatIsCreated: json['chat_is_created'],
-      userAdministratorRights: json['user_administrator_rights'],
-      botAdministratorRights: json['bot_administrator_rights'],
+      userAdministratorRights: callIfNotNull(
+        ChatAdministratorRights.fromJson,
+        json['user_administrator_rights'],
+      ),
+      botAdministratorRights: callIfNotNull(
+        ChatAdministratorRights.fromJson,
+        json['bot_administrator_rights'],
+      ),
       botIsMember: json['bot_is_member'],
+      requestTitle: json['request_title'],
+      requestUsername: json['request_username'],
+      requestPhoto: json['request_photo'],
     );
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'request_id': requestId,
       'chat_is_channel': chatIsChannel,
@@ -88,6 +113,9 @@ class KeyboardButtonRequestChat {
       'user_administrator_rights': userAdministratorRights,
       'bot_administrator_rights': botAdministratorRights,
       'bot_is_member': botIsMember,
+      'request_title': requestTitle,
+      'request_username': requestUsername,
+      'request_photo': requestPhoto,
     }..removeWhere((_, v) => v == null);
   }
 

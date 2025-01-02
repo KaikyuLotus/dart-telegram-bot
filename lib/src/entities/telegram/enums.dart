@@ -25,6 +25,25 @@ class UpdateType extends _Enum<String> {
   /// EditedChannelPost
   static const editedChannelPost = UpdateType._('edited_channel_post');
 
+  /// BusinessConnection
+  static const businessConnection = UpdateType._('business_connection');
+
+  /// BusinessMessage
+  static const businessMessage = UpdateType._('business_message');
+
+  /// EditedBusinessMessage
+  static const editedBusinessMessage = UpdateType._('edited_business_message');
+
+  /// DeletedBusinessMessages
+  static const deletedBusinessMessages =
+      UpdateType._('deleted_business_messages');
+
+  /// MessageReaction
+  static const messageReaction = UpdateType._('message_reaction');
+
+  /// MessageReactionCount
+  static const messageReactionCount = UpdateType._('message_reaction_count');
+
   /// InlineQuery
   static const inlineQuery = UpdateType._('inline_query');
 
@@ -39,6 +58,9 @@ class UpdateType extends _Enum<String> {
 
   /// PreCheckoutQuery
   static const preCheckoutQuery = UpdateType._('pre_checkout_query');
+
+  /// PurchasedPaidMedia
+  static const purchasedPaidMedia = UpdateType._('purchased_paid_media');
 
   /// Poll
   static const poll = UpdateType._('poll');
@@ -55,22 +77,37 @@ class UpdateType extends _Enum<String> {
   /// ChatJoinRequest
   static const chatJoinRequest = UpdateType._('chat_join_request');
 
+  /// ChatBoost
+  static const chatBoost = UpdateType._('chat_boost');
+
+  /// RemovedChatBoost
+  static const removedChatBoost = UpdateType._('removed_chat_boost');
+
   /// Values
   static const values = {
     'message': message,
     'edited_message': editedMessage,
     'channel_post': channelPost,
     'edited_channel_post': editedChannelPost,
+    'business_connection': businessConnection,
+    'business_message': businessMessage,
+    'edited_business_message': editedBusinessMessage,
+    'deleted_business_messages': deletedBusinessMessages,
+    'message_reaction': messageReaction,
+    'message_reaction_count': messageReactionCount,
     'inline_query': inlineQuery,
     'chosen_inline_result': chosenInlineResult,
     'callback_query': callbackQuery,
     'shipping_query': shippingQuery,
     'pre_checkout_query': preCheckoutQuery,
+    'purchased_paid_media': purchasedPaidMedia,
     'poll': poll,
     'poll_answer': pollAnswer,
     'my_chat_member': myChatMember,
     'chat_member': chatMember,
     'chat_join_request': chatJoinRequest,
+    'chat_boost': chatBoost,
+    'removed_chat_boost': removedChatBoost,
   };
 
   /// Get a list with all UpdateType
@@ -83,7 +120,7 @@ class UpdateType extends _Enum<String> {
       ..toList();
   }
 
-  const UpdateType._(String value) : super(value);
+  const UpdateType._(super.value);
 
   /// Get the object from string
   static UpdateType forValue(String value) => UpdateType.values[value]!;
@@ -107,7 +144,7 @@ class ParseMode extends _Enum<String> {
     'html': html,
   };
 
-  const ParseMode._(String value) : super(value);
+  const ParseMode._(super.value);
 
   /// Get the object from string
   static ParseMode forValue(String value) => ParseMode.values[value]!;
@@ -127,7 +164,7 @@ class PollType extends _Enum<String> {
     'quiz': quiz,
   };
 
-  const PollType._(String value) : super(value);
+  const PollType._(super.value);
 
   /// Get the object from string
   static PollType forValue(String value) => PollType.values[value]!;
@@ -183,7 +220,7 @@ class ChatAction extends _Enum<String> {
     'upload_video_note': uploadVideoNote,
   };
 
-  const ChatAction._(String value) : super(value);
+  const ChatAction._(super.value);
 
   /// Get the object from string
   static ChatAction forValue(String value) => ChatAction.values[value]!;
@@ -219,8 +256,56 @@ class Emoji extends _Enum<String> {
     '🎰': casino,
   };
 
-  const Emoji._(String value) : super(value);
+  const Emoji._(super.value);
 
   /// Get the object from string
   static Emoji forValue(String value) => Emoji.values[value]!;
+}
+
+/// StickerFormat
+class StickerFormat extends _Enum<String> {
+  /// Static
+  static const static = StickerFormat._('static');
+
+  /// Animated
+  static const animated = StickerFormat._('animated');
+
+  /// Video
+  static const video = StickerFormat._('video');
+
+  /// Values
+  static const values = {
+    'static': static,
+    'animated': animated,
+    'video': video,
+  };
+
+  const StickerFormat._(super.value);
+
+  /// Get the object from string
+  static StickerFormat forValue(String value) => StickerFormat.values[value]!;
+}
+
+/// StickerType
+class StickerType extends _Enum<String> {
+  /// Regular
+  static const regular = StickerType._('regular');
+
+  /// Mask
+  static const mask = StickerType._('mask');
+
+  /// Custom Emoji
+  static const customEmoji = StickerType._('custom_emoji');
+
+  /// Values
+  static const values = {
+    'regular': regular,
+    'mask': mask,
+    'custom_emoji': customEmoji,
+  };
+
+  const StickerType._(super.value);
+
+  /// Get the object from string
+  static StickerType forValue(String value) => StickerType.values[value]!;
 }

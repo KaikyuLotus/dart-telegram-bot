@@ -16,8 +16,8 @@ class UserProfilePhotos {
     required this.photos,
   });
 
-  /// Creates a object from a json
-  static UserProfilePhotos fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory UserProfilePhotos.fromJson(Map<String, dynamic> json) {
     return UserProfilePhotos(
       totalCount: json['total_count']!,
       photos: PhotoSize.listOfListsFromJsonArray(json['photos']!),
@@ -25,7 +25,7 @@ class UserProfilePhotos {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'total_count': totalCount,
       'photos': photos,

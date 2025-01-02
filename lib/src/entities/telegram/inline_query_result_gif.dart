@@ -2,29 +2,33 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a link to an animated GIF file. By default, this animated GIF
-/// file will be sent by the user with optional caption.
-/// Alternatively, you can use input_message_content to send a message with the
+/// Represents a link to an animated GIF file.
+///
+/// By default, this animated GIF file will be sent by the user with optional
+/// caption.
+///
+/// Alternatively, you can use [inputMessageContent] to send a message with the
 /// specified content instead of the animation.
 class InlineQueryResultGif extends InlineQueryResult {
-  /// Type of the result, must be gif
+  /// Type of the result, must be *gif*
+  @override
   String type = 'gif';
 
   /// Unique identifier for this result, 1-64 bytes
+  @override
   String id;
 
-  /// A valid URL for the GIF file. File size must not exceed 1MB
+  /// A valid URL for the GIF file.
+  ///
+  /// File size must not exceed 1MB
   String gifUrl;
 
-  /// Optional.
   /// Width of the GIF
   int? gifWidth;
 
-  /// Optional.
   /// Height of the GIF
   int? gifHeight;
 
-  /// Optional.
   /// Duration of the GIF in seconds
   int? gifDuration;
 
@@ -32,34 +36,36 @@ class InlineQueryResultGif extends InlineQueryResult {
   /// result
   String thumbnailUrl;
 
-  /// Optional.
   /// MIME type of the thumbnail, must be one of “image/jpeg”, “image/gif”,
-  /// or “video/mp4”. Defaults to “image/jpeg”
+  /// or “video/mp4”.
+  ///
+  /// Defaults to “image/jpeg”
   String? thumbnailMimeType;
 
-  /// Optional.
   /// Title for the result
   String? title;
 
-  /// Optional.
   /// Caption of the GIF file to be sent, 0-1024 characters after entities
   /// parsing
   String? caption;
 
-  /// Optional.
   /// Mode for parsing entities in the caption.
+  ///
+  /// See [formatting options](https://core.telegram.org/bots/api#formatting-options)
+  /// for more details.
   ParseMode? parseMode;
 
-  /// Optional.
   /// List of special entities that appear in the caption,
-  /// which can be specified instead of parse_mode
+  /// which can be specified instead of [parseMode]
   List<MessageEntity>? captionEntities;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// `true`, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
-  /// Optional.
   /// Content of the message to be sent instead of the GIF animation
   InputMessageContent? inputMessageContent;
 
@@ -76,12 +82,13 @@ class InlineQueryResultGif extends InlineQueryResult {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.replyMarkup,
     this.inputMessageContent,
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'id': id,
@@ -95,6 +102,7 @@ class InlineQueryResultGif extends InlineQueryResult {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'reply_markup': replyMarkup,
       'input_message_content': inputMessageContent,
     }..removeWhere((_, v) => v == null);

@@ -1,16 +1,17 @@
 /// A placeholder, currently holds no information.
-/// Use BotFather to set up your game.
+///
+/// Use [BotFather](https://t.me/botfather) to set up your game.
 class CallbackGame {
   /// Basic constructor
   CallbackGame();
 
-  /// Creates a object from a json
-  static CallbackGame fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory CallbackGame.fromJson(Map<String, dynamic> _) {
     return CallbackGame();
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {};
   }
 }

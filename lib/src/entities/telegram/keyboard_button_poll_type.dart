@@ -15,15 +15,15 @@ class KeyboardButtonPollType {
   /// Basic constructor
   KeyboardButtonPollType({this.type});
 
-  /// Creates a object from a json
-  static KeyboardButtonPollType fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory KeyboardButtonPollType.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonPollType(
       type: callIfNotNull(PollType.forValue, json['type']),
     );
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
     }..removeWhere((_, v) => v == null);

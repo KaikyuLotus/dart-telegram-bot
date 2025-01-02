@@ -15,26 +15,37 @@ class TGAPIClient {
   static final log = Logger('TGAPIClient');
 
   /// Telegram API BaseUrl
-  static final baseUrl = 'api.telegram.org';
+  static const baseUrl = 'api.telegram.org';
 
   static final _listTypeFactories = <String, Function(List<dynamic>)>{
-    'List<Update>': Update.listFromJsonArray,
-    'List<Message>': Message.listFromJsonArray,
-    'List<ChatMember>': ChatMember.listFromJsonArray,
     'List<BotCommand>': BotCommand.listFromJsonArray,
+    'List<ChatMember>': ChatMember.listFromJsonArray,
+    'List<GameHighScore>': GameHighScore.listFromJsonArray,
+    'List<Message>': Message.listFromJsonArray,
+    'List<MessageId>': MessageId.listFromJsonArray,
+    'List<Sticker>': Sticker.listFromJsonArray,
+    'List<Update>': Update.listFromJsonArray,
   };
 
   static final _typeFactories = <String, Function(Map<String, dynamic>)>{
-    'User': User.fromJson,
-    'Message': Message.fromJson,
-    'UserProfilePhotos': UserProfilePhotos.fromJson,
-    'File': File.fromJson,
-    'ChatMember': ChatMember.fromJson,
-    'Poll': Poll.fromJson,
-    'StickerSet': StickerSet.fromJson,
+    'BotName': BotName.fromJson,
+    'BotDescription': BotDescription.fromJson,
     'Chat': Chat.fromJson,
+    'ChatAdministratorRights': ChatAdministratorRights.fromJson,
+    'ChatFullInfo': ChatFullInfo.fromJson,
     'ChatInviteLink': ChatInviteLink.fromJson,
+    'ChatMember': ChatMember.fromJson,
+    'File': File.fromJson,
+    'ForumTopic': ForumTopic.fromJson,
+    'MenuButton': MenuButton.fromJson,
+    'Message': Message.fromJson,
     'MessageId': MessageId.fromJson,
+    'Poll': Poll.fromJson,
+    'StarTransactions': StarTransactions.fromJson,
+    'StickerSet': StickerSet.fromJson,
+    'User': User.fromJson,
+    'UserChatBoosts': UserChatBoosts.fromJson,
+    'UserProfilePhotos': UserProfilePhotos.fromJson,
   };
 
   Client? _coreClient;
@@ -81,7 +92,7 @@ class TGAPIClient {
     );
     var response = await _client
         .send(_getRequest(uri, files))
-        .timeout(Duration(seconds: 120));
+        .timeout(const Duration(seconds: 120));
     var stringResponse = await response.stream.bytesToString();
     return json.decode(stringResponse);
   }
@@ -89,8 +100,9 @@ class TGAPIClient {
   /// Download a file from path
   Future<Uint8List> apiDownload(String? token, String? path) async {
     var uri = Uri.https(baseUrl, '/file/bot$token/$path');
-    var response =
-        await _client.send(Request('GET', uri)).timeout(Duration(seconds: 120));
+    var response = await _client.send(Request('GET', uri)).timeout(
+          const Duration(seconds: 120),
+        );
     if (response.statusCode != 200) {
       throw APIException(
         'Error while downloading the file with path /$path',
@@ -110,17 +122,55 @@ class TGAPIClient {
   ]) async {
     var files = <String, HttpFile>{};
     if (query != null) {
-      query
-        ..removeWhere((k, v) => v == null)
-        ..updateAll((k, v) => v is HttpFile && v.token != null ? v.token : v)
-        ..forEach((k, v) {
-          if (v is HttpFile) files[k] = v;
-        })
-        ..removeWhere((k, v) => v is HttpFile)
-        ..updateAll((k, v) {
-          if (v is List) return json.encode(v);
-          return '$v';
-        });
+      var updatedQuery = <String, dynamic>{};
+
+      for (var param in query.entries) {
+        if (param.value == null) continue;
+
+        switch (param.value) {
+          case List<InputMedia> _:
+            updatedQuery[param.key] = param.value.map((InputMedia inputMedia) {
+              if (inputMedia.media is! HttpFile) {
+                return inputMedia;
+              }
+
+              if (inputMedia.media.token != null) {
+                inputMedia.media = inputMedia.media.token;
+              } else {
+                files[inputMedia.media.name] = inputMedia.media;
+                inputMedia.media = 'attach://${inputMedia.media.name}';
+              }
+
+              return inputMedia;
+            }).toList();
+          case InputMedia _:
+            if (param.value.media is! HttpFile) {
+              updatedQuery[param.key] = param.value;
+              break;
+            }
+
+            if (param.value.media.token != null) {
+              param.value.media = param.value.media.token;
+            } else {
+              files[param.value.media.name] = param.value.media;
+              param.value.media = 'attach://${param.value.media.name}';
+            }
+
+            updatedQuery[param.key] = param.value;
+          case HttpFile _:
+            if (param.value.token != null) {
+              updatedQuery[param.key] = param.value.token;
+            } else {
+              files[param.key] = param.value;
+            }
+          default:
+            updatedQuery[param.key] = param.value;
+            break;
+        }
+      }
+
+      updatedQuery.updateAll((k, v) => (v is List) ? json.encode(v) : '$v');
+      query = updatedQuery;
     }
 
     var jsonResp = await _execute(token, method, query, files);

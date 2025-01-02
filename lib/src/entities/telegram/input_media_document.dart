@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents a general file to be sent.
 class InputMediaDocument extends InputMedia {
   /// Type of the result, must be document
+  @override
   final String type = 'document';
 
   /// File to send.
@@ -12,7 +13,8 @@ class InputMediaDocument extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>” to upload a new one using
   /// multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Thumbnail of the file sent; can be ignored if thumbnail generation for the
@@ -56,7 +58,7 @@ class InputMediaDocument extends InputMedia {
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'media': media,

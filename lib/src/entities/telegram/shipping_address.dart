@@ -30,8 +30,8 @@ class ShippingAddress {
     required this.postCode,
   });
 
-  /// Creates a object from a json
-  static ShippingAddress fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory ShippingAddress.fromJson(Map<String, dynamic> json) {
     return ShippingAddress(
       countryCode: json['country_code']!,
       state: json['state']!,
@@ -43,7 +43,7 @@ class ShippingAddress {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'country_code': countryCode,
       'state': state,

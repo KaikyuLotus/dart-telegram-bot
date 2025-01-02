@@ -1,3 +1,58 @@
+## 1.12.0
+
+- Updated to bot API 7.11
+
+## 1.11.2
+
+- Added missing type factories
+- Minor improvements and fixes
+
+## 1.11.1
+
+- Added StickerFormat and StickerType enums
+- Fixed switch condition in apiCall client method 
+
+## 1.11.0
+
+- Updated to bot API 7.9
+
+## 1.10.0
+
+- Updated to bot API 7.8
+
+## 1.9.0
+
+- Updated to bot API 7.7
+
+## 1.8.0
+
+- Updated to bot API 7.6
+
+## 1.7.0
+
+- Updated to bot API 7.5
+
+## 1.6.0
+
+- Updated to bot API 7.4
+
+## 1.5.0
+
+- Updated to bot API 7.3
+
+## 1.4.0
+
+- Updated to bot API 7.2
+
+## 1.3.0
+
+- Updated to bot API 7.1
+
+## 1.2.0
+
+- Updated to bot API 7.0
+- Minor improvements and fixes
+
 ## 1.1.0
 
 - Stable release

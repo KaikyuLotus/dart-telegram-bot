@@ -42,8 +42,8 @@ class Venue {
     this.googlePlaceType,
   });
 
-  /// Creates a object from a json
-  static Venue fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory Venue.fromJson(Map<String, dynamic> json) {
     return Venue(
       location: Location.fromJson(json['location']!),
       title: json['title']!,
@@ -56,7 +56,7 @@ class Venue {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'location': location,
       'title': title,

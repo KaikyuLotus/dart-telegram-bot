@@ -38,8 +38,8 @@ class VideoNote {
     this.fileSize,
   });
 
-  /// Creates a object from a json
-  static VideoNote fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory VideoNote.fromJson(Map<String, dynamic> json) {
     return VideoNote(
       fileId: json['file_id']!,
       fileUniqueId: json['file_unique_id']!,
@@ -51,7 +51,7 @@ class VideoNote {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,

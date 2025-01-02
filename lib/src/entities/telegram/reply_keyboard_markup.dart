@@ -54,8 +54,8 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
     this.selective,
   });
 
-  /// Creates a object from a json
-  static ReplyKeyboardMarkup fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory ReplyKeyboardMarkup.fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardMarkup(
       KeyboardButton.listOfListsFromJsonArray(json['keyboard']!),
       isPersistent: json['is_persistent'],
@@ -67,7 +67,7 @@ class ReplyKeyboardMarkup extends ReplyMarkup {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'keyboard': keyboard,
       'is_persistent': isPersistent,

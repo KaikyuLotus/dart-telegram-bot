@@ -25,8 +25,8 @@ class WriteAccessAllowed {
     this.fromAttachmentMenu,
   });
 
-  /// Creates a object from a json
-  static WriteAccessAllowed fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory WriteAccessAllowed.fromJson(Map<String, dynamic> json) {
     return WriteAccessAllowed(
       fromRequest: json['from_request'],
       webAppName: json['web_app_name'],
@@ -35,7 +35,7 @@ class WriteAccessAllowed {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'from_request': fromRequest,
       'web_app_name': webAppName,

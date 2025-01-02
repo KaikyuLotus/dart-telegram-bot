@@ -7,13 +7,13 @@ class WebAppInfo {
   /// Basic constructor
   WebAppInfo(this.url);
 
-  /// Creates a object from a json
-  static WebAppInfo fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory WebAppInfo.fromJson(Map<String, dynamic> json) {
     return WebAppInfo(json['url']);
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'url': url,
     };

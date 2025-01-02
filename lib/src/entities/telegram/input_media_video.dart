@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents a video to be sent.
 class InputMediaVideo extends InputMedia {
   /// Type of the result, must be video
+  @override
   final String type = 'video';
 
   /// File to send.
@@ -12,7 +13,8 @@ class InputMediaVideo extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>” to upload a new one using
   /// multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Thumbnail of the file sent; can be ignored if thumbnail generation for the
@@ -39,6 +41,10 @@ class InputMediaVideo extends InputMedia {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
   /// Video width
   int? width;
 
@@ -54,6 +60,10 @@ class InputMediaVideo extends InputMedia {
   /// Pass True if the uploaded video is suitable for streaming
   bool? supportsStreaming;
 
+  /// Optional.
+  /// Pass True if the video needs to be covered with a spoiler animation
+  bool? hasSpoiler;
+
   /// Basic constructor
   InputMediaVideo({
     required this.media,
@@ -61,14 +71,16 @@ class InputMediaVideo extends InputMedia {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.width,
     this.height,
     this.duration,
     this.supportsStreaming,
+    this.hasSpoiler,
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'media': media,
@@ -76,10 +88,12 @@ class InputMediaVideo extends InputMedia {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'width': width,
       'height': height,
       'duration': duration,
       'supports_streaming': supportsStreaming,
+      'has_spoiler': hasSpoiler,
     }..removeWhere((_, v) => v == null);
   }
 

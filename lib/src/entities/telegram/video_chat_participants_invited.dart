@@ -10,10 +10,10 @@ class VideoChatParticipantsInvited {
   List<User>? users;
 
   /// Basic constructor
-  VideoChatParticipantsInvited(users);
+  VideoChatParticipantsInvited(this.users);
 
-  /// Creates a object from a json
-  static VideoChatParticipantsInvited fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory VideoChatParticipantsInvited.fromJson(Map<String, dynamic> json) {
     return VideoChatParticipantsInvited(
       callIfNotNull(
         User.listFromJsonArray,
@@ -23,7 +23,7 @@ class VideoChatParticipantsInvited {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'users': users,
     }..removeWhere((_, v) => v == null);

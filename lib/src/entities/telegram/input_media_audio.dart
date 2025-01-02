@@ -5,6 +5,7 @@ import '../../../telegram_entities.dart';
 /// Represents an audio file to be treated as music to be sent.
 class InputMediaAudio extends InputMedia {
   /// Type of the result, must be audio
+  @override
   final String type = 'audio';
 
   /// File to send.
@@ -12,7 +13,8 @@ class InputMediaAudio extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>” to upload a new one using
   /// multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Thumbnail of the file sent; can be ignored if thumbnail generation for the
@@ -63,7 +65,7 @@ class InputMediaAudio extends InputMedia {
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'media': media,

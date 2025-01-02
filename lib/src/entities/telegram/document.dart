@@ -10,25 +10,25 @@ class Document {
   String fileId;
 
   /// Unique identifier for this file, which is supposed to be the same over
-  /// time and for different bots. Can't be used to download or reuse the file.
+  /// time and for different bots.
+  ///
+  /// Can't be used to download or reuse the file.
   String fileUniqueId;
 
-  /// Optional.
   /// Document thumbnail as defined by sender
   PhotoSize? thumbnail;
 
-  /// Optional.
   /// Original filename as defined by sender
   String? fileName;
 
-  /// Optional.
   /// MIME type of the file as defined by sender
   String? mimeType;
 
-  /// Optional.
   /// File size in bytes.
+  ///
   /// It can be bigger than 2^31 and some programming languages may have
   /// difficulty/silent defects in interpreting it.
+  ///
   /// But it has at most 52 significant bits, so a signed 64-bit integer or
   /// double-precision float type are safe for storing this value.
   int? fileSize;
@@ -43,11 +43,11 @@ class Document {
     this.fileSize,
   });
 
-  /// Creates a object from a json
-  static Document fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory Document.fromJson(Map<String, dynamic> json) {
     return Document(
-      fileId: json['file_id']!,
-      fileUniqueId: json['file_unique_id']!,
+      fileId: json['file_id'],
+      fileUniqueId: json['file_unique_id'],
       thumbnail: callIfNotNull(PhotoSize.fromJson, json['thumbnail']),
       fileName: json['file_name'],
       mimeType: json['mime_type'],
@@ -56,7 +56,7 @@ class Document {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,

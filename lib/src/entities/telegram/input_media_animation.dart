@@ -6,6 +6,7 @@ import '../../../telegram_entities.dart';
 /// to be sent.
 class InputMediaAnimation extends InputMedia {
   /// Type of the result, must be animation
+  @override
   final String type = 'animation';
 
   /// File to send.
@@ -13,7 +14,8 @@ class InputMediaAnimation extends InputMedia {
   /// (recommended), pass an HTTP URL for Telegram to get a file from the
   /// Internet, or pass “attach://<file_attach_name>” to upload a new one using
   /// multipart/form-data under <file_attach_name> name.
-  String media;
+  @override
+  dynamic media;
 
   /// Optional.
   /// Thumbnail of the file sent; can be ignored if thumbnail generation for the
@@ -41,6 +43,10 @@ class InputMediaAnimation extends InputMedia {
   List<MessageEntity>? captionEntities;
 
   /// Optional.
+  /// True, if the caption must be shown above the message media
+  bool? showCaptionAboveMedia;
+
+  /// Optional.
   /// Animation width
   int? width;
 
@@ -52,6 +58,10 @@ class InputMediaAnimation extends InputMedia {
   /// Animation duration in seconds
   int? duration;
 
+  /// Optional.
+  /// Pass True if the photo needs to be covered with a spoiler animation
+  bool? hasSpoiler;
+
   /// Basic constructor
   InputMediaAnimation({
     required this.media,
@@ -59,13 +69,15 @@ class InputMediaAnimation extends InputMedia {
     this.caption,
     this.parseMode,
     this.captionEntities,
+    this.showCaptionAboveMedia,
     this.width,
     this.height,
     this.duration,
+    this.hasSpoiler,
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'media': media,
@@ -73,9 +85,11 @@ class InputMediaAnimation extends InputMedia {
       'caption': caption,
       'parse_mode': parseMode,
       'caption_entities': captionEntities,
+      'show_caption_above_media': showCaptionAboveMedia,
       'width': width,
       'height': height,
       'duration': duration,
+      'has_spoiler': hasSpoiler,
     }..removeWhere((_, v) => v == null);
   }
 

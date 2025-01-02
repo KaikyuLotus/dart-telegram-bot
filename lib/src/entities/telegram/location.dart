@@ -36,8 +36,8 @@ class Location {
     this.proximityAlertRadius,
   });
 
-  /// Creates a object from a json
-  static Location fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory Location.fromJson(Map<String, dynamic> json) {
     return Location(
       longitude: json['longitude']!,
       latitude: json['latitude']!,
@@ -49,7 +49,7 @@ class Location {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'longitude': longitude,
       'latitude': latitude,

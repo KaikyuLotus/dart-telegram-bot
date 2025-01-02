@@ -7,8 +7,8 @@ class Dice {
   /// Emoji on which the dice throw animation is based
   Emoji emoji;
 
-  ///Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀”
-  ///and “⚽” base emoji, 1-64 for “🎰” base emoji
+  /// Value of the dice, 1-6 for “🎲”, “🎯” and “🎳” base emoji, 1-5 for “🏀”
+  /// and “⚽” base emoji, 1-64 for “🎰” base emoji
   int value;
 
   /// Basic constructor
@@ -17,8 +17,8 @@ class Dice {
     required this.value,
   });
 
-  /// Creates a object from a json
-  static Dice fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory Dice.fromJson(Map<String, dynamic> json) {
     return Dice(
       emoji: Emoji.forValue(json['emoji']),
       value: json['value'],
@@ -26,7 +26,7 @@ class Dice {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'emoji': emoji,
       'value': value,

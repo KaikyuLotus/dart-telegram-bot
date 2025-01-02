@@ -30,8 +30,8 @@ class ReplyKeyboardRemove extends ReplyMarkup {
     this.selective,
   });
 
-  /// Creates a object from a json
-  static ReplyKeyboardRemove fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory ReplyKeyboardRemove.fromJson(Map<String, dynamic> json) {
     return ReplyKeyboardRemove(
       removeKeyboard: json['remove_keyboard']!,
       selective: json['selective'],
@@ -39,7 +39,7 @@ class ReplyKeyboardRemove extends ReplyMarkup {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'remove_keyboard': removeKeyboard,
       'selective': selective,

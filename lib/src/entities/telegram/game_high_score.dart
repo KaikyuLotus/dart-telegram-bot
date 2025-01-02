@@ -20,22 +20,30 @@ class GameHighScore {
     required this.score,
   });
 
-  /// Creates a object from a json
-  static GameHighScore fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory GameHighScore.fromJson(Map<String, dynamic> json) {
     return GameHighScore(
-      position: json['position']!,
-      user: User.fromJson(json['user']!),
-      score: json['score']!,
+      position: json['position'],
+      user: User.fromJson(json['user']),
+      score: json['score'],
+    );
+  }
+
+  /// Creates a list of objects from a json array
+  static List<GameHighScore> listFromJsonArray(List<dynamic> array) {
+    return List.generate(
+      array.length,
+      (i) => GameHighScore.fromJson(array[i]),
     );
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'position': position,
       'user': user,
       'score': score,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override

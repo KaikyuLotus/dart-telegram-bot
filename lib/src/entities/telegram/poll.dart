@@ -11,7 +11,12 @@ class Poll {
   /// Poll question, 1-300 characters
   String question;
 
-  ///List of poll options
+  /// Optional.
+  /// Special entities that appear in the question.
+  /// Currently, only custom emoji entities are allowed in poll questions
+  List<MessageEntity>? questionEntities;
+
+  /// List of poll options
   List<PollOption> options;
 
   /// Total number of users that voted in the poll
@@ -57,6 +62,7 @@ class Poll {
   Poll({
     required this.id,
     required this.question,
+    this.questionEntities,
     required this.options,
     required this.totalVoterCount,
     required this.isClosed,
@@ -70,11 +76,15 @@ class Poll {
     this.closeDate,
   });
 
-  /// Creates a object from a json
-  static Poll fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory Poll.fromJson(Map<String, dynamic> json) {
     return Poll(
       id: json['id']!,
       question: json['question']!,
+      questionEntities: callIfNotNull(
+        MessageEntity.listFromJsonArray,
+        json['question_entities'],
+      ),
       options: PollOption.listFromJsonArray(json['options']!),
       totalVoterCount: json['total_voter_count']!,
       isClosed: json['is_closed']!,
@@ -93,10 +103,11 @@ class Poll {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'question': question,
+      'question_entities': questionEntities,
       'options': options,
       'total_voter_count': totalVoterCount,
       'is_closed': isClosed,

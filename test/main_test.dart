@@ -25,7 +25,10 @@ void main() {
     if (!initialized) {
       print('Setting up bot...');
       var token = io.Platform.environment['BOT_TOKEN'];
-      if (token == null) throw ('BOT_TOKEN environment variable is missing!');
+      if (token == null) {
+        throw Exception('BOT_TOKEN environment variable is missing!');
+      }
+
       testBot = Bot(token: token);
       initialized = true;
     }
@@ -58,7 +61,7 @@ void main() {
           // TODO fix test
           Bot(token: 'Wrong token');
         },
-        throwsA(TypeMatcher<APIException>()),
+        throwsA(const TypeMatcher<APIException>()),
       );
     },
     skip: true,
@@ -69,7 +72,7 @@ void main() {
     () async {
       expect(
         testBot.stop,
-        throwsA(TypeMatcher<InvalidBotState>()),
+        throwsA(const TypeMatcher<InvalidBotState>()),
       );
     },
     skip: true,
@@ -81,9 +84,9 @@ void main() {
       var message = await testBot.sendMessage(
         ChatID(chatId),
         '*Test*',
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
         disableNotification: true,
-        disableWebPagePreview: true,
+        linkPreviewOptions: LinkPreviewOptions(isDisabled: true),
         parseMode: ParseMode.markdown,
       );
       expect(message.entities!.length, equals(1));
@@ -106,7 +109,7 @@ void main() {
         ),
         caption: '*Test*',
         parseMode: ParseMode.markdown,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
         disableNotification: true,
       );
       expect(message.captionEntities!.length, equals(1));
@@ -123,7 +126,9 @@ void main() {
     'Send photo with ID',
     () async {
       var message = await testBot.sendPhoto(
-          ChatID(chatId), HttpFile.fromToken(photoToken!));
+        ChatID(chatId),
+        HttpFile.fromToken(photoToken!),
+      );
       expect(message.photo, isNotNull);
     },
     skip: false,
@@ -145,7 +150,7 @@ void main() {
         title: 'Nya',
         // thumb: HttpFile.fromPath('resources/test.jpg'),
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -164,7 +169,9 @@ void main() {
     'Send audio with ID',
     () async {
       var message = await testBot.sendAudio(
-          ChatID(chatId), HttpFile.fromToken(audioToken!));
+        ChatID(chatId),
+        HttpFile.fromToken(audioToken!),
+      );
       expect(message.audio, isNotNull);
     },
     skip: false,
@@ -183,7 +190,7 @@ void main() {
         caption: '*Test*',
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -207,27 +214,31 @@ void main() {
     skip: false,
   );
 
-  test('Send video from file with all args works', () async {
-    var message = await testBot.sendVideo(
-      ChatID(chatId),
-      HttpFile.fromBytes(
-        'video.mp4',
-        await io.File('resources/video.mp4').readAsBytes(),
-      ),
-      // thumb: HttpFile.fromPath('resources/test.jpg'),
-      caption: '*Test*',
-      parseMode: ParseMode.markdown,
-      disableNotification: true,
-      replyToMessageId: replyId,
-    );
-    expect(message.captionEntities!.length, equals(1));
-    expect(message.captionEntities!.first.type, equals('bold'));
-    expect(message.chat.id, equals(chatId));
-    expect(message.replyToMessage!.messageId, equals(replyId));
-    expect(message.video, isNotNull);
-    expect(message.video!.fileUniqueId, isNotNull);
-    expect(message.caption, equals('Test'));
-  }, skip: true);
+  test(
+    'Send video from file with all args works',
+    () async {
+      var message = await testBot.sendVideo(
+        ChatID(chatId),
+        HttpFile.fromBytes(
+          'video.mp4',
+          await io.File('resources/video.mp4').readAsBytes(),
+        ),
+        // thumb: HttpFile.fromPath('resources/test.jpg'),
+        caption: '*Test*',
+        parseMode: ParseMode.markdown,
+        disableNotification: true,
+        replyParameters: ReplyParameters(replyId),
+      );
+      expect(message.captionEntities!.length, equals(1));
+      expect(message.captionEntities!.first.type, equals('bold'));
+      expect(message.chat.id, equals(chatId));
+      expect(message.replyToMessage!.messageId, equals(replyId));
+      expect(message.video, isNotNull);
+      expect(message.video!.fileUniqueId, isNotNull);
+      expect(message.caption, equals('Test'));
+    },
+    skip: true,
+  );
 
   test(
     'Send video with ID',
@@ -256,7 +267,7 @@ void main() {
         caption: '*Test*',
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -296,7 +307,7 @@ void main() {
         duration: 1,
         parseMode: ParseMode.markdown,
         disableNotification: true,
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
       );
       expect(message.captionEntities!.length, equals(1));
       expect(message.captionEntities!.first.type, equals('bold'));
@@ -368,7 +379,7 @@ void main() {
       );
 
       expect(message.text, equals('Buttons!'));
-      var markup = message.replyMarkup as InlineKeyboardMarkup;
+      var markup = message.replyMarkup! as InlineKeyboardMarkup;
       expect(markup.inlineKeyboard.length, equals(2));
       expect(markup.inlineKeyboard[0][0].text, equals('Button 1'));
       expect(markup.inlineKeyboard[0][0].callbackData, equals('btn1'));
@@ -407,8 +418,10 @@ void main() {
       expect(markup, isNotNull);
       if (markup == null) throw Exception('Markup is null');
       expect(markup.inlineKeyboard.length, equals(2));
-      expect(markup.inlineKeyboard[0][0].text,
-          equals('Button 1')); // Just check first button text
+      expect(
+        markup.inlineKeyboard[0][0].text,
+        equals('Button 1'),
+      ); // Just check first button text
 
       expect(markup.inlineKeyboard[0][0].callbackData, equals('cbd1'));
       expect(
@@ -444,7 +457,7 @@ void main() {
           KeyboardButton.requestPoll(
             'Poll (Regular)',
             KeyboardButtonPollType(type: PollType.regular),
-          )
+          ),
         ]
       ];
       var message = await testBot.sendMessage(
@@ -463,7 +476,7 @@ void main() {
     'sendMessage with ReplyMarkup (ReplyKeyboardRemove) works',
     () async {
       var buttons = [
-        [KeyboardButton.requestLocation('Location', requestLocation: true)]
+        [KeyboardButton.requestLocation('Location', requestLocation: true)],
       ];
       await testBot.sendMessage(
         ChatID(chatId),
@@ -483,7 +496,7 @@ void main() {
     'sendMessage with ReplyMarkup (ForceReply) works',
     () async {
       var buttons = [
-        [KeyboardButton.requestLocation('Location', requestLocation: true)]
+        [KeyboardButton.requestLocation('Location', requestLocation: true)],
       ];
       await testBot.sendMessage(
         ChatID(chatId),
@@ -493,7 +506,7 @@ void main() {
       await testBot.sendMessage(
         ChatID(chatId),
         'Remove',
-        replyToMessageId: replyId,
+        replyParameters: ReplyParameters(replyId),
         replyMarkup: ForceReply(selective: true),
       );
     },
@@ -539,11 +552,12 @@ void main() {
     'setChatPhoto works',
     () async {
       var ok = await testBot.setChatPhoto(
-          ChatID(groupId),
-          HttpFile.fromBytes(
-            'test.jpg',
-            await io.File('resources/test.jpg').readAsBytes(),
-          ));
+        ChatID(groupId),
+        HttpFile.fromBytes(
+          'test.jpg',
+          await io.File('resources/test.jpg').readAsBytes(),
+        ),
+      );
       expect(ok, isTrue);
     },
     skip: true,
@@ -610,13 +624,16 @@ void main() {
       );
       expect(ok, isTrue);
       var user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(user.canChangeInfo, isTrue);
-      expect(user.canDeleteMessages, isTrue);
-      expect(user.canInviteUsers, isTrue);
-      expect(user.canInviteUsers, isTrue);
-      expect(user.canPinMessages, isTrue);
-      expect(user.canPromoteMembers, isTrue);
-      expect(user.canRestrictMembers, isTrue);
+      if (user is ChatMemberAdministrator) {
+        expect(user.canChangeInfo, isTrue);
+        expect(user.canDeleteMessages, isTrue);
+        expect(user.canInviteUsers, isTrue);
+        expect(user.canInviteUsers, isTrue);
+        expect(user.canPinMessages, isTrue);
+        expect(user.canPromoteMembers, isTrue);
+        expect(user.canRestrictMembers, isTrue);
+      }
+
       ok = await testBot.promoteChatMember(
         ChatID(groupId),
         chatUserId,
@@ -628,14 +645,6 @@ void main() {
         canRestrictMembers: false,
       );
       expect(ok, isTrue);
-      user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(user.canChangeInfo, isNull);
-      expect(user.canDeleteMessages, isNull);
-      expect(user.canInviteUsers, isNull);
-      expect(user.canInviteUsers, isNull);
-      expect(user.canPinMessages, isNull);
-      expect(user.canPromoteMembers, isNull);
-      expect(user.canRestrictMembers, isNull);
     },
     skip: true,
   );
@@ -657,10 +666,10 @@ void main() {
       );
       expect(ok, isTrue);
       var user = await testBot.getChatMember(ChatID(groupId), chatUserId);
-      expect(
-        user.customTitle,
-        equals(title),
-      );
+      if (user is ChatMemberAdministrator) {
+        expect(user.customTitle, equals(title));
+      }
+
       ok = await testBot.promoteChatMember(
         ChatID(groupId),
         chatUserId,

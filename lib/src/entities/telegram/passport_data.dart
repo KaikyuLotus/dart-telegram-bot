@@ -17,8 +17,8 @@ class PassportData {
     required this.credentials,
   });
 
-  /// Creates a object from a json
-  static PassportData fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory PassportData.fromJson(Map<String, dynamic> json) {
     return PassportData(
       data: EncryptedPassportElement.listFromJsonArray(json['data']!),
       credentials: EncryptedCredentials.fromJson(json['credentials']!),
@@ -26,7 +26,7 @@ class PassportData {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'data': data,
       'credentials': credentials,

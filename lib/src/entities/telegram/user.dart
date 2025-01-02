@@ -47,6 +47,17 @@ class User {
   /// True, if the bot supports inline queries. Returned only in getMe.
   bool? supportsInlineQueries;
 
+  /// Optional.
+  /// True, if the bot can be connected to a Telegram Business account to
+  /// receive its messages.
+  /// Returned only in getMe.
+  bool? canConnectToBusiness;
+
+  /// Optional.
+  /// True, if the bot has a main Web App.
+  /// Returned only in getMe.
+  bool? hasMainWebApp;
+
   /// Basic constructor
   User({
     required this.id,
@@ -60,10 +71,12 @@ class User {
     this.canJoinGroups,
     this.canReadAllGroupMessages,
     this.supportsInlineQueries,
+    this.canConnectToBusiness,
+    this.hasMainWebApp,
   });
 
-  /// Creates a object from a json
-  static User fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id']!,
       isBot: json['is_bot']!,
@@ -76,16 +89,18 @@ class User {
       canJoinGroups: json['can_join_groups'],
       canReadAllGroupMessages: json['can_read_all_group_messages'],
       supportsInlineQueries: json['supports_inline_queries'],
+      canConnectToBusiness: json['can_connect_to_business'],
+      hasMainWebApp: json['has_main_web_app'],
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<User> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => User.fromJson(json[i]));
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'is_bot': isBot,
@@ -98,6 +113,8 @@ class User {
       'can_join_groups': canJoinGroups,
       'can_read_all_group_messages': canReadAllGroupMessages,
       'supports_inline_queries': supportsInlineQueries,
+      'can_connect_to_business': canConnectToBusiness,
+      'has_main_web_app': hasMainWebApp,
     }..removeWhere((_, v) => v == null);
   }
 

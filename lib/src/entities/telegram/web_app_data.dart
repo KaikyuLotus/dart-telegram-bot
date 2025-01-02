@@ -14,8 +14,8 @@ class WebAppData {
     this.buttonText,
   );
 
-  /// Creates a object from a json
-  static WebAppData fromJson(Map<String, dynamic> json) {
+  /// Creates an object from a json
+  factory WebAppData.fromJson(Map<String, dynamic> json) {
     return WebAppData(
       json['data'],
       json['button_text'],
@@ -23,7 +23,7 @@ class WebAppData {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'data': data,
       'button_text': buttonText,
