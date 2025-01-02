@@ -19,6 +19,8 @@ abstract class TransactionPartner {
         return TransactionPartnerFragment.fromJson(json);
       case 'telegram_ads':
         return TransactionPartnerTelegramAds.fromJson(json);
+      case 'telegram_api':
+        return TransactionPartnerTelegramApi.fromJson(json);
       case 'other':
         return TransactionPartnerOther.fromJson(json);
       default:

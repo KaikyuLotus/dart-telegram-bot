@@ -1,3 +1,7 @@
+## 1.11.3
+
+- Updated to bot API 7.11
+
 ## 1.11.2
 
 - Added missing type factories

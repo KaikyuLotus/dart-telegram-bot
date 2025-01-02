@@ -62,6 +62,10 @@ class InlineKeyboardButton {
   /// Not supported for messages sent on behalf of a Telegram Business account.
   SwitchInlineQueryChosenChat? switchInlineQueryChosenChat;
 
+  /// Optional. Description of the button that copies the specified text to the
+  /// clipboard
+  CopyTextButton? copy_text;
+
   /// Optional. Description of the game that will be launched when the user
   /// presses the button.
   /// This type of button must always be the first button in the first row.
@@ -84,6 +88,7 @@ class InlineKeyboardButton {
     this.switchInlineQuery,
     this.switchInlineQueryCurrentChat,
     this.switchInlineQueryChosenChat,
+    this.copy_text,
     this.callbackGame,
     this.pay,
   });
@@ -115,6 +120,9 @@ class InlineKeyboardButton {
     this.switchInlineQueryChosenChat,
   );
 
+  /// CopyText constructor
+  InlineKeyboardButton.copyText(this.text, this.copy_text);
+
   /// CallbackGame constructor
   InlineKeyboardButton.callbackGame(this.text, this.callbackGame);
 
@@ -135,6 +143,7 @@ class InlineKeyboardButton {
         SwitchInlineQueryChosenChat.fromJson,
         json['switch_inline_query_chosen_chat'],
       ),
+      copy_text: callIfNotNull(CopyTextButton.fromJson, json['copy_text']),
       callbackGame: callIfNotNull(CallbackGame.fromJson, json['callback_game']),
       pay: json['pay'],
     );
@@ -172,6 +181,7 @@ class InlineKeyboardButton {
       'switch_inline_query': switchInlineQuery,
       'switch_inline_query_current_chat': switchInlineQueryCurrentChat,
       'switch_inline_query_chosen_chat': switchInlineQueryChosenChat,
+      'copy_text': copy_text,
       'callback_game': callbackGame,
       'pay': pay,
     }..removeWhere((_, v) => v == null);
