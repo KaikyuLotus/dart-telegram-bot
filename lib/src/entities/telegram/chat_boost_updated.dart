@@ -16,7 +16,7 @@ class ChatBoostUpdated {
     required this.boost,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoostUpdated.fromJson(Map<String, dynamic> json) {
     return ChatBoostUpdated(
       chat: Chat.fromJson(json['chat']),
@@ -25,7 +25,7 @@ class ChatBoostUpdated {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'boost': boost,

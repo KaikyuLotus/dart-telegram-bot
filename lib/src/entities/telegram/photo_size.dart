@@ -29,7 +29,7 @@ class PhotoSize {
     this.fileSize,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PhotoSize.fromJson(Map<String, dynamic> json) {
     return PhotoSize(
       fileId: json['file_id']!,
@@ -40,7 +40,7 @@ class PhotoSize {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<PhotoSize> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => PhotoSize.fromJson(json[i]));
   }
@@ -59,7 +59,7 @@ class PhotoSize {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,

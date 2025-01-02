@@ -36,7 +36,7 @@ class Invoice {
     required this.totalAmount,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Invoice.fromJson(Map<String, dynamic> json) {
     return Invoice(
       title: json['title'],
@@ -48,7 +48,7 @@ class Invoice {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'title': title,
       'description': description,

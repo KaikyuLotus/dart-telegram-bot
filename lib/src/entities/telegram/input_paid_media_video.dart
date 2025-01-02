@@ -57,7 +57,7 @@ class InputPaidMediaVideo extends InputPaidMedia {
     this.supportsStreaming,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputPaidMediaVideo.fromJson(Map<String, dynamic> json) {
     return InputPaidMediaVideo(
       media: json['media'],
@@ -70,7 +70,7 @@ class InputPaidMediaVideo extends InputPaidMedia {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'media': media,

@@ -20,7 +20,7 @@ class RevenueWithdrawalStateSucceeded extends RevenueWithdrawalState {
     required this.url,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory RevenueWithdrawalStateSucceeded.fromJson(Map<String, dynamic> json) {
     return RevenueWithdrawalStateSucceeded(
       date: json['date'],
@@ -29,7 +29,7 @@ class RevenueWithdrawalStateSucceeded extends RevenueWithdrawalState {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'date': date,

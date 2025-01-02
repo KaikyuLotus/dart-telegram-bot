@@ -16,7 +16,7 @@ class BackgroundFillSolid extends BackgroundFill {
     required this.color,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundFillSolid.fromJson(Map<String, dynamic> json) {
     return BackgroundFillSolid(
       color: json['color'],
@@ -24,7 +24,7 @@ class BackgroundFillSolid extends BackgroundFill {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'color': color,

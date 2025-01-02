@@ -9,7 +9,7 @@ abstract class MaybeInaccessibleMessage {
   abstract int messageId;
   abstract int date;
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   static MaybeInaccessibleMessage fromJson(Map<String, dynamic> json) {
     if (json['date'] == 0) {
       return InaccessibleMessage.fromJson(json);

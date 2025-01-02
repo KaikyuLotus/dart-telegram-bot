@@ -33,7 +33,7 @@ class TextQuote {
     this.isManual,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory TextQuote.fromJson(Map<String, dynamic> json) {
     return TextQuote(
       text: json['text'],
@@ -47,7 +47,7 @@ class TextQuote {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'text': text,
       'entities': entities?.map((e) => e.toJson()).toList(),

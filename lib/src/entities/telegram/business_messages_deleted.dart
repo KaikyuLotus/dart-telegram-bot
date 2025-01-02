@@ -9,6 +9,7 @@ class BusinessMessagesDeleted {
   String businessConnectionId;
 
   /// Information about a chat in the business account.
+  ///
   /// The bot may not have access to the chat or the corresponding user.
   Chat chat;
 
@@ -23,7 +24,7 @@ class BusinessMessagesDeleted {
     required this.messageIds,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessMessagesDeleted.fromJson(Map<String, dynamic> json) {
     return BusinessMessagesDeleted(
       businessConnectionId: json['business_connection_id'],
@@ -33,7 +34,7 @@ class BusinessMessagesDeleted {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'business_connection_id': businessConnectionId,
       'chat': chat,

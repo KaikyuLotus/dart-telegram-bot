@@ -24,7 +24,7 @@ class BackgroundFillGradient extends BackgroundFill {
     required this.rotationAngle,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundFillGradient.fromJson(Map<String, dynamic> json) {
     return BackgroundFillGradient(
       topColor: json['top_color'],
@@ -34,7 +34,7 @@ class BackgroundFillGradient extends BackgroundFill {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'top_color': topColor,

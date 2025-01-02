@@ -63,7 +63,7 @@ class MessageEntity {
     this.customEmojiId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageEntity.fromJson(Map<String, dynamic> json) {
     return MessageEntity(
       type: json['type'],
@@ -76,7 +76,7 @@ class MessageEntity {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<MessageEntity> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,
@@ -85,7 +85,7 @@ class MessageEntity {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'offset': offset,

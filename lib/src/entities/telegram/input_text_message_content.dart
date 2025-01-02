@@ -9,16 +9,15 @@ class InputTextMessageContent extends InputMessageContent {
   /// Text of the message to be sent, 1-4096 characters
   String messageText;
 
-  /// Optional.
   /// Mode for parsing entities in the message text.
+  ///
+  /// See [formatting options](https://core.telegram.org/bots/api#formatting-options)
   ParseMode? parseMode;
 
-  /// Optional.
   /// List of special entities that appear in message text, which can be
-  /// specified instead of parse_mode
+  /// specified instead of [parseMode]
   List<MessageEntity>? entities;
 
-  /// Optional.
   /// Link preview generation options for the message
   LinkPreviewOptions? linkPreviewOptions;
 
@@ -30,10 +29,10 @@ class InputTextMessageContent extends InputMessageContent {
     this.linkPreviewOptions,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputTextMessageContent.fromJson(Map<String, dynamic> json) {
     return InputTextMessageContent(
-      json['message_text']!,
+      json['message_text'],
       parseMode: callIfNotNull(ParseMode.forValue, json['parse_mode']),
       entities: callIfNotNull(
         MessageEntity.listFromJsonArray,
@@ -47,7 +46,7 @@ class InputTextMessageContent extends InputMessageContent {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_text': messageText,
       'parse_mode': parseMode,

@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that has no additional privileges or restrictions.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that has no additional privileges or restrictions.
 class ChatMemberMember extends ChatMember {
   /// The member's status in the chat, always “member”
   @override
@@ -21,7 +22,7 @@ class ChatMemberMember extends ChatMember {
     required this.untilDate,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberMember.fromJson(Map<String, dynamic> json) {
     return ChatMemberMember(
       user: User.fromJson(json['user']),
@@ -30,7 +31,7 @@ class ChatMemberMember extends ChatMember {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'user': user,

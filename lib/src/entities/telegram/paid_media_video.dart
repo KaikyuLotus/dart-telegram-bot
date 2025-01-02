@@ -16,7 +16,7 @@ class PaidMediaVideo extends PaidMedia {
     required this.video,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PaidMediaVideo.fromJson(Map<String, dynamic> json) {
     return PaidMediaVideo(
       video: Video.fromJson(json['video']),
@@ -24,7 +24,7 @@ class PaidMediaVideo extends PaidMedia {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'video': video,

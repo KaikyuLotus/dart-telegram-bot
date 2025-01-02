@@ -9,7 +9,6 @@ class ForumTopicCreated {
   /// Color of the topic icon in RGB format
   int iconColor;
 
-  /// Optional.
   /// Unique identifier of the custom emoji shown as the topic icon
   String? iconCustomEmojiId;
 
@@ -20,7 +19,7 @@ class ForumTopicCreated {
     this.iconCustomEmojiId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ForumTopicCreated.fromJson(Map<String, dynamic> json) {
     return ForumTopicCreated(
       name: json['name'],
@@ -30,7 +29,7 @@ class ForumTopicCreated {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'icon_color': iconColor,

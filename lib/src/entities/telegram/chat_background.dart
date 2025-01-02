@@ -12,7 +12,7 @@ class ChatBackground {
     required this.type,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBackground.fromJson(Map<String, dynamic> json) {
     return ChatBackground(
       type: BackgroundType.fromJson(json['type']),
@@ -20,7 +20,7 @@ class ChatBackground {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
     };

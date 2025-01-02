@@ -121,7 +121,7 @@ class InlineKeyboardButton {
   /// Pay constructor
   InlineKeyboardButton.pay(this.text, {this.pay});
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InlineKeyboardButton.fromJson(Map<String, dynamic> json) {
     return InlineKeyboardButton._(
       json['text']!,
@@ -131,13 +131,16 @@ class InlineKeyboardButton {
       loginUrl: callIfNotNull(LoginUrl.fromJson, json['login_url']),
       switchInlineQuery: json['switch_inline_query'],
       switchInlineQueryCurrentChat: json['switch_inline_query_current_chat'],
-      switchInlineQueryChosenChat: json['switch_inline_query_chosen_chat'],
+      switchInlineQueryChosenChat: callIfNotNull(
+        SwitchInlineQueryChosenChat.fromJson,
+        json['switch_inline_query_chosen_chat'],
+      ),
       callbackGame: callIfNotNull(CallbackGame.fromJson, json['callback_game']),
       pay: json['pay'],
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<InlineKeyboardButton> listFromJsonArray(List<dynamic> json) {
     return List.generate(
       json.length,
@@ -159,7 +162,7 @@ class InlineKeyboardButton {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'text': text,
       'url': url,

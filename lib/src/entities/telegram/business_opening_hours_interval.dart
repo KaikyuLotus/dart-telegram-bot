@@ -18,7 +18,7 @@ class BusinessOpeningHoursInterval {
     required this.closingMinute,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessOpeningHoursInterval.fromJson(Map<String, dynamic> json) {
     return BusinessOpeningHoursInterval(
       openingMinute: json['opening_minute'],
@@ -26,7 +26,7 @@ class BusinessOpeningHoursInterval {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<BusinessOpeningHoursInterval> listFromJsonArray(
     List<dynamic> array,
   ) {
@@ -37,11 +37,11 @@ class BusinessOpeningHoursInterval {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'opening_minute': openingMinute,
       'closing_minute': closingMinute,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override

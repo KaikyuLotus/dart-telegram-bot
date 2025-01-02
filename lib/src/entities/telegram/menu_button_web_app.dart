@@ -28,7 +28,7 @@ class MenuButtonWebApp extends MenuButton {
     required this.webApp,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MenuButtonWebApp.fromJson(Map<String, dynamic> json) {
     return MenuButtonWebApp(
       text: json['text'],
@@ -37,7 +37,7 @@ class MenuButtonWebApp extends MenuButton {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'text': text,

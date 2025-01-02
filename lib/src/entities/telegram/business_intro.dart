@@ -6,15 +6,12 @@ import '../internal/helpers/util.dart';
 /// Contains information about the start page settings of a
 /// Telegram Business account.
 class BusinessIntro {
-  /// Optional.
   /// Title text of the business intro
   String? title;
 
-  /// Optional.
   /// Message text of the business intro
   String? message;
 
-  /// Optional.
   /// Sticker of the business intro
   Sticker? sticker;
 
@@ -25,7 +22,7 @@ class BusinessIntro {
     this.sticker,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessIntro.fromJson(Map<String, dynamic> json) {
     return BusinessIntro(
       title: json['title'],
@@ -35,7 +32,7 @@ class BusinessIntro {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'title': title,
       'message': message,

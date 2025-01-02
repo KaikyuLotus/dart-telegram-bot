@@ -28,7 +28,7 @@ class InputPollOption {
     this.textEntities,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InputPollOption.fromJson(Map<String, dynamic> json) {
     return InputPollOption(
       text: json['text'],
@@ -43,13 +43,13 @@ class InputPollOption {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<InputPollOption> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => InputPollOption.fromJson(json[i]));
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'text': text,
       'text_parse_mode': textParseMode,

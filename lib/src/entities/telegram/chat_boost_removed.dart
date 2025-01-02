@@ -24,7 +24,7 @@ class ChatBoostRemoved {
     required this.source,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoostRemoved.fromJson(Map<String, dynamic> json) {
     return ChatBoostRemoved(
       chat: Chat.fromJson(json['chat']),
@@ -35,7 +35,7 @@ class ChatBoostRemoved {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'boost_id': boostId,

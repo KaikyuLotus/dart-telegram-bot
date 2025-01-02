@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that owns the chat and has all administrator
-/// privileges.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that owns the chat and has all administrator privileges.
 class ChatMemberOwner extends ChatMember {
-  /// The member's status in the chat, always “owner”
+  /// The member's status in the chat, always “creator”
   @override
-  String status = 'owner';
+  String status = 'creator';
 
   /// Information about the user
   @override
@@ -26,7 +26,7 @@ class ChatMemberOwner extends ChatMember {
     this.customTitle,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberOwner.fromJson(Map<String, dynamic> json) {
     return ChatMemberOwner(
       user: User.fromJson(json['user']),
@@ -36,7 +36,7 @@ class ChatMemberOwner extends ChatMember {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'user': user,

@@ -48,7 +48,7 @@ class SuccessfulPayment {
     required this.providerPaymentChargeId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory SuccessfulPayment.fromJson(Map<String, dynamic> json) {
     return SuccessfulPayment(
       currency: json['currency'],
@@ -62,7 +62,7 @@ class SuccessfulPayment {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'currency': currency,
       'total_amount': totalAmount,

@@ -15,7 +15,7 @@ import '../../../telegram_entities.dart';
 abstract class MenuButton {
   abstract final String type;
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   static MenuButton fromJson(Map<String, dynamic> json) {
     switch (json['type']) {
       case 'commands':

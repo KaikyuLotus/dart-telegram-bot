@@ -1,20 +1,21 @@
 import '../../../telegram_entities.dart';
 
 /// This object describes the source of a chat boost.
+///
 /// It can be one of:
-/// ChatBoostSourcePremium,
-/// ChatBoostSourceGiftCode,
-/// ChatBoostSourceGiveaway
+/// [ChatBoostSourcePremium],
+/// [ChatBoostSourceGiftCode],
+/// [ChatBoostSourceGiveaway]
 abstract class ChatBoostSource {
   abstract final String source;
 
   static ChatBoostSource fromJson(Map<String, dynamic> json) {
-    switch (json['type']) {
-      case 'user':
+    switch (json['source']) {
+      case 'premium':
         return ChatBoostSourcePremium.fromJson(json);
-      case 'hidden_user':
+      case 'gift_code':
         return ChatBoostSourceGiftCode.fromJson(json);
-      case 'chat':
+      case 'giveaway':
         return ChatBoostSourceGiveaway.fromJson(json);
       default:
         throw Exception('ChatBoostSource type not recognized');

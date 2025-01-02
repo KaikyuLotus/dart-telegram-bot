@@ -6,6 +6,7 @@ class ChatAdministratorRights {
   /// True, if the administrator can access the chat event log, chat statistics,
   /// message statistics in channels, see channel members, see anonymous
   /// administrators in supergroups and ignore slow mode.
+  ///
   /// Implied by any other administrator privilege
   bool canManageChat;
 
@@ -31,34 +32,27 @@ class ChatAdministratorRights {
   /// True, if the user is allowed to invite new users to the chat
   bool canInviteUsers;
 
-  /// Optional.
-  /// True, if the administrator can post in the channel; channels only
-  bool? canPostMessages;
-
-  /// Optional.
-  /// True, if the administrator can edit messages of other users and can pin
-  /// messages; channels only
-  bool? canEditMessages;
-
-  /// Optional.
-  /// True, if the user is allowed to pin messages; groups and supergroups only
-  bool? canPinMessages;
-
-  /// Optional.
   /// True, if the administrator can post stories in the channel; channels only
   bool? canPostStories;
 
-  /// Optional.
   /// True, if the administrator can edit stories posted by other users;
   /// channels only
   bool? canEditStories;
 
-  /// Optional.
   /// True, if the administrator can delete stories posted by other users;
   /// channels only
   bool? canDeleteStories;
 
-  /// Optional.
+  /// True, if the administrator can post in the channel; channels only
+  bool? canPostMessages;
+
+  /// True, if the administrator can edit messages of other users and can pin
+  /// messages; channels only
+  bool? canEditMessages;
+
+  /// True, if the user is allowed to pin messages; groups and supergroups only
+  bool? canPinMessages;
+
   /// True, if the user is allowed to create, rename, close, and reopen forum
   /// topics; supergroups only
   bool? canManageTopics;
@@ -73,16 +67,16 @@ class ChatAdministratorRights {
     required this.canPromoteMembers,
     required this.canChangeInfo,
     required this.canInviteUsers,
-    this.canPostMessages,
-    this.canEditMessages,
-    this.canPinMessages,
     this.canPostStories,
     this.canEditStories,
     this.canDeleteStories,
+    this.canPostMessages,
+    this.canEditMessages,
+    this.canPinMessages,
     this.canManageTopics,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatAdministratorRights.fromJson(Map<String, dynamic> json) {
     return ChatAdministratorRights(
       isAnonymous: json['is_anonymous'],
@@ -93,18 +87,18 @@ class ChatAdministratorRights {
       canPromoteMembers: json['can_promote_members'],
       canChangeInfo: json['can_change_info'],
       canInviteUsers: json['can_invite_users'],
-      canPostMessages: json['can_post_messages'],
-      canEditMessages: json['can_edit_messages'],
-      canPinMessages: json['can_pin_messages'],
       canPostStories: json['can_post_stories'],
       canEditStories: json['can_edit_stories'],
       canDeleteStories: json['can_delete_stories'],
+      canPostMessages: json['can_post_messages'],
+      canEditMessages: json['can_edit_messages'],
+      canPinMessages: json['can_pin_messages'],
       canManageTopics: json['can_manage_topics'],
     );
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'is_anonymous': isAnonymous,
       'can_manage_chat': canManageChat,
@@ -114,12 +108,12 @@ class ChatAdministratorRights {
       'can_promote_members': canPromoteMembers,
       'can_change_info': canChangeInfo,
       'can_invite_users': canInviteUsers,
-      'can_post_messages': canPostMessages,
-      'can_edit_messages': canEditMessages,
-      'can_pin_messages': canPinMessages,
       'can_post_stories': canPostStories,
       'can_edit_stories': canEditStories,
       'can_delete_stories': canDeleteStories,
+      'can_post_messages': canPostMessages,
+      'can_edit_messages': canEditMessages,
+      'can_pin_messages': canPinMessages,
       'can_manage_topics': canManageTopics,
     }..removeWhere((_, v) => v == null);
   }

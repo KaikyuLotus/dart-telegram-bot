@@ -53,7 +53,7 @@ class Video {
     this.fileSize,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Video.fromJson(Map<String, dynamic> json) {
     return Video(
       fileId: json['file_id']!,
@@ -69,7 +69,7 @@ class Video {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'file_id': fileId,
       'file_unique_id': fileUniqueId,

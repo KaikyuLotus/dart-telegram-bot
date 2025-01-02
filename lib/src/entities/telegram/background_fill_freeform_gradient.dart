@@ -18,7 +18,7 @@ class BackgroundFillFreeformGradient extends BackgroundFill {
     required this.colors,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundFillFreeformGradient.fromJson(Map<String, dynamic> json) {
     return BackgroundFillFreeformGradient(
       colors: List.from(json['colors']),
@@ -26,7 +26,7 @@ class BackgroundFillFreeformGradient extends BackgroundFill {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'colors': colors,

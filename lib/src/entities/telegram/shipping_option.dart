@@ -20,7 +20,7 @@ class ShippingOption {
     required this.prices,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ShippingOption.fromJson(Map<String, dynamic> json) {
     return ShippingOption(
       id: json['id']!,
@@ -30,7 +30,7 @@ class ShippingOption {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'id': id,
       'title': title,

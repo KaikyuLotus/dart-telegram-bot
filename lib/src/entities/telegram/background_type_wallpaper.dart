@@ -14,12 +14,10 @@ class BackgroundTypeWallpaper extends BackgroundType {
   /// Dimming of the background in dark themes, as a percentage; 0-100
   int darkThemeDimming;
 
-  /// Optional.
   /// True, if the wallpaper is downscaled to fit in a 450x450 square and
   /// then box-blurred with radius 12
   bool? isBlurred;
 
-  /// Optional.
   /// True, if the background moves slightly when the device is tilted
   bool? isMoving;
 
@@ -31,7 +29,7 @@ class BackgroundTypeWallpaper extends BackgroundType {
     this.isMoving,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundTypeWallpaper.fromJson(Map<String, dynamic> json) {
     return BackgroundTypeWallpaper(
       document: Document.fromJson(json['document']),
@@ -42,7 +40,7 @@ class BackgroundTypeWallpaper extends BackgroundType {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'document': document,

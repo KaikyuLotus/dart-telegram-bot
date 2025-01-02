@@ -41,7 +41,7 @@ class SharedUser {
     this.photo,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory SharedUser.fromJson(Map<String, dynamic> json) {
     return SharedUser(
       userId: json['user_id'],
@@ -52,13 +52,13 @@ class SharedUser {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<SharedUser> listFromJsonArray(List<dynamic> json) {
     return List.generate(json.length, (i) => SharedUser.fromJson(json[i]));
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'user_id': userId,
       'first_name': firstName,

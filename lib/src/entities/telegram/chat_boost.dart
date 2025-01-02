@@ -25,7 +25,7 @@ class ChatBoost {
     required this.source,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatBoost.fromJson(Map<String, dynamic> json) {
     return ChatBoost(
       boostId: json['boost_id'],
@@ -35,13 +35,16 @@ class ChatBoost {
     );
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<ChatBoost> listFromJsonArray(List<dynamic> array) {
-    return List.generate(array.length, (i) => ChatBoost.fromJson(array[i]));
+    return List.generate(
+      array.length,
+      (i) => ChatBoost.fromJson(array[i]),
+    );
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'boost_id': boostId,
       'add_date': addDate,

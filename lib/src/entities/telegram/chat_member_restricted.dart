@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that is under certain restrictions in the chat.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that is under certain restrictions in the chat.
 ///
 /// Supergroups only.
 class ChatMemberRestricted extends ChatMember {
@@ -88,7 +89,7 @@ class ChatMemberRestricted extends ChatMember {
     this.canManageTopics,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberRestricted.fromJson(Map<String, dynamic> json) {
     return ChatMemberRestricted(
       user: User.fromJson(json['user']),
@@ -112,7 +113,7 @@ class ChatMemberRestricted extends ChatMember {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'user': user,

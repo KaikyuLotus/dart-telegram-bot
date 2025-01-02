@@ -9,13 +9,13 @@ class MessageAutoDeleteTimerChanged {
   /// Basic constructor
   MessageAutoDeleteTimerChanged(this.messageAutoDeleteTime);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageAutoDeleteTimerChanged.fromJson(Map<String, dynamic> json) {
     return MessageAutoDeleteTimerChanged(json['message_auto_delete_time']);
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'message_auto_delete_time': messageAutoDeleteTime,
     }..removeWhere((_, v) => v == null);

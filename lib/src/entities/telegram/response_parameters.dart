@@ -21,7 +21,7 @@ class ResponseParameters {
     this.retryAfter,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ResponseParameters.fromJson(Map<String, dynamic> json) {
     return ResponseParameters(
       migrateToChatId: json['migrate_to_chat_id'],
@@ -30,7 +30,7 @@ class ResponseParameters {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'migrate_to_chat_id': migrateToChatId,
       'retry_after': retryAfter,

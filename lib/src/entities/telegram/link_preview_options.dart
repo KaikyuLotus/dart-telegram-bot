@@ -37,7 +37,7 @@ class LinkPreviewOptions {
     this.showAboveText,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory LinkPreviewOptions.fromJson(Map<String, dynamic> json) {
     return LinkPreviewOptions(
       isDisabled: json['is_disabled'],
@@ -48,7 +48,7 @@ class LinkPreviewOptions {
     );
   }
 
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'is_disabled': isDisabled,
       'url': url,

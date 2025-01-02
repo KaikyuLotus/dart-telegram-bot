@@ -16,7 +16,7 @@ class Story {
     this.id,
   );
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Story.fromJson(Map<String, dynamic> json) {
     return Story(
       Chat.fromJson(json['chat']),
@@ -25,7 +25,7 @@ class Story {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'id': id,

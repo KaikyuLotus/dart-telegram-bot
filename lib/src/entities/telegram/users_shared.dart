@@ -17,7 +17,7 @@ class UsersShared {
     required this.users,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory UsersShared.fromJson(Map<String, dynamic> json) {
     return UsersShared(
       requestId: json['request_id'],
@@ -26,7 +26,7 @@ class UsersShared {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'request_id': requestId,
       'users': users,

@@ -20,12 +20,10 @@ class BackgroundTypePattern extends BackgroundType {
   /// 0-100
   int intensity;
 
-  /// Optional.
   /// True, if the background fill must be applied only to the pattern itself.
   /// All other pixels are black in this case. For dark themes only
   bool? isInverted;
 
-  /// Optional.
   /// True, if the background moves slightly when the device is tilted
   bool? isMoving;
 
@@ -38,7 +36,7 @@ class BackgroundTypePattern extends BackgroundType {
     this.isMoving,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BackgroundTypePattern.fromJson(Map<String, dynamic> json) {
     return BackgroundTypePattern(
       document: Document.fromJson(json['document']),
@@ -50,7 +48,7 @@ class BackgroundTypePattern extends BackgroundType {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'document': document,

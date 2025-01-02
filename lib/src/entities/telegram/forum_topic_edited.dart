@@ -2,11 +2,9 @@ import 'dart:convert';
 
 /// This object represents a service message about an edited forum topic.
 class ForumTopicEdited {
-  /// Optional.
   /// New name of the topic, if it was edited
   String? name;
 
-  /// Optional.
   /// New identifier of the custom emoji shown as the topic icon,
   /// if it was edited; an empty string if the icon was removed
   String? iconCustomEmojiId;
@@ -17,7 +15,7 @@ class ForumTopicEdited {
     this.iconCustomEmojiId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ForumTopicEdited.fromJson(Map<String, dynamic> json) {
     return ForumTopicEdited(
       name: json['name'],
@@ -26,7 +24,7 @@ class ForumTopicEdited {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'name': name,
       'icon_custom_emoji_id': iconCustomEmojiId,

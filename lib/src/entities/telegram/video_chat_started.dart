@@ -6,13 +6,13 @@ class VideoChatStarted {
   /// Basic constructor
   VideoChatStarted();
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory VideoChatStarted.fromJson(Map<String, dynamic> _) {
     return VideoChatStarted();
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {}..removeWhere((_, v) => v == null);
   }
 

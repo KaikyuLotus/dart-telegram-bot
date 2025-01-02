@@ -8,12 +8,12 @@ class MessageId {
   /// Basic constructor
   MessageId({required this.messageId});
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageId.fromJson(Map<String, dynamic> json) {
     return MessageId(messageId: json['message_id']);
   }
 
-  /// Creates a list of object from a json array
+  /// Creates a list of objects from a json array
   static List<MessageId> listFromJsonArray(List<dynamic> array) {
     return List.generate(
       array.length,

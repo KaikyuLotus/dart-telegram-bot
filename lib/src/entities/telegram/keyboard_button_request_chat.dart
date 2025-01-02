@@ -79,7 +79,7 @@ class KeyboardButtonRequestChat {
     this.requestPhoto,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory KeyboardButtonRequestChat.fromJson(Map<String, dynamic> json) {
     return KeyboardButtonRequestChat(
       json['request_id'],
@@ -103,7 +103,7 @@ class KeyboardButtonRequestChat {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'request_id': requestId,
       'chat_is_channel': chatIsChannel,

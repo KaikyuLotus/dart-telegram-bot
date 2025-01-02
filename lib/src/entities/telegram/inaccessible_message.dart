@@ -25,7 +25,7 @@ class InaccessibleMessage extends MaybeInaccessibleMessage {
     required this.date,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory InaccessibleMessage.fromJson(Map<String, dynamic> json) {
     return InaccessibleMessage(
       chat: Chat.fromJson(json['chat']),
@@ -35,7 +35,7 @@ class InaccessibleMessage extends MaybeInaccessibleMessage {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'message_id': messageId,

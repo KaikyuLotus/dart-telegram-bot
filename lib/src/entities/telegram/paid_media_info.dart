@@ -16,7 +16,7 @@ class PaidMediaInfo {
     required this.paidMedia,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PaidMediaInfo.fromJson(Map<String, dynamic> json) {
     return PaidMediaInfo(
       starCount: json['star_count'],
@@ -25,7 +25,7 @@ class PaidMediaInfo {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'star_count': starCount,
       'paid_media': paidMedia,

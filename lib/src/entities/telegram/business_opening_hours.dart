@@ -16,7 +16,7 @@ class BusinessOpeningHours {
     required this.openingHours,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessOpeningHours.fromJson(Map<String, dynamic> json) {
     return BusinessOpeningHours(
       timeZoneName: json['time_zone_name'],
@@ -27,11 +27,11 @@ class BusinessOpeningHours {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'time_zone_name': timeZoneName,
       'opening_hours': openingHours,
-    }..removeWhere((_, v) => v == null);
+    };
   }
 
   @override

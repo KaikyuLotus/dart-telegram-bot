@@ -21,7 +21,7 @@ class MessageOriginUser extends MessageOrigin {
     required this.senderUser,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageOriginUser.fromJson(Map<String, dynamic> json) {
     return MessageOriginUser(
       date: json['date'],
@@ -30,7 +30,7 @@ class MessageOriginUser extends MessageOrigin {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'date': date,

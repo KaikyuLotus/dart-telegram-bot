@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents the scope of bot commands, covering all group and supergroup chat
-/// administrators.
+/// Represents the [scope](https://core.telegram.org/bots/api#botcommandscope)
+/// of bot commands, covering all group and supergroup chat administrators.
 class BotCommandScopeAllChatAdministrators extends BotCommandScope {
   /// Scope type, must be all_chat_administrators
   final String type = 'all_chat_administrators';
@@ -12,7 +12,7 @@ class BotCommandScopeAllChatAdministrators extends BotCommandScope {
   BotCommandScopeAllChatAdministrators();
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
     };

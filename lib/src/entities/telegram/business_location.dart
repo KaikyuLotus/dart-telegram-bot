@@ -8,7 +8,6 @@ class BusinessLocation {
   /// Address of the business
   String address;
 
-  /// Optional.
   /// Location of the business
   Location? location;
 
@@ -18,7 +17,7 @@ class BusinessLocation {
     this.location,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory BusinessLocation.fromJson(Map<String, dynamic> json) {
     return BusinessLocation(
       address: json['address'],
@@ -27,7 +26,7 @@ class BusinessLocation {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'address': address,
       'location': location,

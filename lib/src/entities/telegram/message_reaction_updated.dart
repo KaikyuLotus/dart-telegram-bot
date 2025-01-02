@@ -41,7 +41,7 @@ class MessageReactionUpdated {
     required this.newReaction,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageReactionUpdated.fromJson(Map<String, dynamic> json) {
     return MessageReactionUpdated(
       chat: Chat.fromJson(json['chat']),
@@ -55,7 +55,7 @@ class MessageReactionUpdated {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'message_id': messageId,

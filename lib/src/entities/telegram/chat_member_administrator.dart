@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that has some additional privileges.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that has some additional privileges.
 class ChatMemberAdministrator extends ChatMember {
   /// The member's status in the chat, always “administrator”
   @override
@@ -47,15 +48,15 @@ class ChatMemberAdministrator extends ChatMember {
   /// True, if the user is allowed to invite new users to the chat
   bool? canInviteUsers;
 
-  /// True, if the administrator can post stories in the channel; channels only
+  /// True, if the administrator can post stories to the chat
   bool? canPostStories;
 
-  /// True, if the administrator can edit stories posted by other users;
-  /// channels only
+  /// True, if the administrator can edit stories posted by other users,
+  /// post stories to the chat page, pin chat stories,
+  /// and access the chat's story archive
   bool? canEditStories;
 
-  /// True, if the administrator can delete stories posted by other users;
-  /// channels only
+  /// True, if the administrator can delete stories posted by other users
   bool? canDeleteStories;
 
   /// True, if the administrator can post in the channel; channels only
@@ -97,7 +98,7 @@ class ChatMemberAdministrator extends ChatMember {
     this.customTitle,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberAdministrator.fromJson(Map<String, dynamic> json) {
     return ChatMemberAdministrator(
       user: User.fromJson(json['user']),
@@ -122,7 +123,7 @@ class ChatMemberAdministrator extends ChatMember {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'user': user,

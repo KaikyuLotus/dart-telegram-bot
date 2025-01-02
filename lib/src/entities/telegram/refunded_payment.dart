@@ -37,7 +37,7 @@ class RefundedPayment {
     this.providerPaymentChargeId,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory RefundedPayment.fromJson(Map<String, dynamic> json) {
     return RefundedPayment(
       currency: json['currency'],
@@ -49,7 +49,7 @@ class RefundedPayment {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'currency': currency,
       'total_amount': totalAmount,

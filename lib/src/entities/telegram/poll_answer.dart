@@ -28,7 +28,7 @@ class PollAnswer {
     required this.optionIds,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory PollAnswer.fromJson(Map<String, dynamic> json) {
     return PollAnswer(
       pollId: json['poll_id']!,
@@ -39,7 +39,7 @@ class PollAnswer {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'poll_id': pollId,
       'voter_chat': voterChat,

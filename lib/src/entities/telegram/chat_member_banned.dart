@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import '../../../telegram_entities.dart';
 
-/// Represents a chat member that was banned in the chat and can't return to the
-/// chat or view chat messages.
+/// Represents a [chat member](https://core.telegram.org/bots/api#chatmember)
+/// that was banned in the chat and can't return to the chat or view chat
+/// messages.
 class ChatMemberBanned extends ChatMember {
-  /// The member's status in the chat, always “banned”
+  /// The member's status in the chat, always “kicked”
   @override
-  String status = 'banned';
+  String status = 'kicked';
 
   /// Information about the user
   @override
@@ -24,7 +25,7 @@ class ChatMemberBanned extends ChatMember {
     required this.untilDate,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ChatMemberBanned.fromJson(Map<String, dynamic> json) {
     return ChatMemberBanned(
       user: User.fromJson(json['user']),
@@ -33,7 +34,7 @@ class ChatMemberBanned extends ChatMember {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'status': status,
       'user': user,

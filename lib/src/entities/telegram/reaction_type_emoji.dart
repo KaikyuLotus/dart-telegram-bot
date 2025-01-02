@@ -26,7 +26,7 @@ class ReactionTypeEmoji extends ReactionType {
     this.emoji,
   );
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory ReactionTypeEmoji.fromJson(Map<String, dynamic> json) {
     return ReactionTypeEmoji(
       json['emoji'],
@@ -34,7 +34,7 @@ class ReactionTypeEmoji extends ReactionType {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'emoji': emoji,

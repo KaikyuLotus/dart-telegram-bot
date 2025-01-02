@@ -25,7 +25,7 @@ class MessageReactionCountUpdated {
     this.reactions,
   );
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory MessageReactionCountUpdated.fromJson(Map<String, dynamic> json) {
     return MessageReactionCountUpdated(
       Chat.fromJson(json['chat']),
@@ -36,7 +36,7 @@ class MessageReactionCountUpdated {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'chat': chat,
       'message_id': messageId,

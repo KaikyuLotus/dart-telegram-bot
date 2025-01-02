@@ -9,13 +9,13 @@ class VideoChatEnded {
   /// Basic constructor
   VideoChatEnded(this.duration);
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory VideoChatEnded.fromJson(Map<String, dynamic> json) {
     return VideoChatEnded(json['duration']);
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'duration': duration,
     }..removeWhere((_, v) => v == null);

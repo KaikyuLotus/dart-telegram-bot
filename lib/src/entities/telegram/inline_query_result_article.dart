@@ -4,10 +4,12 @@ import '../../../telegram_entities.dart';
 
 /// Represents a link to an article or web page.
 class InlineQueryResultArticle extends InlineQueryResult {
-  /// Type of the result, must be article
+  /// Type of the result, must be *article*
+  @override
   String type = 'article';
 
   /// Unique identifier for this result, 1-64 Bytes
+  @override
   String id;
 
   /// Title of the result
@@ -16,31 +18,25 @@ class InlineQueryResultArticle extends InlineQueryResult {
   /// Content of the message to be sent
   InputMessageContent inputMessageContent;
 
-  /// Optional.
-  /// Inline keyboard attached to the message
+  /// [Inline keyboard](https://core.telegram.org/bots/features#inline-keyboards)
+  /// attached to the message
   InlineKeyboardMarkup? replyMarkup;
 
-  /// Optional.
   /// URL of the result
   String? url;
 
-  /// Optional.
-  /// Pass True if you don't want the URL to be shown in the message
+  /// Pass `true` if you don't want the URL to be shown in the message
   bool? hideUrl;
 
-  /// Optional.
   /// Short description of the result
   String? description;
 
-  /// Optional.
   /// Url of the thumbnail for the result
   String? thumbnailUrl;
 
-  /// Optional.
   /// Thumbnail width
   int? thumbnailWidth;
 
-  /// Optional.
   /// Thumbnail height
   int? thumbnailHeight;
 
@@ -59,7 +55,7 @@ class InlineQueryResultArticle extends InlineQueryResult {
   });
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'type': type,
       'id': id,

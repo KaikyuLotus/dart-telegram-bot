@@ -8,7 +8,6 @@ class Birthdate {
   /// Month of the user's birth; 1-12
   int month;
 
-  /// Optional.
   /// Year of the user's birth
   int? year;
 
@@ -19,7 +18,7 @@ class Birthdate {
     this.year,
   });
 
-  /// Creates a object from a json
+  /// Creates an object from a json
   factory Birthdate.fromJson(Map<String, dynamic> json) {
     return Birthdate(
       day: json['day'],
@@ -29,7 +28,7 @@ class Birthdate {
   }
 
   /// Creates a json from the object
-  Map toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'day': day,
       'month': month,
