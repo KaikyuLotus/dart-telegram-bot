@@ -4,6 +4,11 @@ import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
 /// Describes a Telegram Star transaction.
+/// Note that if the buyer initiates a chargeback with the payment provider from
+/// whom they acquired Stars (e.g., Apple, Google) following this transaction,
+/// the refunded Stars will be deducted from the bot's balance.
+///
+/// This is outside of Telegram's control.
 class StarTransaction {
   /// Unique identifier of the transaction.
   ///
@@ -14,18 +19,25 @@ class StarTransaction {
   /// successful incoming payments from users.
   String id;
 
-  /// Number of Telegram Stars transferred by the transaction
+  /// Integer amount of Telegram Stars transferred by the transaction
   int amount;
+
+  /// Optional.
+  /// The number of 1/1000000000 shares of Telegram Stars transferred by the
+  /// transaction; from 0 to 999999999
+  int? nanostarAmount;
 
   /// Date the transaction was created in Unix time
   int date;
 
+  /// Optional.
   /// Source of an incoming transaction (e.g., a user purchasing goods or
   /// services, Fragment refunding a failed withdrawal).
   ///
   /// Only for incoming transactions
   TransactionPartner? source;
 
+  /// Optional.
   /// Receiver of an outgoing transaction (e.g., a user for a purchase refund,
   /// Fragment for a withdrawal).
   ///
@@ -36,6 +48,7 @@ class StarTransaction {
   StarTransaction({
     required this.id,
     required this.amount,
+    this.nanostarAmount,
     required this.date,
     this.source,
     this.receiver,
@@ -46,6 +59,7 @@ class StarTransaction {
     return StarTransaction(
       id: json['id'],
       amount: json['amount'],
+      nanostarAmount: json['nanostar_amount'],
       date: json['date'],
       source: callIfNotNull(TransactionPartner.fromJson, json['source']),
       receiver: callIfNotNull(TransactionPartner.fromJson, json['receiver']),
@@ -62,6 +76,7 @@ class StarTransaction {
     return {
       'id': id,
       'amount': amount,
+      'nanostar_amount': nanostarAmount,
       'date': date,
       'source': source,
       'receiver': receiver,

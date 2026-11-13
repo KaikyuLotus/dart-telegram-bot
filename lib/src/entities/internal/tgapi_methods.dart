@@ -2494,10 +2494,11 @@ mixin TGAPIMethods {
     String title,
     String description,
     String payload,
-    String providerToken,
     String currency,
     List<LabeledPrice> prices, {
     int? messageThreadId,
+    int? directMessagesTopicId,
+    String? providerToken,
     int? maxTipAmount,
     List<int>? suggestedTipAmounts,
     String? startParameter,
@@ -2517,12 +2518,14 @@ mixin TGAPIMethods {
     bool? protectContent,
     bool? allowPaidBroadcast,
     String? messageEffectId,
+    SuggestedPostParameters? suggestedPostParameters,
     ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendInvoice', {
       'chat_id': chatId,
       'message_thread_id': messageThreadId,
+      'direct_messages_topic_id': directMessagesTopicId,
       'title': title,
       'description': description,
       'payload': payload,
@@ -2548,6 +2551,7 @@ mixin TGAPIMethods {
       'protect_content': protectContent,
       'allow_paid_broadcast': allowPaidBroadcast,
       'message_effect_id': messageEffectId,
+      'suggested_post_parameters': suggestedPostParameters,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -2564,6 +2568,7 @@ mixin TGAPIMethods {
     String payload,
     LabeledPrice price, {
     int? messageThreadId,
+    int? directMessagesTopicId,
     String? startParameter,
     String? providerData,
     String? photoUrl,
@@ -2572,16 +2577,20 @@ mixin TGAPIMethods {
     int? photoHeight,
     bool? disableNotification,
     bool? protectContent,
+    bool? allowPaidBroadcast,
     String? messageEffectId,
+    SuggestedPostParameters? suggestedPostParameters,
     ReplyParameters? replyParameters,
     InlineKeyboardMarkup? replyMarkup,
   }) {
     return _client.apiCall(_token, 'sendInvoice', {
       'chat_id': chatId,
       'message_thread_id': messageThreadId,
+      'direct_messages_topic_id': directMessagesTopicId,
       'title': title,
       'description': description,
       'payload': payload,
+      'provider_token': '',
       'currency': 'XTR',
       'prices': [price],
       'start_parameter': startParameter,
@@ -2592,7 +2601,9 @@ mixin TGAPIMethods {
       'photo_height': photoHeight,
       'disable_notification': disableNotification,
       'protect_content': protectContent,
+      'allow_paid_broadcast': allowPaidBroadcast,
       'message_effect_id': messageEffectId,
+      'suggested_post_parameters': suggestedPostParameters,
       'reply_parameters': replyParameters,
       'reply_markup': replyMarkup,
     });
@@ -2605,9 +2616,10 @@ mixin TGAPIMethods {
     String title,
     String description,
     String payload,
-    String providerToken,
     String currency,
     List<LabeledPrice> prices, {
+    String? providerToken,
+    int? subscriptionPeriod,
     int? maxTipAmount,
     List<int>? suggestedTipAmounts,
     String? providerData,
@@ -2630,6 +2642,7 @@ mixin TGAPIMethods {
       'provider_token': providerToken,
       'currency': currency,
       'prices': prices,
+      'subscription_period': subscriptionPeriod,
       'max_tip_amount': maxTipAmount,
       'suggested_tip_amounts': suggestedTipAmounts,
       'provider_data': providerData,
@@ -2656,6 +2669,8 @@ mixin TGAPIMethods {
     String description,
     String payload,
     LabeledPrice price, {
+    String? businessConnectionId,
+    int? subscriptionPeriod,
     String? providerData,
     String? photoUrl,
     int? photoSize,
@@ -2663,11 +2678,14 @@ mixin TGAPIMethods {
     int? photoHeight,
   }) {
     return _client.apiCall(_token, 'createInvoiceLink', {
+      'business_connection_id': businessConnectionId,
       'title': title,
       'description': description,
       'payload': payload,
+      'provider_token': '',
       'currency': 'XTR',
       'prices': [price],
+      'subscription_period': subscriptionPeriod,
       'provider_data': providerData,
       'photo_url': photoUrl,
       'photo_size': photoSize,
@@ -2684,10 +2702,10 @@ mixin TGAPIMethods {
   ///
   /// On success, `true` is returned.
   Future<bool> answerShippingQuery(
-    String shippingQueryId,
-    List<ShippingOption>? shippingOptions,
-    String errorMessage, {
+    String shippingQueryId, {
     required bool ok,
+    List<ShippingOption>? shippingOptions,
+    String? errorMessage,
   }) {
     return _client.apiCall(_token, 'answerShippingQuery', {
       'shipping_query_id': shippingQueryId,
@@ -2708,9 +2726,9 @@ mixin TGAPIMethods {
   /// Note: The Bot API must receive an answer within 10 seconds after the
   /// pre-checkout query was sent.
   Future<bool> answerPreCheckoutQuery(
-    String preCheckoutQueryId,
-    String errorMessage, {
+    String preCheckoutQueryId, {
     required bool ok,
+    String? errorMessage,
   }) {
     return _client.apiCall(_token, 'answerPreCheckoutQuery', {
       'pre_checkout_query_id': preCheckoutQueryId,
@@ -2719,10 +2737,21 @@ mixin TGAPIMethods {
     });
   }
 
+  /// A method to get the current Telegram Stars balance of the bot.
+  ///
+  /// Requires no parameters.
+  ///
+  /// On success, returns a [StarAmount] object.
+  Future<StarAmount> getMyStarBalance() =>
+      _client.apiCall(_token, 'getMyStarBalance');
+
   /// Returns the bot's Telegram Star transactions in chronological order.
   ///
   /// On success, returns a [StarTransactions] object.
-  Future<StarTransactions> getStarTransactions(int offset, int limit) {
+  Future<StarTransactions> getStarTransactions({
+    int? offset,
+    int? limit,
+  }) {
     return _client.apiCall(_token, 'getStarTransactions', {
       'offset': offset,
       'limit': limit,
@@ -2731,11 +2760,27 @@ mixin TGAPIMethods {
 
   /// Refunds a successful payment in [Telegram Stars](https://t.me/BotNews/90).
   ///
-  /// Returns ``true`` on success.
+  /// Returns `true` on success.
   Future<bool> refundStarPayment(int userId, String telegramPaymentChargeId) {
     return _client.apiCall(_token, 'refundStarPayment', {
       'user_id': userId,
       'telegram_payment_charge_id': telegramPaymentChargeId,
+    });
+  }
+
+  /// Allows the bot to cancel or re-enable extension of a subscription paid in
+  /// Telegram Stars.
+  ///
+  /// Returns `true` on success.
+  Future<bool> editUserStarSubscription(
+    int userId,
+    String telegramPaymentChargeId, {
+    required bool isCanceled,
+  }) {
+    return _client.apiCall(_token, 'editUserStarSubscription', {
+      'user_id': userId,
+      'telegram_payment_charge_id': telegramPaymentChargeId,
+      'is_canceled': isCanceled,
     });
   }
 
@@ -2819,6 +2864,11 @@ mixin TGAPIMethods {
   /// Will return the score of the specified user and several of their neighbors
   /// in a game.
   ///
+  /// This method will currently return scores for the target user, plus two of
+  /// their closest neighbors on each side. Will also return the top three users
+  /// if the user and their neighbors are not among them. Please note that this
+  /// behavior is subject to change.
+  ///
   /// Returns an Array of [GameHighScore] objects.
   Future<List<GameHighScore>> getGameHighScores(
     int userId,
@@ -2836,6 +2886,11 @@ mixin TGAPIMethods {
   ///
   /// Will return the score of the specified user and several of their neighbors
   /// in a game.
+  ///
+  /// This method will currently return scores for the target user, plus two of
+  /// their closest neighbors on each side. Will also return the top three users
+  /// if the user and their neighbors are not among them. Please note that this
+  /// behavior is subject to change.
   ///
   /// Returns an Array of [GameHighScore] objects.
   Future<List<GameHighScore>> getGameHighScoresInline(

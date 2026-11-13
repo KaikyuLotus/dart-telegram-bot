@@ -2,7 +2,8 @@ import 'dart:convert';
 
 /// This object represents a shipping address.
 class ShippingAddress {
-  /// Two-letter ISO 3166-1 alpha-2 country code
+  /// Two-letter [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)
+  /// country code
   String countryCode;
 
   /// State, if applicable

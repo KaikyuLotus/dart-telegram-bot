@@ -26,7 +26,7 @@ class PreCheckoutQuery {
   /// (2 for the majority of currencies).
   int totalAmount;
 
-  /// Bot specified invoice payload
+  /// Bot-specified invoice payload
   String invoicePayload;
 
   /// Optional.

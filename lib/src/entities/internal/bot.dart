@@ -153,7 +153,7 @@ class Bot with TGAPIMethods {
   Future _onConnectionError(Bot bot, Object error, StackTrace st) async {
     _log.severe('Connection error', error, st);
     _runProtectedSimple(() {
-      connectionErrorHandler?.call(bot, error, st);
+      unawaited(connectionErrorHandler?.call(bot, error, st));
     });
   }
 

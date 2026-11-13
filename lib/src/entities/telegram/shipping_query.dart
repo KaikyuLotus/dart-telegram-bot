@@ -10,7 +10,7 @@ class ShippingQuery {
   /// User who sent the query
   User from;
 
-  /// Bot specified invoice payload
+  /// Bot-specified invoice payload
   String invoicePayload;
 
   /// User specified shipping address

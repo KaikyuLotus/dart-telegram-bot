@@ -4,6 +4,12 @@ import '../../../telegram_entities.dart';
 import '../internal/helpers/util.dart';
 
 /// This object contains basic information about a successful payment.
+///
+/// Note that if the buyer initiates a chargeback with the relevant payment
+/// provider following this transaction, the funds may be debited from your
+/// balance.
+///
+/// This is outside of Telegram's control.
 class SuccessfulPayment {
   /// Three-letter ISO 4217 [currency](https://core.telegram.org/bots/payments#supported-currencies)
   /// code, or “XTR” for payments in [Telegram Stars](https://t.me/BotNews/90)
@@ -24,6 +30,19 @@ class SuccessfulPayment {
   String invoicePayload;
 
   /// Optional.
+  /// Expiration date of the subscription, in Unix time; for recurring payments
+  /// only
+  int? subscriptionExpirationDate;
+
+  /// Optional.
+  /// True, if the payment is a recurring payment for a subscription
+  bool? isRecurring;
+
+  /// Optional.
+  /// True, if the payment is the first payment for a subscription
+  bool? isFirstRecurring;
+
+  /// Optional.
   /// Identifier of the shipping option chosen by the user
   String? shippingOptionId;
 
@@ -42,6 +61,9 @@ class SuccessfulPayment {
     required this.currency,
     required this.totalAmount,
     required this.invoicePayload,
+    this.subscriptionExpirationDate,
+    this.isRecurring,
+    this.isFirstRecurring,
     this.shippingOptionId,
     this.orderInfo,
     required this.telegramPaymentChargeId,
@@ -54,6 +76,9 @@ class SuccessfulPayment {
       currency: json['currency'],
       totalAmount: json['total_amount'],
       invoicePayload: json['invoice_payload'],
+      subscriptionExpirationDate: json['subscription_expiration_date'],
+      isRecurring: json['is_recurring'],
+      isFirstRecurring: json['is_first_recurring'],
       shippingOptionId: json['shipping_option_id'],
       orderInfo: callIfNotNull(OrderInfo.fromJson, json['order_info']),
       telegramPaymentChargeId: json['telegram_payment_charge_id'],
@@ -67,6 +92,9 @@ class SuccessfulPayment {
       'currency': currency,
       'total_amount': totalAmount,
       'invoice_payload': invoicePayload,
+      'subscription_expiration_date': subscriptionExpirationDate,
+      'is_recurring': isRecurring,
+      'is_first_recurring': isFirstRecurring,
       'shipping_option_id': shippingOptionId,
       'order_info': orderInfo,
       'telegram_payment_charge_id': telegramPaymentChargeId,

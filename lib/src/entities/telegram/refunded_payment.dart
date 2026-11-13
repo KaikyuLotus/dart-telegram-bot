@@ -9,11 +9,11 @@ class RefundedPayment {
   String currency;
 
   /// Total refunded price in the *smallest units* of the currency
-  /// (integer, **not** float/double).
+  /// (integer, not float/double).
   ///
-  /// For example, for a price of `US$ 1.45` pass `amount = 145`.
+  /// For example, for a price of `US$ 1.45` pass `total_amount = 145`.
   ///
-  /// See the `exp` parameter in
+  /// See the exp parameter in
   /// [currencies.json](https://core.telegram.org/bots/payments/currencies.json),
   /// it shows the number of digits past the decimal point for each currency
   /// (2 for the majority of currencies).
@@ -25,6 +25,7 @@ class RefundedPayment {
   /// Telegram payment identifier
   String telegramPaymentChargeId;
 
+  /// Optional.
   /// Provider payment identifier
   String? providerPaymentChargeId;
 

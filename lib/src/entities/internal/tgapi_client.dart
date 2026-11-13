@@ -165,7 +165,6 @@ class TGAPIClient {
             }
           default:
             updatedQuery[param.key] = param.value;
-            break;
         }
       }
 
